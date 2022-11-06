@@ -31,6 +31,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from "@angular/material/input";
 import { MatMenuModule } from '@angular/material/menu';
+import { MainComponent } from './main/main.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { MatMenuModule } from '@angular/material/menu';
     SignInComponent,
     SignUpComponent,
     VerifyEmailComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,
