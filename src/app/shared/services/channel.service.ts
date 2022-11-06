@@ -11,7 +11,7 @@ export class ChannelService {
   db = getFirestore(this.app);
 
   currentChannelId: string = '';
-
+  currentChannel: any;
   arrayOfChannels: any[] = [];
   constructor() { }
 
@@ -25,8 +25,10 @@ export class ChannelService {
     });
   }
 
-  saveCurrentChannelId(channelId){
+  saveCurrentChannelId(channelId) {
     localStorage.setItem('currentChannel', JSON.stringify(channelId));
     this.currentChannelId = channelId;
+    this.currentChannel = this.arrayOfChannels.find((channel) => channel.id == channelId)
+    console.log(this.currentChannel)
   }
 }
