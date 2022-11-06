@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
+import { ChatService } from 'src/app/shared/services/chat.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-chat',
@@ -6,10 +11,24 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit {
-
-  constructor() { }
+  app = initializeApp(environment.firebase);
+  db = getFirestore(this.app);
+  panelOpenState: boolean = false;
+  
+  constructor(
+    public chatServ: ChatService,
+    private router: Router) {
+    chatServ.loadChats()
+  }
 
   ngOnInit(): void {
   }
 
+  saveCurrentFriendId(friend) {
+    localStorage.setItem('userFriend', JSON.stringify(friend));
+  }
+
+  navigateToMain() {
+    this.router.navigate(['/main-community'])
+  }
 }
