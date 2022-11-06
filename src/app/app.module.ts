@@ -34,14 +34,14 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from "@angular/material/input";
 import { MatMenuModule } from '@angular/material/menu';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 
 
 import { SwiperModule } from 'swiper/angular';
-import { ChannelComponent } from './main/sidebar/channel/channel.component';
 import { ChatComponent } from './main/sidebar/chat/chat.component';
+import { ChannelComponent } from './main/sidebar/channel/channel.component';
 
 @NgModule({
   declarations: [
@@ -53,8 +53,8 @@ import { ChatComponent } from './main/sidebar/chat/chat.component';
     MainComponent,
     HeaderComponent,
     PersonalComponent,
-    ChannelComponent,
-    ChatComponent
+    ChatComponent,
+    ChannelComponent
   ],
   imports: [
     BrowserModule,

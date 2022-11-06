@@ -3,6 +3,7 @@
 
     <mat-drawer-container class="main-box" autosize>
         <mat-drawer #drawer class="bg-c-1-light" mode="side">
+            <app-channel></app-channel>
             <app-chat></app-chat>
             <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
             <button (click)="showFiller = !showFiller" mat-raised-button>

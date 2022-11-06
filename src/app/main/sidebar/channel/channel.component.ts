@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
+import { ChannelService } from 'src/app/shared/services/channel.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-channel',
@@ -6,8 +11,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./channel.component.scss']
 })
 export class ChannelComponent implements OnInit {
-
-  constructor() { }
+  app = initializeApp(environment.firebase);
+  db = getFirestore(this.app);
+  panelOpenState: boolean = false;
+  
+  constructor(
+    public channelServ: ChannelService,
+    private router: Router) { }
 
   ngOnInit(): void {
   }
