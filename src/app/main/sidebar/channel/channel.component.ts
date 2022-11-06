@@ -17,7 +17,9 @@ export class ChannelComponent implements OnInit {
   
   constructor(
     public channelServ: ChannelService,
-    private router: Router) { }
+    private router: Router) {
+      channelServ.loadChannels();
+     }
 
   ngOnInit(): void {
   }

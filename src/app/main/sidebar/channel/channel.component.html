@@ -6,17 +6,16 @@
                     Channel
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <!--  <div *ngIf="chatServ.showChatsWithFriends" class="chat-friend-container">
-                <div *ngFor="let friend of chatServ.arrayOfFirendsWithChat" class="chat-friend-box bg-c-1"
-                    (click)="channelServ.navigateToChatWithFriend(friend.id); saveCurrentFriendId(friend)">
+            <!--  <div *ngIf="channelServ.showChatsWithFriends" class="chat-friend-container">
+                <div *ngFor="let friend of channelServ.arrayOfFirendsWithChat" class="chat-friend-box bg-c-1">
                     {{friend.displayName}}
                     <img
                         src="./../../../assets/img/userIcons/{{(friend.photoURL) ? friend.photoURL : 'icon-unknown.svg'}}">
                 </div>
             </div>-->
-            <p>Test 1</p>
-            <p>Test 2</p>
-            <p>Test 3</p>
+            <div *ngFor="let channel of channelServ.arrayOfChannels">
+                <p>{{channel.name}}</p>
+            </div>
         </mat-expansion-panel>
     </mat-accordion>
 </div>
