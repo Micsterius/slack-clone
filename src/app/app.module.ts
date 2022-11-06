@@ -8,6 +8,15 @@ import { SignUpComponent } from './authentication/sign-up/sign-up.component';
 import { VerifyEmailComponent } from './authentication/verify-email/verify-email.component';
 import { ForgotPasswordComponent } from './authentication/forgot-password/forgot-password.component';
 
+
+//firebase
+import { environment } from 'src/environments/environment';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +27,12 @@ import { ForgotPasswordComponent } from './authentication/forgot-password/forgot
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    AngularFirestoreModule,
+    AngularFireStorageModule,
+    AngularFireDatabaseModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
