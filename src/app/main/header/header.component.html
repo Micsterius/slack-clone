@@ -1,0 +1,24 @@
+<mat-card>
+    <div class="header-top">
+        <div class="icon-header-home" [routerLink]="['']">
+            <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon>
+        </div>
+        <mat-card-title class="bg-c-1 color-white">Slack-Clone</mat-card-title>
+        <mat-icon class="icon-header" fontIcon="login" [routerLink]="['sign-in']" *ngIf="!authService.userData as user">
+        </mat-icon>
+        <div class="icon-header">
+            <mat-icon mat-icon-button [matMenuTriggerFor]="menu" fontIcon="settings"
+                *ngIf="authService.userData as user"></mat-icon>
+        </div>
+        <mat-menu #menu="matMenu" xPosition="before">
+            <button [routerLink]="['dashboard']" mat-menu-item>
+                <mat-icon>person</mat-icon>
+                <span>Dein Profil</span>
+            </button>
+            <button mat-menu-item (click)="authService.SignOut()">
+                <mat-icon>logout</mat-icon>
+                <span>Ausloggen</span>
+            </button>
+        </mat-menu>
+    </div>
+</mat-card>

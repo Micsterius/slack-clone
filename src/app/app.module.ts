@@ -32,6 +32,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from "@angular/material/input";
 import { MatMenuModule } from '@angular/material/menu';
 import { MainComponent } from './main/main.component';
+import { HeaderComponent } from './main/header/header.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { MainComponent } from './main/main.component';
     SignUpComponent,
     VerifyEmailComponent,
     ForgotPasswordComponent,
-    MainComponent
+    MainComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -53,6 +55,7 @@ import { MainComponent } from './main/main.component';
     ReactiveFormsModule,
     MatIconModule,
     MatMenuModule,
+    MatCardModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
