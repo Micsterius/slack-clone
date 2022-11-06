@@ -7,6 +7,7 @@ import { VerifyEmailComponent } from './authentication/verify-email/verify-email
 import { MainComponent } from './main/main.component';
 import { PersonalComponent } from './main/personal/personal.component';
 import { ChannelComponent } from './main/main-page/channel/channel.component';
+import { ChatComponent } from './main/main-page/chat/chat.component';
 
 const routes: Routes = [
   //{ path: '', redirectTo: '/sign-in', pathMatch: 'full' },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'verify-email-address', component: VerifyEmailComponent },
   { path: 'personal', component: PersonalComponent },
   { path: 'channel', component: ChannelComponent },
+  { path: 'chat', component: ChatComponent },
 ];
 
 @NgModule({

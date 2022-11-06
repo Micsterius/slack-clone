@@ -7,8 +7,8 @@
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <div *ngIf="chatServ.showChatsWithFriends" class="chat-friend-container">
-                <div *ngFor="let friend of chatServ.arrayOfFirendsWithChat" class="chat-friend-box bg-c-1"
-                    (click)="chatServ.navigateToChatWithFriend(friend.id); saveCurrentFriendId(friend)">
+                <div [routerLink]="['chat']" *ngFor="let friend of chatServ.arrayOfFirendsWithChat" class="chat-friend-box bg-c-1"
+                    (click)="saveCurrentFriendId(friend)">
                     {{friend.displayName}}
                     <img
                         src="./../../../assets/img/userIcons/{{(friend.photoURL) ? friend.photoURL : 'icon-unknown.svg'}}">
