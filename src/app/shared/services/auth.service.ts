@@ -27,6 +27,7 @@ export class AuthService {
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', Validators.required);
   name = new FormControl('', [Validators.required, Validators.maxLength(5)]);
+  showLoginArea: boolean = true;
 
   constructor(
     public afs: AngularFirestore, // Inject Firestore service
@@ -55,7 +56,7 @@ export class AuthService {
         this.SetUserData(result.user);
         this.afAuth.authState.subscribe((user) => {
           if (user) {
-            this.router.navigate(['main']);
+            this.showLoginArea = false;
           }
         });
       })
@@ -142,8 +143,8 @@ export class AuthService {
   SignOut() {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
-      this.router.navigate(['sign-in']);
       this.userData = '';
+      this.showLoginArea = true;
     });
   }
 

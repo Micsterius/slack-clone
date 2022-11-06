@@ -50,9 +50,6 @@ imgSrc2: any [] = [
   ) {
   }
 
-
-
-
   ngOnInit(): void {
   }
 

@@ -8,12 +8,10 @@ import { MainComponent } from './main/main.component';
 import { PersonalComponent } from './main/personal/personal.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/sign-in', pathMatch: 'full' },
-  { path: 'sign-in', component: SignInComponent },
+  //{ path: '', redirectTo: '/sign-in', pathMatch: 'full' },
   { path: 'register-user', component: SignUpComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'verify-email-address', component: VerifyEmailComponent },
-  { path: 'main', component: MainComponent },
   { path: 'personal', component: PersonalComponent },
 ];
 
