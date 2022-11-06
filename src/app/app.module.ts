@@ -39,6 +39,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 
 
 import { SwiperModule } from 'swiper/angular';
+import { ChannelComponent } from './main/sidebar/channel/channel.component';
+import { ChatComponent } from './main/sidebar/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,9 @@ import { SwiperModule } from 'swiper/angular';
     ForgotPasswordComponent,
     MainComponent,
     HeaderComponent,
-    PersonalComponent
+    PersonalComponent,
+    ChannelComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
