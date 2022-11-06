@@ -14,7 +14,7 @@
                 </div>
             </div>-->
             <div *ngFor="let channel of channelServ.arrayOfChannels">
-                <div [routerLink]="['channel-main']">
+                <div (click)="saveCurrentChannelId(channel.id); navigateToChannelMain()">
                     {{channel.name}}
                 </div>
             </div>

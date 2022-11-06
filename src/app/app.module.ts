@@ -45,6 +45,7 @@ import { EditorModule } from '@tinymce/tinymce-angular';
 import { ChatMainComponent } from './main/main-page/chat-main/chat-main.component';
 import { ChannelComponent } from './main/sidebar/channel/channel.component';
 import { ChannelMainComponent } from './main/main-page/channel-main/channel-main.component';
+//import { ChannelMainComponent } from './main/main-page/channel-main/channel-main.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,7 @@ import { ChannelMainComponent } from './main/main-page/channel-main/channel-main
     ChatComponent,
     ChatMainComponent,
     ChannelComponent,
-    ChannelMainComponent
+    ChannelMainComponent,
     ],
   imports: [
     BrowserModule,

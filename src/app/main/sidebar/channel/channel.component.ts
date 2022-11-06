@@ -24,4 +24,12 @@ export class ChannelComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  saveCurrentChannelId(channelId){
+    this.channelServ.saveCurrentChannelId(channelId);
+  }
+
+  navigateToChannelMain() {
+    this.router.navigate(['/channel-main'])
+  }
+
 }

@@ -10,6 +10,8 @@ export class ChannelService {
   app = initializeApp(environment.firebase);
   db = getFirestore(this.app);
 
+  currentChannelId: string = '';
+
   arrayOfChannels: any[] = [];
   constructor() { }
 
@@ -21,5 +23,10 @@ export class ChannelService {
       // doc.data() is never undefined for query doc snapshots
       this.arrayOfChannels.push(doc.data())
     });
+  }
+
+  saveCurrentChannelId(channelId){
+    localStorage.setItem('currentChannel', JSON.stringify(channelId));
+    this.currentChannelId = channelId;
   }
 }
