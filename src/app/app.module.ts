@@ -41,9 +41,10 @@ import { MatExpansionModule } from '@angular/material/expansion';
 
 import { SwiperModule } from 'swiper/angular';
 import { ChatComponent } from './main/sidebar/chat/chat.component';
-import { ChannelComponent } from './main/sidebar/channel/channel.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { ChatMainComponent } from './main/main-page/chat-main/chat-main.component';
+import { ChannelComponent } from './main/sidebar/channel/channel.component';
+import { ChannelMainComponent } from './main/main-page/channel-main/channel-main.component';
 
 @NgModule({
   declarations: [
@@ -56,8 +57,9 @@ import { ChatMainComponent } from './main/main-page/chat-main/chat-main.componen
     HeaderComponent,
     PersonalComponent,
     ChatComponent,
-    ChannelComponent,
     ChatMainComponent,
+    ChannelComponent,
+    ChannelMainComponent
     ],
   imports: [
     BrowserModule,
