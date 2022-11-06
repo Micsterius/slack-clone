@@ -17,7 +17,7 @@ export class ChatService {
   allChats: any;
   showChatsWithFriends: boolean = false;
   arrayOfFriendsWithChatUid: any[] = [];
-  arrayOfFirendsWithChat: any[] = [];
+  arrayOfUsersWithChat: any[] = [];
   currentChatId: any = '';
 
   testArray: any[] = [];
@@ -45,18 +45,18 @@ export class ChatService {
   }
 
   async getUserInfo() {
-    this.arrayOfFirendsWithChat.length = 0;
+    this.arrayOfUsersWithChat.length = 0;
     this.arrayOfFriendsWithChatUid.forEach(async (obj) => {
       let docRef = doc(this.db, "users", obj.author); //search in the users collection for the user with the same uid as the author uid//search in the users collection for the user with the same uid as the author uid
       let docSnap = await getDoc(docRef);
       let user;
       if (docSnap.exists()) {
-        if (!this.arrayOfFirendsWithChat.some((friend) => friend.uid == docSnap.data()["uid"])) { //user is not already in array
+        if (!this.arrayOfUsersWithChat.some((friend) => friend.uid == docSnap.data()["uid"])) { //user is not already in array
           user = docSnap.data()
           user['id'] = obj.id; // save id of doc of chat with the user in the user object to read out the information later, when the chat window will be opened by click on the users box
-          this.arrayOfFirendsWithChat.push(user)
+          this.arrayOfUsersWithChat.push(user)
         }
-        if (this.arrayOfFriendsWithChatUid.length == this.arrayOfFirendsWithChat.length) this.showChatsWithFriends = true;
+        if (this.arrayOfFriendsWithChatUid.length == this.arrayOfUsersWithChat.length) this.showChatsWithFriends = true;
       } else {
         // doc.data() will be undefined in this case
         console.log("No such document!");
@@ -89,7 +89,7 @@ export class ChatService {
   }
 
   findFriendInList(friendUid) {
-    let friend = this.arrayOfFirendsWithChat.find((friend) => friend.uid == friendUid);
+    let friend = this.arrayOfUsersWithChat.find((friend) => friend.uid == friendUid);
     localStorage.setItem('userFriend', JSON.stringify(friend));
     this.navigateToChatWithFriend(friend.id);
   }

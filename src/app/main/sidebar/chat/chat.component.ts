@@ -24,8 +24,8 @@ export class ChatComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  saveCurrentFriendId(friend) {
-    localStorage.setItem('userFriend', JSON.stringify(friend));
+  saveCurrentUserId(userId) {
+    localStorage.setItem('userChat', JSON.stringify(userId));
   }
 
   navigateToMain() {

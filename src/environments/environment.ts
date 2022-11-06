@@ -11,7 +11,8 @@ export const environment = {
     storageBucket: "slack-clone-45cdd.appspot.com",
     messagingSenderId: "941688898314",
     appId: "1:941688898314:web:fb17e27a202d5fa2d5f0f3"
-  }
+  },
+  tinyMceApiKey: '0u347b51bx380ihx2w2vws4bfqf9dfqewelzkjxsl7p5ki0a'
 };
 
 /*

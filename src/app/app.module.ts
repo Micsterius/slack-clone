@@ -42,6 +42,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { SwiperModule } from 'swiper/angular';
 import { ChatComponent } from './main/sidebar/chat/chat.component';
 import { ChannelComponent } from './main/sidebar/channel/channel.component';
+import { EditorModule } from '@tinymce/tinymce-angular';
+import { ChatMainComponent } from './main/main-page/chat-main/chat-main.component';
 
 @NgModule({
   declarations: [
@@ -54,8 +56,9 @@ import { ChannelComponent } from './main/sidebar/channel/channel.component';
     HeaderComponent,
     PersonalComponent,
     ChatComponent,
-    ChannelComponent
-  ],
+    ChannelComponent,
+    ChatMainComponent,
+    ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -71,6 +74,7 @@ import { ChannelComponent } from './main/sidebar/channel/channel.component';
     MatSidenavModule,
     SwiperModule,
     MatExpansionModule,
+    EditorModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
