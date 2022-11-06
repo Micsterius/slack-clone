@@ -8,6 +8,8 @@ import { SignInComponent } from './authentication/sign-in/sign-in.component';
 import { SignUpComponent } from './authentication/sign-up/sign-up.component';
 import { VerifyEmailComponent } from './authentication/verify-email/verify-email.component';
 import { ForgotPasswordComponent } from './authentication/forgot-password/forgot-password.component';
+import { MainComponent } from './main/main.component';
+import { HeaderComponent } from './main/header/header.component';
 
 
 //firebase
@@ -31,8 +33,10 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from "@angular/material/input";
 import { MatMenuModule } from '@angular/material/menu';
-import { MainComponent } from './main/main.component';
-import { HeaderComponent } from './main/header/header.component';
+import {MatSidenavModule} from '@angular/material/sidenav';
+
+
+
 
 @NgModule({
   declarations: [
@@ -56,6 +60,7 @@ import { HeaderComponent } from './main/header/header.component';
     MatIconModule,
     MatMenuModule,
     MatCardModule,
+    MatSidenavModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
