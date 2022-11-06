@@ -15,7 +15,9 @@ export class SignUpComponent implements OnInit {
 
   //reload of the website is necessary, because after sign up the login doesn't work without refresh 
   reload() {
-    location.reload();
+    setTimeout(() => {
+      location.reload(); //set timeout is necessary because it would jump back to sign-up
+    }, 50);
   }
 
 }
