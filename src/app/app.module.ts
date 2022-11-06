@@ -10,6 +10,7 @@ import { VerifyEmailComponent } from './authentication/verify-email/verify-email
 import { ForgotPasswordComponent } from './authentication/forgot-password/forgot-password.component';
 import { MainComponent } from './main/main.component';
 import { HeaderComponent } from './main/header/header.component';
+import { PersonalComponent } from './main/personal/personal.component';
 
 
 //firebase
@@ -37,6 +38,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 
 
 
+import { SwiperModule } from 'swiper/angular';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     VerifyEmailComponent,
     ForgotPasswordComponent,
     MainComponent,
-    HeaderComponent
+    HeaderComponent,
+    PersonalComponent
   ],
   imports: [
     BrowserModule,
@@ -61,6 +64,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     MatMenuModule,
     MatCardModule,
     MatSidenavModule,
+    SwiperModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
