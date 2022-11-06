@@ -14,7 +14,9 @@
                 </div>
             </div>-->
             <div *ngFor="let channel of channelServ.arrayOfChannels">
-                <p>{{channel.name}}</p>
+                <div [routerLink]="['channel']">
+                    {{channel.name}}
+                </div>
             </div>
         </mat-expansion-panel>
     </mat-accordion>
