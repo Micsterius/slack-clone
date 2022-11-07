@@ -26,7 +26,7 @@ export class ChannelService {
   }
 
   saveCurrentChannelId(channelId) {
-    localStorage.setItem('currentChannel', JSON.stringify(channelId));
+   // localStorage.setItem('currentChannel', channelId);
     this.currentChannelId = channelId;
     this.currentChannel = this.arrayOfChannels.find((channel) => channel.id == channelId)
     console.log(this.currentChannel)

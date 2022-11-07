@@ -1,3 +1,5 @@
-<div (click)="showChannel(channelServ.currentChannelId)">
-    {{channelServ.currentChannelId}}
+<div *ngIf="showChannel">
+    <div *ngFor="let post of posts">
+        {{post.content}}
+    </div>
 </div>

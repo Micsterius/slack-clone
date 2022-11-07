@@ -26,6 +26,7 @@ export class ChannelComponent implements OnInit {
 
   saveCurrentChannelId(channelId){
     this.channelServ.saveCurrentChannelId(channelId);
+    localStorage.setItem('currentChannel', channelId)
   }
 
   navigateToChannelMain() {
