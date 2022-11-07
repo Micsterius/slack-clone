@@ -33,18 +33,49 @@ export class ChannelMainComponent implements OnInit {
      console.log (this.channel.name)
    }*/
 
-  async loadChannel() {
+  loadChannel() {
     let q = query(collection(this.db, "channel", this.currentChannelId, "posts"))
     let unsubscribe = onSnapshot(q, (querySnapshot) => {
       this.posts = [];
       this.showChannel = false;
       querySnapshot.forEach((doc) => {
         this.posts.push(doc.data())
+        this.loadChannelAnswers();
       })
       this.showChannel = true;
     });
     this.showChannel = true;
+    
   }
 
+  loadChannelAnswers() {
+    console.log(this.currentChannelId)
+    for (let i = 0; i < this.posts.length; i++) {
+      const post = this.posts[i];
+      console.log(post.id)
+      let answers = [];
+      let q = query(collection(this.db, "channel", this.currentChannelId, "posts", `${post.id}`, 'answers'))
+      let unsubscribe = onSnapshot(q, (querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          answers.push(doc.data())
+        })
+      });
+      this.posts[i].answers = answers;
+      console.log(this.posts[i])
+    }
 
+
+    /*  this.posts.forEach((post) => {
+        post.answers = []
+        let q = query(collection(this.db, "channel", this.currentChannelId, "posts", post.id))
+        let unsubscribe = onSnapshot(q, (querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+  
+            post.answers.push(doc.data())
+          })
+          this.showChannel = true;
+        });
+      })
+  */
+  }
 }
