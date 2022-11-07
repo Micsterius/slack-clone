@@ -3,15 +3,17 @@
         <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    Chats
+                    <div class="expansion-title">
+                        <span>Chats</span>
+                        <mat-icon fontIcon="add"></mat-icon>
+                    </div>
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <div *ngIf="chatServ.showChatsWithFriends" class="chat-friend-container">
-                <div [routerLink]="['chat-main']" *ngFor="let user of chatServ.arrayOfUsersWithChat" class="chat-friend-box bg-c-1"
-                    (click)="saveCurrentUserId(user)">
+                <div [routerLink]="['chat-main']" *ngFor="let user of chatServ.arrayOfUsersWithChat"
+                    class="chat-friend-box bg-c-1" (click)="saveCurrentUserId(user)">
                     {{user.displayName}}
-                    <img
-                        src="./../../../assets/img/userIcons/{{(user.photoURL) ? user.photoURL : 'icon-unknown.svg'}}">
+                    <img src="./../../../assets/img/userIcons/{{(user.photoURL) ? user.photoURL : 'icon-unknown.svg'}}">
                 </div>
             </div>
         </mat-expansion-panel>

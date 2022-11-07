@@ -1,18 +1,15 @@
 <div class="exp-box">
-    <mat-accordion class="exp-box bg-c-1-light">
+    <mat-accordion type MatAccordionTogglePosition = 'after'  class="exp-box bg-c-1-light">
         <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    Channel
+                    <div class="expansion-title">
+                        <span>Channel</span>
+                        <mat-icon fontIcon="add"></mat-icon>
+                    </div>
+
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <!--  <div *ngIf="channelServ.showChatsWithFriends" class="chat-friend-container">
-                <div *ngFor="let friend of channelServ.arrayOfFirendsWithChat" class="chat-friend-box bg-c-1">
-                    {{friend.displayName}}
-                    <img
-                        src="./../../../assets/img/userIcons/{{(friend.photoURL) ? friend.photoURL : 'icon-unknown.svg'}}">
-                </div>
-            </div>-->
             <div *ngFor="let channel of channelServ.arrayOfChannels">
                 <div (click)="saveCurrentChannelId(channel.id); navigateToChannelMain()">
                     {{channel.name}}
