@@ -8,7 +8,9 @@ import { AuthService } from './shared/services/auth.service';
 })
 export class AppComponent {
   title = 'slack-clone';
-  constructor(public authService: AuthService){
-
+  constructor(public authService: AuthService) {
+    let user = JSON.parse(localStorage.getItem('user'))
+    if (user) authService.showLoginArea = false;
+    else authService.showLoginArea = true;
   }
 }

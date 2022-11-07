@@ -1,2 +1,2 @@
-<app-main></app-main>
-<app-sign-in *ngIf="authService.showLoginArea && authService.userData == ''"></app-sign-in>
+<app-main *ngIf="!authService.showLoginArea"></app-main>
+<app-sign-in *ngIf="authService.showLoginArea"></app-sign-in>

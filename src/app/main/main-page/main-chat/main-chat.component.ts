@@ -7,15 +7,13 @@ import { ChatService } from 'src/app/shared/services/chat.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-chat-main',
-  templateUrl: './chat-main.component.html',
-  styleUrls: ['./chat-main.component.scss']
+  selector: 'app-main-chat',
+  templateUrl: './main-chat.component.html',
+  styleUrls: ['./main-chat.component.scss']
 })
-export class ChatMainComponent implements OnInit {
-
+export class MainChatComponent implements OnInit {
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
-
-
+  
   app = initializeApp(environment.firebase);
   db = getFirestore(this.app);
   currentChatId;
@@ -29,7 +27,7 @@ export class ChatMainComponent implements OnInit {
     public chatServ: ChatService,
     public authServ: AuthService
   ) {
-    this.currentUser = JSON.parse(localStorage.getItem('user')!);    
+    this.currentUser = JSON.parse(localStorage.getItem('user')!);
     this.currentChatId = JSON.parse(localStorage.getItem('currentChatId')!);
     this.userFriend = JSON.parse(localStorage.getItem('userFriend')!);
     this.loadChat();
