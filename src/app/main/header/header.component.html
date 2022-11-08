@@ -11,7 +11,7 @@
                 *ngIf="authService.userData as user"></mat-icon>
         </div>
         <mat-menu #menu="matMenu" xPosition="before">
-            <button [routerLink]="['personal']" mat-menu-item>
+            <button (click)="changeDetailViewPageContentToUserInfo()" mat-menu-item>
                 <mat-icon>person</mat-icon>
                 <span>Dein Profil</span>
             </button>

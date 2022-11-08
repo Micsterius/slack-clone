@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DetailViewPageService } from 'src/app/shared/services/detail-view-page.service';
 
 @Component({
   selector: 'app-detail-view-page',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DetailViewPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public detailViewService: DetailViewPageService
+  ) { }
 
   ngOnInit(): void {
   }

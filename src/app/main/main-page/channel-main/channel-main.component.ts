@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { initializeApp } from 'firebase/app';
 import { collection, getFirestore, onSnapshot, query } from 'firebase/firestore';
 import { ChannelService } from 'src/app/shared/services/channel.service';
+import { DetailViewPageService } from 'src/app/shared/services/detail-view-page.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -18,7 +19,9 @@ export class ChannelMainComponent implements OnInit {
   posts: any[] = [];
   showChannel: boolean = true;
   currentChannelId: string = '';
-  constructor(public channelServ: ChannelService) {
+  constructor(
+    public channelServ: ChannelService,
+    public detailViewService: DetailViewPageService) {
     this.currentChannelId = localStorage.getItem('currentChannel')
     this.loadChannel()
   }
@@ -63,19 +66,10 @@ export class ChannelMainComponent implements OnInit {
       this.posts[i].answers = answers;
       console.log(this.posts[i])
     }
+  }
 
-
-    /*  this.posts.forEach((post) => {
-        post.answers = []
-        let q = query(collection(this.db, "channel", this.currentChannelId, "posts", post.id))
-        let unsubscribe = onSnapshot(q, (querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-  
-            post.answers.push(doc.data())
-          })
-          this.showChannel = true;
-        });
-      })
-  */
+  changeDetailViewPageContentToThread(){
+    this.detailViewService.showUserInfo = false;
+    this.detailViewService.showThread = true;
   }
 }

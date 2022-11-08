@@ -3,7 +3,7 @@
         <div *ngFor="let post of posts">
             <div>
                 <div>{{post.content}}</div>
-                <div *ngIf="post.answers.length > 0">{{post.answers.length}} Antworten</div>
+                <div (click)="changeDetailViewPageContentToThread()" *ngIf="post.answers.length > 0">{{post.answers.length}} Antworten</div>
             </div>
         </div>
     </div>
