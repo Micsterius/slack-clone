@@ -15,7 +15,11 @@
                 <mat-icon mat-icon-button fontIcon="navigate_before" (click)="drawer.toggle(); changeArrow()">
                 </mat-icon>
             </div>
-            <router-outlet></router-outlet>
+            <div class="main-page-box">
+                <router-outlet></router-outlet>
+                <app-detail-view-page></app-detail-view-page>
+            </div>
+
         </div>
 
     </mat-drawer-container>

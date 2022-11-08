@@ -6,3 +6,8 @@
 .main-box{
     height: calc(100% - 58px);
 }
+
+.main-page-box{
+    display: flex;
+    justify-content: flex-start;
+}
