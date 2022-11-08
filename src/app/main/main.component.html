@@ -1,6 +1,6 @@
 <div class="main-container">
     <app-header></app-header>
-
+    <!--
     <mat-drawer-container class="main-box" autosize>
         <mat-drawer #drawer class="bg-c-1-light" mode="side">
             <app-channel></app-channel>
@@ -8,13 +8,17 @@
         </mat-drawer>
 
         <div class="example-sidenav-content">
-            <div *ngIf="showOpen">
-                <mat-icon mat-icon-button fontIcon="navigate_next" (click)="drawer.toggle(); changeArrow()"></mat-icon>
+            <div class="side-nav-icon-box">
+                <div *ngIf="showOpen">
+                    <mat-icon mat-icon-button fontIcon="navigate_next" (click)="drawer.toggle(); changeArrow()">
+                    </mat-icon>
+                </div>
+                <div *ngIf="!showOpen">
+                    <mat-icon mat-icon-button fontIcon="navigate_before" (click)="drawer.toggle(); changeArrow()">
+                    </mat-icon>
+                </div>
             </div>
-            <div *ngIf="!showOpen">
-                <mat-icon mat-icon-button fontIcon="navigate_before" (click)="drawer.toggle(); changeArrow()">
-                </mat-icon>
-            </div>
+
             <div class="main-page-box">
                 <router-outlet></router-outlet>
                 <app-detail-view-page></app-detail-view-page>
@@ -23,4 +27,20 @@
         </div>
 
     </mat-drawer-container>
+-->
+
+    <div class="main-sub-container">
+        <div class="bg-c-1-light">
+            <app-channel></app-channel>
+            <app-chat></app-chat>
+        </div>
+        <div class="main-page-box">
+            <div class="w100">
+               <router-outlet></router-outlet> 
+            </div>
+            <app-detail-view-page></app-detail-view-page>
+        </div>
+    </div>
+
+
 </div>
