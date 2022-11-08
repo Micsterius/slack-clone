@@ -24,9 +24,9 @@ export class ChannelComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  saveCurrentChannelId(channelId){
-    this.channelServ.saveCurrentChannelId(channelId);
-    localStorage.setItem('currentChannel', channelId)
+  saveCurrentChannelId(channel){
+    this.channelServ.saveCurrentChannelId(channel);
+    localStorage.setItem('currentChannel', JSON.stringify(channel))
   }
 
   navigateToChannelMain() {

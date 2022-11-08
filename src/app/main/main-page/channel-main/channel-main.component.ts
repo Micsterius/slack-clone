@@ -15,29 +15,23 @@ export class ChannelMainComponent implements OnInit {
   db = getFirestore(this.app);
 
   name: string = '';
-  channel: any;
+  currentChannel: any;
   posts: any[] = [];
   showChannel: boolean = true;
   currentChannelId: string = '';
   constructor(
     public channelServ: ChannelService,
     public detailViewService: DetailViewPageService) {
-    this.currentChannelId = localStorage.getItem('currentChannel')
+    this.currentChannel = JSON.parse(localStorage.getItem('currentChannel')!)
     this.loadChannel()
   }
 
   ngOnInit(): void {
-    /*  let id = localStorage.getItem('currentChannel')
-      this.channelServ.currentChannelId = id;*/
   }
 
-  /* showChannel(id){
-     this.channel = this.channelServ.arrayOfChannels.find((channel) => channel.id == id)
-     console.log (this.channel.name)
-   }*/
 
   loadChannel() {
-    let q = query(collection(this.db, "channel", this.currentChannelId, "posts"))
+    let q = query(collection(this.db, "channel", this.currentChannel.id, "posts"))
     let unsubscribe = onSnapshot(q, (querySnapshot) => {
       this.posts = [];
       this.showChannel = false;
@@ -48,16 +42,16 @@ export class ChannelMainComponent implements OnInit {
       this.showChannel = true;
     });
     this.showChannel = true;
-    
+
   }
 
   loadChannelAnswers() {
-    console.log(this.currentChannelId)
+    console.log(this.currentChannel.id)
     for (let i = 0; i < this.posts.length; i++) {
       const post = this.posts[i];
       console.log(post.id)
       let answers = [];
-      let q = query(collection(this.db, "channel", this.currentChannelId, "posts", `${post.id}`, 'answers'))
+      let q = query(collection(this.db, "channel", this.currentChannel.id, "posts", `${post.id}`, 'answers'))
       let unsubscribe = onSnapshot(q, (querySnapshot) => {
         querySnapshot.forEach((doc) => {
           answers.push(doc.data())
@@ -68,8 +62,17 @@ export class ChannelMainComponent implements OnInit {
     }
   }
 
-  changeDetailViewPageContentToThread(){
+  changeDetailViewPageContentToThread() {
     this.detailViewService.showUserInfo = false;
     this.detailViewService.showThread = true;
+  }
+
+  saveAnswersToShow(answers) {
+    let answersForThread = {
+      name: this.currentChannel.name,
+      answers: answers
+    }
+    localStorage.setItem('answersForThread', JSON.stringify(answersForThread));
+    this.channelServ.showThread = true;
   }
 }

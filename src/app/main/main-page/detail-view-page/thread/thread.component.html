@@ -1,1 +1,5 @@
-<p>thread works!</p>
+<div class="detail-view-header">THREAD {{answersForThread.name}} </div>
+
+    <div *ngFor="let answer of answers">
+        {{answer.content}} {{answer.authorName}}
+    </div>

@@ -13,6 +13,7 @@ export class ChannelService {
   currentChannelId: string = '';
   currentChannel: any;
   arrayOfChannels: any[] = [];
+  showThread: boolean = false;
   constructor() { }
 
   async loadChannels() {

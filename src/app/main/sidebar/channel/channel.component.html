@@ -11,7 +11,7 @@
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <div *ngFor="let channel of channelServ.arrayOfChannels">
-                <div (click)="saveCurrentChannelId(channel.id); navigateToChannelMain()">
+                <div (click)="saveCurrentChannelId(channel); navigateToChannelMain()">
                     {{channel.name}}
                 </div>
             </div>
