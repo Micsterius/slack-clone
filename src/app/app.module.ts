@@ -46,6 +46,7 @@ import { ChannelComponent } from './main/sidebar/channel/channel.component';
 import { ChannelMainComponent } from './main/main-page/channel-main/channel-main.component';
 import { MainChatComponent } from './main/main-page/main-chat/main-chat.component';
 import { DetailViewPageComponent } from './main/main-page/detail-view-page/detail-view-page.component';
+import { ThreadComponent } from './main/main-page/detail-view-page/thread/thread.component';
 //import { ChannelMainComponent } from './main/main-page/channel-main/channel-main.component';
 
 @NgModule({
@@ -63,6 +64,7 @@ import { DetailViewPageComponent } from './main/main-page/detail-view-page/detai
     ChannelMainComponent,
     MainChatComponent,
     DetailViewPageComponent,
+    ThreadComponent,
     ],
   imports: [
     BrowserModule,
