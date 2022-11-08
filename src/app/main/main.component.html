@@ -30,15 +30,20 @@
 -->
 
     <div class="main-sub-container">
-        <div class="bg-c-1-light">
-            <app-channel></app-channel>
+        <div class="bg-c-1-light padding-8">
+            <div class="margin-bottom-8">
+              <app-channel></app-channel>  
+            </div>
             <app-chat></app-chat>
         </div>
         <div class="main-page-box">
-            <div class="w100">
+            <div class="w100 bg-c-white">
                <router-outlet></router-outlet> 
             </div>
-            <app-detail-view-page></app-detail-view-page>
+            <div class="bg-c-white detail-view-head-container">
+              <app-detail-view-page></app-detail-view-page>  
+            </div>
+            
         </div>
     </div>
 

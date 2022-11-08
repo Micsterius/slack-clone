@@ -1,5 +1,5 @@
 <!-- Main content -->
-<div class="w450 bg-c-1-light dashboard-container">
+<div class="dashboard-container">
     <div class="pt-3 pb-2 mb-3 border-bottom">
       <h1 class="headline-user color-main fs18">User Profile</h1>
     </div>
@@ -8,7 +8,7 @@
   
       <div class="img-box" *ngIf="!editPhotoURL">
         <img class="profile-img" (click)="editPhotoURL = true"
-          src="./../../../assets/img/userIcons/{{(user.photoURL) ? user.photoURL : 'icon-unknown.svg'}}"
+          src="./../../../../../assets/img/userIcons/{{(user.photoURL) ? user.photoURL : 'icon-unknown.svg'}}"
           alt="{{user.displayName}}">
           <mat-icon *ngIf="!editPhotoURL" fontIcon="edit" (click)="editPhotoURL = true"></mat-icon>
       </div>
@@ -88,9 +88,5 @@
           <p>E-Mail verified: <strong>{{(user.emailVerified) ? user.emailVerified : 'false'}}</strong></p>
         </div>
       </div>
-    </div>
-  
-    <div class="home-btn-box">
-      <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon>
     </div>
   </div>

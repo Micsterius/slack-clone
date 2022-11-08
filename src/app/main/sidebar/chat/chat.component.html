@@ -11,9 +11,9 @@
             </mat-expansion-panel-header>
             <div *ngIf="chatServ.showChatsWithFriends" class="chat-friend-container">
                 <div [routerLink]="['chat-main']" *ngFor="let user of chatServ.arrayOfUsersWithChat"
-                    class="chat-friend-box bg-c-1" (click)="saveCurrentUserId(user)">
-                    {{user.displayName}}
+                    class="chat-friend-box" (click)="saveCurrentUserId(user)">
                     <img src="./../../../assets/img/userIcons/{{(user.photoURL) ? user.photoURL : 'icon-unknown.svg'}}">
+                    {{user.displayName}}
                 </div>
             </div>
         </mat-expansion-panel>
