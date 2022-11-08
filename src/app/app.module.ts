@@ -10,7 +10,6 @@ import { VerifyEmailComponent } from './authentication/verify-email/verify-email
 import { ForgotPasswordComponent } from './authentication/forgot-password/forgot-password.component';
 import { MainComponent } from './main/main.component';
 import { HeaderComponent } from './main/header/header.component';
-import { PersonalComponent } from './main/personal/personal.component';
 
 
 //firebase
@@ -59,7 +58,6 @@ import { UserInfoComponent } from './main/main-page/detail-view-page/user-info/u
     ForgotPasswordComponent,
     MainComponent,
     HeaderComponent,
-    PersonalComponent,
     ChatComponent,
     ChannelComponent,
     ChannelMainComponent,
