@@ -26,10 +26,10 @@ export class ChannelService {
     });
   }
 
-  saveCurrentChannelId(channelId) {
+  saveCurrentChannel(channel) {
    // localStorage.setItem('currentChannel', channelId);
-    this.currentChannelId = channelId;
-    this.currentChannel = this.arrayOfChannels.find((channel) => channel.id == channelId)
+    this.currentChannel = channel;
     console.log(this.currentChannel)
+    window.location.reload()
   }
 }
