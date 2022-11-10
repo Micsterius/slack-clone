@@ -30,7 +30,6 @@ export class MainChatComponent implements OnInit {
     this.currentUser = JSON.parse(localStorage.getItem('user')!);
     this.currentChatId = JSON.parse(localStorage.getItem('currentChatId')!);
     this.userFriend = JSON.parse(localStorage.getItem('userFriend')!);
-    this.loadChat();
   }
 
   ngOnInit() {
@@ -48,18 +47,7 @@ export class MainChatComponent implements OnInit {
     } catch (err) { }
   }
 
-  async loadChat() {
-    let q = query(collection(this.db, "posts", this.currentChatId, "texts"))
-    let unsubscribe = onSnapshot(q, (querySnapshot) => {
-      this.messages = [];
-      this.showChat = false;
-      querySnapshot.forEach((doc) => {
-        this.messages.push(doc.data())
-      })
-      this.showChat = true;
-    });
-  //  this.showChat = true;
-  }
+
 
   /**here the new doc id in the subcollection texts will be generated with two components. 
    * The first one is a timestamp, so the messeages are in the right order when they come 

@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment';
 export class ChatService {
   app = initializeApp(environment.firebase);
   db = getFirestore(this.app);
-
+  currentUserChat: any;
   actualUser: any;
   allChatsId: any;
   allChats: any;
@@ -19,7 +19,7 @@ export class ChatService {
   arrayOfFriendsWithChatUid: any[] = [];
   arrayOfUsersWithChat: any[] = [];
   currentChatId: any = '';
-  messages: any [] = [];
+  messages: any[] = [];
 
   testArray: any[] = [];
   showChat: boolean = false;
@@ -72,27 +72,8 @@ export class ChatService {
     });
   }
 
-  async addFriendToChatList(friendUid) {
-    if (!this.friendChatDocAlreadyExist(friendUid)) {
-      let docRef = await addDoc(collection(this.db, "posts"), {
-        authors: [this.actualUser.uid, friendUid],
-        id: ''
-      });
-      this.updateIdInFirestorePostsDocs(docRef.id)
-      this.currentChatId = docRef.id;
-      this.arrayOfFriendsWithChatUid.push(friendUid);
-      this.getUserInfo();
-    }
-    else {
-      console.log('already doc exist');
-    }
-    this.findFriendInList(friendUid);
-  }
-
-  findFriendInList(friendUid) {
-    let friend = this.arrayOfUsersWithChat.find((friend) => friend.uid == friendUid);
-    localStorage.setItem('userFriend', JSON.stringify(friend));
-    this.navigateToChatWithFriend(friend.id);
+  findUserInList(userUid) {
+    this.currentUserChat = this.arrayOfUsersWithChat.find((user) => user.uid == userUid);
   }
 
   //give the id of document in the document as a field
@@ -113,9 +94,10 @@ export class ChatService {
     this.router.navigate(['/chat-friend']);
   }
 
-  saveCurrentChatId(chatId) {
+  saveCurrentChatId(chatId, userId) {
     this.currentChatId = chatId;
     this.loadChat();
+    this.findUserInList(userId)
   }
 
   async loadChat() {
@@ -125,6 +107,7 @@ export class ChatService {
       this.showChat = false;
       querySnapshot.forEach((doc) => {
         this.messages.push(doc.data())
+        console.log(this.messages)
       })
       this.showChat = true;
     });

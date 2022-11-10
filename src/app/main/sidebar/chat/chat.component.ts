@@ -26,7 +26,7 @@ export class ChatComponent implements OnInit {
 
   saveCurrentUserId(user) {
     localStorage.setItem('userChat', JSON.stringify(user));
-    this.chatServ.saveCurrentChatId(user.id);
+    this.chatServ.saveCurrentChatId(user.id, user.uid);
   }
 
   navigateToMain() {
