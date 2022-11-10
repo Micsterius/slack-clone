@@ -1,6 +1,6 @@
 <div>
-    <div *ngIf="showChat" class="chat-container" #scrollMe>
-        <div *ngFor="let text of messages" class="chat-friend-box">
+    <div *ngIf="chatServ.showChat" class="chat-container" #scrollMe>
+        <div *ngFor="let text of chatServ.messages" class="chat-friend-box">
             <div class="chat-friend-author bg-c-1-light" *ngIf="text.author == userFriend.uid">
                 <div class="chat-friend-text" [innerHTML]="text.content"></div>
                 <img class="img-small"

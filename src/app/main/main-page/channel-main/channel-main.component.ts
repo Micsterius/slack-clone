@@ -23,44 +23,14 @@ export class ChannelMainComponent implements OnInit {
     public channelServ: ChannelService,
     public detailViewService: DetailViewPageService) {
     this.currentChannel = JSON.parse(localStorage.getItem('currentChannel')!)
-    this.loadChannel()
+    this.currentChannel = channelServ.currentChannel
   }
 
   ngOnInit(): void {
   }
 
 
-  loadChannel() {
-    let q = query(collection(this.db, "channel", this.currentChannel.id, "posts"))
-    let unsubscribe = onSnapshot(q, (querySnapshot) => {
-      this.posts = [];
-      this.showChannel = false;
-      querySnapshot.forEach((doc) => {
-        this.posts.push(doc.data())
-        this.loadChannelAnswers();
-      })
-      this.showChannel = true;
-    });
-    this.showChannel = true;
-
-  }
-
-  loadChannelAnswers() {
-    console.log(this.currentChannel.id)
-    for (let i = 0; i < this.posts.length; i++) {
-      const post = this.posts[i];
-      console.log(post.id)
-      let answers = [];
-      let q = query(collection(this.db, "channel", this.currentChannel.id, "posts", `${post.id}`, 'answers'))
-      let unsubscribe = onSnapshot(q, (querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          answers.push(doc.data())
-        })
-      });
-      this.posts[i].answers = answers;
-      console.log(this.posts[i])
-    }
-  }
+  
 
   changeDetailViewPageContentToThread() {
     this.detailViewService.showUserInfo = false;

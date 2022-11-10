@@ -1,9 +1,9 @@
-<div class="main-channel-container">
+<div  *ngIf="channelServ.showChannel" class="main-channel-container">
     <div class="detail-view-header">
-        {{currentChannel.name}}
+        {{channelServ.currentChannel.name}}
     </div>
-    <div *ngIf="showChannel">
-        <div *ngFor="let post of posts; let i=index">
+    <div>
+        <div *ngFor="let post of channelServ.posts; let i=index">
             <div>
                 <div>{{post.content}} von {{post.authorName}}</div>
                 <div (click)="changeDetailViewPageContentToThread(); saveAnswersToShow(post.answers)" *ngIf="post.answers.length > 0">{{post.answers.length}} Antworten</div>

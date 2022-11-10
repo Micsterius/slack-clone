@@ -16,10 +16,12 @@ export class AppComponent {
   title = 'slack-clone';
   constructor(public authService: AuthService) {
     let user = JSON.parse(localStorage.getItem('user'))
-    if(user) this.checkIfUserExistInFirestore(user)
+    if(user) this.authService.showLoginArea = false;
+    else this.authService.showLoginArea = true;
   }
 
-  async checkIfUserExistInFirestore(user) {
+/* funktioniert nicht 
+ async checkIfUserExistInFirestore(user) {
     const docRef = doc(this.db, "users", user.uid);
     const docSnap = await getDoc(docRef);
     
@@ -29,6 +31,6 @@ export class AppComponent {
       // doc.data() will be undefined in this case
       this.authService.showLoginArea = true;
     }
-  }
+  }*/
 }
 

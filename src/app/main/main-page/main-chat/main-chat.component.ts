@@ -58,7 +58,7 @@ export class MainChatComponent implements OnInit {
       })
       this.showChat = true;
     });
-    this.showChat = true;
+  //  this.showChat = true;
   }
 
   /**here the new doc id in the subcollection texts will be generated with two components. 

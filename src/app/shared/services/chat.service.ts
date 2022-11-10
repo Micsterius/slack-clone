@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { initializeApp } from 'firebase/app';
-import { addDoc, collection, doc, getDoc, getDocs, getFirestore, query, updateDoc, where } from 'firebase/firestore';
+import { addDoc, collection, doc, getDoc, getDocs, getFirestore, onSnapshot, query, updateDoc, where } from 'firebase/firestore';
 import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
@@ -19,6 +19,7 @@ export class ChatService {
   arrayOfFriendsWithChatUid: any[] = [];
   arrayOfUsersWithChat: any[] = [];
   currentChatId: any = '';
+  messages: any [] = [];
 
   testArray: any[] = [];
   showChat: boolean = false;
@@ -110,5 +111,23 @@ export class ChatService {
     this.currentChatId = friendChatId; //Save the active doc id to read out this in the chat window
     localStorage.setItem('currentChatId', JSON.stringify(this.currentChatId));
     this.router.navigate(['/chat-friend']);
-  }  
+  }
+
+  saveCurrentChatId(chatId) {
+    this.currentChatId = chatId;
+    this.loadChat();
+  }
+
+  async loadChat() {
+    let q = query(collection(this.db, "posts", this.currentChatId, "texts"))
+    let unsubscribe = onSnapshot(q, (querySnapshot) => {
+      this.messages = [];
+      this.showChat = false;
+      querySnapshot.forEach((doc) => {
+        this.messages.push(doc.data())
+      })
+      this.showChat = true;
+    });
+    this.showChat = true;
+  }
 }
