@@ -73,17 +73,14 @@ export class ChatService {
     })
   }
 
-  saveCurrentChatId(chatId, userId) {
+  saveCurrentChatId(chatId) {
     this.currentChatId = chatId;
     this.loadChat();
     this.findUserInList(chatId)
   }
 
   findUserInList(chatId) {
-    console.log('A',chatId)
-    console.log('B',this.arrayOfUsersWithChat)
     this.currentUserChat = this.arrayOfUsersWithChat.find((user) => user.id == chatId);
-    console.log('C',this.currentUserChat)
   }
 
   async loadChat() {

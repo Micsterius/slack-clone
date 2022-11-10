@@ -21,18 +21,20 @@ export class ChatComponent implements OnInit {
     chatServ.loadChats();
     let userChat = JSON.parse(localStorage.getItem('userChat')!);
     if (userChat != null) {
-      this.chatServ.saveCurrentChatId(userChat.id, userChat.uid);
+      chatServ.currentUserChat = userChat;
+      chatServ.currentChatId = userChat.id;
+      chatServ.loadChat();
       console.log(userChat);
     }
-    else console.log('B')
+    else console.log('No Chat in local Storage')
   }
 
   ngOnInit(): void {
   }
 
   saveCurrentUserId(userChat) {
-    localStorage.setItem('userChat', JSON.stringify(userChat));
-    this.chatServ.saveCurrentChatId(userChat.id, userChat.uid);
+    this.chatServ.saveCurrentChatId(userChat.id);
+    localStorage.setItem('userChat', JSON.stringify(this.chatServ.currentUserChat));
   }
 
   navigateToMain() {
