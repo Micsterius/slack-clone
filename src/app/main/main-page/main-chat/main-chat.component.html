@@ -7,10 +7,10 @@
                     src="./../../../../assets/img/userIcons/{{(chatServ.currentUserChat.photoURL) ? chatServ.currentUserChat.photoURL : 'icon-unknown.svg'}}">
                 <div>{{chatServ.currentUserChat.displayName}}</div>
             </div>
-            <div class="chat-current-author bg-c-1-light" *ngIf="text.author == currentUser.uid">
-                <div>{{currentUser.displayName}}</div>
+            <div class="chat-current-author bg-c-1-light" *ngIf="text.author == authServ.userData.uid">
+                <div>{{authServ.userData.displayName}}</div>
                 <img class="img-small"
-                    src="./../../../../assets/img/userIcons/{{(currentUser.photoURL) ? currentUser.photoURL : 'icon-unknown.svg'}}">
+                    src="./../../../../assets/img/userIcons/{{(authServ.userData.photoURL) ? authServ.userData.photoURL : 'icon-unknown.svg'}}">
                 <div class="chat-friend-text" [innerHTML]="text.content"></div>
             </div>
         </div>

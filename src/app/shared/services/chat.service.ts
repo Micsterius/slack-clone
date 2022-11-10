@@ -73,14 +73,14 @@ export class ChatService {
     })
   }
 
-  saveCurrentChatId(chatId, userId) {
+  saveCurrentChatId(chatId) {
     this.currentChatId = chatId;
     this.loadChat();
-    this.findUserInList(userId)
+    this.findUserInList(chatId)
   }
 
-  findUserInList(userUid) {
-    this.currentUserChat = this.arrayOfUsersWithChat.find((user) => user.uid == userUid);
+  findUserInList(chatId) {
+    this.currentUserChat = this.arrayOfUsersWithChat.find((user) => user.id == chatId);
   }
 
   async loadChat() {
@@ -90,7 +90,6 @@ export class ChatService {
       this.showChat = false;
       querySnapshot.forEach((doc) => {
         this.messages.push(doc.data())
-        console.log(this.messages)
       })
       this.showChat = true;
     });

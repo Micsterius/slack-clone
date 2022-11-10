@@ -27,9 +27,6 @@ export class MainChatComponent implements OnInit {
     public chatServ: ChatService,
     public authServ: AuthService
   ) {
-    this.currentUser = JSON.parse(localStorage.getItem('user')!);
-    this.currentChatId = JSON.parse(localStorage.getItem('currentChatId')!);
-    this.userFriend = JSON.parse(localStorage.getItem('userFriend')!);
   }
 
   ngOnInit() {

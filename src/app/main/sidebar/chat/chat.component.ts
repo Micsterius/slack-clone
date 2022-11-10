@@ -14,19 +14,27 @@ export class ChatComponent implements OnInit {
   app = initializeApp(environment.firebase);
   db = getFirestore(this.app);
   panelOpenState: boolean = false;
-  
+
   constructor(
     public chatServ: ChatService,
     private router: Router) {
-    chatServ.loadChats()
+    chatServ.loadChats();
+    let userChat = JSON.parse(localStorage.getItem('userChat')!);
+    if (userChat != null) {
+      chatServ.currentUserChat = userChat;
+      chatServ.currentChatId = userChat.id;
+      chatServ.loadChat();
+      console.log(userChat);
+    }
+    else console.log('No Chat in local Storage')
   }
 
   ngOnInit(): void {
   }
 
-  saveCurrentUserId(user) {
-    localStorage.setItem('userChat', JSON.stringify(user));
-    this.chatServ.saveCurrentChatId(user.id, user.uid);
+  saveCurrentUserId(userChat) {
+    this.chatServ.saveCurrentChatId(userChat.id);
+    localStorage.setItem('userChat', JSON.stringify(this.chatServ.currentUserChat));
   }
 
   navigateToMain() {
