@@ -63,18 +63,7 @@ export class ChatService {
         console.log("No such document!");
       }
     })
-  }
-
-  async getAllDocsInSubCollection(postId) {
-    let docsSnap = await getDocs(collection(this.db, "posts", postId, "text"));
-    docsSnap.forEach((doc) => {
-      console.log(doc.data());
-    });
-  }
-
-  findUserInList(userUid) {
-    this.currentUserChat = this.arrayOfUsersWithChat.find((user) => user.uid == userUid);
-  }
+  }  
 
   //give the id of document in the document as a field
   async updateIdInFirestorePostsDocs(id) {
@@ -84,20 +73,14 @@ export class ChatService {
     })
   }
 
-  friendChatDocAlreadyExist(friendUid) {
-    return this.arrayOfFriendsWithChatUid.some((obj) => obj.author == friendUid)
-  }
-
-  navigateToChatWithFriend(friendChatId) {
-    this.currentChatId = friendChatId; //Save the active doc id to read out this in the chat window
-    localStorage.setItem('currentChatId', JSON.stringify(this.currentChatId));
-    this.router.navigate(['/chat-friend']);
-  }
-
   saveCurrentChatId(chatId, userId) {
     this.currentChatId = chatId;
     this.loadChat();
     this.findUserInList(userId)
+  }
+
+  findUserInList(userUid) {
+    this.currentUserChat = this.arrayOfUsersWithChat.find((user) => user.uid == userUid);
   }
 
   async loadChat() {
