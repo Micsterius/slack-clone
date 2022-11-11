@@ -49,6 +49,7 @@ import { DetailViewPageComponent } from './main/main-page/detail-view-page/detai
 import { ThreadComponent } from './main/main-page/detail-view-page/thread/thread.component';
 import { UserInfoComponent } from './main/main-page/detail-view-page/user-info/user-info.component';
 import { AddChannelDialogComponent } from './main/sidebar/add-channel-dialog/add-channel-dialog.component';
+import { AuthenticationComponent } from './authentication/authentication.component';
 //import { ChannelMainComponent } from './main/main-page/channel-main/channel-main.component';
 
 @NgModule({
@@ -68,6 +69,7 @@ import { AddChannelDialogComponent } from './main/sidebar/add-channel-dialog/add
     ThreadComponent,
     UserInfoComponent,
     AddChannelDialogComponent,
+    AuthenticationComponent,
     ],
   imports: [
     BrowserModule,
