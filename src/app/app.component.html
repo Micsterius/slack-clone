@@ -1,2 +1,2 @@
-<app-main *ngIf="show2"></app-main>
-<app-authentication *ngIf="authService.showSignIn"></app-authentication>
+<app-main *ngIf="!authService.showLoginArea"></app-main>
+<app-authentication *ngIf="authService.showLoginArea"></app-authentication>

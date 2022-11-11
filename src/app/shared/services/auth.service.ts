@@ -62,7 +62,6 @@ export class AuthService {
         this.afAuth.authState.subscribe((user) => {
           if (user) {
             this.showLoginArea = false;
-            this.showSignIn = false;
           }
         });
       })
@@ -214,6 +213,9 @@ export class AuthService {
     signInAnonymously(this.auth)
       .then(() => {
         // Signed in..
+        console.log('anonyme123')
+        this.showLoginArea = false;
+        this.onAuthStateChanged();
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -224,13 +226,13 @@ export class AuthService {
   onAuthStateChanged() {
     onAuthStateChanged(this.auth, (user) => {
       if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
-        const uid = user.uid;
-        // ...
+        console.log('anonyme12')
+        this.userData = user;
+        localStorage.setItem('user', JSON.stringify(this.userData));
+        JSON.parse(localStorage.getItem('user')!);
       } else {
-        // User is signed out
-        // ...
+        localStorage.setItem('user', 'null');
+        JSON.parse(localStorage.getItem('user')!);
       }
     });
   }
