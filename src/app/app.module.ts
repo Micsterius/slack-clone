@@ -35,6 +35,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatExpansionModule } from '@angular/material/expansion';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 
@@ -47,6 +48,7 @@ import { MainChatComponent } from './main/main-page/main-chat/main-chat.componen
 import { DetailViewPageComponent } from './main/main-page/detail-view-page/detail-view-page.component';
 import { ThreadComponent } from './main/main-page/detail-view-page/thread/thread.component';
 import { UserInfoComponent } from './main/main-page/detail-view-page/user-info/user-info.component';
+import { AddChannelDialogComponent } from './main/sidebar/add-channel-dialog/add-channel-dialog.component';
 //import { ChannelMainComponent } from './main/main-page/channel-main/channel-main.component';
 
 @NgModule({
@@ -65,6 +67,7 @@ import { UserInfoComponent } from './main/main-page/detail-view-page/user-info/u
     DetailViewPageComponent,
     ThreadComponent,
     UserInfoComponent,
+    AddChannelDialogComponent,
     ],
   imports: [
     BrowserModule,
@@ -82,6 +85,7 @@ import { UserInfoComponent } from './main/main-page/detail-view-page/user-info/u
     SwiperModule,
     MatExpansionModule,
     EditorModule,
+    MatDialogModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
