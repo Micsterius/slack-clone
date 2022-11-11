@@ -12,6 +12,8 @@ import { AuthService } from './shared/services/auth.service';
 export class AppComponent {
   app = initializeApp(environment.firebase);
   db = getFirestore(this.app);
+  show: boolean = false;
+  show2: boolean = true;
   
   title = 'slack-clone';
   constructor(public authService: AuthService) {

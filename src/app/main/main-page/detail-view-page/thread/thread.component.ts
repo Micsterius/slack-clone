@@ -16,4 +16,7 @@ export class ThreadComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  //solutioin with channelservice necessary!!!!
+  
+
 }

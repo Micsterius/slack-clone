@@ -43,6 +43,6 @@ export class ChannelMainComponent implements OnInit {
       answers: answers
     }
     localStorage.setItem('answersForThread', JSON.stringify(answersForThread));
-    this.channelServ.showThread = true;
+    this.channelServ.showThread = true; //proof if it is necessary, two times called
   }
 }

@@ -1,7 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
 import { User } from '../services/user';
 import * as auth from 'firebase/auth';
-import { getAuth, updateEmail, updatePassword, updateProfile } from "firebase/auth";
+import { getAuth, onAuthStateChanged, signInAnonymously, updateEmail, updatePassword, updateProfile } from "firebase/auth";
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import {
   AngularFirestore,
@@ -62,6 +62,7 @@ export class AuthService {
         this.afAuth.authState.subscribe((user) => {
           if (user) {
             this.showLoginArea = false;
+            this.showSignIn = false;
           }
         });
       })
@@ -174,7 +175,7 @@ export class AuthService {
       });
   }
 
-    //change user data pw in firestore
+  //change user data pw in firestore
   changeUserDataPw(newPassword: string) {
     updatePassword(this.userData, newPassword)
       .then(() => {
@@ -207,4 +208,32 @@ export class AuthService {
         window.alert(error.message);
       });
   }
+
+  /** SIGN IN ANONYM */
+  signInAnonymously() {
+    signInAnonymously(this.auth)
+      .then(() => {
+        // Signed in..
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ...
+      });
+  }
+  onAuthStateChanged() {
+    onAuthStateChanged(this.auth, (user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        const uid = user.uid;
+        // ...
+      } else {
+        // User is signed out
+        // ...
+      }
+    });
+  }
+
+
 }
