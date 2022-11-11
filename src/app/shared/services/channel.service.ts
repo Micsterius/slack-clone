@@ -16,6 +16,7 @@ export class ChannelService {
   showThread: boolean = false;
   posts: any;
   showChannel: boolean = false;
+  currentThread: any;
   constructor() { }
 
   async loadChannels() {

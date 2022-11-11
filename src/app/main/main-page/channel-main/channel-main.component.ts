@@ -23,7 +23,7 @@ export class ChannelMainComponent implements OnInit {
     public channelServ: ChannelService,
     public detailViewService: DetailViewPageService) {
     this.currentChannel = JSON.parse(localStorage.getItem('currentChannel')!)
-    this.currentChannel = channelServ.currentChannel
+    channelServ.currentChannel = this.currentChannel
   }
 
   ngOnInit(): void {
@@ -44,5 +44,6 @@ export class ChannelMainComponent implements OnInit {
     }
     localStorage.setItem('answersForThread', JSON.stringify(answersForThread));
     this.channelServ.showThread = true; //proof if it is necessary, two times called
+    this.channelServ.currentThread = answersForThread;
   }
 }

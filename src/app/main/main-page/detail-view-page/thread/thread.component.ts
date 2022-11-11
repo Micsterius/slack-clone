@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ChannelService } from 'src/app/shared/services/channel.service';
 
 @Component({
   selector: 'app-thread',
@@ -8,15 +9,13 @@ import { Component, OnInit } from '@angular/core';
 export class ThreadComponent implements OnInit {
   answersForThread: any;
   answers: any [] = []
-  constructor() {
-    this.answersForThread = JSON.parse(localStorage.getItem('answersForThread')!);
-    this.answers = this.answersForThread.answers;
+  constructor(
+    public channelServ: ChannelService
+  ) {
+  /*  this.answersForThread = JSON.parse(localStorage.getItem('answersForThread')!);
+    this.answers = this.answersForThread.answers;*/
    }
 
   ngOnInit(): void {
   }
-
-  //solutioin with channelservice necessary!!!!
-  
-
 }
