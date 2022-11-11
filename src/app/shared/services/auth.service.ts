@@ -151,6 +151,7 @@ export class AuthService {
       localStorage.removeItem('user');
       this.userData = '';
       this.showLoginArea = true;
+      this.router.navigate(['/']);
     });
   }
 
