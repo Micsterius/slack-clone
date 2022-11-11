@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../shared/services/auth.service';
 
 @Component({
   selector: 'app-authentication',
@@ -11,7 +12,9 @@ export class AuthenticationComponent implements OnInit {
   showVerifyMail: boolean = false;
   showSignUp: boolean = false;
   showSignIn: boolean = true;
-  constructor() { }
+  constructor(
+    public authService: AuthService
+  ) { }
 
   ngOnInit(): void {
   }

@@ -24,6 +24,11 @@ export class AuthService {
   user = this.auth.currentUser;
   userFromFirestore: any;
 
+  showForgotPassword: boolean = false;
+  showVerifyMail: boolean = false;
+  showSignUp: boolean = false;
+  showSignIn: boolean = true;
+
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', Validators.required);
   name = new FormControl('', [Validators.required, Validators.maxLength(5)]);
@@ -83,7 +88,8 @@ export class AuthService {
     return this.afAuth.currentUser
       .then((u: any) => u.sendEmailVerification())
       .then(() => {
-        this.router.navigate(['verify-email-address']);
+        this.showVerifyMail = true;
+        this.showSignUp = false;
       });
   }
   // Reset Forggot password

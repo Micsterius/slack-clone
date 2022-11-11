@@ -20,4 +20,9 @@ export class SignUpComponent implements OnInit {
     }, 50);
   }
 
+  goToSignIn(){
+    this.authService.showSignIn = true;
+    this.authService.showSignUp = false;
+  }
+
 }

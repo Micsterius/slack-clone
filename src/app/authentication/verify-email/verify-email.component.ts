@@ -13,4 +13,9 @@ export class VerifyEmailComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  goToSignIn(){
+    this.authService.showSignIn = true;
+    this.authService.showVerifyMail = false;
+  }
+
 }

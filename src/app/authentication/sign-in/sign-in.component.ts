@@ -13,4 +13,14 @@ export class SignInComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  goToSignUp(){
+    this.authService.showSignIn = false;
+    this.authService.showSignUp = true;
+  }
+
+  goToForgotPassword(){
+    this.authService.showSignIn = false;
+    this.authService.showForgotPassword = true;
+  }
+
 }

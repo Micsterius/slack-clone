@@ -13,4 +13,9 @@ export class ForgotPasswordComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  goToSignIn(){
+    this.authService.showSignIn = true;
+    this.authService.showForgotPassword = false;
+  }
+
 }
