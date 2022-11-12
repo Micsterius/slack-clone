@@ -1,4 +1,4 @@
-<div>
+<div class="main-chat-container">
     <div *ngIf="chatServ.showChat" class="chat-container" #scrollMe>
         <div *ngFor="let text of chatServ.messages" class="chat-friend-box">
             <div class="chat-friend-author bg-c-1-light" *ngIf="text.author == chatServ.currentUserChat.uid">
@@ -16,18 +16,21 @@
         </div>
     </div>
 
-    <div class="writing-area">
-        <editor [(ngModel)]="message" apiKey="0u347b51bx380ihx2w2vws4bfqf9dfqewelzkjxsl7p5ki0a" [init]="{
-  height: 150,
-  width: 440,
+    <div class="writing-area-container">
+        <div class="writing-area">
+            <editor class="editor" [(ngModel)]="message" apiKey="0u347b51bx380ihx2w2vws4bfqf9dfqewelzkjxsl7p5ki0a"
+                [init]="{
+  height: 200,
+  width: '100%',
   menubar: false, 
   plugins: 'emoticons advlist autolink lists link image charmap preview anchor',
   toolbar: 'undo redo | bold italic | emoticons',
   emoticons_database: 'emojis'
    }"></editor>
-        <button (click)="sendMessage()">
-            <mat-icon mat-icon-button fontIcon="send"></mat-icon>
-        </button>
+            <button (click)="sendMessage()">
+                <mat-icon mat-icon-button fontIcon="send"></mat-icon>
+            </button>
+        </div>
     </div>
 
 </div>
