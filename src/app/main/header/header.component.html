@@ -1,9 +1,8 @@
-<mat-card>
-    <div class="header-top">
+    <div class="header-top bg-c-1">
         <div class="icon-header-home">
             <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="menu"></mat-icon>
         </div>
-        <mat-card-title class="bg-c-1 color-white">Slack-Clone</mat-card-title>
+        <h3 class="color-white">Slack-Clone</h3>
         <mat-icon class="icon-header" fontIcon="login" [routerLink]="['sign-in']" *ngIf="!authService.userData as user">
         </mat-icon>
         <div class="icon-header">
@@ -21,4 +20,4 @@
             </button>
         </mat-menu>
     </div>
-</mat-card>
+    
