@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { initializeApp } from 'firebase/app';
 import { User } from 'firebase/auth';
 import { collection, doc, getFirestore, onSnapshot, query, setDoc } from 'firebase/firestore';
@@ -12,6 +12,9 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./channel-main.component.scss']
 })
 export class ChannelMainComponent implements OnInit {
+  @ViewChild('totalWidth') private totalWidth: ElementRef;
+  @ViewChild('scrollMe') private myScrollContainer: ElementRef;
+
   app = initializeApp(environment.firebase);
   db = getFirestore(this.app);
 
@@ -23,6 +26,8 @@ export class ChannelMainComponent implements OnInit {
   message: any;
   actualUser: User;
 
+  editorWidth: number;
+
   constructor(
     public channelServ: ChannelService,
     public detailViewService: DetailViewPageService) {
@@ -31,11 +36,20 @@ export class ChannelMainComponent implements OnInit {
     channelServ.currentChannel = this.currentChannel
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.scrollToBottom();
   }
 
+  ngAfterViewChecked() {
+    this.scrollToBottom();
+  }
 
-
+  /** scroll automatically to last message */
+  scrollToBottom(): void {
+    try {
+      this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+    } catch (err) { }
+  }
 
   changeDetailViewPageContentToThread() {
     this.detailViewService.showUserInfo = false;
@@ -61,7 +75,7 @@ export class ChannelMainComponent implements OnInit {
     let idAdd = Math.random().toString(16).substr(2, 6)
 
     let name = this.getNameOfAuthor();
-    
+
     await setDoc(doc(this.db, "channel", this.channelServ.currentChannel.id, "posts", `${textId + idAdd}`),
       {
         content: this.message,
@@ -73,7 +87,7 @@ export class ChannelMainComponent implements OnInit {
     this.message = '';
   }
 
-  getNameOfAuthor(){
+  getNameOfAuthor() {
     if (this.actualUser.displayName) return this.actualUser.displayName;
     else return 'Anonym'
   }

@@ -2,29 +2,33 @@
     <div class="detail-view-header">
         {{channelServ.currentChannel.name}}
     </div>
-    <div>
+    <div #scrollMe>
         <div *ngFor="let post of channelServ.posts; let i=index">
             <div>
                 <div class="chat-friend-text" [innerHTML]="post.content"></div>
-          <!--    <img class="img-small"
-                    src="./../../../../assets/img/userIcons/{{(chatServ.currentUserChat.photoURL) ? chatServ.currentUserChat.photoURL : 'icon-unknown.svg'}}">-->  
+                <!--    <img class="img-small"
+                    src="./../../../../assets/img/userIcons/{{(chatServ.currentUserChat.photoURL) ? chatServ.currentUserChat.photoURL : 'icon-unknown.svg'}}">-->
                 <div>{{post.authorName}}</div>
                 <div (click)="changeDetailViewPageContentToThread(); saveAnswersToShow(post.answers)"
                     *ngIf="post.answers.length > 0">{{post.answers.length}} Antworten</div>
             </div>
         </div>
     </div>
-    <div class="writing-area">
-        <editor [(ngModel)]="message" apiKey="0u347b51bx380ihx2w2vws4bfqf9dfqewelzkjxsl7p5ki0a" [init]="{
-  height: 150,
-  width: 440,
+    <div class="writing-area-container">
+        <div class="writing-area">
+            <editor class="editor" [(ngModel)]="message" apiKey="0u347b51bx380ihx2w2vws4bfqf9dfqewelzkjxsl7p5ki0a"
+                [init]="{
+  height: 200,
+  width: '100%',
   menubar: false, 
   plugins: 'emoticons advlist autolink lists link image charmap preview anchor',
   toolbar: 'undo redo | bold italic | emoticons',
   emoticons_database: 'emojis'
    }"></editor>
-        <button (click)="sendMessage()">
-            <mat-icon mat-icon-button fontIcon="send"></mat-icon>
-        </button>
+            <button (click)="sendMessage()">
+                <mat-icon mat-icon-button fontIcon="send"></mat-icon>
+            </button>
+        </div>
     </div>
+
 </div>
