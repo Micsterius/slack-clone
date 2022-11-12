@@ -1,32 +1,29 @@
 .main-container {
     width: 100vw;
-    height: 100vh;
+    height: 100VH;
 }
 
-.main-box{
-    height: calc(100% - 58px);
-}
-
-.main-page-box{
+.main-page-box {
     display: flex;
     justify-content: space-between;
     width: 100%;
 }
 
-.side-nav-icon-box{
+.side-nav-icon-box {
     position: absolute;
 }
 
-.main-sub-container{
+.main-sub-container {
     display: flex;
     justify-content: space-between;
     width: 100%;
+    height: calc(100% - 58px);
 }
 
-.w100{
+.w100 {
     width: 100%;
 }
 
-.detail-view-head-container{
+.detail-view-head-container {
     width: 370px;
 }
