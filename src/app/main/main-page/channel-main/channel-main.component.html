@@ -2,7 +2,7 @@
     <div class="detail-view-header">
         {{channelServ.currentChannel.name}}
     </div>
-    <div #scrollMe>
+    <div #scrollMe class="all-posts-container">
         <div *ngFor="let post of channelServ.posts; let i=index">
              <div class="post-container">
                 <div class="post-img">
