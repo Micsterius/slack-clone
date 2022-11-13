@@ -15,7 +15,10 @@
                         <div>{{generalService.getTransformedTimeStampToDate(post.timeStamp)}}</div>
                     </div>
                     <div class="content-box" [innerHTML]="post.content"></div>
-                    <div class="answer-box"></div>
+                    <div class="answer-box" (click)="changeDetailViewPageContentToThread(); saveAnswersToShow(post)"
+                    *ngIf="post.answers.length > 0">
+                        {{post.answers.length}} Antworten
+                    </div>
                 </div>
             </div>
 <!--

@@ -22,12 +22,25 @@
     }
 }
 
-.editor{
+.editor {
     width: 100%;
 }
 
-.writing-area-container{
-position: absolute;
-bottom: 0;
-width: 100%;
+.writing-area-container {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.post-container {
+    display: flex;
+    padding: 12px;
+    border: 1px solid lightgray;
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
+.name-time-box {
+    display: flex;
 }
