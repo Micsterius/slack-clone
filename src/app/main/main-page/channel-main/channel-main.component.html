@@ -5,7 +5,7 @@
     <div #scrollMe>
         <div *ngFor="let post of channelServ.posts; let i=index">
             <div>
-                <div class="chat-friend-text" [innerHTML]="post.content"></div>
+                <div [innerHTML]="post.content"></div>
                 <!--    <img class="img-small"
                     src="./../../../../assets/img/userIcons/{{(chatServ.currentUserChat.photoURL) ? chatServ.currentUserChat.photoURL : 'icon-unknown.svg'}}">-->
                 <div>{{post.authorName}}</div>
