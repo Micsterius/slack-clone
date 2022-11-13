@@ -41,29 +41,9 @@ export class ChatService {
       // doc.data() is never undefined for query doc snapshots
       if (doc.data().authors[0] != this.actualUser.uid) this.arrayOfFriendsWithChatUid.push({ author: doc.data().authors[0], id: doc.data().id });
       if (doc.data().authors[1] != this.actualUser.uid) this.arrayOfFriendsWithChatUid.push({ author: doc.data().authors[1], id: doc.data().id });
-      this.getUserInfo()
+      this.showChatsWithFriends = true
     });
   }
-
-  async getUserInfo() {
-    this.arrayOfUsersWithChat.length = 0;
-    this.arrayOfFriendsWithChatUid.forEach(async (obj) => {
-      let docRef = doc(this.db, "users", obj.author); //search in the users collection for the user with the same uid as the author uid//search in the users collection for the user with the same uid as the author uid
-      let docSnap = await getDoc(docRef);
-      let user;
-      if (docSnap.exists()) {
-        if (!this.arrayOfUsersWithChat.some((friend) => friend.uid == docSnap.data()["uid"])) { //user is not already in array
-          user = docSnap.data()
-          user['id'] = obj.id; // save id of doc of chat with the user in the user object to read out the information later, when the chat window will be opened by click on the users box
-          this.arrayOfUsersWithChat.push(user)
-        }
-        if (this.arrayOfFriendsWithChatUid.length == this.arrayOfUsersWithChat.length) this.showChatsWithFriends = true;
-      } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
-      }
-    })
-  }  
 
   //give the id of document in the document as a field
   async updateIdInFirestorePostsDocs(id) {
