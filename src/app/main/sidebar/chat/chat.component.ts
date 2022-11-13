@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 import { ChatService } from 'src/app/shared/services/chat.service';
+import { UsersService } from 'src/app/shared/services/users.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -17,24 +18,26 @@ export class ChatComponent implements OnInit {
 
   constructor(
     public chatServ: ChatService,
-    private router: Router) {
+    private router: Router,
+    public usersServ: UsersService) {
     chatServ.loadChats();
-    let userChat = JSON.parse(localStorage.getItem('userChat')!);
+   /* let userChat = JSON.parse(localStorage.getItem('userChat')!);
     if (userChat != null) {
       chatServ.currentUserChat = userChat;
       chatServ.currentChatId = userChat.id;
       chatServ.loadChat();
       console.log(userChat);
     }
-    else console.log('No Chat in local Storage')
+    else console.log('No Chat in local Storage')*/
   }
 
   ngOnInit(): void {
   }
 
-  saveCurrentUserId(userChat) {
-    this.chatServ.saveCurrentChatId(userChat.id);
-    localStorage.setItem('userChat', JSON.stringify(this.chatServ.currentUserChat));
+  saveCurrentChatId(userChatId) {
+    this.chatServ.saveCurrentChatId(userChatId);
+    console.log(userChatId)
+  //  localStorage.setItem('userChat', JSON.stringify(this.chatServ.currentUserChat));
   }
 
   navigateToMain() {

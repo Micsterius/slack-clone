@@ -10,10 +10,10 @@
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <div *ngIf="chatServ.showChatsWithFriends" class="chat-friend-container">
-                <div [routerLink]="['chat-main']" *ngFor="let user of chatServ.arrayOfUsersWithChat"
-                    class="chat-friend-box" (click)="saveCurrentUserId(user)">
-                    <img src="./../../../assets/img/userIcons/{{(user.photoURL) ? user.photoURL : 'icon-unknown.svg'}}">
-                    {{user.displayName}}
+                <div [routerLink]="['chat-main']" *ngFor="let user of chatServ.arrayOfFriendsWithChatUid"
+                    class="chat-friend-box" (click)="saveCurrentChatId(user.id)">
+                    <img src="./../../../assets/img/userIcons/{{(usersServ.returnUsersPhotoUrl(user.author)) ? usersServ.returnUsersPhotoUrl(user.author) : 'icon-unknown.svg'}}">
+                    {{usersServ.returnUsersDisplayName(user.author)}}
                 </div>
             </div>
         </mat-expansion-panel>
