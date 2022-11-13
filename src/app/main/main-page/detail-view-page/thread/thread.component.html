@@ -1,8 +1,12 @@
 <div *ngIf="channelServ.showChannel" class="thread-container">
 
     <div class="detail-view-header">THREAD {{channelServ.currentThread.name}} </div>
+    <div>
+        {{channelServ.currentThread.post.content}}
+        {{channelServ.currentThread.post.authorName}}
+    </div>
 
-    <div *ngFor="let answer of channelServ.currentThread.answers">
+    <div *ngFor="let answer of channelServ.currentThread.post.answers">
         {{answer.content}} {{answer.authorName}}
     </div>
 

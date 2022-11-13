@@ -56,14 +56,15 @@ export class ChannelMainComponent implements OnInit {
     this.detailViewService.showThread = true;
   }
 
-  saveAnswersToShow(answers) {
-    let answersForThread = {
+  saveAnswersToShow(post) {
+    console.log(post)
+    let postForThread = {
       name: this.currentChannel.name,
-      answers: answers
+      post: post
     }
-    localStorage.setItem('answersForThread', JSON.stringify(answersForThread));
+    localStorage.setItem('postForThread', JSON.stringify(postForThread));
     this.channelServ.showThread = true; //proof if it is necessary, two times called
-    this.channelServ.currentThread = answersForThread;
+    this.channelServ.currentThread = postForThread;
   }
 
   /**here the new doc id in the subcollection texts will be generated with two components. 
