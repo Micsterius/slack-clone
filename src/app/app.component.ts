@@ -3,6 +3,7 @@ import { initializeApp } from 'firebase/app';
 import { doc, getDoc, getFirestore } from 'firebase/firestore';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './shared/services/auth.service';
+import { UsersService } from './shared/services/users.service';
 
 @Component({
   selector: 'app-root',
@@ -14,10 +15,14 @@ export class AppComponent {
   db = getFirestore(this.app);
   
   title = 'slack-clone';
-  constructor(public authService: AuthService) {
+  constructor(
+    public authService: AuthService,
+    private userService: UsersService) {
     let user = JSON.parse(localStorage.getItem('user'))
     if(user) this.authService.showLoginArea = false;
     else this.authService.showLoginArea = true;
+
+    userService.loadUsers();
   }
 
 /* funktioniert nicht 

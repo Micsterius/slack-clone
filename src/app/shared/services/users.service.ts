@@ -12,7 +12,7 @@ export class UsersService {
   users: any[] = [];
   constructor() { }
 
-  async loadChat() {
+  async loadUsers() {
     let q = query(collection(this.db, "users"))
     let unsubscribe = onSnapshot(q, (querySnapshot) => {
       this.users = [];
@@ -20,5 +20,17 @@ export class UsersService {
         this.users.push(doc.data())
       })
     });
+  }
+
+  returnUsersPhotoUrl(uid) {
+    let user = this.users.find(user => user.uid == uid)
+    if (user == undefined) return 'icon-unknown.svg'
+    else return user.photoURL
+  }
+
+  returnUsersDisplayName(uid) {
+    let user = this.users.find(user => user.uid == uid)
+    if (user == undefined) return 'Anonym'
+    else return user.displayName
   }
 }

@@ -4,6 +4,7 @@ import { User } from 'firebase/auth';
 import { collection, doc, getFirestore, onSnapshot, query, setDoc } from 'firebase/firestore';
 import { ChannelService } from 'src/app/shared/services/channel.service';
 import { DetailViewPageService } from 'src/app/shared/services/detail-view-page.service';
+import { UsersService } from 'src/app/shared/services/users.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -30,7 +31,8 @@ export class ChannelMainComponent implements OnInit {
 
   constructor(
     public channelServ: ChannelService,
-    public detailViewService: DetailViewPageService) {
+    public detailViewService: DetailViewPageService,
+    public userService: UsersService) {
     this.currentChannel = JSON.parse(localStorage.getItem('currentChannel')!)
     this.actualUser = JSON.parse(localStorage.getItem('user')!)
     channelServ.currentChannel = this.currentChannel

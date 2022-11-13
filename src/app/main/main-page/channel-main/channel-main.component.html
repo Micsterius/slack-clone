@@ -6,9 +6,9 @@
         <div *ngFor="let post of channelServ.posts; let i=index">
             <div>
                 <div [innerHTML]="post.content"></div>
-                <!--    <img class="img-small"
-                    src="./../../../../assets/img/userIcons/{{(chatServ.currentUserChat.photoURL) ? chatServ.currentUserChat.photoURL : 'icon-unknown.svg'}}">-->
-                <div>{{post.authorName}}</div>
+                <img class="img-small"
+                    src="./../../../../assets/img/userIcons/{{(userService.returnUsersPhotoUrl(post.authorId)) ? userService.returnUsersPhotoUrl(post.authorId) : 'icon-unknown.svg'}}">
+                <div>{{userService.returnUsersDisplayName(post.authorId)}}</div>
                 <div (click)="changeDetailViewPageContentToThread(); saveAnswersToShow(post)"
                     *ngIf="post.answers.length > 0">{{post.answers.length}} Antworten</div>
             </div>
