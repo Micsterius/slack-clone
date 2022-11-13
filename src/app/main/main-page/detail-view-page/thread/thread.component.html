@@ -1,5 +1,25 @@
-<div class="detail-view-header">THREAD {{channelServ.currentThread.name}} </div>
+<div *ngIf="channelServ.showChannel" class="thread-container">
+
+    <div class="detail-view-header">THREAD {{channelServ.currentThread.name}} </div>
 
     <div *ngFor="let answer of channelServ.currentThread.answers">
         {{answer.content}} {{answer.authorName}}
     </div>
+
+    <div class="writing-area-container">
+        <div class="writing-area">
+            <editor class="editor" [(ngModel)]="message" apiKey="0u347b51bx380ihx2w2vws4bfqf9dfqewelzkjxsl7p5ki0a"
+                [init]="{
+  height: 200,
+  width: '100%',
+  menubar: false, 
+  plugins: 'emoticons advlist autolink lists link image charmap preview anchor',
+  toolbar: 'undo redo | bold italic | emoticons',
+  emoticons_database: 'emojis'
+   }"></editor>
+            <button (click)="sendMessage()">
+                <mat-icon mat-icon-button fontIcon="send"></mat-icon>
+            </button>
+        </div>
+    </div>
+</div>

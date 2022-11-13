@@ -9,6 +9,7 @@ import { ChannelService } from 'src/app/shared/services/channel.service';
 export class ThreadComponent implements OnInit {
   answersForThread: any;
   answers: any [] = []
+  message: any;
   constructor(
     public channelServ: ChannelService
   ) {
@@ -17,5 +18,9 @@ export class ThreadComponent implements OnInit {
    }
 
   ngOnInit(): void {
+  }
+
+  sendMessage(){
+    //
   }
 }
