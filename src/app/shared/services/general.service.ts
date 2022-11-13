@@ -9,6 +9,9 @@ export class GeneralService {
 
   getTransformedTimeStampToDate(timeStamp) {
     let date = new Date(timeStamp);
-    return date;
+    let cDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+    let cTime = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+    let dateTime = cDate + ' ' + cTime;
+    return dateTime;
   }
 }
