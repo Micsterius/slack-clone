@@ -1,11 +1,11 @@
 <div class="main-chat-container">
     <div *ngIf="chatServ.showChat" class="chat-container" #scrollMe>
         <div *ngFor="let text of chatServ.messages" class="chat-friend-box">
-            <div class="chat-friend-author bg-c-1-light" *ngIf="text.author == chatServ.currentUserChat.uid">
+            <div class="chat-friend-author bg-c-1-light" *ngIf="text.author == chatServ.currentUserChat.author">
                 <div class="chat-friend-text" [innerHTML]="text.content"></div>
                 <img class="img-small"
-                    src="./../../../../assets/img/userIcons/{{(chatServ.currentUserChat.photoURL) ? chatServ.currentUserChat.photoURL : 'icon-unknown.svg'}}">
-                <div>{{chatServ.currentUserChat.displayName}}</div>
+                    src="./../../../../assets/img/userIcons/{{(usersServ.returnUsersPhotoUrl(text.author)) ? usersServ.returnUsersPhotoUrl(text.author) : 'icon-unknown.svg'}}">
+                <div>{{usersServ.returnUsersDisplayName(text.author)}}</div>
             </div>
             <div class="chat-current-author bg-c-1-light" *ngIf="text.author == authServ.userData.uid">
                 <div>{{authServ.userData.displayName}}</div>

@@ -80,7 +80,7 @@ export class ChatService {
   }
 
   findUserInList(chatId) {
-    this.currentUserChat = this.arrayOfUsersWithChat.find((user) => user.id == chatId);
+    this.currentUserChat = this.arrayOfFriendsWithChatUid.find((chat) => chat.id == chatId);
   }
 
   async loadChat() {
