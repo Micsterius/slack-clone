@@ -29,14 +29,14 @@ export class AddChannelDialogComponent implements OnInit {
         id: 'id', //push doc id here :)
         name: this.name,
       });
-      this.updateIdInFirestorePostsDocs(docRef.id)
+      this.updateIdInFirestoreChannelDocs(docRef.id)
     } else {
       alert('Bitte Channel mit mindestens 3 zeichen eigeben')
     }
   }
 
   //give the id of document in the document as a field
-  async updateIdInFirestorePostsDocs(id) {
+  async updateIdInFirestoreChannelDocs(id) {
     let docRef = doc(this.db, "channel", id);
     await updateDoc(docRef, {
       id: id
@@ -44,5 +44,4 @@ export class AddChannelDialogComponent implements OnInit {
     this.channelServ.loadChannels();
     this.dialogRef.close();
   }
-
 }
