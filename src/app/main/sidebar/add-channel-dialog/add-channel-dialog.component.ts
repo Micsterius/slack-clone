@@ -17,7 +17,7 @@ export class AddChannelDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<AddChannelDialogComponent>,
-    public channel: ChannelService
+    public channelServ: ChannelService
   ) { }
 
   ngOnInit(): void {
@@ -41,6 +41,8 @@ export class AddChannelDialogComponent implements OnInit {
     await updateDoc(docRef, {
       id: id
     })
+    this.channelServ.loadChannels();
+    this.dialogRef.close();
   }
 
 }

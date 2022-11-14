@@ -22,15 +22,26 @@ export class ChannelService {
   async loadChannels() {
     this.arrayOfChannels.length = 0;
 
-    const querySnapshot = await getDocs(collection(this.db, "channel"));
-    querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      this.arrayOfChannels.push(doc.data())
+    let q = query(collection(this.db, "channel"))
+    let unsubscribe = onSnapshot(q, (querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        this.arrayOfChannels.push(doc.data())
+      })
     });
   }
 
+  /**
+   * 
+let q = query(collection(this.db, "channel"))
+    let unsubscribe = onSnapshot(q, (querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        this.arrayOfChannels.push(doc.data())
+      })
+    });
+   */
+
   saveCurrentChannel(channel) {
-   // localStorage.setItem('currentChannel', channelId);
+    // localStorage.setItem('currentChannel', channelId);
     this.currentChannel = channel;
     this.loadChannel();
   }
