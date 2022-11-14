@@ -24,12 +24,11 @@ export class AddChannelDialogComponent implements OnInit {
   }
 
   async createNewChannel() {
-    if (this.name) {
+    if (this.name.length >= 3) {
       let docRef = await addDoc(collection(this.db, "channel"), {
-        id: 'id', //push doc id here :)
         name: this.name,
       });
-      this.updateIdInFirestoreChannelDocs(docRef.id)
+      this.updateIdInFirestoreChannelDocs(docRef.id);
     } else {
       alert('Bitte Channel mit mindestens 3 zeichen eigeben')
     }
