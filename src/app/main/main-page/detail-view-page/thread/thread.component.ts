@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { initializeApp } from 'firebase/app';
+import { User } from 'firebase/auth';
+import { doc, getFirestore, setDoc } from 'firebase/firestore';
 import { ChannelService } from 'src/app/shared/services/channel.service';
 import { GeneralService } from 'src/app/shared/services/general.service';
 import { UsersService } from 'src/app/shared/services/users.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-thread',
@@ -9,23 +13,49 @@ import { UsersService } from 'src/app/shared/services/users.service';
   styleUrls: ['./thread.component.scss']
 })
 export class ThreadComponent implements OnInit {
+
+  @ViewChild('scrollMe') private myScrollContainer: ElementRef;
+
+  app = initializeApp(environment.firebase);
+  db = getFirestore(this.app);
+
   answersForThread: any;
-  answers: any [] = []
+  answers: any[] = []
   message: any;
+  actualUser: User;
+
   constructor(
     public channelServ: ChannelService,
     public usersService: UsersService,
     public generalService: GeneralService,
-
   ) {
-  /*  this.answersForThread = JSON.parse(localStorage.getItem('answersForThread')!);
-    this.answers = this.answersForThread.answers;*/
-   }
+    /*  this.answersForThread = JSON.parse(localStorage.getItem('answersForThread')!);
+      this.answers = this.answersForThread.answers;*/
+    this.actualUser = JSON.parse(localStorage.getItem('user')!)
+  }
 
   ngOnInit(): void {
   }
 
-  sendMessage(){
-    //
+  async sendMessage() {
+    let textId = Math.round(new Date().getTime() / 1000);
+    let idAdd = Math.random().toString(16).substr(2, 6)
+
+    let name = this.getNameOfAuthor();
+
+    await setDoc(doc(this.db, "channel", this.channelServ.currentChannel.id, "posts", this.channelServ.currentThread.post.id, `${textId + idAdd}`),
+      {
+        content: this.message,
+        authorId: this.actualUser.uid,
+        authorName: name,
+        id: `${textId + idAdd}`,
+        timeStamp: textId
+      })
+    this.message = '';
+  }
+
+  getNameOfAuthor() {
+    if (this.actualUser.displayName) return this.actualUser.displayName;
+    else return 'Anonym'
   }
 }
