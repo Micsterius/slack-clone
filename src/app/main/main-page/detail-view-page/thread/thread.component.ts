@@ -43,7 +43,7 @@ export class ThreadComponent implements OnInit {
 
     let name = this.getNameOfAuthor();
 
-    await setDoc(doc(this.db, "channel", this.channelServ.currentChannel.id, "posts", this.channelServ.currentThread.post.id, `${textId + idAdd}`),
+    await setDoc(doc(this.db, "channel", this.channelServ.currentChannel.id, "posts", this.channelServ.currentThread.post.id, "answers", `${textId + idAdd}`),
       {
         content: this.message,
         authorId: this.actualUser.uid,
