@@ -55,10 +55,10 @@ export class MainChatComponent implements OnInit {
   async sendMessage() {
     let textId = Math.round(new Date().getTime() / 1000);
     let idAdd = Math.random().toString(16).substr(2, 6)
-    await setDoc(doc(this.db, "posts", this.currentChatId, "texts", `${textId + idAdd}`),
+    await setDoc(doc(this.db, "posts", this.chatServ.currentChatId, "texts", `${textId + idAdd}`),
       {
         content: this.message,
-        author: this.currentUser.uid,
+        author: this.authServ.userData.uid,
         timeStamp: textId
       })
     this.message = '';
