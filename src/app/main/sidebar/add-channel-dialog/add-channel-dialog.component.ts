@@ -41,7 +41,6 @@ export class AddChannelDialogComponent implements OnInit {
     await updateDoc(docRef, {
       id: id
     })
-    this.channelServ.loadChannels();
     this.dialogRef.close();
   }
 }
