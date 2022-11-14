@@ -13,25 +13,34 @@ import { environment } from 'src/environments/environment';
 export class AddChannelDialogComponent implements OnInit {
   app = initializeApp(environment.firebase);
   db = getFirestore(this.app);
-  @Input() name:any;
+  @Input() name: any;
 
   constructor(
     public dialogRef: MatDialogRef<AddChannelDialogComponent>,
     public channel: ChannelService
-    ) { }
+  ) { }
 
   ngOnInit(): void {
   }
 
-  async createNewChannel(){
-    if(this.name){
+  async createNewChannel() {
+    if (this.name) {
       let docRef = await addDoc(collection(this.db, "channel"), {
         id: 'id', //push doc id here :)
-        name: this.name, 
+        name: this.name,
       });
-    } else{
+      this.updateIdInFirestorePostsDocs(docRef.id)
+    } else {
       alert('Bitte Channel mit mindestens 3 zeichen eigeben')
     }
+  }
+
+  //give the id of document in the document as a field
+  async updateIdInFirestorePostsDocs(id) {
+    let docRef = doc(this.db, "channel", id);
+    await updateDoc(docRef, {
+      id: id
+    })
   }
 
 }
