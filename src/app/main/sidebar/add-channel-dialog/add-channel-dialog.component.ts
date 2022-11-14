@@ -24,13 +24,14 @@ export class AddChannelDialogComponent implements OnInit {
   }
 
   async createNewChannel() {
-    if (this.name.length >= 3) {
+    if (this.name.length >= 3 && !this.checkIfNameAlreadyExist()) {
       let docRef = await addDoc(collection(this.db, "channel"), {
         name: this.name,
       });
       this.updateIdInFirestoreChannelDocs(docRef.id);
     } else {
-      alert('Bitte Channel mit mindestens 3 zeichen eigeben')
+      if(this.name.length < 3) alert('Bitte Channel mit mindestens 3 zeichen eigeben');
+      if(this.checkIfNameAlreadyExist()) alert('Channel existiert bereits');
     }
   }
 
@@ -41,5 +42,9 @@ export class AddChannelDialogComponent implements OnInit {
       id: id
     })
     this.dialogRef.close();
+  }
+
+  checkIfNameAlreadyExist(){
+   return this.channelServ.arrayOfChannels.some(channel => channel.name == this.name)
   }
 }
