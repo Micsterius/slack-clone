@@ -4,7 +4,7 @@
     </div>
     <div #scrollMe class="all-posts-container">
         <div *ngFor="let post of channelServ.posts; let i=index">
-             <div class="post-container">
+            <div class="post-container">
                 <div class="post-img">
                     <img class="img-small"
                         src="./../../../../assets/img/userIcons/{{(userService.returnUsersPhotoUrl(post.authorId)) ? userService.returnUsersPhotoUrl(post.authorId) : 'icon-unknown.svg'}}">
@@ -16,20 +16,15 @@
                     </div>
                     <div class="content-box" [innerHTML]="post.content"></div>
                     <div class="answer-box" (click)="changeDetailViewPageContentToThread(); saveAnswersToShow(post)"
-                    *ngIf="post.answers.length > 0">
+                        *ngIf="post.answers.length > 0">
                         {{post.answers.length}} Antworten
+                    </div>
+                    <div class="answer-box" (click)="changeDetailViewPageContentToThread(); saveAnswersToShow(post)"
+                        *ngIf="post.answers.length == 0">
+                        Schreibe eine Antworten
                     </div>
                 </div>
             </div>
-<!--
-            <div>
-                <div [innerHTML]="post.content"></div>
-                <img class="img-small"
-                    src="./../../../../assets/img/userIcons/{{(userService.returnUsersPhotoUrl(post.authorId)) ? userService.returnUsersPhotoUrl(post.authorId) : 'icon-unknown.svg'}}">
-                <div>{{userService.returnUsersDisplayName(post.authorId)}}</div>
-                <div (click)="changeDetailViewPageContentToThread(); saveAnswersToShow(post)"
-                    *ngIf="post.answers.length > 0">{{post.answers.length}} Antworten</div>
-            </div>-->
         </div>
     </div>
     <div class="writing-area-container">
