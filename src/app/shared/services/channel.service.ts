@@ -54,16 +54,16 @@ export class ChannelService {
     console.log(this.currentChannel.id)
     for (let i = 0; i < this.posts.length; i++) {
       const post = this.posts[i];
-      console.log(post.id)
       let answers = [];
+      this.posts[i].answers = answers; //necessary for inital load, because else it doesn't know posts.answers in html
       let q = query(collection(this.db, "channel", this.currentChannel.id, "posts", `${post.id}`, 'answers'))
       let unsubscribe = onSnapshot(q, (querySnapshot) => {
+        answers = [];
         querySnapshot.forEach((doc) => {
           answers.push(doc.data())
+          this.posts[i].answers = answers;
         })
       });
-      this.posts[i].answers = answers;
-      console.log(this.posts[i])
     }
   }
 }
