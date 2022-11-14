@@ -17,8 +17,19 @@
             </div>
         </div>
 
-        <div *ngFor="let answer of channelServ.currentThread.post.answers">
-            {{answer.content}} {{answer.authorName}}
+        <div class="post-container"  *ngFor="let answer of channelServ.currentThread.post.answers">
+            <div class="post-img">
+                <img class="img-small"
+                    src="./../../../../assets/img/userIcons/{{(usersService.returnUsersPhotoUrl(answer.authorId)) ? usersService.returnUsersPhotoUrl(answer.authorId) : 'icon-unknown.svg'}}">
+            </div>
+            <div class="post-box">
+                <div class="name-time-box">
+                    <div>{{usersService.returnUsersDisplayName(answer.authorId)}}</div>
+                    <div>{{generalService.getTransformedTimeStampToDate(answer.timeStamp)}}
+                    </div>
+                </div>
+                <div class="content-box" [innerHTML]="answer.content"></div>
+            </div>
         </div>
     </div>
     <div class="writing-area-container">
