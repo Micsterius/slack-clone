@@ -29,6 +29,7 @@ export class ChannelMainComponent implements OnInit {
 
   editorWidth: number;
   userHovered;
+  timedOutCloser;
 
   constructor(
     public channelServ: ChannelService,
@@ -94,5 +95,18 @@ export class ChannelMainComponent implements OnInit {
   getNameOfAuthor() {
     if (this.actualUser.displayName) return this.actualUser.displayName;
     else return 'Anonym'
+  }
+
+  mouseEnter(trigger) {
+    if (this.timedOutCloser) {
+      clearTimeout(this.timedOutCloser);
+    }
+    trigger.openMenu();
+  }
+
+  mouseLeave(trigger) {
+    this.timedOutCloser = setTimeout(() => {
+      trigger.closeMenu();
+    }, 50);
   }
 }
