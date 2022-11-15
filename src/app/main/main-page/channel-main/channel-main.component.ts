@@ -14,7 +14,6 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./channel-main.component.scss']
 })
 export class ChannelMainComponent implements OnInit {
-  @ViewChild('totalWidth') private totalWidth: ElementRef;
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
 
   app = initializeApp(environment.firebase);
@@ -61,9 +60,8 @@ export class ChannelMainComponent implements OnInit {
   }
 
   saveAnswersToShow(post) {
-    console.log(post)
     let postForThread = {
-      name: this.currentChannel.name,
+      name: this.channelServ.currentChannel.name,
       post: post
     }
     localStorage.setItem('postForThread', JSON.stringify(postForThread));

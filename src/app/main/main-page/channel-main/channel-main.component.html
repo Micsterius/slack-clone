@@ -15,13 +15,11 @@
                         <div>{{generalService.getTransformedTimeStampToDate(post.timeStamp)}}</div>
                     </div>
                     <div class="content-box" [innerHTML]="post.content"></div>
-                    <div class="answer-box color-main-with-hover" (click)="changeDetailViewPageContentToThread(); saveAnswersToShow(post)"
-                        *ngIf="post.answers.length > 0">
-                        {{post.answers.length}} Antworten
+                    <div class="answer-box" *ngIf="post.answers.length > 0">
+                        <span class="color-main-with-hover" (click)="changeDetailViewPageContentToThread(); saveAnswersToShow(post)">{{post.answers.length}} Antworten</span>
                     </div>
-                    <div class="answer-box color-main-with-hover" (click)="changeDetailViewPageContentToThread(); saveAnswersToShow(post)"
-                        *ngIf="post.answers.length == 0">
-                        Schreibe eine Antworten
+                    <div class="answer-box" *ngIf="post.answers.length == 0">
+                        <span class="color-main-with-hover" (click)="changeDetailViewPageContentToThread(); saveAnswersToShow(post)">Schreibe eine Antworten</span>
                     </div>
                 </div>
             </div>

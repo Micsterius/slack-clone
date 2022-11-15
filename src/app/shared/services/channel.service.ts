@@ -51,8 +51,7 @@ export class ChannelService {
   }
 
   loadChannelAnswers() {
-    console.log(this.currentChannel.id)
-    for (let i = 0; i < this.posts.length; i++) {
+      for (let i = 0; i < this.posts.length; i++) {
       const post = this.posts[i];
       let answers = [];
       this.posts[i].answers = answers; //necessary for inital load, because else it doesn't know posts.answers in html
