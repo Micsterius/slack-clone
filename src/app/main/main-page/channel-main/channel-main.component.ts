@@ -28,6 +28,7 @@ export class ChannelMainComponent implements OnInit {
   actualUser: User;
 
   editorWidth: number;
+  userHovered;
 
   constructor(
     public channelServ: ChannelService,

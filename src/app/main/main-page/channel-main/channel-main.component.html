@@ -6,9 +6,16 @@
         <div *ngFor="let post of channelServ.posts; let i=index">
             <div class="post-container">
                 <div class="post-img">
-                    <img (click)="userService.openDialogUser('200ms', '100ms', post.authorId)" class="img-small"
+                    <img (mouseenter)="userHovered = post.authorId" [matMenuTriggerFor]="menu" class="img-small"
                         src="./../../../../assets/img/userIcons/{{(userService.returnUsersPhotoUrl(post.authorId)) ? userService.returnUsersPhotoUrl(post.authorId) : 'icon-unknown.svg'}}">
                 </div>
+                <mat-menu #menu="matMenu" xPosition="after">
+                    <div>
+                        <h3>{{userService.returnUsersDisplayName(post.authorId)}}</h3>
+                        <img class="img-detail" src="./../../../../assets/img/userIcons/{{(userService.returnUsersPhotoUrl(post.authorId)) ? userService.returnUsersPhotoUrl(post.authorId) : 'icon-unknown.svg'}}">
+                        <button>Nachricht</button>
+                    </div>
+                </mat-menu>
                 <div class="post-box">
                     <div class="name-time-box">
                         <div>{{userService.returnUsersDisplayName(post.authorId)}}</div>
