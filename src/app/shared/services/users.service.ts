@@ -38,7 +38,7 @@ export class UsersService {
     else return user.displayName
   }
 
-  openDialogUser(enterAnimationDuration: string, exitAnimationDuration: string): void {
+  openDialogUser(enterAnimationDuration: string, exitAnimationDuration: string, userUid): void {
     this.dialog.open(ShowUserDialogComponent, {
       width: '250px',
       enterAnimationDuration,
