@@ -1,11 +1,16 @@
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
-
+:root {
+    --main-color: gray;
+    --main-color-rgb: 250, 39, 89;
+    --secondary-color: lightgray;
+    --secondary-color-rgb: 45, 252, 2166
+  }
 .bg-c-1 {
-    background-color: #E91E63;
+    background-color: var(--main-color);
 }
 
 .bg-c-1-light {
-    background-color: #EDE3FF;
+    background-color: var(--secondary-color);
 }
 
 .w450 {
@@ -20,7 +25,7 @@
 }
 
 .color-main-without-hover {
-    color: #E91E63;
+    color: var(--main-color);
 }
 
 .fs18 {
@@ -83,7 +88,7 @@
 }
 
 .color-main-with-hover  {
-    color: #E91E63;
+    color: var(--main-color);
     &:hover{
         cursor: pointer;
         color: black;
