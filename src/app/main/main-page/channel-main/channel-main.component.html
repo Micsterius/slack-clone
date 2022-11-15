@@ -6,7 +6,7 @@
         <div *ngFor="let post of channelServ.posts; let i=index">
             <div class="post-container">
                 <div class="post-img">
-                    <img class="img-small"
+                    <img (click)="userService.openDialogUser('200ms', '100ms')" class="img-small"
                         src="./../../../../assets/img/userIcons/{{(userService.returnUsersPhotoUrl(post.authorId)) ? userService.returnUsersPhotoUrl(post.authorId) : 'icon-unknown.svg'}}">
                 </div>
                 <div class="post-box">
