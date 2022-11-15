@@ -4,7 +4,7 @@
     <div #scrollMe class="all-posts-container">
         <div class="post-container">
             <div class="post-img">
-                <img class="img-small"
+                <img (click)="usersService.openDialogUser('200ms', '100ms')" class="img-small"
                     src="./../../../../assets/img/userIcons/{{(usersService.returnUsersPhotoUrl(channelServ.currentThread.post.authorId)) ? usersService.returnUsersPhotoUrl(channelServ.currentThread.post.authorId) : 'icon-unknown.svg'}}">
             </div>
             <div class="post-box">

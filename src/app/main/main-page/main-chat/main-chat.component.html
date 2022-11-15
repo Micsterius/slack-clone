@@ -3,7 +3,7 @@
         <div *ngFor="let text of chatServ.messages" class="chat-friend-box">
             <div class="post-container">
                 <div class="post-img">
-                    <img class="img-small"
+                    <img (click)="usersServ.openDialogUser('200ms', '100ms')" class="img-small"
                         src="./../../../../assets/img/userIcons/{{(usersServ.returnUsersPhotoUrl(text.author)) ? usersServ.returnUsersPhotoUrl(text.author) : 'icon-unknown.svg'}}">
                 </div>
                 <div class="post-box">
