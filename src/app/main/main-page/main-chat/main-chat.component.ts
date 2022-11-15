@@ -4,6 +4,7 @@ import { User } from 'firebase/auth';
 import { collection, doc, getFirestore, onSnapshot, query, setDoc } from 'firebase/firestore';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ChatService } from 'src/app/shared/services/chat.service';
+import { GeneralService } from 'src/app/shared/services/general.service';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { environment } from 'src/environments/environment';
 
@@ -27,7 +28,8 @@ export class MainChatComponent implements OnInit {
   constructor(
     public chatServ: ChatService,
     public authServ: AuthService,
-    public usersServ: UsersService
+    public usersServ: UsersService,
+    public generalServ: GeneralService
   ) {
   }
 

@@ -49,8 +49,3 @@
         margin-right: 4px;
     }
 }
-
-.all-posts-container{
-    height: calc(100vh - 37px - 200px - 60px - 16px); // - header channel main; - height editor; - height header; - some margin
-    overflow: auto;
-}
