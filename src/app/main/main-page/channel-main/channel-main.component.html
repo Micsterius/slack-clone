@@ -11,7 +11,7 @@
                         src="./../../../../assets/img/userIcons/{{(userService.returnUsersPhotoUrl(post.authorId)) ? userService.returnUsersPhotoUrl(post.authorId) : 'icon-unknown.svg'}}">
                 </div>
                 <mat-menu #menu="matMenu" xPosition="after" [hasBackdrop]="false">
-                    <div>
+                    <div (mouseenter)="mouseEnter(menuTrigger)" (mouseleave)="mouseLeave(menuTrigger)">
                         <h3>{{userService.returnUsersDisplayName(post.authorId)}}</h3>
                         <img class="img-detail" src="./../../../../assets/img/userIcons/{{(userService.returnUsersPhotoUrl(post.authorId)) ? userService.returnUsersPhotoUrl(post.authorId) : 'icon-unknown.svg'}}">
                         <button>Nachricht</button>
