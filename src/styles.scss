@@ -19,7 +19,7 @@
     color: white;
 }
 
-.color-main {
+.color-main-without-hover {
     color: #E91E63;
 }
 
@@ -82,7 +82,7 @@
     text-align: center;
 }
 
-.redirect {
+.color-main-with-hover  {
     color: #E91E63;
     &:hover{
         cursor: pointer;
