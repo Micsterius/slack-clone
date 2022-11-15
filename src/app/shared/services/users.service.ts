@@ -43,6 +43,9 @@ export class UsersService {
       width: '250px',
       enterAnimationDuration,
       exitAnimationDuration,
+      data: {
+        userUid: userUid
+      }
     });
   }
 }
