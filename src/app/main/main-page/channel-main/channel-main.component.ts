@@ -36,7 +36,7 @@ export class ChannelMainComponent implements OnInit {
     public generalService: GeneralService) {
     this.currentChannel = JSON.parse(localStorage.getItem('currentChannel')!)
     this.actualUser = JSON.parse(localStorage.getItem('user')!)
-    channelServ.currentChannel = this.currentChannel
+    channelServ.currentChannel = this.currentChannel;
   }
 
   ngOnInit() {
@@ -49,9 +49,11 @@ export class ChannelMainComponent implements OnInit {
 
   /** scroll automatically to last message */
   scrollToBottom(): void {
+    if (this.generalService.scrollToBottom) {
       try {
         this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
       } catch (err) { }
+    }
   }
 
   changeDetailViewPageContentToThread() {

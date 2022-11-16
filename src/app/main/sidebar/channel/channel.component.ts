@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 import { ChannelService } from 'src/app/shared/services/channel.service';
+import { GeneralService } from 'src/app/shared/services/general.service';
 import { environment } from 'src/environments/environment';
 import { AddChannelDialogComponent } from '../add-channel-dialog/add-channel-dialog.component';
 
@@ -20,7 +21,8 @@ export class ChannelComponent implements OnInit {
   constructor(
     public channelServ: ChannelService,
     private router: Router,
-    public dialog: MatDialog) {
+    public dialog: MatDialog,
+    public generalService: GeneralService) {
       channelServ.loadChannels();
      }
 
@@ -38,6 +40,7 @@ export class ChannelComponent implements OnInit {
   saveCurrentChannelId(channel){
     this.channelServ.saveCurrentChannel(channel);
     localStorage.setItem('currentChannel', JSON.stringify(channel))
+    this.generalService.scrollToBottomBoolean();
   }
 
   navigateToChannelMain() {
