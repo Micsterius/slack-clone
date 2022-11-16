@@ -53,6 +53,7 @@ import { AddChannelDialogComponent } from './main/sidebar/add-channel-dialog/add
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { UserWindowComponent } from './main/main-page/user-window/user-window.component';
 import { OtherUserInfoComponent } from './main/main-page/detail-view-page/other-user-info/other-user-info.component';
+import { AddChatDialogComponent } from './main/sidebar/add-chat-dialog/add-chat-dialog.component';
 //import { ChannelMainComponent } from './main/main-page/channel-main/channel-main.component';
 
 @NgModule({
@@ -75,6 +76,7 @@ import { OtherUserInfoComponent } from './main/main-page/detail-view-page/other-
     AuthenticationComponent,
     UserWindowComponent,
     OtherUserInfoComponent,
+    AddChatDialogComponent,
     ],
   imports: [
     BrowserModule,

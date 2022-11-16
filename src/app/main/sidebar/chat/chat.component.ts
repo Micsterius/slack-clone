@@ -6,6 +6,8 @@ import { ChatService } from 'src/app/shared/services/chat.service';
 import { GeneralService } from 'src/app/shared/services/general.service';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { environment } from 'src/environments/environment';
+import { MatDialog } from '@angular/material/dialog';
+import { AddChatDialogComponent } from '../add-chat-dialog/add-chat-dialog.component';
 
 @Component({
   selector: 'app-chat',
@@ -20,6 +22,7 @@ export class ChatComponent implements OnInit {
   constructor(
     public chatServ: ChatService,
     private router: Router,
+    public dialog: MatDialog,
     public usersServ: UsersService,
     public generalService: GeneralService) {
     chatServ.loadChats();
@@ -45,5 +48,13 @@ export class ChatComponent implements OnInit {
 
   navigateToMain() {
     this.router.navigate(['/main-community'])
+  }
+
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.dialog.open(AddChatDialogComponent, {
+      width: '250px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
   }
 }

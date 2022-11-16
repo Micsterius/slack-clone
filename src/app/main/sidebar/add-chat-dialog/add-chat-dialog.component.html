@@ -1,0 +1,10 @@
+<div class="dialog-container">
+    <div>
+        <mat-form-field appearance="fill">
+            <mat-label>User Name</mat-label>
+            <input matInput [(ngModel)]="name">
+        </mat-form-field>
+    </div>
+    <button (click)="createNewChat()">Hinzufügen</button>
+    <mat-icon class="close-icon" mat-dialog-close fontIcon="close"></mat-icon>
+</div>
