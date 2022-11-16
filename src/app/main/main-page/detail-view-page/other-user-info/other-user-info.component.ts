@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DetailViewPageService } from 'src/app/shared/services/detail-view-page.service';
+import { UsersService } from 'src/app/shared/services/users.service';
 
 @Component({
   selector: 'app-other-user-info',
@@ -7,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OtherUserInfoComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public detailViewService: DetailViewPageService,
+    public userService: UsersService) { }
 
   ngOnInit(): void {
   }

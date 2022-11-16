@@ -58,6 +58,7 @@ export class ChannelMainComponent implements OnInit {
 
   changeDetailViewPageContentToThread() {
     this.detailViewService.showUserInfo = false;
+    this.detailViewService.showOtherUserInfo = false;
     this.detailViewService.showThread = true;
   }
 

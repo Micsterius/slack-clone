@@ -36,4 +36,10 @@ export class UsersService {
     if (user == undefined) return 'Anonym'
     else return user.displayName
   }
+
+  returnUsersMail(uid) {
+    let user = this.users.find(user => user.uid == uid)
+    if (user == undefined) return 'No mail available'
+    else return user.email
+  }
 }
