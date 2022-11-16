@@ -4,9 +4,25 @@
     <div #scrollMe class="all-posts-container">
         <div class="post-container">
             <div class="post-img">
-                <img class="img-small"
+                <img  (mouseenter)="userHovered = channelServ.currentThread.post.authorId" [matMenuTriggerFor]="menu"
+                #menuTrigger="matMenuTrigger" (mouseenter)="generalService.mouseEnter(menuTrigger)"
+                (mouseleave)="generalService.mouseLeave(menuTrigger)"  class="img-small"
                     src="./../../../../assets/img/userIcons/{{(usersService.returnUsersPhotoUrl(channelServ.currentThread.post.authorId)) ? usersService.returnUsersPhotoUrl(channelServ.currentThread.post.authorId) : 'icon-unknown.svg'}}">
             </div>
+            <mat-menu #menu="matMenu" xPosition="after" [hasBackdrop]="false">
+                <div (mouseenter)="generalService.mouseEnter(menuTrigger)" (mouseleave)="generalService.mouseLeave(menuTrigger)">
+                    <div class="show-user-details padding-8">
+                        <img class="img-detail"
+                            src="./../../../../assets/img/userIcons/{{(usersService.returnUsersPhotoUrl(channelServ.currentThread.post.authorId)) ? usersService.returnUsersPhotoUrl(channelServ.currentThread.post.authorId) : 'icon-unknown.svg'}}">
+                        <span>{{usersService.returnUsersDisplayName(channelServ.currentThread.post.authorId)}}</span>
+                    </div>
+                    <mat-divider></mat-divider>
+                    <div class="padding-8 show-user-details-btn-box">
+                        <button class="color-white bg-c-1">Nachricht</button>
+                        <button class="color-white bg-c-1">Anrufen</button>
+                    </div>
+                </div>
+            </mat-menu>
             <div class="post-box">
                 <div class="name-time-box">
                     <div>{{usersService.returnUsersDisplayName(channelServ.currentThread.post.authorId)}}</div>

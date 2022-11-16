@@ -23,6 +23,7 @@ export class ThreadComponent implements OnInit {
   answers: any[] = []
   message: any;
   actualUser: User;
+  userHovered;
 
   constructor(
     public channelServ: ChannelService,

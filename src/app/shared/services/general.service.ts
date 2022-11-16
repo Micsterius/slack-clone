@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class GeneralService {
+  timedOutCloser;
 
   constructor() { }
 
@@ -14,5 +15,18 @@ export class GeneralService {
     let cTime = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
     let dateTime = cDate + ' ' + cTime;
     return dateTime;
+  }
+
+  mouseEnter(trigger) {
+    if (this.timedOutCloser) {
+      clearTimeout(this.timedOutCloser);
+    }
+    trigger.openMenu();
+  }
+
+  mouseLeave(trigger) {
+    this.timedOutCloser = setTimeout(() => {
+      trigger.closeMenu();
+    }, 50);
   }
 }

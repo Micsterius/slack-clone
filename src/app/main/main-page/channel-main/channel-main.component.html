@@ -7,12 +7,12 @@
             <div class="post-container">
                 <div class="post-img">
                     <img (mouseenter)="userHovered = post.authorId" [matMenuTriggerFor]="menu"
-                        #menuTrigger="matMenuTrigger" (mouseenter)="mouseEnter(menuTrigger)"
-                        (mouseleave)="mouseLeave(menuTrigger)" class="img-small"
+                        #menuTrigger="matMenuTrigger" (mouseenter)="generalService.mouseEnter(menuTrigger)"
+                        (mouseleave)="generalService.mouseLeave(menuTrigger)" class="img-small"
                         src="./../../../../assets/img/userIcons/{{(userService.returnUsersPhotoUrl(post.authorId)) ? userService.returnUsersPhotoUrl(post.authorId) : 'icon-unknown.svg'}}">
                 </div>
                 <mat-menu #menu="matMenu" xPosition="after" [hasBackdrop]="false">
-                    <div (mouseenter)="mouseEnter(menuTrigger)" (mouseleave)="mouseLeave(menuTrigger)">
+                    <div (mouseenter)="generalService.mouseEnter(menuTrigger)" (mouseleave)="generalService.mouseLeave(menuTrigger)">
                         <div class="show-user-details padding-8">
                             <img class="img-detail"
                                 src="./../../../../assets/img/userIcons/{{(userService.returnUsersPhotoUrl(post.authorId)) ? userService.returnUsersPhotoUrl(post.authorId) : 'icon-unknown.svg'}}">
@@ -23,7 +23,6 @@
                             <button class="color-white bg-c-1">Nachricht</button>
                             <button class="color-white bg-c-1">Anrufen</button>
                         </div>
-                        
                     </div>
                 </mat-menu>
                 <div class="post-box">
