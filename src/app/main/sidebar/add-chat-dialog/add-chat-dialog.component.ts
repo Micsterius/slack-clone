@@ -46,4 +46,7 @@ export class AddChatDialogComponent implements OnInit {
     return this.user.users.some(user => user.name == this.name)
    }
 
+   searchForMatch(){
+    //suche nach übereinstimmungen mit users array in services bzgl displayName
+   }
 }
