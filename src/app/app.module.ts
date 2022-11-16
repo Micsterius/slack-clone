@@ -36,6 +36,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatExpansionModule } from '@angular/material/expansion';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatDividerModule} from '@angular/material/divider';
 
 
 
@@ -90,6 +91,7 @@ import { ShowUserDialogComponent } from './main/main-page/show-user-dialog/show-
     MatExpansionModule,
     EditorModule,
     MatDialogModule,
+    MatDividerModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,

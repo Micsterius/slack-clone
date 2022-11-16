@@ -6,15 +6,24 @@
         <div *ngFor="let post of channelServ.posts; let i=index">
             <div class="post-container">
                 <div class="post-img">
-                    <img (mouseenter)="userHovered = post.authorId" [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"
-                    (mouseenter)="mouseEnter(menuTrigger)" (mouseleave)="mouseLeave(menuTrigger)" class="img-small"
+                    <img (mouseenter)="userHovered = post.authorId" [matMenuTriggerFor]="menu"
+                        #menuTrigger="matMenuTrigger" (mouseenter)="mouseEnter(menuTrigger)"
+                        (mouseleave)="mouseLeave(menuTrigger)" class="img-small"
                         src="./../../../../assets/img/userIcons/{{(userService.returnUsersPhotoUrl(post.authorId)) ? userService.returnUsersPhotoUrl(post.authorId) : 'icon-unknown.svg'}}">
                 </div>
                 <mat-menu #menu="matMenu" xPosition="after" [hasBackdrop]="false">
                     <div (mouseenter)="mouseEnter(menuTrigger)" (mouseleave)="mouseLeave(menuTrigger)">
-                        <h3>{{userService.returnUsersDisplayName(post.authorId)}}</h3>
-                        <img class="img-detail" src="./../../../../assets/img/userIcons/{{(userService.returnUsersPhotoUrl(post.authorId)) ? userService.returnUsersPhotoUrl(post.authorId) : 'icon-unknown.svg'}}">
-                        <button>Nachricht</button>
+                        <div class="show-user-details padding-8">
+                            <img class="img-detail"
+                                src="./../../../../assets/img/userIcons/{{(userService.returnUsersPhotoUrl(post.authorId)) ? userService.returnUsersPhotoUrl(post.authorId) : 'icon-unknown.svg'}}">
+                            <span>{{userService.returnUsersDisplayName(post.authorId)}}</span>
+                        </div>
+                        <mat-divider></mat-divider>
+                        <div class="padding-8 show-user-details-btn-box">
+                            <button class="color-white bg-c-1">Nachricht</button>
+                            <button class="color-white bg-c-1">Anrufen</button>
+                        </div>
+                        
                     </div>
                 </mat-menu>
                 <div class="post-box">
@@ -24,10 +33,14 @@
                     </div>
                     <div class="content-box" [innerHTML]="post.content"></div>
                     <div class="answer-box" *ngIf="post.answers.length > 0">
-                        <span class="color-main-with-hover" (click)="changeDetailViewPageContentToThread(); saveAnswersToShow(post)">{{post.answers.length}} Antworten</span>
+                        <span class="color-main-with-hover"
+                            (click)="changeDetailViewPageContentToThread(); saveAnswersToShow(post)">{{post.answers.length}}
+                            Antworten</span>
                     </div>
                     <div class="answer-box" *ngIf="post.answers.length == 0">
-                        <span class="color-main-with-hover" (click)="changeDetailViewPageContentToThread(); saveAnswersToShow(post)">Schreibe eine Antworten</span>
+                        <span class="color-main-with-hover"
+                            (click)="changeDetailViewPageContentToThread(); saveAnswersToShow(post)">Schreibe eine
+                            Antworten</span>
                     </div>
                 </div>
             </div>
