@@ -1,0 +1,10 @@
+<div class="show-user-details padding-8">
+    <img class="img-detail"
+        src="./../../../../assets/img/userIcons/{{(userService.returnUsersPhotoUrl(uid)) ? userService.returnUsersPhotoUrl(uid) : 'icon-unknown.svg'}}">
+    <span>{{userService.returnUsersDisplayName(uid)}}</span>
+</div>
+<mat-divider></mat-divider>
+<div class="padding-8 show-user-details-btn-box">
+    <button class="color-white bg-c-1">Nachricht</button>
+    <button class="color-white bg-c-1">Anrufen</button>
+</div>

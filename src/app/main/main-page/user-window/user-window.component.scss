@@ -1,0 +1,26 @@
+.show-user-details{
+    display: flex;
+    align-items: center;
+
+    img{
+        height: 80px;
+        object-fit: cover;
+        margin-right: 8px;
+    }
+}
+
+.show-user-details-btn-box{
+    display: flex;
+    width: 180px;
+    justify-content: space-between;
+
+    button{
+        width: 80px;
+        border-radius: 4px;
+
+        &:hover{
+            opacity: 0.7;
+            cursor: pointer;
+        }
+    }
+}

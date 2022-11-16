@@ -28,8 +28,6 @@ export class ChannelMainComponent implements OnInit {
   actualUser: User;
 
   editorWidth: number;
-  userHovered;
-  timedOutCloser;
 
   constructor(
     public channelServ: ChannelService,
@@ -51,9 +49,9 @@ export class ChannelMainComponent implements OnInit {
 
   /** scroll automatically to last message */
   scrollToBottom(): void {
-    try {
-      this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
-    } catch (err) { }
+      try {
+        this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+      } catch (err) { }
   }
 
   changeDetailViewPageContentToThread() {

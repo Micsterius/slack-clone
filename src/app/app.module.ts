@@ -51,6 +51,7 @@ import { ThreadComponent } from './main/main-page/detail-view-page/thread/thread
 import { UserInfoComponent } from './main/main-page/detail-view-page/user-info/user-info.component';
 import { AddChannelDialogComponent } from './main/sidebar/add-channel-dialog/add-channel-dialog.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
+import { UserWindowComponent } from './main/main-page/user-window/user-window.component';
 //import { ChannelMainComponent } from './main/main-page/channel-main/channel-main.component';
 
 @NgModule({
@@ -71,6 +72,7 @@ import { AuthenticationComponent } from './authentication/authentication.compone
     UserInfoComponent,
     AddChannelDialogComponent,
     AuthenticationComponent,
+    UserWindowComponent,
     ],
   imports: [
     BrowserModule,
