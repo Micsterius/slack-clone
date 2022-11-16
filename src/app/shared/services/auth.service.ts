@@ -32,6 +32,7 @@ export class AuthService {
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', Validators.required);
   name = new FormControl('', [Validators.required, Validators.maxLength(5)]);
+  phone = new FormControl('', [Validators.required, Validators.pattern('[- +()0-9]+')]);
   showLoginArea: boolean = true;
 
   constructor(
@@ -221,9 +222,7 @@ export class AuthService {
       });*/
   }
 
-  changeUserDataPhoneFirestore(value){
 
-  }
 
   /** SIGN IN ANONYM */
   signInAnonymously() {

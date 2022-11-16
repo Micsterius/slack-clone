@@ -94,7 +94,7 @@ imgSrc2: any [] = [
     .doc(this.authService.userData.uid)
     .update({phoneNumber: value})
     .then(() => {
-      console.log('Image updated');
+      console.log('Phone updated');
     }).catch((error) => {
       window.alert(error.message);
     });
