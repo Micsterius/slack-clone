@@ -1,124 +1,110 @@
 <!-- Main content -->
 <div class="detail-view-header"> Headline </div>
 <div class="dashboard-container">
-    <div class="pt-3 pb-2 mb-3 border-bottom">
-      <h1 class="headline-user color-main fs18">User Profile</h1>
+  <div class="pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="headline-user color-main fs18">User Profile</h1>
+  </div>
+  <!-- Show user data when logged in -->
+  <div *ngIf="authService.userData as user">
+
+    <div class="img-box" *ngIf="!editPhotoURL">
+      <img class="profile-img" (click)="editPhotoURL = true"
+        src="./../../../../../assets/img/userIcons/{{(user.photoURL) ? user.photoURL : 'icon-unknown.svg'}}"
+        alt="{{user.displayName}}">
+      <mat-icon *ngIf="!editPhotoURL" fontIcon="edit" (click)="editPhotoURL = true"></mat-icon>
     </div>
-    <!-- Show user data when logged in -->
-    <div *ngIf="authService.userData as user">
-  
-      <div class="img-box" *ngIf="!editPhotoURL">
-        <img class="profile-img" (click)="editPhotoURL = true"
-          src="./../../../../../assets/img/userIcons/{{(user.photoURL) ? user.photoURL : 'icon-unknown.svg'}}"
-          alt="{{user.displayName}}">
-          <mat-icon *ngIf="!editPhotoURL" fontIcon="edit" (click)="editPhotoURL = true"></mat-icon>
-      </div>
-  
-      <div *ngIf="editPhotoURL" class="swiper-container">
-        <swiper [navigation]="true" [pagination]="true" class="mySwiper">
-          <ng-template swiperSlide *ngFor="let image of images">
-            <div class="img-edit-container">
-              <mat-icon style="color: red;" fontIcon="close" (click)="editPhotoURL = false"></mat-icon>
-              <div class="img-box">
-                <img (click)="editPhotoURL = false" class="profile-img"
-                  src="./../../../assets/img/userIcons/{{image.src}}">
-              </div>
-              <mat-icon style="color: green;" fontIcon="check" (click)="saveImgUserPhotoURL(image.src); authService.changeUserDataImg(image.src); editPhotoURL = false"></mat-icon>
+
+    <div *ngIf="editPhotoURL" class="swiper-container">
+      <swiper [navigation]="true" [pagination]="true" class="mySwiper">
+        <ng-template swiperSlide *ngFor="let image of images">
+          <div class="img-edit-container">
+            <mat-icon style="color: red;" fontIcon="close" (click)="editPhotoURL = false"></mat-icon>
+            <div class="img-box">
+              <img (click)="editPhotoURL = false" class="profile-img"
+                src="./../../../assets/img/userIcons/{{image.src}}">
             </div>
-          </ng-template>
-        </swiper>
+            <mat-icon style="color: green;" fontIcon="check"
+              (click)="saveImgUserPhotoURL(image.src); authService.changeUserDataImg(image.src); editPhotoURL = false">
+            </mat-icon>
+          </div>
+        </ng-template>
+      </swiper>
+    </div>
+
+    <div class="user-detail-container">
+      <div class="user-detail-box">
+        <p>Name: <strong>{{(user.displayName) ? user.displayName : 'User'}}</strong></p>
+        <mat-icon *ngIf="!editUserName" class="icon-header" fontIcon="edit" (click)="editUserName = true"></mat-icon>
+        <mat-form-field appearance="fill" *ngIf="editUserName">
+          <input name="userNameChange" #userNameChange matInput [formControl]="authService.name" type="text"
+            placeholder="{{user.displayName}}" required maxLength="10">
+          <mat-error *ngIf="authService.name.invalid">{{authService.getErrorMessage()}}</mat-error>
+          <mat-icon *ngIf="editUserName" class="icon-header mat-icon-close" fontIcon="close"
+            (click)="editUserName = false">
+          </mat-icon>
+          <mat-icon type="button" *ngIf="editUserName" class="icon-header mat-icon-done" fontIcon="done"
+            (click)="editUserName = false; changeUserDataNameFirestore(userNameChange.value); authService.changeUserDataName(userNameChange.value)">
+          </mat-icon>
+        </mat-form-field>
       </div>
-  
-  
-      <div class="user-detail-container">
-        <div class="user-detail-box">
-          <p>Name: <strong>{{(user.displayName) ? user.displayName : 'User'}}</strong></p>
-          <mat-icon *ngIf="!editUserName" class="icon-header" fontIcon="edit" (click)="editUserName = true"></mat-icon>
-          <mat-form-field appearance="fill" *ngIf="editUserName">
-            <input name="userNameChange" #userNameChange matInput [formControl]="authService.name" type="text"
-              placeholder="{{user.displayName}}" required maxLength="10" >
-            <mat-error *ngIf="authService.name.invalid">{{authService.getErrorMessage()}}</mat-error>
-            <mat-icon *ngIf="editUserName" class="icon-header mat-icon-close" fontIcon="close"
-              (click)="editUserName = false">
-            </mat-icon>
-            <mat-icon type="button" *ngIf="editUserName" class="icon-header mat-icon-done" fontIcon="done"
-              (click)="editUserName = false; changeUserDataNameFirestore(userNameChange.value); authService.changeUserDataName(userNameChange.value)">
-            </mat-icon>
-          </mat-form-field>
-        </div>
-        <div class="user-detail-box">
-          <p>ID: <strong>{{(user.uid) ? user.uid : 'uid'}}</strong></p>
-        </div>
-        <div class="user-detail-box">
-          <p>E-Mail: <strong *ngIf="!editUserMail">{{(user.email) ? user.email : 'E-Mail'}}</strong></p>
-          <mat-icon *ngIf="!editUserMail" class="icon-header" fontIcon="edit" (click)="editUserMail = true">
+      <div class="user-detail-box">
+        <p>ID: <strong>{{(user.uid) ? user.uid : 'uid'}}</strong></p>
+      </div>
+      <div class="user-detail-box">
+        <p>E-Mail: <strong *ngIf="!editUserMail">{{(user.email) ? user.email : 'E-Mail'}}</strong></p>
+        <mat-icon *ngIf="!editUserMail" class="icon-header" fontIcon="edit" (click)="editUserMail = true">
+        </mat-icon>
+        <mat-form-field appearance="fill" *ngIf="editUserMail">
+          <input name="userEmailChange" #userEmailChange id="userEmailChange" matInput [formControl]="authService.email"
+            type="email" placeholder="{{user.email}}" required>
+          <mat-error *ngIf="authService.email.invalid">{{authService.getErrorMessage()}}</mat-error>
+          <mat-icon *ngIf="editUserMail" class="icon-header mat-icon-close" fontIcon="close"
+            (click)="editUserMail = false">
           </mat-icon>
-          <mat-form-field appearance="fill" *ngIf="editUserMail">
-            <input name="userEmailChange" #userEmailChange id="userEmailChange" matInput [formControl]="authService.email"
-              type="email" placeholder="{{user.email}}" required>
-            <mat-error *ngIf="authService.email.invalid">{{authService.getErrorMessage()}}</mat-error>
-            <mat-icon *ngIf="editUserMail" class="icon-header mat-icon-close" fontIcon="close"
-              (click)="editUserMail = false">
-            </mat-icon>
-            <mat-icon type="button" *ngIf="editUserMail" class="icon-header mat-icon-done" fontIcon="done"
-              (click)="editUserMail = false; authService.changeUserDataMail(userEmailChange.value); changeUserDataMailFirestore(userEmailChange.value)">
-            </mat-icon>
-          </mat-form-field>
-        </div>
-        <div class="user-detail-box">
-          <p>E-Mail: <strong *ngIf="!editUserMail">{{(user.email) ? user.email : 'E-Mail'}}</strong></p>
-          <mat-icon *ngIf="!editUserMail" class="icon-header" fontIcon="edit" (click)="editUserMail = true">
+          <mat-icon type="button" *ngIf="editUserMail" class="icon-header mat-icon-done" fontIcon="done"
+            (click)="editUserMail = false; authService.changeUserDataMail(userEmailChange.value); changeUserDataMailFirestore(userEmailChange.value)">
           </mat-icon>
-          <mat-form-field appearance="fill" *ngIf="editUserMail">
-            <input name="userEmailChange" #userEmailChange id="userEmailChange" matInput [formControl]="authService.email"
-              type="email" placeholder="{{user.email}}" required>
-            <mat-error *ngIf="authService.email.invalid">{{authService.getErrorMessage()}}</mat-error>
-            <mat-icon *ngIf="editUserMail" class="icon-header mat-icon-close" fontIcon="close"
-              (click)="editUserMail = false">
-            </mat-icon>
-            <mat-icon type="button" *ngIf="editUserMail" class="icon-header mat-icon-done" fontIcon="done"
-              (click)="editUserMail = false; authService.changeUserDataMail(userEmailChange.value); changeUserDataMailFirestore(userEmailChange.value)">
-            </mat-icon>
-          </mat-form-field>
-        </div><div class="user-detail-box">
-          <p>Telefon: <strong *ngIf="!editUserPhone">{{(user.phoneNumber) ? user.phoneNumber : 'Telefon'}}</strong></p>
-          <mat-icon *ngIf="!editUserMail" class="icon-header" fontIcon="edit" (click)="editUserPhone = true">
+        </mat-form-field>
+      </div>
+      <div class="user-detail-box">
+        <p>Telefon: <strong *ngIf="!editUserPhone">{{(user.phoneNumber) ? user.phoneNumber : 'Telefon'}}</strong></p>
+        <mat-icon *ngIf="!editUserMail" class="icon-header" fontIcon="edit" (click)="editUserPhone = true">
+        </mat-icon>
+        <mat-form-field appearance="fill" *ngIf="editUserPhone">
+          <input name="userPhoneChange" #UserPhoneChange id="userPhoneChange" matInput [formControl]="authService.email"
+            type="tel" placeholder="{{user.phoneNumber}}" required>
+          <mat-error *ngIf="authService.phone.invalid">{{authService.getErrorMessage()}}</mat-error>
+          <mat-icon *ngIf="editUserPhone" class="icon-header mat-icon-close" fontIcon="close"
+            (click)="editUserPhone = false">
           </mat-icon>
-          <mat-form-field appearance="fill" *ngIf="editUserPhone">
-            <input name="userPhoneChange" #UserPhoneChange id="userPhoneChange" matInput [formControl]="authService.email"
-              type="tel" placeholder="{{user.phoneNumber}}" required>
-            <mat-error *ngIf="authService.phone.invalid">{{authService.getErrorMessage()}}</mat-error>
-            <mat-icon *ngIf="editUserPhone" class="icon-header mat-icon-close" fontIcon="close"
-              (click)="editUserPhone = false">
+          <mat-icon type="button" *ngIf="editUserPhone" class="icon-header mat-icon-done" fontIcon="done"
+            (click)="editUserPhone = false; authService.changeUserDataPhone(UserPhoneChange.value); changeUserDataPhoneFirestore(UserPhoneChange.value)">
+          </mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="user-detail-box">
+        <div>
+          <p>Passwort: <strong *ngIf="!editUserPw">**********</strong></p>
+        </div>
+        <div>
+          <mat-icon *ngIf="!editUserPw" class="icon-header" fontIcon="edit" (click)="editUserPw = true">
+          </mat-icon>
+          <mat-form-field appearance="fill" *ngIf="editUserPw">
+            <input name="userEmailChange" #userPwChange id="userEmailChange" matInput
+              [formControl]="authService.password" type="password" placeholder="**********" required>
+            <mat-error *ngIf="authService.password.invalid">{{authService.getErrorMessage()}}</mat-error>
+            <mat-icon *ngIf="editUserPw" class="icon-header mat-icon-close" fontIcon="close"
+              (click)="editUserPw = false">
             </mat-icon>
-            <mat-icon type="button" *ngIf="editUserPhone" class="icon-header mat-icon-done" fontIcon="done"
-              (click)="editUserPhone = false; authService.changeUserDataPhone(UserPhoneChange.value); changeUserDataPhoneFirestore(UserPhoneChange.value)">
-            </mat-icon>
+            <mat-icon type="button" *ngIf="editUserPw" class="icon-header mat-icon-done" fontIcon="done"
+              (click)="editUserPw = false; authService.changeUserDataPw(userPwChange.value)"></mat-icon>
           </mat-form-field>
         </div>
-        <div class="user-detail-box">
-          <div>
-            <p>Passwort: <strong *ngIf="!editUserPw">**********</strong></p>
-          </div>
-          <div>
-            <mat-icon *ngIf="!editUserPw" class="icon-header" fontIcon="edit" (click)="editUserPw = true">
-            </mat-icon>
-            <mat-form-field appearance="fill" *ngIf="editUserPw">
-              <input name="userEmailChange" #userPwChange id="userEmailChange" matInput
-                [formControl]="authService.password" type="password" placeholder="**********" required>
-              <mat-error *ngIf="authService.password.invalid">{{authService.getErrorMessage()}}</mat-error>
-              <mat-icon *ngIf="editUserPw" class="icon-header mat-icon-close" fontIcon="close"
-                (click)="editUserPw = false">
-              </mat-icon>
-              <mat-icon type="button" *ngIf="editUserPw" class="icon-header mat-icon-done" fontIcon="done"
-                (click)="editUserPw = false; authService.changeUserDataPw(userPwChange.value)"></mat-icon>
-            </mat-form-field>
-          </div>
-  
-        </div>
-        <div class="user-detail-box">
-          <p>E-Mail verified: <strong>{{(user.emailVerified) ? user.emailVerified : 'false'}}</strong></p>
-        </div>
+
+      </div>
+      <div class="user-detail-box">
+        <p>E-Mail verified: <strong>{{(user.emailVerified) ? user.emailVerified : 'false'}}</strong></p>
       </div>
     </div>
   </div>
+</div>
