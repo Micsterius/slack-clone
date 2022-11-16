@@ -14,8 +14,6 @@ import { environment } from 'src/environments/environment';
 })
 export class ThreadComponent implements OnInit {
 
-  @ViewChild('scrollMe') private myScrollContainer: ElementRef;
-
   app = initializeApp(environment.firebase);
   db = getFirestore(this.app);
 

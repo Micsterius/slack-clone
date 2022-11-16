@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 import { ChatService } from 'src/app/shared/services/chat.service';
+import { GeneralService } from 'src/app/shared/services/general.service';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { environment } from 'src/environments/environment';
 
@@ -19,7 +20,8 @@ export class ChatComponent implements OnInit {
   constructor(
     public chatServ: ChatService,
     private router: Router,
-    public usersServ: UsersService) {
+    public usersServ: UsersService,
+    public generalService: GeneralService) {
     chatServ.loadChats();
    /* let userChat = JSON.parse(localStorage.getItem('userChat')!);
     if (userChat != null) {
@@ -37,6 +39,7 @@ export class ChatComponent implements OnInit {
   saveCurrentChatId(userChatId) {
     this.chatServ.saveCurrentChatId(userChatId);
     console.log(userChatId)
+    this.generalService.scrollToBottomBoolean();
   //  localStorage.setItem('userChat', JSON.stringify(this.chatServ.currentUserChat));
   }
 

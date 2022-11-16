@@ -43,9 +43,11 @@ export class MainChatComponent implements OnInit {
 
   /** scroll automatically to last message */
   scrollToBottom(): void {
-    try {
-      this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
-    } catch (err) { }
+    if (this.generalServ.scrollToBottom) {
+      try {
+        this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+      } catch (err) { }
+    }
   }
 
 
