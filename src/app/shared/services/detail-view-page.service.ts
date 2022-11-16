@@ -6,5 +6,6 @@ import { Injectable } from '@angular/core';
 export class DetailViewPageService {
 showUserInfo: boolean = true;
 showThread: boolean = false;
+showOtherUserInfo: boolean = false;
   constructor() { }
 }

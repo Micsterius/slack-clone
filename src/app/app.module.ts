@@ -52,6 +52,7 @@ import { UserInfoComponent } from './main/main-page/detail-view-page/user-info/u
 import { AddChannelDialogComponent } from './main/sidebar/add-channel-dialog/add-channel-dialog.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { UserWindowComponent } from './main/main-page/user-window/user-window.component';
+import { OtherUserInfoComponent } from './main/main-page/detail-view-page/other-user-info/other-user-info.component';
 //import { ChannelMainComponent } from './main/main-page/channel-main/channel-main.component';
 
 @NgModule({
@@ -73,6 +74,7 @@ import { UserWindowComponent } from './main/main-page/user-window/user-window.co
     AddChannelDialogComponent,
     AuthenticationComponent,
     UserWindowComponent,
+    OtherUserInfoComponent,
     ],
   imports: [
     BrowserModule,

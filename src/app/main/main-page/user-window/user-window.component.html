@@ -1,5 +1,5 @@
 <div class="show-user-details padding-8">
-    <img class="img-detail"
+    <img (click)="showUserDetails()" class="img-detail"
         src="./../../../../assets/img/userIcons/{{(userService.returnUsersPhotoUrl(uid)) ? userService.returnUsersPhotoUrl(uid) : 'icon-unknown.svg'}}">
     <span>{{userService.returnUsersDisplayName(uid)}}</span>
 </div>

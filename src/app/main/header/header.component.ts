@@ -25,6 +25,7 @@ export class HeaderComponent implements OnInit {
   changeDetailViewPageContentToUserInfo() {
     this.detailViewService.showUserInfo = true;
     this.detailViewService.showThread = false;
+    this.detailViewService.showOtherUserInfo = false;
   }
 
 }
