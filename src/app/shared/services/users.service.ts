@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { initializeApp } from 'firebase/app';
 import { collection, getFirestore, onSnapshot, query } from 'firebase/firestore';
-import { ShowUserDialogComponent } from 'src/app/main/main-page/show-user-dialog/show-user-dialog.component';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -36,16 +35,5 @@ export class UsersService {
     let user = this.users.find(user => user.uid == uid)
     if (user == undefined) return 'Anonym'
     else return user.displayName
-  }
-
-  openDialogUser(enterAnimationDuration: string, exitAnimationDuration: string, userUid): void {
-    this.dialog.open(ShowUserDialogComponent, {
-      width: '250px',
-      enterAnimationDuration,
-      exitAnimationDuration,
-      data: {
-        userUid: userUid
-      }
-    });
   }
 }
