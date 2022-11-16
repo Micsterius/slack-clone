@@ -42,4 +42,10 @@ export class UsersService {
     if (user == undefined) return 'No mail available'
     else return user.email
   }
+
+  returnUsersPhone(uid) {
+    let user = this.users.find(user => user.uid == uid)
+    if (user == undefined) return 'No mail available'
+    else return user.phoneNumber
+  }
 }

@@ -66,6 +66,37 @@
           </mat-form-field>
         </div>
         <div class="user-detail-box">
+          <p>E-Mail: <strong *ngIf="!editUserMail">{{(user.email) ? user.email : 'E-Mail'}}</strong></p>
+          <mat-icon *ngIf="!editUserMail" class="icon-header" fontIcon="edit" (click)="editUserMail = true">
+          </mat-icon>
+          <mat-form-field appearance="fill" *ngIf="editUserMail">
+            <input name="userEmailChange" #userEmailChange id="userEmailChange" matInput [formControl]="authService.email"
+              type="email" placeholder="{{user.email}}" required>
+            <mat-error *ngIf="authService.email.invalid">{{authService.getErrorMessage()}}</mat-error>
+            <mat-icon *ngIf="editUserMail" class="icon-header mat-icon-close" fontIcon="close"
+              (click)="editUserMail = false">
+            </mat-icon>
+            <mat-icon type="button" *ngIf="editUserMail" class="icon-header mat-icon-done" fontIcon="done"
+              (click)="editUserMail = false; authService.changeUserDataMail(userEmailChange.value); changeUserDataMailFirestore(userEmailChange.value)">
+            </mat-icon>
+          </mat-form-field>
+        </div><div class="user-detail-box">
+          <p>Telefon: <strong *ngIf="!editUserPhone">{{(user.phoneNumber) ? user.phoneNumber : 'Telefon'}}</strong></p>
+          <mat-icon *ngIf="!editUserMail" class="icon-header" fontIcon="edit" (click)="editUserPhone = true">
+          </mat-icon>
+          <mat-form-field appearance="fill" *ngIf="editUserPhone">
+            <input name="userPhoneChange" #UserPhoneChange id="userPhoneChange" matInput [formControl]="authService.email"
+              type="tel" placeholder="{{user.phoneNumber}}" required>
+            <mat-error *ngIf="authService.email.invalid">{{authService.getErrorMessage()}}</mat-error>
+            <mat-icon *ngIf="editUserPhone" class="icon-header mat-icon-close" fontIcon="close"
+              (click)="editUserPhone = false">
+            </mat-icon>
+            <mat-icon type="button" *ngIf="editUserPhone" class="icon-header mat-icon-done" fontIcon="done"
+              (click)="editUserPhone = false; authService.changeUserDataPhone(UserPhoneChange.value); changeUserDataPhoneFirestore(UserPhoneChange.value)">
+            </mat-icon>
+          </mat-form-field>
+        </div>
+        <div class="user-detail-box">
           <div>
             <p>Passwort: <strong *ngIf="!editUserPw">**********</strong></p>
           </div>

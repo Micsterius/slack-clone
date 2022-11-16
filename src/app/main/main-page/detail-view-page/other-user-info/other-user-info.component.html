@@ -19,5 +19,8 @@
         <div class="user-detail-box">
             <p>E-Mail: <strong>{{(userService.returnUsersMail(detailViewService.userToShow)) ? userService.returnUsersMail(detailViewService.userToShow) : 'E-Mail'}}</strong></p>
         </div>
+        <div class="user-detail-box">
+            <p>Telefon: <strong>{{(userService.returnUsersPhone(detailViewService.userToShow)) ? userService.returnUsersPhone(detailViewService.userToShow) : 'Phone'}}</strong></p>
+        </div>
     </div>
 </div>

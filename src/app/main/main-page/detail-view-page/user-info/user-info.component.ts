@@ -21,6 +21,8 @@ export class UserInfoComponent implements OnInit {
   editUserMail: boolean = false;
   editUserPw: boolean = false;
   editPhotoURL: boolean = false;
+  editUserPhone: boolean = false;
+  
 
   images: any [] = [
    {'src': 'icon_female_1.png'},
@@ -80,6 +82,17 @@ imgSrc2: any [] = [
     this.afs.collection('users')
     .doc(this.authService.userData.uid)
     .update({photoURL: src})
+    .then(() => {
+      console.log('Image updated');
+    }).catch((error) => {
+      window.alert(error.message);
+    });
+  }
+
+  changeUserDataPhoneFirestore(value){
+    this.afs.collection('users')
+    .doc(this.authService.userData.uid)
+    .update({phoneNumber: value})
     .then(() => {
       console.log('Image updated');
     }).catch((error) => {

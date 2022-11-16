@@ -137,6 +137,7 @@ export class AuthService {
       uid: user.uid,
       email: user.email,
       displayName: user.displayName,
+      phoneNumber: user.phoneNumber,
       photoURL: user.photoURL,
       emailVerified: user.emailVerified
     };
@@ -207,6 +208,21 @@ export class AuthService {
       }).catch((error) => {
         window.alert(error.message);
       });
+  }
+
+  changeUserDataPhone(value){
+  /*  updateProfile(this.userData, {
+      phoneNumber: value
+    })
+      .then(() => {
+        console.log('Img updated');
+      }).catch((error) => {
+        window.alert(error.message);
+      });*/
+  }
+
+  changeUserDataPhoneFirestore(value){
+
   }
 
   /** SIGN IN ANONYM */
