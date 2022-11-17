@@ -1,6 +1,6 @@
 <div *ngIf="channelServ.showChannel" class="main-channel-container">
     <div class="detail-view-header">
-        {{channelServ.currentChannel.name}}
+        <h2 class="channel-headline">Channel {{channelServ.currentChannel.name}}</h2>
     </div>
     <div #scrollMe class="all-posts-container">
         <div *ngFor="let post of channelServ.posts; let i=index">
