@@ -2,7 +2,7 @@
 :root {
     --main-color: #FA2759;
     --main-color-rgb: 250, 39, 89;
-    --secondary-color: lightgray;
+    --secondary-color: #f2bdca;
     --secondary-color-rgb: 45, 252, 2166
   }
 .bg-c-1 {
@@ -206,3 +206,20 @@ body {
     height: calc(100vh - 37px - 200px - 60px - 16px); // - header channel main; - height editor; - height header; - some margin
     overflow: auto;
 }
+
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px var(--secondary-color);
+    border-radius: 10px;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: var(--main-color);
+    border-radius: 10px;
+  }
