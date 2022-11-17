@@ -35,44 +35,57 @@ export class ChatService {
   async loadChats() {
     this.arrayOfFriendsWithChatUid.length = 0;
     this.actualUser = JSON.parse(localStorage.getItem('user'))
-    this.allChatsId = query(collection(this.db, "posts"), where("authors", "array-contains", this.actualUser.uid));
-    this.allChats = await getDocs(this.allChatsId);
-    this.allChats.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      if (doc.data().authors[0] != this.actualUser.uid) this.arrayOfFriendsWithChatUid.push({ author: doc.data().authors[0], id: doc.data().id });
-      if (doc.data().authors[1] != this.actualUser.uid) this.arrayOfFriendsWithChatUid.push({ author: doc.data().authors[1], id: doc.data().id });
-      this.showChatsWithFriends = true
-    });
-  }
-
-  //give the id of document in the document as a field
-  async updateIdInFirestorePostsDocs(id) {
-    let docRef = doc(this.db, "posts", id);
-    await updateDoc(docRef, {
-      id: id
-    })
-  }
-
-  saveCurrentChatId(chatId) {
-    this.currentChatId = chatId;
-    this.loadChat();
-    this.findUserInList(chatId)
-  }
-
-  findUserInList(chatId) {
-    this.currentUserChat = this.arrayOfFriendsWithChatUid.find((chat) => chat.id == chatId);
-  }
-
-  async loadChat() {
-    let q = query(collection(this.db, "posts", this.currentChatId, "texts"))
+    let q = query(collection(this.db, "posts"), where("authors", "array-contains", this.actualUser.uid));
     let unsubscribe = onSnapshot(q, (querySnapshot) => {
-      this.messages = [];
+      this.arrayOfFriendsWithChatUid = [];
       this.showChat = false;
       querySnapshot.forEach((doc) => {
-        this.messages.push(doc.data())
+        if (doc.data()['authors'][0] != this.actualUser.uid) this.arrayOfFriendsWithChatUid.push({ author: doc.data()['authors'][0], id: doc.data()['id'] });
+        if (doc.data()['authors'][1] != this.actualUser.uid) this.arrayOfFriendsWithChatUid.push({ author: doc.data()['authors'][1], id: doc.data()['id'] });
+        this.showChatsWithFriends = true
       })
       this.showChat = true;
     });
     this.showChat = true;
   }
+
+/*
+    this.allChats.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    if (doc.data().authors[0] != this.actualUser.uid) this.arrayOfFriendsWithChatUid.push({ author: doc.data().authors[0], id: doc.data().id });
+    if (doc.data().authors[1] != this.actualUser.uid) this.arrayOfFriendsWithChatUid.push({ author: doc.data().authors[1], id: doc.data().id });
+    this.showChatsWithFriends = true
+  });
+  }*/
+
+  //give the id of document in the document as a field
+  async updateIdInFirestorePostsDocs(id) {
+  let docRef = doc(this.db, "posts", id);
+  await updateDoc(docRef, {
+    id: id
+  })
+}
+
+saveCurrentChatId(chatId) {
+  this.currentChatId = chatId;
+  this.loadChat();
+  this.findUserInList(chatId)
+}
+
+findUserInList(chatId) {
+  this.currentUserChat = this.arrayOfFriendsWithChatUid.find((chat) => chat.id == chatId);
+}
+
+  async loadChat() {
+  let q = query(collection(this.db, "posts", this.currentChatId, "texts"))
+  let unsubscribe = onSnapshot(q, (querySnapshot) => {
+    this.messages = [];
+    this.showChat = false;
+    querySnapshot.forEach((doc) => {
+      this.messages.push(doc.data())
+    })
+    this.showChat = true;
+  });
+  this.showChat = true;
+}
 }

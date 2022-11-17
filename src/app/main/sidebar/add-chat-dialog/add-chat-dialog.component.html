@@ -5,7 +5,7 @@
             <input (keyup)="searchForMatch()" matInput [(ngModel)]="name">
             <div class="list of user who match search">
                 <div *ngFor="let user of searchMatchesUsers">
-                    <div (click)="checkIfUserHasChat(user.uid);">
+                    <div [routerLink]="['chat-main']" (click)="checkIfUserHasChat(user.uid);">
                         <img class="img-small"
                         src="./../../../../assets/img/userIcons/{{(userServ.returnUsersPhotoUrl(user.uid)) ? userServ.returnUsersPhotoUrl(user.uid) : 'icon-unknown.svg'}}">
                         {{userServ.returnUsersDisplayName(user.uid)}}

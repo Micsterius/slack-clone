@@ -5,6 +5,8 @@ import { collection, getDocs, getFirestore, onSnapshot, query, addDoc, doc, upda
 import { UsersService } from 'src/app/shared/services/users.service';
 import { environment } from 'src/environments/environment';
 import { ChatService } from 'src/app/shared/services/chat.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { GeneralService } from 'src/app/shared/services/general.service';
 @Component({
   selector: 'app-add-chat-dialog',
   templateUrl: './add-chat-dialog.component.html',
@@ -18,48 +20,50 @@ export class AddChatDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<AddChatDialogComponent>,
     public userServ: UsersService,
-    public chatServ: ChatService
+    public chatServ: ChatService,
+    public authServ: AuthService,
+    public generalService: GeneralService
   ) { }
 
   ngOnInit(): void {
   }
 
-  async goToChat(userUid) {
+  async goToChat(userChatId) {
+    this.chatServ.saveCurrentChatId(userChatId);
+    console.log(userChatId)
+    this.generalService.scrollToBottomBoolean();
+    //  localStorage.setItem('userChat', JSON.stringify(this.chatServ.currentUserChat));
+    this.dialogRef.close();
+  }
 
+  checkIfUserHasChat(userUid) {
+    if (this.chatServ.arrayOfFriendsWithChatUid.some(user => user.author == userUid)) {
+      let chatId = this.getChatId(userUid)
+      this.goToChat(chatId)
+    }
+    else this.createChat(userUid);
+  }
 
+  getChatId(userUid){
+    let chat = this.chatServ.arrayOfFriendsWithChatUid.find(chat => chat.author == userUid);
+    let chatId = chat.id;
+    return chatId;
+  }
 
-
-
-    // if (this.name.length >= 3 && !this.checkIfNameAlreadyExist()) {
-    //   let docRef = await addDoc(collection(this.db, "KEIN PLAN"), {
-    //     name: this.name,
-    //   });
-    //   this.updateIdInFirestoreChannelDocs(docRef.id);
-    // } else {
-    //   if (this.name.length < 3) alert('Bitte User mit mindestens 3 zeichen eigeben');
-    //   if (this.checkIfNameAlreadyExist()) alert('Chat existiert bereits');
-    // }
-
-
-
+  async createChat(userUid) {
+    let docRef = await addDoc(collection(this.db, "posts"), {
+      authors: [userUid, this.authServ.userData.uid]
+    });
+    this.updateIdInFirestoreChannelDocs(docRef.id);
+    this.goToChat(docRef.id)
   }
 
   //give the id of document in the document as a field
-  // async updateIdInFirestoreChannelDocs(id) {
-  //   let docRef = doc(this.db, "KEIN PLAN", id);
-  //   await updateDoc(docRef, {
-  //     id: id
-  //   })
-  //   this.dialogRef.close();
-  // }
-
-  checkIfUserHasChat(userUid) {
-    if (this.chatServ.arrayOfFriendsWithChatUid.some(user => user.uid == userUid)) {
-      this.goToChat(userUid)
-    }
-    // else{
-    //   this.chatServ.loadChat()
-    // }
+  async updateIdInFirestoreChannelDocs(id) {
+    let docRef = doc(this.db, "posts", id);
+    await updateDoc(docRef, {
+      id: id
+    })
   }
 
   searchForMatch() {
