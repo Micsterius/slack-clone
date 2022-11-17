@@ -13,9 +13,6 @@ import { ChatService } from 'src/app/shared/services/chat.service';
 export class AddChatDialogComponent implements OnInit {
   app = initializeApp(environment.firebase);
   db = getFirestore(this.app);
-  userNames = [];
-  userUids = [];
-  userMatches = [];
   searchMatchesUsers;
   @Input() name: any;
   constructor(
