@@ -2,7 +2,7 @@
 :root {
     --main-color: #FA2759;
     --main-color-rgb: 250, 39, 89;
-    --secondary-color: #f2bdca;
+    --secondary-color: #ffebf0;
     --secondary-color-rgb: 45, 252, 2166
   }
 .bg-c-1 {
@@ -47,7 +47,21 @@
     }
 }
 
+mat-dialog-container{
+    overflow: unset !important;
+    outline: unset !important;
+    width: unset !important;
+}
 
+.dialog-button{
+    cursor: pointer;
+    border: 2px solid black;
+    border-radius: 8px;
+    margin-right: 16px;
+    padding: 4px;
+    background-color: var(--main-color);
+    color: white;
+}
 
 .google-btn-box {
     display: flex;
