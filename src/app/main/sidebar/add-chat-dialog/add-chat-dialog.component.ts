@@ -16,6 +16,7 @@ export class AddChatDialogComponent implements OnInit {
   userNames = [];
   userUids = [];
   userMatches = [];
+  searchMatchesUsers;
   @Input() name: any;
   constructor(
     public dialogRef: MatDialogRef<AddChatDialogComponent>,
@@ -58,7 +59,7 @@ export class AddChatDialogComponent implements OnInit {
   checkIfUserHasChat(userUid) {
     if (this.chatServ.arrayOfFriendsWithChatUid.some(user => user.uid == userUid)) {
       this.goToChat(userUid)
-    } 
+    }
     // else{
     //   this.chatServ.loadChat()
     // }
@@ -66,14 +67,11 @@ export class AddChatDialogComponent implements OnInit {
 
   searchForMatch() {
     //suche nach übereinstimmungen mit users array in services bzgl displayName
-    if(this.name.length > 0){
-      for (let i = 0; i < this.userServ.users.length; i++) {
-        const userName = this.userServ.users[i].displayName;
-        const userUid = this.userServ.users[i].uid;
-        this.userUids.push(userUid)
-        this.userNames.push({userName})
-      }
-      this.userMatches = this.userNames.filter(this.name)
+    if (this.name !== '') {
+      this.searchMatchesUsers = this.userServ.users.filter(user => {
+        const regex = new RegExp(`^${this.name}`, "gi")
+        return user.displayName.match(regex)
+      })
     }
   }
 }
