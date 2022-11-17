@@ -23,6 +23,7 @@ export class UsersService {
         this.users.push(doc.data())
       })
     });
+    
   }
 
   returnUsersPhotoUrl(uid) {

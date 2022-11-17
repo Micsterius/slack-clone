@@ -3,19 +3,20 @@
         <mat-form-field appearance="fill">
             <mat-label>User Name</mat-label>
             <input (keyup)="searchForMatch()" matInput [(ngModel)]="name">
+            <div class="list of user who match search">
+                <div *ngFor="let user of userServ.users">
+                    <div (click)="checkIfUserHasChat(user.uid);">
+                        <img class="img-small"
+                        src="./../../../../assets/img/userIcons/{{(userServ.returnUsersPhotoUrl(user.uid)) ? userServ.returnUsersPhotoUrl(user.uid) : 'icon-unknown.svg'}}">
+                        {{userServ.returnUsersDisplayName(user.uid)}}
+                    </div>
+                </div>
+            </div>
         </mat-form-field>
     </div>
-<!--
-    <div class="list of user who match search">
-        <div *ngFor="let user of users">
-            <div (click)="checkIfUserHasChat(user.uid)">
-                {{userService.returnUsersDisplayName(userUid)}}
-                <img class="img-small"
-                src="./../../../../assets/img/userIcons/{{(userService.returnUsersPhotoUrl(userUid)) ? userService.returnUsersPhotoUrl(userUid) : 'icon-unknown.svg'}}">
-            </div>
-        </div>
-    </div>
--->
-    <button (click)="createNewChat()">Hinzufügen</button>
+
+
+
+    <button >Hinzufügen</button>
     <mat-icon class="close-icon" mat-dialog-close fontIcon="close"></mat-icon>
 </div>
