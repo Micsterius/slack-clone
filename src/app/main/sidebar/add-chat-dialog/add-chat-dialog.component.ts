@@ -5,6 +5,7 @@ import { collection, getDocs, getFirestore, onSnapshot, query, addDoc, doc, upda
 import { UsersService } from 'src/app/shared/services/users.service';
 import { environment } from 'src/environments/environment';
 import { ChatService } from 'src/app/shared/services/chat.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
 @Component({
   selector: 'app-add-chat-dialog',
   templateUrl: './add-chat-dialog.component.html',
@@ -18,7 +19,8 @@ export class AddChatDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<AddChatDialogComponent>,
     public userServ: UsersService,
-    public chatServ: ChatService
+    public chatServ: ChatService,
+    public authServ: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -57,10 +59,27 @@ export class AddChatDialogComponent implements OnInit {
     if (this.chatServ.arrayOfFriendsWithChatUid.some(user => user.uid == userUid)) {
       this.goToChat(userUid)
     }
+    else this.createChat(userUid);
     // else{
     //   this.chatServ.loadChat()
     // }
   }
+
+  async createChat(userUid){
+    let docRef = await addDoc(collection(this.db, "posts"), {
+      authors: [userUid, this.authServ.userData.uid]
+    });
+    this.updateIdInFirestoreChannelDocs(docRef.id);
+  }
+
+    //give the id of document in the document as a field
+    async updateIdInFirestoreChannelDocs(id) {
+      let docRef = doc(this.db, "posts", id);
+      await updateDoc(docRef, {
+        id: id
+      })
+      this.dialogRef.close();
+    }
 
   searchForMatch() {
     //suche nach übereinstimmungen mit users array in services bzgl displayName
