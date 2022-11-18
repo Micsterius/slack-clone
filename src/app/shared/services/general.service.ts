@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class GeneralService {
   timedOutCloser;
   scrollToBottom;
+  showDetailView: boolean = false;
 
   constructor() { }
 
@@ -19,10 +20,13 @@ export class GeneralService {
   }
 
   mouseEnter(trigger) {
-    if (this.timedOutCloser) {
-      clearTimeout(this.timedOutCloser);
-    }
-    trigger.openMenu();
+    setTimeout(() => {
+      if (this.timedOutCloser) {
+        clearTimeout(this.timedOutCloser);
+      }
+      trigger.openMenu();
+    }, 10);
+
   }
 
   mouseLeave(trigger) {
