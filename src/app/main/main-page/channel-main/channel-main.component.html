@@ -5,13 +5,13 @@
     <div #scrollMe class="all-posts-container">
         <div *ngFor="let post of channelServ.posts; let i=index">
             <div class="post-container">
-                <div class="post-img">
+                <div #userImage class="post-img">
                     <img [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"
-                        (mouseenter)="generalService.mouseEnter(menuTrigger)"
+                        (mouseenter)="getPosition($event); generalService.mouseEnter(menuTrigger)"
                         (mouseleave)="generalService.mouseLeave(menuTrigger)" class="img-small"
                         src="./../../../../assets/img/userIcons/{{(userService.returnUsersPhotoUrl(post.authorId)) ? userService.returnUsersPhotoUrl(post.authorId) : 'icon-unknown.svg'}}">
                 </div>
-                <mat-menu #menu="matMenu" xPosition="after" [hasBackdrop]="false">
+                <mat-menu #menu="matMenu" xPosition="after"  [yPosition]="menuPositionY" [hasBackdrop]="false">
                     <div (mouseenter)="generalService.mouseEnter(menuTrigger)"
                         (mouseleave)="generalService.mouseLeave(menuTrigger)">
                         <app-user-window [uid]="post.authorId"></app-user-window>

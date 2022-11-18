@@ -15,6 +15,8 @@ import { environment } from 'src/environments/environment';
 })
 export class ChannelMainComponent implements OnInit {
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
+  @ViewChild('userImage') private userImage: ElementRef;
+  @ViewChild('menu') private menu: ElementRef;
 
   app = initializeApp(environment.firebase);
   db = getFirestore(this.app);
@@ -28,6 +30,7 @@ export class ChannelMainComponent implements OnInit {
   actualUser: User;
 
   editorWidth: number;
+  menuPositionY: any = 'below';
 
   constructor(
     public channelServ: ChannelService,
@@ -41,10 +44,22 @@ export class ChannelMainComponent implements OnInit {
 
   ngOnInit() {
     this.scrollToBottom();
+    // this.getPositionOfElement();
   }
 
   ngAfterViewChecked() {
     this.scrollToBottom();
+    // this.getPositionOfElement();
+  }
+
+  getPosition(e) {
+    let container = this.myScrollContainer.nativeElement.getBoundingClientRect()
+
+    let y = e.clientY; //y-position of mouse
+
+    let halfContainerHeight = container.height/2
+    if ((halfContainerHeight + container.top) >= y) this.menuPositionY = 'below'
+    else this.menuPositionY = 'above'
   }
 
   /** scroll automatically to last message */
