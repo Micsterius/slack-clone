@@ -19,6 +19,7 @@ export class GeneralService {
     return dateTime;
   }
 
+  //timeout in this function is necessary, because he needs time to write the variable for the yPosition of the mat menu
   mouseEnter(trigger) {
     setTimeout(() => {
       if (this.timedOutCloser) {
@@ -26,7 +27,6 @@ export class GeneralService {
       }
       trigger.openMenu();
     }, 10);
-
   }
 
   mouseLeave(trigger) {
