@@ -211,19 +211,6 @@ export class AuthService {
       });
   }
 
-  changeUserDataPhone(value){
-  /*  updateProfile(this.userData, {
-      phoneNumber: value
-    })
-      .then(() => {
-        console.log('Img updated');
-      }).catch((error) => {
-        window.alert(error.message);
-      });*/
-  }
-
-
-
   /** SIGN IN ANONYM */
   signInAnonymously() {
     signInAnonymously(this.auth)
@@ -239,6 +226,7 @@ export class AuthService {
         // ...
       });
   }
+
   onAuthStateChanged() {
     onAuthStateChanged(this.auth, (user) => {
       if (user) {
