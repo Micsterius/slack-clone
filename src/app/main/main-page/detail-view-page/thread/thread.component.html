@@ -4,13 +4,14 @@
     <div #scrollMe class="all-posts-container">
         <div class="post-container">
             <div class="post-img">
-                <img [matMenuTriggerFor]="menu"
-                #menuTrigger="matMenuTrigger" (mouseenter)="generalService.mouseEnter(menuTrigger)"
-                (mouseleave)="generalService.mouseLeave(menuTrigger)"  class="img-small"
+                <img [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"
+                    (mouseenter)="getPosition($event); generalService.mouseEnter(menuTrigger)"
+                    (mouseleave)="generalService.mouseLeave(menuTrigger)" class="img-small"
                     src="./../../../../assets/img/userIcons/{{(usersService.returnUsersPhotoUrl(channelServ.currentThread.post.authorId)) ? usersService.returnUsersPhotoUrl(channelServ.currentThread.post.authorId) : 'icon-unknown.svg'}}">
             </div>
-            <mat-menu #menu="matMenu" xPosition="after" [hasBackdrop]="false">
-                <div (mouseenter)="generalService.mouseEnter(menuTrigger)" (mouseleave)="generalService.mouseLeave(menuTrigger)">
+            <mat-menu #menu="matMenu" xPosition="after" [yPosition]="menuPositionY" [hasBackdrop]="false">
+                <div (mouseenter)="generalService.mouseEnter(menuTrigger)"
+                    (mouseleave)="generalService.mouseLeave(menuTrigger)">
                     <app-user-window [uid]="channelServ.currentThread.post.authorId"></app-user-window>
                 </div>
             </mat-menu>
@@ -24,15 +25,16 @@
             </div>
         </div>
 
-        <div class="post-container"  *ngFor="let answer of channelServ.currentThread.post.answers">
+        <div class="post-container" *ngFor="let answer of channelServ.currentThread.post.answers">
             <div class="post-img">
-                <img [matMenuTriggerFor]="menu"
-                #menuTrigger="matMenuTrigger" (mouseenter)="generalService.mouseEnter(menuTrigger)"
-                (mouseleave)="generalService.mouseLeave(menuTrigger)" class="img-small"
+                <img [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"
+                    (mouseenter)="getPosition($event); generalService.mouseEnter(menuTrigger)"
+                    (mouseleave)="generalService.mouseLeave(menuTrigger)" class="img-small"
                     src="./../../../../assets/img/userIcons/{{(usersService.returnUsersPhotoUrl(answer.authorId)) ? usersService.returnUsersPhotoUrl(answer.authorId) : 'icon-unknown.svg'}}">
             </div>
-            <mat-menu #menu="matMenu" xPosition="after" [hasBackdrop]="false">
-                <div (mouseenter)="generalService.mouseEnter(menuTrigger)" (mouseleave)="generalService.mouseLeave(menuTrigger)">
+            <mat-menu #menu="matMenu" xPosition="after" [yPosition]="menuPositionY" [hasBackdrop]="false">
+                <div (mouseenter)="generalService.mouseEnter(menuTrigger)"
+                    (mouseleave)="generalService.mouseLeave(menuTrigger)">
                     <app-user-window [uid]="answer.authorId"></app-user-window>
                 </div>
             </mat-menu>

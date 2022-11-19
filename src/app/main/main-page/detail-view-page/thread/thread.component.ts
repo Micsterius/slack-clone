@@ -13,6 +13,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./thread.component.scss']
 })
 export class ThreadComponent implements OnInit {
+  @ViewChild('scrollMe') private myScrollContainer: ElementRef;
 
   app = initializeApp(environment.firebase);
   db = getFirestore(this.app);
@@ -21,6 +22,7 @@ export class ThreadComponent implements OnInit {
   answers: any[] = []
   message: any;
   actualUser: User;
+  menuPositionY: any = 'below';
 
   constructor(
     public channelServ: ChannelService,
@@ -55,5 +57,17 @@ export class ThreadComponent implements OnInit {
   getNameOfAuthor() {
     if (this.actualUser.displayName) return this.actualUser.displayName;
     else return 'Anonym'
+  }
+
+  getPosition(e) {
+    let container = this.myScrollContainer.nativeElement.getBoundingClientRect()
+
+    let y = e.clientY; //y-position of mouse
+
+    let halfContainerHeight = container.height/2
+    if ((halfContainerHeight + container.top) >= y) this.menuPositionY = 'below'
+    else this.menuPositionY = 'above'
+    console.log('position mouse', y)
+    console.log('A', container.height)
   }
 }

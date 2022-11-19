@@ -15,8 +15,6 @@ import { environment } from 'src/environments/environment';
 })
 export class ChannelMainComponent implements OnInit {
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
-  @ViewChild('userImage') private userImage: ElementRef;
-  @ViewChild('menu') private menu: ElementRef;
 
   app = initializeApp(environment.firebase);
   db = getFirestore(this.app);
@@ -44,12 +42,10 @@ export class ChannelMainComponent implements OnInit {
 
   ngOnInit() {
     this.scrollToBottom();
-    // this.getPositionOfElement();
   }
 
   ngAfterViewChecked() {
     this.scrollToBottom();
-    // this.getPositionOfElement();
   }
 
   getPosition(e) {
