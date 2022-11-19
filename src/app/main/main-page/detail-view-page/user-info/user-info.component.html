@@ -67,7 +67,7 @@
         </mat-form-field>
       </div>
       <div class="user-detail-box">
-        <p>Telefon: <strong *ngIf="!editUserPhone">{{(user.phoneNumber) ? user.phoneNumber : 'Telefon'}}</strong></p>
+        <p>Telefon: <strong *ngIf="!editUserPhone">{{usersService.returnUsersPhoneNumber(user.uid)}}</strong></p>
         <mat-icon *ngIf="!editUserMail" class="icon-header" fontIcon="edit" (click)="editUserPhone = true">
         </mat-icon>
         <mat-form-field appearance="fill" *ngIf="editUserPhone">
@@ -78,7 +78,7 @@
             (click)="editUserPhone = false">
           </mat-icon>
           <mat-icon type="button" *ngIf="editUserPhone" class="icon-header mat-icon-done" fontIcon="done"
-            (click)="editUserPhone = false; getOTP()" #getUserPhoneNbr>
+            (click)="editUserPhone = false; changeUserDataPhoneFirestore(UserPhoneChange.value)" #getUserPhoneNbr>
           </mat-icon>
         </mat-form-field>
       </div>
