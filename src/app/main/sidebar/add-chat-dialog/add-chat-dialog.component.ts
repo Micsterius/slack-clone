@@ -75,4 +75,9 @@ export class AddChatDialogComponent implements OnInit {
       })
     }
   }
+
+  //Check that the users which will be show in list to add chat not contain yourself, because you cannot chat with yourself
+ userIsNotMyself(user){
+  return user.uid != this.authServ.userData.uid
+ }
 }
