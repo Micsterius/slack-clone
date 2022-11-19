@@ -29,7 +29,7 @@ export class UsersService {
   async loadUsersAdditionalInfos() {
     let q = query(collection(this.db, "more-user-infos"))
     let unsubscribe = onSnapshot(q, (querySnapshot) => {
-      this.users = [];
+      this.usersAdditionalInfos = [];
       querySnapshot.forEach((doc) => {
         this.usersAdditionalInfos.push(doc.data())
       })
