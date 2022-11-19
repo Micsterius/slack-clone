@@ -54,12 +54,12 @@ export class AddChatDialogComponent implements OnInit {
     let docRef = await addDoc(collection(this.db, "posts"), {
       authors: [userUid, this.authServ.userData.uid]
     });
-    this.updateIdInFirestoreChannelDocs(docRef.id);
+    this.updateIdInFirestoreChatDocs(docRef.id);
     this.goToChat(docRef.id)
   }
 
   //give the id of document in the document as a field
-  async updateIdInFirestoreChannelDocs(id) {
+  async updateIdInFirestoreChatDocs(id) {
     let docRef = doc(this.db, "posts", id);
     await updateDoc(docRef, {
       id: id
