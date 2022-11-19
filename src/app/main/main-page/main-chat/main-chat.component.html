@@ -1,15 +1,15 @@
 <div class="main-chat-container">
-    <div *ngIf="chatServ.showChat" class="chat-container all-posts-container" #scrollMe>
-        <div *ngFor="let text of chatServ.messages" class="chat-friend-box">
+    <div *ngIf="chatService.showChat" class="chat-container all-posts-container" #scrollMe>
+        <div *ngFor="let text of chatService.messages" class="chat-friend-box">
             <div class="post-container">
                 <div class="post-img">
                     <img class="img-small"
-                        src="./../../../../assets/img/userIcons/{{(usersServ.returnUsersPhotoUrl(text.author)) ? usersServ.returnUsersPhotoUrl(text.author) : 'icon-unknown.svg'}}">
+                        src="./../../../../assets/img/userIcons/{{(usersService.returnUsersPhotoUrl(text.author)) ? usersService.returnUsersPhotoUrl(text.author) : 'icon-unknown.svg'}}">
                 </div>
                 <div class="post-box">
                     <div class="name-time-box">
-                        <div>{{usersServ.returnUsersDisplayName(text.author)}}</div>
-                        <div>{{generalServ.getTransformedTimeStampToDate(text.timeStamp)}}</div>
+                        <div>{{usersService.returnUsersDisplayName(text.author)}}</div>
+                        <div>{{generalService.getTransformedTimeStampToDate(text.timeStamp)}}</div>
                     </div>
                     <div class="content-box" [innerHTML]="text.content"></div>
                 </div>

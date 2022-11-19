@@ -20,12 +20,12 @@ export class ChatComponent implements OnInit {
   panelOpenState: boolean = false;
 
   constructor(
-    public chatServ: ChatService,
+    public chatService: ChatService,
     private router: Router,
     public dialog: MatDialog,
-    public usersServ: UsersService,
+    public usersService: UsersService,
     public generalService: GeneralService) {
-    chatServ.loadChats();
+    chatService.loadChats();
    /* let userChat = JSON.parse(localStorage.getItem('userChat')!);
     if (userChat != null) {
       chatServ.currentUserChat = userChat;
@@ -40,7 +40,7 @@ export class ChatComponent implements OnInit {
   }
 
   saveCurrentChatId(userChatId) {
-    this.chatServ.saveCurrentChatId(userChatId);
+    this.chatService.saveCurrentChatId(userChatId);
     console.log(userChatId)
     this.generalService.scrollToBottomBoolean();
   //  localStorage.setItem('userChat', JSON.stringify(this.chatServ.currentUserChat));

@@ -10,7 +10,7 @@
 
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <div *ngFor="let channel of channelServ.arrayOfChannels">
+            <div *ngFor="let channel of channelService.arrayOfChannels">
                 <div (click)="saveCurrentChannelId(channel); navigateToChannelMain()">
                     {{channel.name}}
                 </div>

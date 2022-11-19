@@ -9,11 +9,11 @@
                     </div>
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <div *ngIf="chatServ.showChatsWithFriends" class="chat-friend-container">
-                <div [routerLink]="['chat-main']" *ngFor="let user of chatServ.arrayOfFriendsWithChatUid"
+            <div *ngIf="chatService.showChatsWithFriends" class="chat-friend-container">
+                <div [routerLink]="['chat-main']" *ngFor="let user of chatService.arrayOfFriendsWithChatUid"
                     class="chat-friend-box" (click)="saveCurrentChatId(user.id)">
-                    <img src="./../../../assets/img/userIcons/{{(usersServ.returnUsersPhotoUrl(user.author)) ? usersServ.returnUsersPhotoUrl(user.author) : 'icon-unknown.svg'}}">
-                    {{usersServ.returnUsersDisplayName(user.author)}}
+                    <img src="./../../../assets/img/userIcons/{{(usersService.returnUsersPhotoUrl(user.author)) ? usersService.returnUsersPhotoUrl(user.author) : 'icon-unknown.svg'}}">
+                    {{usersService.returnUsersDisplayName(user.author)}}
                 </div>
             </div>
         </mat-expansion-panel>

@@ -26,10 +26,10 @@ export class MainChatComponent implements OnInit {
   message: any;
 
   constructor(
-    public chatServ: ChatService,
-    public authServ: AuthService,
-    public usersServ: UsersService,
-    public generalServ: GeneralService
+    public chatService: ChatService,
+    public authService: AuthService,
+    public usersService: UsersService,
+    public generalService: GeneralService
   ) {
   }
 
@@ -43,14 +43,12 @@ export class MainChatComponent implements OnInit {
 
   /** scroll automatically to last message */
   scrollToBottom(): void {
-    if (this.generalServ.scrollToBottom) {
+    if (this.generalService.scrollToBottom) {
       try {
         this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
       } catch (err) { }
     }
   }
-
-
 
   /**here the new doc id in the subcollection texts will be generated with two components. 
    * The first one is a timestamp, so the messeages are in the right order when they come 
@@ -59,10 +57,10 @@ export class MainChatComponent implements OnInit {
   async sendMessage() {
     let textId = Math.round(new Date().getTime() / 1000);
     let idAdd = Math.random().toString(16).substr(2, 6)
-    await setDoc(doc(this.db, "posts", this.chatServ.currentChatId, "texts", `${textId + idAdd}`),
+    await setDoc(doc(this.db, "posts", this.chatService.currentChatId, "texts", `${textId + idAdd}`),
       {
         content: this.message,
-        author: this.authServ.userData.uid,
+        author: this.authService.userData.uid,
         timeStamp: textId
       })
     this.message = '';

@@ -17,7 +17,7 @@ export class AddChannelDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<AddChannelDialogComponent>,
-    public channelServ: ChannelService
+    public channelService: ChannelService
   ) { }
 
   ngOnInit(): void {
@@ -45,6 +45,6 @@ export class AddChannelDialogComponent implements OnInit {
   }
 
   checkIfNameAlreadyExist(){
-   return this.channelServ.arrayOfChannels.some(channel => channel.name == this.name)
+   return this.channelService.arrayOfChannels.some(channel => channel.name == this.name)
   }
 }

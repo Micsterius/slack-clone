@@ -25,7 +25,7 @@ export class ThreadComponent implements OnInit {
   menuPositionY: any = 'below';
 
   constructor(
-    public channelServ: ChannelService,
+    public channelService: ChannelService,
     public usersService: UsersService,
     public generalService: GeneralService,
   ) {
@@ -43,7 +43,7 @@ export class ThreadComponent implements OnInit {
 
     let name = this.getNameOfAuthor();
 
-    await setDoc(doc(this.db, "channel", this.channelServ.currentChannel.id, "posts", this.channelServ.currentThread.post.id, "answers", `${textId + idAdd}`),
+    await setDoc(doc(this.db, "channel", this.channelService.currentChannel.id, "posts", this.channelService.currentThread.post.id, "answers", `${textId + idAdd}`),
       {
         content: this.message,
         authorId: this.actualUser.uid,
@@ -61,13 +61,10 @@ export class ThreadComponent implements OnInit {
 
   getPosition(e) {
     let container = this.myScrollContainer.nativeElement.getBoundingClientRect()
-
     let y = e.clientY; //y-position of mouse
-
     let halfContainerHeight = container.height/2
+
     if ((halfContainerHeight + container.top) >= y) this.menuPositionY = 'below'
     else this.menuPositionY = 'above'
-    console.log('position mouse', y)
-    console.log('A', container.height)
   }
 }

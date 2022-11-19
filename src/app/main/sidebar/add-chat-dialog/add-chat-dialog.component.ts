@@ -19,9 +19,9 @@ export class AddChatDialogComponent implements OnInit {
   @Input() name: any;
   constructor(
     public dialogRef: MatDialogRef<AddChatDialogComponent>,
-    public userServ: UsersService,
-    public chatServ: ChatService,
-    public authServ: AuthService,
+    public userService: UsersService,
+    public chatService: ChatService,
+    public authService: AuthService,
     public generalService: GeneralService
   ) { }
 
@@ -29,7 +29,7 @@ export class AddChatDialogComponent implements OnInit {
   }
 
   async goToChat(userChatId) {
-    this.chatServ.saveCurrentChatId(userChatId);
+    this.chatService.saveCurrentChatId(userChatId);
     console.log(userChatId)
     this.generalService.scrollToBottomBoolean();
     //  localStorage.setItem('userChat', JSON.stringify(this.chatServ.currentUserChat));
@@ -37,22 +37,22 @@ export class AddChatDialogComponent implements OnInit {
   }
 
   checkIfUserHasChat(userUid) {
-    if (this.chatServ.arrayOfFriendsWithChatUid.some(user => user.author == userUid)) {
+    if (this.chatService.arrayOfFriendsWithChatUid.some(user => user.author == userUid)) {
       let chatId = this.getChatId(userUid)
       this.goToChat(chatId)
     }
     else this.createChat(userUid);
   }
 
-  getChatId(userUid){
-    let chat = this.chatServ.arrayOfFriendsWithChatUid.find(chat => chat.author == userUid);
+  getChatId(userUid) {
+    let chat = this.chatService.arrayOfFriendsWithChatUid.find(chat => chat.author == userUid);
     let chatId = chat.id;
     return chatId;
   }
 
   async createChat(userUid) {
     let docRef = await addDoc(collection(this.db, "posts"), {
-      authors: [userUid, this.authServ.userData.uid]
+      authors: [userUid, this.authService.userData.uid]
     });
     this.updateIdInFirestoreChatDocs(docRef.id);
     this.goToChat(docRef.id)
@@ -69,7 +69,7 @@ export class AddChatDialogComponent implements OnInit {
   searchForMatch() {
     //suche nach übereinstimmungen mit users array in services bzgl displayName
     if (this.name !== '') {
-      this.searchMatchesUsers = this.userServ.users.filter(user => {
+      this.searchMatchesUsers = this.userService.users.filter(user => {
         const regex = new RegExp(`^${this.name}`, "gi")
         return user.displayName.match(regex)
       })
@@ -77,7 +77,7 @@ export class AddChatDialogComponent implements OnInit {
   }
 
   //Check that the users which will be show in list to add chat not contain yourself, because you cannot chat with yourself
- userIsNotMyself(user){
-  return user.uid != this.authServ.userData.uid
- }
+  userIsNotMyself(user) {
+    return user.uid != this.authService.userData.uid
+  }
 }

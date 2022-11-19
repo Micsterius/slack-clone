@@ -19,11 +19,11 @@ export class ChannelComponent implements OnInit {
   panelOpenState: boolean = false;
   
   constructor(
-    public channelServ: ChannelService,
+    public channelService: ChannelService,
     private router: Router,
     public dialog: MatDialog,
     public generalService: GeneralService) {
-      channelServ.loadChannels();
+      channelService.loadChannels();
      }
 
      openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
@@ -38,7 +38,7 @@ export class ChannelComponent implements OnInit {
   }
 
   saveCurrentChannelId(channel){
-    this.channelServ.saveCurrentChannel(channel);
+    this.channelService.saveCurrentChannel(channel);
     localStorage.setItem('currentChannel', JSON.stringify(channel))
     this.generalService.scrollToBottomBoolean();
   }

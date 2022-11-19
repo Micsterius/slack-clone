@@ -1,31 +1,31 @@
-<div *ngIf="channelServ.showChannel" class="thread-container">
+<div *ngIf="channelService.showChannel" class="thread-container">
 
-    <div class="detail-view-header">THREAD {{channelServ.currentThread.name}} </div>
+    <div class="detail-view-header">THREAD {{channelService.currentThread.name}} </div>
     <div #scrollMe class="all-posts-container">
         <div class="post-container">
             <div class="post-img">
                 <img [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"
                     (mouseenter)="getPosition($event); generalService.mouseEnter(menuTrigger)"
                     (mouseleave)="generalService.mouseLeave(menuTrigger)" class="img-small"
-                    src="./../../../../assets/img/userIcons/{{(usersService.returnUsersPhotoUrl(channelServ.currentThread.post.authorId)) ? usersService.returnUsersPhotoUrl(channelServ.currentThread.post.authorId) : 'icon-unknown.svg'}}">
+                    src="./../../../../assets/img/userIcons/{{(usersService.returnUsersPhotoUrl(channelService.currentThread.post.authorId)) ? usersService.returnUsersPhotoUrl(channelService.currentThread.post.authorId) : 'icon-unknown.svg'}}">
             </div>
             <mat-menu #menu="matMenu" xPosition="after" [yPosition]="menuPositionY" [hasBackdrop]="false">
                 <div (mouseenter)="generalService.mouseEnter(menuTrigger)"
                     (mouseleave)="generalService.mouseLeave(menuTrigger)">
-                    <app-user-window [uid]="channelServ.currentThread.post.authorId"></app-user-window>
+                    <app-user-window [uid]="channelService.currentThread.post.authorId"></app-user-window>
                 </div>
             </mat-menu>
             <div class="post-box">
                 <div class="name-time-box">
-                    <div>{{usersService.returnUsersDisplayName(channelServ.currentThread.post.authorId)}}</div>
-                    <div>{{generalService.getTransformedTimeStampToDate(channelServ.currentThread.post.timeStamp)}}
+                    <div>{{usersService.returnUsersDisplayName(channelService.currentThread.post.authorId)}}</div>
+                    <div>{{generalService.getTransformedTimeStampToDate(channelService.currentThread.post.timeStamp)}}
                     </div>
                 </div>
-                <div class="content-box" [innerHTML]="channelServ.currentThread.post.content"></div>
+                <div class="content-box" [innerHTML]="channelService.currentThread.post.content"></div>
             </div>
         </div>
 
-        <div class="post-container" *ngFor="let answer of channelServ.currentThread.post.answers">
+        <div class="post-container" *ngFor="let answer of channelService.currentThread.post.answers">
             <div class="post-img">
                 <img [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"
                     (mouseenter)="getPosition($event); generalService.mouseEnter(menuTrigger)"
