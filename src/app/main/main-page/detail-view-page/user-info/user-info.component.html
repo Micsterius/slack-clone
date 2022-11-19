@@ -71,7 +71,7 @@
         <mat-icon *ngIf="!editUserMail" class="icon-header" fontIcon="edit" (click)="editUserPhone = true">
         </mat-icon>
         <mat-form-field appearance="fill" *ngIf="editUserPhone">
-          <input [(ngModel)]="phoneNumber" name="phoneNumber" #UserPhoneChange id="userPhoneNbr" matInput [formControl]="authService.email"
+          <input name="phoneNumber" #UserPhoneChange id="userPhoneNbr" matInput [formControl]="authService.email"
             type="tel" placeholder="{{user.phoneNumber}}" required>
           <mat-error *ngIf="authService.phone.invalid">{{authService.getErrorMessage()}}</mat-error>
           <mat-icon *ngIf="editUserPhone" class="icon-header mat-icon-close" fontIcon="close"

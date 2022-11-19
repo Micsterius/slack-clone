@@ -11,6 +11,7 @@ export class UsersService {
   app = initializeApp(environment.firebase);
   db = getFirestore(this.app);
   users: any[] = [];
+  usersAdditionalInfos: any[] = [];
   constructor(
     public dialog: MatDialog
   ) { }
@@ -23,7 +24,16 @@ export class UsersService {
         this.users.push(doc.data())
       })
     });
-    
+  }
+
+  async loadUsersAdditionalInfos() {
+    let q = query(collection(this.db, "more-user-infos"))
+    let unsubscribe = onSnapshot(q, (querySnapshot) => {
+      this.users = [];
+      querySnapshot.forEach((doc) => {
+        this.usersAdditionalInfos.push(doc.data())
+      })
+    });
   }
 
   returnUsersPhotoUrl(uid) {
@@ -45,7 +55,7 @@ export class UsersService {
   }
 
   returnUsersPhoneNumber(uid) {
-    let user = this.users.find(user => user.uid == uid)
+    let user = this.usersAdditionalInfos.find(user => user.uid == uid)
     if (user == undefined) return 'No Phone'
     else return user.phoneNumber
   }

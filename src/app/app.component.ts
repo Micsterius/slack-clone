@@ -23,6 +23,7 @@ export class AppComponent {
     else this.authService.showLoginArea = true;
 
     userService.loadUsers();
+    userService.loadUsersAdditionalInfos();
   }
 
 /* funktioniert nicht 

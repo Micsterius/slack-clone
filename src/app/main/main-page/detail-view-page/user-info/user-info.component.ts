@@ -22,17 +22,6 @@ SwiperCore.use([Keyboard, Pagination, Navigation, Virtual]);
 })
 export class UserInfoComponent implements OnInit {
 
-  @ViewChild('getUserPhoneNbr') private getUserPhoneNbr: ElementRef;
-
-  app = initializeApp(environment.firebase);
-  auth = getAuth(this.app);
-  db = getFirestore(this.app);
-
-  phoneNumber: any;
-  reCaptchaVerifier: any;
-  appVerifier: any;
-  confirmationResult: any;
-
   editUserName: boolean = false;
   editUserId: boolean = false;
   editUserMail: boolean = false;
@@ -67,24 +56,6 @@ export class UserInfoComponent implements OnInit {
     public usersService: UsersService
   ) {
   }
-
-  getOTP() {
-    this.reCaptchaVerifier = new RecaptchaVerifier(this.getUserPhoneNbr.nativeElement, {
-      'size': 'invisible',
-      'callback': (response) => {
-        // reCAPTCHA solved, allow signInWithPhoneNumber.
-      }
-    }, this.auth);
-    
-    this.afAuth
-    .signInWithPhoneNumber(this.phoneNumber, this.reCaptchaVerifier)
-    .then((confirmationResult) => {
-      console.log('confirmationResult')
-    })
-    .catch((error) => {
-      window.alert(error.message);
-    });
-}
 
   ngOnInit(): void {
   }
@@ -123,7 +94,7 @@ export class UserInfoComponent implements OnInit {
   }
 
   changeUserDataPhoneFirestore(value) {
-    this.afs.collection('users')
+    this.afs.collection('more-user-infos')
       .doc(this.authService.userData.uid)
       .update({ phoneNumber: value })
       .then(() => {
