@@ -24,4 +24,8 @@ export class UserWindowComponent implements OnInit {
     this.detailViewService.userToShow = this.uid;
   }
 
+  checkIfNbrExist(uid){
+    if (this.userService.returnUsersPhoneNumber(uid) == 'No Phone') alert('Keine Nummer hinterlegt')
+  }
+
 }
