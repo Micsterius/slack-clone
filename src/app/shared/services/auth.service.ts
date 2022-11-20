@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { initializeApp } from 'firebase/app';
 import { environment } from 'src/environments/environment';
-import { arrayUnion, doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
+import { arrayUnion, deleteDoc, doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
 @Injectable({
   providedIn: 'root',
 })
@@ -156,6 +156,7 @@ export class AuthService {
       this.userData = '';
       this.showLoginArea = true;
       this.router.navigate(['/']);
+
     });
   }
 
@@ -218,7 +219,6 @@ export class AuthService {
     signInAnonymously(this.auth)
       .then(() => {
         // Signed in..
-        console.log('anonyme123')
         this.showLoginArea = false;
         this.onAuthStateChanged();
       })
@@ -232,7 +232,6 @@ export class AuthService {
   onAuthStateChanged() {
     onAuthStateChanged(this.auth, (user) => {
       if (user) {
-        console.log('anonyme12')
         this.userData = user;
         localStorage.setItem('user', JSON.stringify(this.userData));
         JSON.parse(localStorage.getItem('user')!);
@@ -254,7 +253,7 @@ export class AuthService {
           window.alert(error.message);
         });
     }
-    else this.addDocInFirestore();
+    else if (await this.UserDataExist()) this.addDocInFirestore()
   }
 
   async additionUserDataExist() {
@@ -268,7 +267,7 @@ export class AuthService {
     }
   }
 
-  async addDocInFirestore(){
+  async addDocInFirestore() {
     await setDoc(doc(this.db, "more-user-infos", this.userData.uid), {
       uid: this.userData.uid,
       isOnline: true
@@ -276,14 +275,26 @@ export class AuthService {
   }
 
   async changeUserStatusToOffline() {
+    if (await this.UserDataExist()) {
       this.afs.collection('more-user-infos')
         .doc(this.userData.uid)
         .update({ isOnline: false })
         .then(() => {
           console.log('User is logged out');
         }).catch((error) => {
-          window.alert(error.message);
+         // window.alert(error.message);
         });
+    }
+  }
 
+  async UserDataExist() {
+    const docRef = doc(this.db, "users", this.userData.uid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
