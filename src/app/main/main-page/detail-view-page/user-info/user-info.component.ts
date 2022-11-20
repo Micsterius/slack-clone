@@ -97,7 +97,7 @@ export class UserInfoComponent implements OnInit {
   }
 
   async changeUserDataPhoneFirestore(value) {
-    if (await this.additionUserDataExist()) {
+    if (await this.authService.additionUserDataExist()) {
       this.afs.collection('more-user-infos')
         .doc(this.authService.userData.uid)
         .update({ phoneNumber: value })
@@ -108,17 +108,6 @@ export class UserInfoComponent implements OnInit {
         });
     }
     else this.addDocInFirestore(value);
-  }
-
-  async additionUserDataExist() {
-    const docRef = doc(this.db, "more-user-infos", this.authService.userData.uid);
-    const docSnap = await getDoc(docRef);
-
-    if (docSnap.exists()) {
-      return true;
-    } else {
-      return false;
-    }
   }
 
   async addDocInFirestore(value){
