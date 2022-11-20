@@ -5,12 +5,12 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "AIzaSyDa1l4bd9K2pD4VuOsRMxUKt45b8AlITLw",
-    authDomain: "slack-clone-45cdd.firebaseapp.com",
-    projectId: "slack-clone-45cdd",
-    storageBucket: "slack-clone-45cdd.appspot.com",
-    messagingSenderId: "941688898314",
-    appId: "1:941688898314:web:fb17e27a202d5fa2d5f0f3"
+    apiKey: "AIzaSyCZfMK6Pw8XUgYoP-AP4pCLpBhiSOknX-w",
+    authDomain: "slack-clone-a06c2.firebaseapp.com",
+    projectId: "slack-clone-a06c2",
+    storageBucket: "slack-clone-a06c2.appspot.com",
+    messagingSenderId: "98882258716",
+    appId: "1:98882258716:web:5fb0d544408fbd2511dcd9"
   },
   tinyMceApiKey: '0u347b51bx380ihx2w2vws4bfqf9dfqewelzkjxsl7p5ki0a'
 };
