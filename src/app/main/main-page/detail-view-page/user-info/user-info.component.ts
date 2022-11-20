@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { initializeApp } from 'firebase/app';
 import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { environment } from 'src/environments/environment';
@@ -21,6 +21,9 @@ SwiperCore.use([Keyboard, Pagination, Navigation, Virtual]);
   encapsulation: ViewEncapsulation.None,
 })
 export class UserInfoComponent implements OnInit {
+
+  app = initializeApp(environment.firebase);
+  db = getFirestore(this.app);
 
   editUserName: boolean = false;
   editUserId: boolean = false;
@@ -93,14 +96,35 @@ export class UserInfoComponent implements OnInit {
       });
   }
 
-  changeUserDataPhoneFirestore(value) {
-    this.afs.collection('more-user-infos')
-      .doc(this.authService.userData.uid)
-      .update({ phoneNumber: value })
-      .then(() => {
-        console.log('Phone updated');
-      }).catch((error) => {
-        window.alert(error.message);
-      });
+  async changeUserDataPhoneFirestore(value) {
+    if (await this.additionUserDataExist() == true) {
+      this.afs.collection('more-user-infos')
+        .doc(this.authService.userData.uid)
+        .update({ phoneNumber: value })
+        .then(() => {
+          console.log('Phone updated');
+        }).catch((error) => {
+          window.alert(error.message);
+        });
+    }
+    else this.addDocInFirestore(value);
+  }
+
+  async additionUserDataExist() {
+    const docRef = doc(this.db, "more-user-infos", this.authService.userData.uid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  async addDocInFirestore(value){
+    console.log('C')
+    await setDoc(doc(this.db, "more-user-infos", this.authService.userData.uid), {
+      phoneNumber: value
+    });
   }
 }
