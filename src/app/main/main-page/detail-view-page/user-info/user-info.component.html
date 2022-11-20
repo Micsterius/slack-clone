@@ -68,11 +68,11 @@
       </div>
       <div class="user-detail-box">
         <p>Telefon: <strong *ngIf="!editUserPhone">{{usersService.returnUsersPhoneNumber(user.uid)}}</strong></p>
-        <mat-icon *ngIf="!editUserMail" class="icon-header" fontIcon="edit" (click)="editUserPhone = true">
+        <mat-icon *ngIf="!editUserPhone" class="icon-header" fontIcon="edit" (click)="editUserPhone = true">
         </mat-icon>
         <mat-form-field appearance="fill" *ngIf="editUserPhone">
           <input name="phoneNumber" #UserPhoneChange id="userPhoneNbr" matInput [formControl]="authService.email"
-            type="tel" placeholder="{{user.phoneNumber}}" required>
+            type="tel" placeholder="{{usersService.returnUsersPhoneNumber(user.uid)}}" required>
           <mat-error *ngIf="authService.phone.invalid">{{authService.getErrorMessage()}}</mat-error>
           <mat-icon *ngIf="editUserPhone" class="icon-header mat-icon-close" fontIcon="close"
             (click)="editUserPhone = false">

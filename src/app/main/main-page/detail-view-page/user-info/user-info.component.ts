@@ -97,7 +97,7 @@ export class UserInfoComponent implements OnInit {
   }
 
   async changeUserDataPhoneFirestore(value) {
-    if (await this.additionUserDataExist() == true) {
+    if (await this.additionUserDataExist()) {
       this.afs.collection('more-user-infos')
         .doc(this.authService.userData.uid)
         .update({ phoneNumber: value })
@@ -122,9 +122,9 @@ export class UserInfoComponent implements OnInit {
   }
 
   async addDocInFirestore(value){
-    console.log('C')
     await setDoc(doc(this.db, "more-user-infos", this.authService.userData.uid), {
-      phoneNumber: value
+      phoneNumber: value,
+      uid: this.authService.userData.uid
     });
   }
 }
