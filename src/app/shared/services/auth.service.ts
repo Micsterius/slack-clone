@@ -149,8 +149,8 @@ export class AuthService {
   }
 
   // Sign out
-  SignOut() {
-    this.changeUserStatusToOffline();
+  async SignOut() {
+   await this.changeUserStatusToOffline();
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
       this.userData = '';
