@@ -150,13 +150,12 @@ export class AuthService {
 
   // Sign out
   SignOut() {
+    this.changeUserStatusToOffline();
     return this.afAuth.signOut().then(() => {
-      this.changeUserStatusToOffline();
       localStorage.removeItem('user');
       this.userData = '';
       this.showLoginArea = true;
       this.router.navigate(['/']);
-
     });
   }
 
