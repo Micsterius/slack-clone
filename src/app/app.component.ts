@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { initializeApp } from 'firebase/app';
 import { doc, getDoc, getFirestore } from 'firebase/firestore';
 import { environment } from 'src/environments/environment';
@@ -26,17 +26,12 @@ export class AppComponent {
     userService.loadUsersAdditionalInfos();
   }
 
-/* funktioniert nicht 
- async checkIfUserExistInFirestore(user) {
-    const docRef = doc(this.db, "users", user.uid);
-    const docSnap = await getDoc(docRef);
-    
-    if (docSnap.exists()) {
-      this.authService.showLoginArea = false;
-    } else {
-      // doc.data() will be undefined in this case
-      this.authService.showLoginArea = true;
-    }
-  }*/
+  /*
+  @HostListener('window:beforeunload')
+  async ngOnDestroy() {
+    const userId = this.authService.userData.uid; // get user id
+    await this.authService.SignOut(); // sign out user
+  }
+  */
 }
 
