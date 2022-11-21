@@ -63,37 +63,43 @@ export class UserInfoComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  changeUserDataNameFirestore(newName) {
-    this.afs.collection('users')
-      .doc(this.authService.userData.uid)
-      .update({ displayName: newName })
-      .then(() => {
-        console.log('Name updated');
-      }).catch((error) => {
-        window.alert(error.message);
-      });
+  async changeUserDataNameFirestore(newName) {
+    if (await this.authService.UserDataExist()) {
+      this.afs.collection('users')
+        .doc(this.authService.userData.uid)
+        .update({ displayName: newName })
+        .then(() => {
+          console.log('Name updated');
+        }).catch((error) => {
+          window.alert(error.message);
+        });
+    }
   }
 
-  changeUserDataMailFirestore(newMail) {
-    this.afs.collection('users')
-      .doc(this.authService.userData.uid)
-      .update({ email: newMail })
-      .then(() => {
-        console.log('Mail updated');
-      }).catch((error) => {
-        window.alert(error.message);
-      });
+  async changeUserDataMailFirestore(newMail) {
+    if (await this.authService.UserDataExist()) {
+      this.afs.collection('users')
+        .doc(this.authService.userData.uid)
+        .update({ email: newMail })
+        .then(() => {
+          console.log('Mail updated');
+        }).catch((error) => {
+          window.alert(error.message);
+        });
+    }
   }
 
-  saveImgUserPhotoURL(src) {
-    this.afs.collection('users')
-      .doc(this.authService.userData.uid)
-      .update({ photoURL: src })
-      .then(() => {
-        console.log('Image updated');
-      }).catch((error) => {
-        window.alert(error.message);
-      });
+  async saveImgUserPhotoURL(src) {
+    if (await this.authService.UserDataExist()) {
+      this.afs.collection('users')
+        .doc(this.authService.userData.uid)
+        .update({ photoURL: src })
+        .then(() => {
+          console.log('Image updated');
+        }).catch((error) => {
+          window.alert(error.message);
+        });
+    }
   }
 
   async changeUserDataPhoneFirestore(value) {
@@ -110,10 +116,12 @@ export class UserInfoComponent implements OnInit {
     else this.addDocInFirestore(value);
   }
 
-  async addDocInFirestore(value){
-    await setDoc(doc(this.db, "more-user-infos", this.authService.userData.uid), {
-      phoneNumber: value,
-      uid: this.authService.userData.uid
-    });
+  async addDocInFirestore(value) {
+    if (await this.authService.UserDataExist()) {
+      await setDoc(doc(this.db, "more-user-infos", this.authService.userData.uid), {
+        phoneNumber: value,
+        uid: this.authService.userData.uid
+      });
+    }
   }
 }
