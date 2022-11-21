@@ -35,6 +35,7 @@ export class ChannelMainComponent implements OnInit {
   selectedFiles?: FileList;
   currentFileUpload?: FileUpload;
   percentage = 0;
+  url: any;
 
   constructor(
     public channelServ: ChannelService,
@@ -53,7 +54,14 @@ export class ChannelMainComponent implements OnInit {
 
   selectFile(event: any): void {
     this.selectedFiles = event.target.files;
-  }
+    //show a preview of selected File
+    if (event.target.files) {
+      let reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onload=(event:any) => {
+        this.url=event.target.result;
+      }
+    }  }
 
   upload(): void {
     if (this.selectedFiles) {
