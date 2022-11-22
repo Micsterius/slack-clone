@@ -11,7 +11,7 @@
                         (mouseleave)="generalService.mouseLeave(menuTrigger)" class="img-small"
                         src="./../../../../assets/img/userIcons/{{(userService.returnUsersPhotoUrl(post.authorId)) ? userService.returnUsersPhotoUrl(post.authorId) : 'icon-unknown.svg'}}">
                 </div>
-                <mat-menu #menu="matMenu" xPosition="after"  [yPosition]="menuPositionY" [hasBackdrop]="false">
+                <mat-menu #menu="matMenu" xPosition="after" [yPosition]="menuPositionY" [hasBackdrop]="false">
                     <div (mouseenter)="generalService.mouseEnter(menuTrigger)"
                         (mouseleave)="generalService.mouseLeave(menuTrigger)">
                         <app-user-window [uid]="post.authorId"></app-user-window>
@@ -31,7 +31,7 @@
                     <div class="answer-box" *ngIf="post.answers.length == 0">
                         <span class="color-main-with-hover"
                             (click)="changeDetailViewPageContentToThread(); saveAnswersToShow(post)">Schreibe eine
-                            Antworten</span>
+                            Antwort</span>
                     </div>
                 </div>
             </div>
@@ -39,44 +39,31 @@
     </div>
     <div class="writing-area-container">
         <label>
-            <input
-              type="file"
-              class="text-nowrap text-truncate"
-              (change)="selectFile($event)"
-            />
-          </label>
-          
-          <button
-            class="btn btn-success btn-sm"
-            [disabled]="!selectedFiles"
-            (click)="upload()"
-          >
+            <input type="file" class="text-nowrap text-truncate" (change)="selectFile($event)" />
+        </label>
+
+        <button class="btn btn-success btn-sm" [disabled]="!selectedFiles" (click)="upload()">
             Upload
-          </button>
-          <img height="200" src="{{url}}" alt="">
-          
-          <div *ngIf="currentFileUpload" class="progress mt-2">
-            <div
-              class="progress-bar progress-bar-info"
-              role="progressbar"
-              attr.aria-valuenow="{{ percentage }}"
-              aria-valuemin="0"
-              aria-valuemax="100"
-              [ngStyle]="{ width: percentage + '%' }"
-            >
-              {{ percentage }}%
+        </button>
+        <img height="200" src="{{url}}" alt="">
+
+        <div *ngIf="currentFileUpload" class="progress mt-2">
+            <div class="progress-bar progress-bar-info" role="progressbar" attr.aria-valuenow="{{ percentage }}"
+                aria-valuemin="0" aria-valuemax="100" [ngStyle]="{ width: percentage + '%' }">
+                {{ percentage }}%
             </div>
-          </div>
+        </div>
         <div class="writing-area">
             <editor class="editor" [(ngModel)]="message" apiKey="0u347b51bx380ihx2w2vws4bfqf9dfqewelzkjxsl7p5ki0a"
                 [init]="{
-  height: 200,
-  width: '100%',
-  menubar: false, 
-  plugins: 'emoticons advlist autolink lists link image charmap preview anchor',
-  toolbar: 'undo redo | bold italic | emoticons',
-  emoticons_database: 'emojis'
-   }"></editor>
+                 height: 200,
+                width: '100%',
+                menubar: false, 
+                plugins: 'emoticons advlist autolink lists link image charmap preview anchor',
+                toolbar: 'undo redo | bold italic | emoticons',
+                emoticons_database: 'emojis'
+                }">
+            </editor>
             <button (click)="sendMessage()">
                 <mat-icon mat-icon-button fontIcon="send" class="color-main-with-hover"></mat-icon>
             </button>
