@@ -41,6 +41,7 @@ export class ChannelComponent implements OnInit {
     this.channelService.saveCurrentChannel(channel);
     localStorage.setItem('currentChannel', JSON.stringify(channel))
     this.generalService.scrollToBottomBoolean();
+  //  if (this.generalService.mobilViewIsActive) slideToNext
   }
 
   navigateToChannelMain() {
