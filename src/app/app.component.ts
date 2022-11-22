@@ -32,6 +32,8 @@ export class AppComponent {
   ngOnInit(){
     this.windowWidth = window.innerWidth;
     if (window.innerWidth < 800) this.generalService.mobilViewIsActive = true;   
+    this.loadColor();
+    
     }
 
 
@@ -42,5 +44,18 @@ export class AppComponent {
     await this.authService.SignOut(); // sign out user
   }
   */
+
+  getMainColor(){
+    return localStorage.getItem('mainColor');
+  }
+
+  getSecColor(){
+    return localStorage.getItem('secColor');
+  }
+
+  loadColor(){
+    document.documentElement.style.setProperty('--main-color', this.getMainColor());
+    document.documentElement.style.setProperty('--secondary-color', this.getSecColor());
+  }
 }
 

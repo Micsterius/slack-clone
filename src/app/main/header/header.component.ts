@@ -31,18 +31,29 @@ export class HeaderComponent implements OnInit {
   themePink(){
     document.documentElement.style.setProperty('--main-color', '#FA2759');
     document.documentElement.style.setProperty('--secondary-color', '#f7b0c1');
+    localStorage.setItem('mainColor', '#FA2759');
+    localStorage.setItem('secColor', '#f7b0c1');
   }
-  themeOrange(){
-    document.documentElement.style.setProperty('--main-color', '#fe8801');
-    document.documentElement.style.setProperty('--secondary-color', '#ffdbb2');
-  }
+
   themeViolett(){
     document.documentElement.style.setProperty('--main-color', '#7403bf');
     document.documentElement.style.setProperty('--secondary-color', '#ae8ec4');
+    localStorage.setItem('mainColor', '#7403bf');
+    localStorage.setItem('secColor', '#ae8ec4');
   }
+
+  themeOrange(){
+    document.documentElement.style.setProperty('--main-color', '#fe8801');
+    document.documentElement.style.setProperty('--secondary-color', '#ffdbb2');
+    localStorage.setItem('mainColor', '#fe8801');
+    localStorage.setItem('secColor', '#ffdbb2');
+  }
+
   themeDark(){
     document.documentElement.style.setProperty('--main-color', '#42324f');
     document.documentElement.style.setProperty('--secondary-color', '#afa1bd');
+    localStorage.setItem('mainColor', '#42324f');
+    localStorage.setItem('secColor', '#afa1bd');
   }
 
 }
