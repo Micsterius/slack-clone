@@ -1,6 +1,6 @@
 <div class="exp-box">
     <mat-accordion type MatAccordionTogglePosition = 'after'  class="exp-box bg-c-1-light">
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel [expanded]="true" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <div class="expansion-title">
@@ -12,7 +12,7 @@
             </mat-expansion-panel-header>
             <div *ngFor="let channel of channelService.arrayOfChannels">
                 <div (click)="saveCurrentChannelId(channel); navigateToChannelMain()">
-                    {{channel.name}}
+                    <p class="channel-name">{{channel.name}}</p>
                 </div>
             </div>
         </mat-expansion-panel>

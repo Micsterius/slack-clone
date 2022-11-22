@@ -107,10 +107,11 @@ mat-dialog-container{
 }
 
 .color-main-with-hover  {
+    cursor: pointer;
     color: var(--main-color);
+    font-weight: bold;
     &:hover{
-        cursor: pointer;
-        color: black;
+        color: var(--secondary-color);
     }
 }
 

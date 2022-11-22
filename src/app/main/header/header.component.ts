@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit {
 
   themePink(){
     document.documentElement.style.setProperty('--main-color', '#FA2759');
-    document.documentElement.style.setProperty('--secondary-color', '#ffebf0');
+    document.documentElement.style.setProperty('--secondary-color', '#f7b0c1');
   }
   themeOrange(){
     document.documentElement.style.setProperty('--main-color', '#fe8801');

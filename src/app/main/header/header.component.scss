@@ -29,7 +29,7 @@ h3 {
 
         &:hover {
             cursor: pointer;
-            color: black;
+            color: var(--secondary-color);
         }
     }
 }
@@ -46,7 +46,7 @@ h3 {
 
         &:hover {
             cursor: pointer;
-            color: black;
+            color: var(--secondary-color);
         }
     }
 }
@@ -82,7 +82,7 @@ mat-card-title {
 
         &:hover {
             cursor: pointer;
-            color: black;
+            color: var(--secondary-color);
         }
     }
 }
