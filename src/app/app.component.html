@@ -1,2 +1,3 @@
-<app-main *ngIf="!authService.showLoginArea"></app-main>
+<app-main *ngIf="!authService.showLoginArea && windowWidth >= 800"></app-main>
 <app-authentication *ngIf="authService.showLoginArea"></app-authentication>
+<app-mobil *ngIf="!authService.showLoginArea && windowWidth < 800"></app-mobil>

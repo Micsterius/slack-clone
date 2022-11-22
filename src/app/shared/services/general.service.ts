@@ -7,6 +7,7 @@ export class GeneralService {
   timedOutCloser;
   scrollToBottom;
   showDetailView: boolean = false;
+  mobilViewIsActive: boolean = false;
 
   constructor() { }
 
