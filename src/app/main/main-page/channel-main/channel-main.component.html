@@ -23,16 +23,25 @@
                         <div>{{generalService.getTransformedTimeStampToDate(post.timeStamp)}}</div>
                     </div>
                     <div class="content-box" [innerHTML]="post.content"></div>
-                    <div class="answer-box" *ngIf="post.answers.length > 0">
+                    
+                    <div class="answer-box" *ngIf="post.answers.length > 1">
                         <span class="color-main-with-hover"
                             (click)="changeDetailViewPageContentToThread(); saveAnswersToShow(post)">{{post.answers.length}}
                             Antworten</span>
                     </div>
+
+                    <div class="answer-box" *ngIf="post.answers.length == 1">
+                        <span class="color-main-with-hover"
+                            (click)="changeDetailViewPageContentToThread(); saveAnswersToShow(post)">{{post.answers.length}}
+                            Antwort</span>
+                    </div>
+
                     <div class="answer-box" *ngIf="post.answers.length == 0">
                         <span class="color-main-with-hover"
                             (click)="changeDetailViewPageContentToThread(); saveAnswersToShow(post)">Schreibe eine
                             Antwort</span>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -56,7 +65,7 @@
         <div class="writing-area">
             <editor class="editor" [(ngModel)]="message" apiKey="0u347b51bx380ihx2w2vws4bfqf9dfqewelzkjxsl7p5ki0a"
                 [init]="{
-                 height: 200,
+                height: 200,
                 width: '100%',
                 menubar: false, 
                 plugins: 'emoticons advlist autolink lists link image charmap preview anchor',
