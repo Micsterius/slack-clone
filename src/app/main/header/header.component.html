@@ -1,23 +1,41 @@
-    <div class="header-top bg-c-1">
-        <div class="icon-header-home">
-            <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="menu"></mat-icon>
-        </div>
-        <h3 class="color-white">Slack-Clone</h3>
-        <mat-icon class="icon-header" fontIcon="login" [routerLink]="['sign-in']" *ngIf="!authService.userData as user">
-        </mat-icon>
-        <div class="icon-header">
-            <mat-icon mat-icon-button [matMenuTriggerFor]="menu" fontIcon="settings"
-                *ngIf="authService.userData as user"></mat-icon>
-        </div>
-        <mat-menu #menu="matMenu" xPosition="before">
-            <button (click)="changeDetailViewPageContentToUserInfo()" mat-menu-item>
-                <mat-icon>person</mat-icon>
-                <span>Dein Profil</span>
-            </button>
-            <button mat-menu-item (click)="authService.SignOut()">
-                <mat-icon>logout</mat-icon>
-                <span>Ausloggen</span>
-            </button>
-        </mat-menu>
+<div class="header-top bg-c-1">
+    <div class="icon-header-home">
+        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="menu"></mat-icon>
     </div>
-    
+    <h3 class="color-white">Slack-Clone</h3>
+    <mat-icon class="icon-header" fontIcon="login" [routerLink]="['sign-in']" *ngIf="!authService.userData as user">
+    </mat-icon>
+    <div class="icon-header-color">
+        <mat-icon mat-icon-button [matMenuTriggerFor]="color" fontIcon="format_color_fill"
+            *ngIf="authService.userData as user">
+        </mat-icon>
+    </div>
+
+    <button mat-button [matMenuTriggerFor]="color">
+        <mat-menu #color="matMenu">
+            <button (click)="themePink()" mat-menu-item>Pink</button>
+            <button (click)="themeViolett()" mat-menu-item>Violett</button>
+            <button (click)="themeOrange()" mat-menu-item>Orange</button>
+            <button (click)="themeDark()" mat-menu-item>Dark</button>
+        </mat-menu>
+    </button>
+
+    <div class="icon-header-settings">
+        <mat-icon mat-icon-button [matMenuTriggerFor]="menu" fontIcon="settings" *ngIf="authService.userData as user">
+        </mat-icon>
+    </div>
+    <mat-menu #menu="matMenu" xPosition="before">
+        <button (click)="changeDetailViewPageContentToUserInfo()" mat-menu-item>
+            <mat-icon>person</mat-icon>
+            <span>Dein Profil</span>
+        </button>
+
+
+
+        <button mat-menu-item (click)="authService.SignOut()">
+            <mat-icon>logout</mat-icon>
+            <span>Ausloggen</span>
+        </button>
+
+    </mat-menu>
+</div>
