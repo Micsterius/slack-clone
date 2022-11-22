@@ -13,6 +13,7 @@ import { UsersService } from './shared/services/users.service';
 export class AppComponent {
   app = initializeApp(environment.firebase);
   db = getFirestore(this.app);
+  windowWidth;
   
   title = 'slack-clone';
   constructor(
@@ -24,6 +25,10 @@ export class AppComponent {
 
     userService.loadUsers();
     userService.loadUsersAdditionalInfos();
+  }
+
+  ngOnInit(){
+    this.windowWidth = window.innerWidth;
   }
 
   /*

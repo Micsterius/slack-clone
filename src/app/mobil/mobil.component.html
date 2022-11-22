@@ -1,1 +1,6 @@
-<p>mobil works!</p>
+<div class="swiper-container">
+    <swiper [virtual]="true" [navigation]="true" [pagination]="true" class="mySwiper">
+      <ng-template swiperSlide><app-sidebar></app-sidebar></ng-template>
+      <ng-template swiperSlide><router-outlet></router-outlet></ng-template>
+    </swiper>
+  </div>
