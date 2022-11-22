@@ -1,5 +1,5 @@
 <app-header></app-header>
-<div class="swiper-container">
+<div class="swiper-container-mobil">
     <swiper #swiper [virtual]="true" [navigation]="true" [pagination]="true" class="mySwiper">
         <ng-template swiperSlide>
             <app-sidebar></app-sidebar>
@@ -7,6 +7,12 @@
         <ng-template swiperSlide>
             <router-outlet></router-outlet>
         </ng-template>
+        <ng-template swiperSlide>
+            <div *ngIf="showDetailViewPageMobil">
+              <app-detail-view-page></app-detail-view-page>  
+            </div>
+        </ng-template>
     </swiper>
+    <div  *ngIf="checkShowNextSlide()"></div>
     <button (click)="slideNext()">slideNext</button>
 </div>

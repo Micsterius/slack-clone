@@ -8,6 +8,7 @@ export class GeneralService {
   scrollToBottom;
   showDetailView: boolean = false;
   mobilViewIsActive: boolean = false;
+  showNextSlide: boolean = false;
 
   constructor() { }
 

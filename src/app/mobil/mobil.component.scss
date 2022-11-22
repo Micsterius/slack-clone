@@ -1,3 +1,7 @@
 @import 'swiper/scss';
 @import 'swiper/scss/navigation';
 @import 'swiper/scss/pagination';
+
+.swiper-container-mobil{
+    height: calc(100vh - 37px - 200px - 60px - 16px); // - header channel main; - height editor; - height header; - some margin
+}
