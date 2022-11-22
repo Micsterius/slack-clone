@@ -47,13 +47,13 @@
         </div>
     </div>
     <div class="writing-area-container">
-        <label>
+        <!-- <label>
             <input type="file" class="text-nowrap text-truncate" (change)="selectFile($event)" />
         </label>
 
         <button class="btn btn-success btn-sm" [disabled]="!selectedFiles" (click)="upload()">
             Upload
-        </button>
+        </button> -->
         <img height="200" src="{{url}}" alt="">
 
         <div *ngIf="currentFileUpload" class="progress mt-2">
@@ -73,9 +73,18 @@
                 emoticons_database: 'emojis'
                 }">
             </editor>
-            <button (click)="sendMessage()">
+            <button class="button" (click)="sendMessage()">
                 <mat-icon mat-icon-button fontIcon="send" class="color-main-with-hover"></mat-icon>
             </button>
+            <div class="upload-container">
+                <label>
+                    <input type="file" class="text-nowrap text-truncate" (change)="selectFile($event)" />
+                </label>
+        
+                <button class="btn btn-success btn-sm" [disabled]="!selectedFiles" (click)="upload()">
+                    Upload
+                </button>
+            </div>
         </div>
     </div>
 

@@ -11,7 +11,7 @@
     padding-bottom: 4px;
 
 
-    button {
+    .button {
         position: absolute;
         top: 12px;
         right: 12px;
@@ -20,7 +20,19 @@
         background-color: white;
         border: none;
     }
+
+
 }
+
+.upload-container{
+    position: absolute;
+    display: flex;
+    top: 13px;
+    right: 82px;
+    z-index: 99999;
+}
+
+
 
 .editor {
     width: 100%;
