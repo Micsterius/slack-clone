@@ -26,7 +26,6 @@ export class MobilComponent implements OnInit {
   @ViewChild('swiper', { static: false }) swiper?: SwiperComponent;
   slideNext() {
     this.swiper.swiperRef.slideNext(100);
-    console.log('A')
   }
   slidePrev() {
     this.swiper.swiperRef.slidePrev(100);
