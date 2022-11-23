@@ -46,15 +46,16 @@ export class ChannelMainComponent implements OnInit {
     this.currentChannel = JSON.parse(localStorage.getItem('currentChannel')!)
     this.actualUser = JSON.parse(localStorage.getItem('user')!)
     channelServ.currentChannel = this.currentChannel;
+   
     if (!this.currentChannel) {
       this.currentChannel = {
         name: 'Regeln',
         id: 'JsFlpBJololcnDEjcSqz'
       }
       channelServ.currentChannel = this.currentChannel;
-      this.channelServ.loadChannel();
-      channelServ.showChannel = true;
     }
+    this.channelServ.loadChannel();
+    channelServ.showChannel = true;
   }
 
   ngOnInit() {
@@ -119,6 +120,7 @@ export class ChannelMainComponent implements OnInit {
     this.detailViewService.showUserInfo = false;
     this.detailViewService.showOtherUserInfo = false;
     this.detailViewService.showThread = true;
+    if (this.generalService.mobilViewIsActive) this.generalService.showNextSlide = true;
   }
 
   saveAnswersToShow(post) {
