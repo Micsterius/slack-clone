@@ -24,6 +24,7 @@ export class AppComponent {
     let user = JSON.parse(localStorage.getItem('user'))
     if(user) this.authService.showLoginArea = false;
     else this.authService.showLoginArea = true;
+    //
 
     userService.loadUsers();
     userService.loadUsersAdditionalInfos();
