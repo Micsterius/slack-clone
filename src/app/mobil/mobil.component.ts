@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 
 // import Swiper core and required modules
-import SwiperCore, { Swiper, Virtual } from "swiper";
+import SwiperCore, { Keyboard, Navigation, Pagination, Swiper, Virtual } from "swiper";
 import { SwiperComponent } from 'swiper/angular';
 import { GeneralService } from '../shared/services/general.service';
 
 // install Swiper modules
-SwiperCore.use([Virtual]);
+SwiperCore.use([Virtual, Navigation, Pagination, Keyboard]);
 @Component({
   selector: 'app-mobil',
   templateUrl: './mobil.component.html',
