@@ -30,9 +30,13 @@
     top: 13px;
     right: 82px;
     z-index: 99999;
+
+    
 }
 
-
+.upload-container>input{
+    display: none;
+}
 
 .editor {
     width: 100%;

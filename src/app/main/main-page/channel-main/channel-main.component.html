@@ -65,7 +65,7 @@
         <div class="writing-area">
             <editor class="editor" [(ngModel)]="message" apiKey="0u347b51bx380ihx2w2vws4bfqf9dfqewelzkjxsl7p5ki0a"
                 [init]="{
-                height: 200,
+                height: 150,
                 width: '100%',
                 menubar: false, 
                 plugins: 'emoticons advlist autolink lists link image charmap preview anchor',
@@ -77,10 +77,10 @@
                 <mat-icon mat-icon-button fontIcon="send" class="color-main-with-hover"></mat-icon>
             </button>
             <div class="upload-container">
-                <label>
-                    <input type="file" class="text-nowrap text-truncate" (change)="selectFile($event)" />
+                <label for="file-input">
+                    <mat-icon mat-icon-button fontIcon="attach_file"></mat-icon>
                 </label>
-        
+                <input id="file-input" type="file" class="text-nowrap text-truncate" (change)="selectFile($event)" />
                 <button class="btn btn-success btn-sm" [disabled]="!selectedFiles" (click)="upload()">
                     Upload
                 </button>
