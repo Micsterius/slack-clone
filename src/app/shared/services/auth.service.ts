@@ -138,7 +138,7 @@ export class AuthService {
     let userData: User = {
       uid: user.uid,
       email: user.email,
-      displayName: user.displayName,
+      displayName: user.displayName ? user.displayName : 'User', //necessary because if user.displayName is empty, search fkt for chat partner doesnt run
       phoneNumber: user.phoneNumber,
       photoURL: user.photoURL,
       emailVerified: user.emailVerified
