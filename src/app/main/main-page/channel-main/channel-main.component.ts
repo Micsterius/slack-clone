@@ -46,6 +46,15 @@ export class ChannelMainComponent implements OnInit {
     this.currentChannel = JSON.parse(localStorage.getItem('currentChannel')!)
     this.actualUser = JSON.parse(localStorage.getItem('user')!)
     channelServ.currentChannel = this.currentChannel;
+    if (!this.currentChannel) {
+      this.currentChannel = {
+        name: 'Regeln',
+        id: 'JsFlpBJololcnDEjcSqz'
+      }
+      channelServ.currentChannel = this.currentChannel;
+      this.channelServ.loadChannel();
+      channelServ.showChannel = true;
+    }
   }
 
   ngOnInit() {
@@ -58,10 +67,11 @@ export class ChannelMainComponent implements OnInit {
     if (event.target.files) {
       let reader = new FileReader();
       reader.readAsDataURL(event.target.files[0]);
-      reader.onload=(event:any) => {
-        this.url=event.target.result;
+      reader.onload = (event: any) => {
+        this.url = event.target.result;
       }
-    }  }
+    }
+  }
 
   upload(): void {
     if (this.selectedFiles) {
@@ -91,7 +101,7 @@ export class ChannelMainComponent implements OnInit {
 
     let y = e.clientY; //y-position of mouse
 
-    let halfContainerHeight = container.height/2
+    let halfContainerHeight = container.height / 2
     if ((halfContainerHeight + container.top) >= y) this.menuPositionY = 'below'
     else this.menuPositionY = 'above'
   }

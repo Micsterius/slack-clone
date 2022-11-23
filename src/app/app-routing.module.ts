@@ -17,6 +17,7 @@ const routes: Routes = [
   { path: 'personal', component: UserInfoComponent },
   { path: 'channel-main', component: ChannelMainComponent },
   { path: 'chat-main', component: MainChatComponent },
+  { path: '', component: ChannelMainComponent },
 ];
 
 @NgModule({
