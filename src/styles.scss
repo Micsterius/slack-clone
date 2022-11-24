@@ -3,7 +3,9 @@
     --main-color: #42324f;
     --main-color-rgb: 250, 39, 89;
     --secondary-color: #afa1bd;
-    --secondary-color-rgb: 255, 235, 240
+    --secondary-color-rgb: 255, 235, 240;
+    --background-color: #f3e7ff;
+
   }
 .bg-c-1 {
     background-color: var(--main-color);
@@ -51,6 +53,10 @@ mat-dialog-container{
     overflow: unset !important;
     outline: unset !important;
     width: unset !important;
+}
+
+mat-icon{
+    cursor: pointer;
 }
 
 .channel-headline{
@@ -207,6 +213,7 @@ body {
 .detail-view-header{
     border-bottom: 1px solid lightgray;
     padding: 8px;
+    background-color: white;
 }
 
 .padding-8{
@@ -223,7 +230,7 @@ body {
 }
 
 .all-posts-container{
-    height: calc(100vh - 37px - 200px - 60px - 16px); // - header channel main; - height editor; - height header; - some margin
+    height: calc(100vh - 37px - 200px - 60px - 4px); // - header channel main; - height editor; - height header; - some margin
     overflow: auto;
 }
 

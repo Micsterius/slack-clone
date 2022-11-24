@@ -9,6 +9,7 @@ import { FileUploadService } from 'src/app/shared/services/file-upload.service';
 import { GeneralService } from 'src/app/shared/services/general.service';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { environment } from 'src/environments/environment';
+import {MatButtonModule} from '@angular/material/button';
 
 @Component({
   selector: 'app-channel-main',

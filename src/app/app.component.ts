@@ -54,9 +54,14 @@ export class AppComponent {
     return localStorage.getItem('secColor');
   }
 
+  getBackgroundColor(){
+    return localStorage.getItem('backgroundColor')
+  }
+
   loadColor(){
     document.documentElement.style.setProperty('--main-color', this.getMainColor());
     document.documentElement.style.setProperty('--secondary-color', this.getSecColor());
+    document.documentElement.style.setProperty('--background-color', this.getBackgroundColor());
   }
 }
 

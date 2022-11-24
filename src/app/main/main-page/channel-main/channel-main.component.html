@@ -3,7 +3,8 @@
         <h2 class="channel-headline">Channel {{channelServ.currentChannel.name}}</h2>
     </div>
     <div #scrollMe class="all-posts-container">
-        <div *ngFor="let post of channelServ.posts; let i=index">
+        <div (click)="changeDetailViewPageContentToThread(); saveAnswersToShow(post)"
+            *ngFor="let post of channelServ.posts; let i=index; let last = last" [ngClass]="{'last-child': last}">
             <div class="post-container">
                 <div #userImage class="post-img">
                     <img [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"
@@ -23,7 +24,7 @@
                         <div>{{generalService.getTransformedTimeStampToDate(post.timeStamp)}}</div>
                     </div>
                     <div class="content-box" [innerHTML]="post.content"></div>
-                    
+
                     <div class="answer-box" *ngIf="post.answers.length > 1">
                         <span class="color-main-with-hover"
                             (click)="changeDetailViewPageContentToThread(); saveAnswersToShow(post)">{{post.answers.length}}
@@ -47,13 +48,7 @@
         </div>
     </div>
     <div class="writing-area-container">
-        <!-- <label>
-            <input type="file" class="text-nowrap text-truncate" (change)="selectFile($event)" />
-        </label>
 
-        <button class="btn btn-success btn-sm" [disabled]="!selectedFiles" (click)="upload()">
-            Upload
-        </button> -->
         <img height="200" src="{{url}}" alt="">
 
         <div *ngIf="currentFileUpload" class="progress mt-2">
@@ -78,11 +73,12 @@
             </button>
             <div class="upload-container">
                 <label for="file-input">
-                    <mat-icon mat-icon-button fontIcon="attach_file"></mat-icon>
+                    <mat-icon mat-icon-button>attach_file</mat-icon>
                 </label>
                 <input id="file-input" type="file" class="text-nowrap text-truncate" (change)="selectFile($event)" />
-                <button class="btn btn-success btn-sm" [disabled]="!selectedFiles" (click)="upload()">
-                    Upload
+                <button mat-icon-button class="upload-button" [disabled]="!selectedFiles"
+                    (click)="upload()">
+                    <mat-icon>upload</mat-icon>
                 </button>
             </div>
         </div>
