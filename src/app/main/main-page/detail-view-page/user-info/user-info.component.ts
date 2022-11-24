@@ -124,4 +124,24 @@ export class UserInfoComponent implements OnInit {
       });
     }
   }
+
+  editProfile() {
+    this.editPhotoURL = true;
+    this.editUserName = true;
+    this.editUserMail = true;
+    this.editUserPhone = true;
+    this.editUserPw = true
+  }
+
+  canselProfileEdit(){
+    this.editPhotoURL = false;
+    this.editUserName = false;
+    this.editUserMail = false;
+    this.editUserPhone = false;
+    this.editUserPw = false
+  }
+
+  saveProfileEdit(){
+
+  }
 }
