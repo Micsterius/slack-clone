@@ -1,9 +1,14 @@
 <!-- Main content -->
-<div class="detail-view-header" *ngIf="authService.userData as user"> <h2 class="headline-user">Welcome {{ user.displayName }}</h2> </div>
+<div class="detail-view-header" *ngIf="authService.userData as user">
+  <h2 class="headline-user">Welcome {{ user.displayName }}</h2>
+</div>
 <div class="dashboard-container">
   <div class="pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="headline-user color-main fs18">Profile settings 
-      <mat-icon *ngIf="!editPhotoURL" fontIcon="settings" (click)="editProfile()"></mat-icon> </h1>
+    <h1 class="headline-user color-main fs18">Profile settings
+      <mat-icon *ngIf="!editPhotoURL" fontIcon="settings" (click)="editProfile()"></mat-icon>
+      <mat-icon *ngIf="editPhotoURL" (click)="canselProfileEdit()">cancel</mat-icon>
+      <mat-icon *ngIf="editPhotoURL" (click)="saveProfileEdit()">save</mat-icon>
+    </h1>
   </div>
   <!-- Show user data when logged in -->
   <div *ngIf="authService.userData as user">
@@ -106,8 +111,6 @@
       <div class="user-detail-box">
         <p>E-Mail verified: <strong>{{(user.emailVerified) ? user.emailVerified : 'false'}}</strong></p>
       </div>
-      <mat-icon *ngIf="editPhotoURL" (click)="canselProfileEdit()">cancel</mat-icon>
-      <mat-icon *ngIf="editPhotoURL" (click)="saveProfileEdit()">save</mat-icon>
     </div>
   </div>
 </div>
