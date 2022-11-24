@@ -34,7 +34,7 @@
 
     <div class="user-detail-container">
       <div class="user-detail-box">
-        <p>Name: <strong>{{(user.displayName) ? user.displayName : 'User'}}</strong></p>
+        <p>Name: <strong *ngIf="!editUserName"> {{(user.displayName) ? user.displayName : 'User'}}</strong></p>
         <!-- <mat-icon *ngIf="!editUserName" class="icon-header" fontIcon="edit" (click)="editUserName = true"></mat-icon> -->
         <mat-form-field appearance="fill" *ngIf="editUserName">
           <input name="userNameChange" #userNameChange matInput [formControl]="authService.name" type="text"
