@@ -79,7 +79,7 @@
 
 .mat-icon-done {
     position: absolute;
-    right: 32px;
+    right: 190px;
 }
 
 .mat-form-field {
@@ -145,6 +145,23 @@
         width: 30px;
         font-size: 30px;
     }
+}
+
+.mat-form-field{
+    width: unset;
+}
+
+.mat-form-field-infix{
+    padding: unset;
+    border-top: unset;
+}
+
+.mat-form-field-wrapper{
+    padding-bottom: unset;
+}
+
+.mat-form-field-underline{
+    bottom: unset;
 }
 
 .swiper-pagination-bullets {

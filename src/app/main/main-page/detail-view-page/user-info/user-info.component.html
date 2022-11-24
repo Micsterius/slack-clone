@@ -43,7 +43,7 @@
           <!-- <mat-icon *ngIf="editUserName" class="icon-header mat-icon-close" fontIcon="close"
             (click)="editUserName = false">
           </mat-icon> -->
-          <mat-icon type="button" *ngIf="editUserName" class="icon-header mat-icon-done" fontIcon="done"
+          <mat-icon type="button" *ngIf="editUserName" class="icon-header mat-icon-done" fontIcon="save"
             (click)="editUserName = false; changeUserDataNameFirestore(userNameChange.value); authService.changeUserDataName(userNameChange.value)">
           </mat-icon>
         </mat-form-field>
@@ -62,7 +62,7 @@
           <!-- <mat-icon *ngIf="editUserMail" class="icon-header mat-icon-close" fontIcon="close"
             (click)="editUserMail = false">
           </mat-icon> -->
-          <mat-icon type="button" *ngIf="editUserMail" class="icon-header mat-icon-done" fontIcon="done"
+          <mat-icon type="button" *ngIf="editUserMail" class="icon-header mat-icon-done" fontIcon="save"
             (click)="editUserMail = false; authService.changeUserDataMail(userEmailChange.value); changeUserDataMailFirestore(userEmailChange.value)">
           </mat-icon>
         </mat-form-field>
@@ -78,7 +78,7 @@
           <!-- <mat-icon *ngIf="editUserPhone" class="icon-header mat-icon-close" fontIcon="close"
             (click)="editUserPhone = false">
           </mat-icon> -->
-          <mat-icon type="button" *ngIf="editUserPhone" class="icon-header mat-icon-done" fontIcon="done"
+          <mat-icon type="button" *ngIf="editUserPhone" class="icon-header mat-icon-done" fontIcon="save"
             (click)="editUserPhone = false; changeUserDataPhoneFirestore(UserPhoneChange.value)" #getUserPhoneNbr>
           </mat-icon>
         </mat-form-field>
@@ -97,7 +97,7 @@
             <!-- <mat-icon *ngIf="editUserPw" class="icon-header mat-icon-close" fontIcon="close"
               (click)="editUserPw = false">
             </mat-icon> -->
-            <mat-icon type="button" *ngIf="editUserPw" class="icon-header mat-icon-done" fontIcon="done"
+            <mat-icon type="button" *ngIf="editUserPw" class="icon-header mat-icon-done" fontIcon="save"
               (click)="editUserPw = false; authService.changeUserDataPw(userPwChange.value)"></mat-icon>
           </mat-form-field>
         </div>
