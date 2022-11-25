@@ -31,6 +31,12 @@ export class UserInfoComponent implements OnInit {
   editUserPw: boolean = false;
   editPhotoURL: boolean = false;
   editUserPhone: boolean = false;
+
+  editUser: boolean = false;
+
+  activeUser;
+  showUserDetails: boolean = false;
+
   @Input() newName: any;
   @Input() newMail: any;
   @Input() newPhoneNumber: any;
@@ -62,6 +68,16 @@ export class UserInfoComponent implements OnInit {
     public afAuth: AngularFireAuth,
     public usersService: UsersService
   ) {
+    this.activeUser = JSON.parse(localStorage.getItem('user')!);
+    this.loadTelephoneNbr() 
+  }
+
+  loadTelephoneNbr(){
+    setTimeout(() => {
+      this.activeUser.phoneNumber = this.usersService.returnUsersPhoneNumber(this.activeUser.uid)
+      console.log(this.activeUser)
+      this.showUserDetails = true;
+    }, 2000);
   }
 
   ngOnInit(): void {
@@ -130,19 +146,11 @@ export class UserInfoComponent implements OnInit {
   }
 
   editProfile() {
-    this.editPhotoURL = true;
-    this.editUserName = true;
-    this.editUserMail = true;
-    this.editUserPhone = true;
-    this.editUserPw = true
+    this.editUser = true
   }
 
   closeProfileEdit() {
-    this.editPhotoURL = false;
-    this.editUserName = false;
-    this.editUserMail = false;
-    this.editUserPhone = false;
-    this.editUserPw = false
+    this.editUser = false
   }
 
   saveProfileEdit() {

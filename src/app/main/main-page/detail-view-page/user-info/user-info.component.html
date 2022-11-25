@@ -5,18 +5,18 @@
 <div class="dashboard-container">
   <div class="pt-3 pb-2 mb-3 border-bottom">
     <h1 class="headline-user color-main fs18">Profile settings
-      <mat-icon *ngIf="!editPhotoURL" fontIcon="settings" (click)="editProfile()"></mat-icon>
-      <mat-icon *ngIf="editPhotoURL" (click)="saveProfileEdit()">save</mat-icon>
-      <mat-icon *ngIf="editPhotoURL" (click)="closeProfileEdit()">cancel</mat-icon>
+      <mat-icon *ngIf="!editUser" fontIcon="settings" (click)="editProfile()"></mat-icon>
+      <mat-icon *ngIf="editUser" (click)="saveProfileEdit()">save</mat-icon>
+      <mat-icon *ngIf="editUser" (click)="closeProfileEdit()">cancel</mat-icon>
     </h1>
   </div>
   <!-- Show user data when logged in -->
-  <div *ngIf="authService.userData as user">
+  <div *ngIf="authService.userData">
 
     <div class="img-box" *ngIf="!editPhotoURL">
       <img class="profile-img" (click)="editPhotoURL = true"
-        src="./../../../../../assets/img/userIcons/{{(user.photoURL) ? user.photoURL : 'icon-unknown.svg'}}"
-        alt="{{user.displayName}}">
+        src="./../../../../../assets/img/userIcons/{{(activeUser.photoURL) ? activeUser.photoURL : 'icon-unknown.svg'}}"
+        alt="{{activeUser.displayName}}">
       <!-- <mat-icon *ngIf="!editPhotoURL" fontIcon="edit" (click)="editPhotoURL = true"></mat-icon> -->
     </div>
 
@@ -36,14 +36,14 @@
         </ng-template>
       </swiper>
     </div>
-
+<form></form>
     <div class="user-detail-container">
       <div class="user-detail-box">
-        <p><strong>Name:</strong> <span *ngIf="!editUserName"> {{(user.displayName) ? user.displayName : 'User'}}</span></p>
+        <p><strong>Name:</strong> <span *ngIf="!editUser"> {{(activeUser.displayName) ? activeUser.displayName : 'User'}}</span></p>
         <!-- <mat-icon *ngIf="!editUserName" class="icon-header" fontIcon="edit" (click)="editUserName = true"></mat-icon> -->
-        <mat-form-field appearance="fill" *ngIf="editUserName">
-          <input [(ngModel)]="newName" matInput type="text"
-            placeholder="{{user.displayName}}" required maxLength="10">
+        <mat-form-field appearance="fill" *ngIf="editUser">
+          <input [(ngModel)]="activeUser.displayName" matInput type="text"
+            value="{{activeUser.displayName}}" required maxLength="10">
           <mat-error *ngIf="authService.name.invalid">{{authService.getErrorMessage()}}</mat-error>
           <!-- <mat-icon *ngIf="editUserName" class="icon-header mat-icon-close" fontIcon="close"
             (click)="editUserName = false">
@@ -54,15 +54,15 @@
         </mat-form-field>
       </div>
       <div class="user-detail-box">
-        <p><strong>UserId:</strong> <span> {{(user.uid) ? user.uid : 'uid'}}</span></p>
+        <p><strong>UserId:</strong> <span> {{(activeUser.uid) ? activeUser.uid : 'uid'}}</span></p>
       </div>
       <div class="user-detail-box">
-        <p><strong>E-Mail:</strong><span *ngIf="!editUserMail"> {{(user.email) ? user.email : 'E-Mail'}}</span></p>
+        <p><strong>E-Mail:</strong><span *ngIf="!editUser"> {{(activeUser.email) ? activeUser.email : 'E-Mail'}}</span></p>
         <!-- <mat-icon *ngIf="!editUserMail" class="icon-header" fontIcon="edit" (click)="editUserMail = true">
         </mat-icon> -->
-        <mat-form-field appearance="fill" *ngIf="editUserMail">
-          <input [(ngModel)]="newMail" matInput [formControl]="authService.email"
-            type="email" placeholder="{{user.email}}" required>
+        <mat-form-field appearance="fill" *ngIf="editUser">
+          <input [(ngModel)]="activeUser.email" matInput [formControl]="authService.email"
+            type="email" value="{{activeUser.email}}" required>
           <mat-error *ngIf="authService.email.invalid">{{authService.getErrorMessage()}}</mat-error>
           <!-- <mat-icon *ngIf="editUserMail" class="icon-header mat-icon-close" fontIcon="close"
             (click)="editUserMail = false">
@@ -73,12 +73,12 @@
         </mat-form-field>
       </div>
       <div class="user-detail-box">
-        <p><strong>Telefon:</strong> <span *ngIf="!editUserPhone"> {{usersService.returnUsersPhoneNumber(user.uid)}}</span></p>
+        <p><strong>Telefon:</strong> <span *ngIf="!editUser"> {{usersService.returnUsersPhoneNumber(activeUser.uid)}}</span></p>
         <!-- <mat-icon *ngIf="!editUserPhone" class="icon-header" fontIcon="edit" (click)="editUserPhone = true">
         </mat-icon> -->
-        <mat-form-field appearance="fill" *ngIf="editUserPhone">
-          <input [(ngModel)]="newPhoneNumber" matInput [formControl]="authService.email"
-            type="number" placeholder="{{usersService.returnUsersPhoneNumber(user.uid)}}" required>
+        <mat-form-field appearance="fill" *ngIf="editUser">
+          <input [(ngModel)]="activeUser.phoneNumber" matInput
+            type="number" value="{{activeUser.phoneNumber}}" required>
           <mat-error *ngIf="authService.phone.invalid">{{authService.getErrorMessage()}}</mat-error>
           <!-- <mat-icon *ngIf="editUserPhone" class="icon-header mat-icon-close" fontIcon="close"
             (click)="editUserPhone = false">
@@ -90,12 +90,12 @@
       </div>
       <div class="user-detail-box">
         <div>
-          <p><strong>Passwort:</strong> <span *ngIf="!editUserPw"> **********</span></p>
+          <p><strong>Passwort:</strong> <span *ngIf="!editUser"> **********</span></p>
         </div>
         <div>
           <!-- <mat-icon *ngIf="!editUserPw" class="icon-header" fontIcon="edit" (click)="editUserPw = true">
           </mat-icon> -->
-          <mat-form-field appearance="fill" *ngIf="editUserPw">
+          <mat-form-field appearance="fill" *ngIf="editUser">
             <input [(ngModel)]="newPasswort" matInput
               [formControl]="authService.password" type="password" placeholder="**********" required>
             <mat-error *ngIf="authService.password.invalid">{{authService.getErrorMessage()}}</mat-error>
@@ -109,7 +109,7 @@
 
       </div>
       <div class="user-detail-box">
-        <p><strong>E-Mail verified:</strong> <span> {{(user.emailVerified) ? user.emailVerified : 'false'}}</span></p>
+        <p><strong>E-Mail verified:</strong> <span> {{(activeUser.emailVerified) ? activeUser.emailVerified : 'false'}}</span></p>
       </div>
     </div>
   </div>
