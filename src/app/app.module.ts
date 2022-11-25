@@ -56,6 +56,7 @@ import { OtherUserInfoComponent } from './main/main-page/detail-view-page/other-
 import { AddChatDialogComponent } from './main/sidebar/add-chat-dialog/add-chat-dialog.component';
 import { MobilComponent } from './mobil/mobil.component';
 import { SidebarComponent } from './main/sidebar/sidebar.component';
+import { FooterComponent } from './main/footer/footer.component';
 //import { ChannelMainComponent } from './main/main-page/channel-main/channel-main.component';
 
 @NgModule({
@@ -81,6 +82,7 @@ import { SidebarComponent } from './main/sidebar/sidebar.component';
     AddChatDialogComponent,
     MobilComponent,
     SidebarComponent,
+    FooterComponent,
     ],
   imports: [
     BrowserModule,
