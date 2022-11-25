@@ -40,21 +40,9 @@ export class ThreadComponent implements OnInit {
   }
 
   async deletePost(post) {
-    /*for (let i = 0; i < this.channelService.currentThread.post.answers.length; i++) {
-      const answer = this.channelService.currentThread.post.answers[i];
-      await deleteDoc(doc(this.db, "channel", this.channelService.currentChannel.id, "posts", post.id, "answers", answer.id));
-      if (this.channelService.currentThread.post.answers.length == 0) {
-        await deleteDoc(doc(this.db, "channel", this.channelService.currentChannel.id, "posts", post.id));
-      }
-    }*/
-    this.deleteAllAnswers(post)
-      .then(function (post) {
-        this.deletePostComplete(post);
-      })
+    await this.deleteAllAnswers(post);
+    await this.deletePostComplete(post);
     this.changeDetailViewPageContentToThread();
-    /* setTimeout(() => {
-       this.deletePostComplete(post);
-     }, 500);*/
   }
 
   async deleteAllAnswers(post) {
