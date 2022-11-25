@@ -75,23 +75,21 @@ export class ChannelMainComponent implements OnInit {
     }
   }
 
-  upload(): void {
-    if (this.selectedFiles) {
+  upload(): any {
+  
       const file: File | null = this.selectedFiles.item(0);
       this.selectedFiles = undefined;
 
-      if (file) {
         this.currentFileUpload = new FileUpload(file);
-        this.uploadService.pushFileToStorage(this.currentFileUpload).subscribe(
+        return this.uploadService.pushFileToStorage(this.currentFileUpload).subscribe(
           percentage => {
             this.percentage = Math.round(percentage ? percentage : 0);
           },
           error => {
             console.log(error);
           }
-        );
-      }
-    }
+        );   
+    
   }
 
   ngAfterViewChecked() {
@@ -143,6 +141,12 @@ export class ChannelMainComponent implements OnInit {
     let idAdd = Math.random().toString(16).substr(2, 6)
 
     let name = this.getNameOfAuthor();
+    let urlImage = "";
+
+    if(this.selectedFiles){
+      this.upload();
+
+    }
 
     await setDoc(doc(this.db, "channel", this.channelServ.currentChannel.id, "posts", `${textId + idAdd}`),
       {
@@ -150,10 +154,15 @@ export class ChannelMainComponent implements OnInit {
         authorId: this.actualUser.uid,
         authorName: name,
         id: `${textId + idAdd}`,
-        timeStamp: textId
+        timeStamp: textId,
+        imageUrl:urlImage
       })
     this.message = '';
   }
+
+ // hasNewMessageImages(){
+
+ // }
 
   getNameOfAuthor() {
     if (this.actualUser.displayName) return this.actualUser.displayName;
