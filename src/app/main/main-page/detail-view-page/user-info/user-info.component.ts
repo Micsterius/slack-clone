@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { initializeApp } from 'firebase/app';
@@ -31,7 +31,10 @@ export class UserInfoComponent implements OnInit {
   editUserPw: boolean = false;
   editPhotoURL: boolean = false;
   editUserPhone: boolean = false;
-
+  @Input() newName: any = '';
+  @Input() newMail: any = '';
+  @Input() newPhoneNumber: any = '';
+  @Input() newPasswort: any = '';
 
   actualUser: any;
 
@@ -63,11 +66,11 @@ export class UserInfoComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  async changeUserDataNameFirestore(newName) {
+  async changeUserDataNameFirestore() {
     if (await this.authService.UserDataExist()) {
       this.afs.collection('users')
         .doc(this.authService.userData.uid)
-        .update({ displayName: newName })
+        .update({ displayName: this.newName })
         .then(() => {
           console.log('Name updated');
         }).catch((error) => {
@@ -76,11 +79,11 @@ export class UserInfoComponent implements OnInit {
     }
   }
 
-  async changeUserDataMailFirestore(newMail) {
+  async changeUserDataMailFirestore() {
     if (await this.authService.UserDataExist()) {
       this.afs.collection('users')
         .doc(this.authService.userData.uid)
-        .update({ email: newMail })
+        .update({ email: this.newMail })
         .then(() => {
           console.log('Mail updated');
         }).catch((error) => {
@@ -102,18 +105,18 @@ export class UserInfoComponent implements OnInit {
     }
   }
 
-  async changeUserDataPhoneFirestore(value) {
+  async changeUserDataPhoneFirestore() {
     if (await this.authService.additionUserDataExist()) {
       this.afs.collection('more-user-infos')
         .doc(this.authService.userData.uid)
-        .update({ phoneNumber: value })
+        .update({ phoneNumber: this.newPhoneNumber })
         .then(() => {
           console.log('Phone updated');
         }).catch((error) => {
           window.alert(error.message);
         });
     }
-    else this.addDocInFirestore(value);
+    else this.addDocInFirestore(this.newPhoneNumber);
   }
 
   async addDocInFirestore(value) {
@@ -133,7 +136,7 @@ export class UserInfoComponent implements OnInit {
     this.editUserPw = true
   }
 
-  canselProfileEdit(){
+  closeProfileEdit() {
     this.editPhotoURL = false;
     this.editUserName = false;
     this.editUserMail = false;
@@ -141,7 +144,13 @@ export class UserInfoComponent implements OnInit {
     this.editUserPw = false
   }
 
-  saveProfileEdit(){
-
+  async saveProfileEdit() {
+    await this.changeUserDataNameFirestore();
+    await this.changeUserDataMailFirestore();
+    await this.changeUserDataPhoneFirestore();
+    this.authService.changeUserDataName(this.newName);
+    this.authService.changeUserDataMail(this.newMail);
+    this.authService.changeUserDataPw(this.newPasswort);
+    this.closeProfileEdit();
   }
 }
