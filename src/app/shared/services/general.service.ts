@@ -10,6 +10,8 @@ export class GeneralService {
   mobilViewIsActive: boolean = false;
   showNextSlide: boolean = false;
 
+  adminActive: boolean = false;
+
   constructor() { }
 
   getTransformedTimeStampToDate(timeStamp) {

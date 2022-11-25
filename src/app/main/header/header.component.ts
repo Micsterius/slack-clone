@@ -32,7 +32,11 @@ export class HeaderComponent implements OnInit {
     setTimeout(() => {
       if (this.generalService.mobilViewIsActive) this.generalService.showNextSlide = true;
     }, 10);
+  }
 
+  adminCheckboxClick(){
+    this.generalService.adminActive = !this.generalService.adminActive
+    console.log(this.generalService.adminActive)
   }
 
   themePink() {

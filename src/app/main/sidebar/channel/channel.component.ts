@@ -17,27 +17,30 @@ export class ChannelComponent implements OnInit {
   app = initializeApp(environment.firebase);
   db = getFirestore(this.app);
   panelOpenState: boolean = false;
-  
+
   constructor(
     public channelService: ChannelService,
     private router: Router,
     public dialog: MatDialog,
     public generalService: GeneralService) {
-      channelService.loadChannels();
-     }
+    channelService.loadChannels();
+  }
 
-     openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    if (this.generalService.adminActive) {
       this.dialog.open(AddChannelDialogComponent, {
         width: '250px',
         enterAnimationDuration,
         exitAnimationDuration,
       });
     }
+    else {alert('Nur für Admins')}
+  }
 
   ngOnInit(): void {
   }
 
-  saveCurrentChannelId(channel){
+  saveCurrentChannelId(channel) {
     this.channelService.saveCurrentChannel(channel);
     localStorage.setItem('currentChannel', JSON.stringify(channel))
     this.generalService.scrollToBottomBoolean();
