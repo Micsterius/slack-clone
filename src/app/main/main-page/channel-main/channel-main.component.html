@@ -9,7 +9,7 @@
                 <mat-icon *ngIf="generalService.adminActive" class="menu_vert_icon" mat-icon-button fontIcon="more_vert" [matMenuTriggerFor]="menuPost">
                 </mat-icon>
                 <mat-menu #menuPost="matMenu" xPosition="before">
-                    <button (click)="deletePost()" mat-menu-item>
+                    <button (click)="deletePost(post)" mat-menu-item>
                         <mat-icon>delete_forever</mat-icon>
                         <span>Löschen</span>
                     </button>            

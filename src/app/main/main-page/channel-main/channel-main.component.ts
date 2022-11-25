@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { initializeApp } from 'firebase/app';
 import { User } from 'firebase/auth';
-import { collection, doc, getFirestore, onSnapshot, query, setDoc } from 'firebase/firestore';
+import { collection, deleteDoc, doc, getFirestore, onSnapshot, query, setDoc } from 'firebase/firestore';
 import { FileUpload } from 'src/app/models/file-upload.model';
 import { ChannelService } from 'src/app/shared/services/channel.service';
 import { DetailViewPageService } from 'src/app/shared/services/detail-view-page.service';
@@ -9,7 +9,7 @@ import { FileUploadService } from 'src/app/shared/services/file-upload.service';
 import { GeneralService } from 'src/app/shared/services/general.service';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { environment } from 'src/environments/environment';
-import {MatButtonModule} from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-channel-main',
@@ -47,7 +47,7 @@ export class ChannelMainComponent implements OnInit {
     this.currentChannel = JSON.parse(localStorage.getItem('currentChannel')!)
     this.actualUser = JSON.parse(localStorage.getItem('user')!)
     channelServ.currentChannel = this.currentChannel;
-   
+
     if (!this.currentChannel) {
       this.currentChannel = {
         name: 'Regeln',
@@ -63,8 +63,11 @@ export class ChannelMainComponent implements OnInit {
     this.scrollToBottom();
   }
 
-  deletePost(){
-    console.log('delete Post')
+  async deletePost(post) {
+    setTimeout(async () => {
+      await deleteDoc(doc(this.db, "channel", this.channelServ.currentChannel.id, "posts", post.id));
+    }, 500);
+
   }
 
   selectFile(event: any): void {
@@ -80,20 +83,20 @@ export class ChannelMainComponent implements OnInit {
   }
 
   upload(): any {
-  
-      const file: File | null = this.selectedFiles.item(0);
-      this.selectedFiles = undefined;
 
-        this.currentFileUpload = new FileUpload(file);
-        return this.uploadService.pushFileToStorage(this.currentFileUpload).subscribe(
-          percentage => {
-            this.percentage = Math.round(percentage ? percentage : 0);
-          },
-          error => {
-            console.log(error);
-          }
-        );   
-    
+    const file: File | null = this.selectedFiles.item(0);
+    this.selectedFiles = undefined;
+
+    this.currentFileUpload = new FileUpload(file);
+    return this.uploadService.pushFileToStorage(this.currentFileUpload).subscribe(
+      percentage => {
+        this.percentage = Math.round(percentage ? percentage : 0);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+
   }
 
   ngAfterViewChecked() {
@@ -147,7 +150,7 @@ export class ChannelMainComponent implements OnInit {
     let name = this.getNameOfAuthor();
     let urlImage = "";
 
-    if(this.selectedFiles){
+    if (this.selectedFiles) {
       this.upload();
 
     }
@@ -159,14 +162,14 @@ export class ChannelMainComponent implements OnInit {
         authorName: name,
         id: `${textId + idAdd}`,
         timeStamp: textId,
-        imageUrl:urlImage
+        imageUrl: urlImage
       })
     this.message = '';
   }
 
- // hasNewMessageImages(){
+  // hasNewMessageImages(){
 
- // }
+  // }
 
   getNameOfAuthor() {
     if (this.actualUser.displayName) return this.actualUser.displayName;
