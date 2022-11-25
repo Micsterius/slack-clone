@@ -63,6 +63,10 @@ export class ChannelMainComponent implements OnInit {
     this.scrollToBottom();
   }
 
+  deletePost(){
+    console.log('delete Post')
+  }
+
   selectFile(event: any): void {
     this.selectedFiles = event.target.files;
     //show a preview of selected File

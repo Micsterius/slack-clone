@@ -22,6 +22,12 @@
     }
 }
 
+.menu_vert_icon{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
 .upload-button{
     position: absolute;
     right: -36px;
@@ -51,6 +57,7 @@
 }
 
 .post-container {
+    position: relative;
     cursor: pointer;
     display: flex;
     padding: 12px;
