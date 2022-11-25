@@ -64,10 +64,7 @@ export class ChannelMainComponent implements OnInit {
   }
 
   async deletePost(post) {
-    setTimeout(async () => {
-      await deleteDoc(doc(this.db, "channel", this.channelServ.currentChannel.id, "posts", post.id));
-    }, 500);
-
+    await deleteDoc(doc(this.db, "channel", this.channelServ.currentChannel.id, "posts", post.id));
   }
 
   selectFile(event: any): void {

@@ -38,4 +38,11 @@ export class MobilComponent implements OnInit {
     }
   }
 
+  checkShowPrevSlide(){
+    if (this.generalService.showPrevSlide) {
+      this.slidePrev();
+      this.generalService.showPrevSlide = false;
+    }
+  }
+
 }

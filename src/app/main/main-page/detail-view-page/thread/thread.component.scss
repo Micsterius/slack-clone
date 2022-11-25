@@ -39,6 +39,7 @@ h2{
 }
 
 .post-container {
+    position: relative;
     display: flex;
     padding: 12px;
     border: 1px solid lightgray;
@@ -56,4 +57,10 @@ h2{
         margin-left: 4px;
         margin-right: 4px;
     }
+}
+
+.menu_vert_icon{
+    position: absolute;
+    top: 0;
+    right: 0;
 }

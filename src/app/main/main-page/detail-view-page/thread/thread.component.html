@@ -3,6 +3,14 @@
     <div class="detail-view-header"><h2>Thread {{channelService.currentThread.name}}</h2> </div>
     <div #scrollMe class="all-posts-container">
         <div class="post-container">
+            <mat-icon *ngIf="generalService.adminActive" class="menu_vert_icon" mat-icon-button fontIcon="more_vert" [matMenuTriggerFor]="menuPost">
+            </mat-icon>
+            <mat-menu #menuPost="matMenu" xPosition="before">
+                <button (click)="deletePost(channelService.currentThread.post)" mat-menu-item>
+                    <mat-icon>delete_forever</mat-icon>
+                    <span>Löschen</span>
+                </button>            
+            </mat-menu>
             <div class="post-img">
                 <img [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"
                     (mouseenter)="getPosition($event); generalService.mouseEnter(menuTrigger)"
@@ -26,6 +34,14 @@
         </div>
 
         <div class="post-container" *ngFor="let answer of channelService.currentThread.post.answers">
+            <mat-icon *ngIf="generalService.adminActive" class="menu_vert_icon" mat-icon-button fontIcon="more_vert" [matMenuTriggerFor]="menuPost">
+            </mat-icon>
+            <mat-menu #menuPost="matMenu" xPosition="before">
+                <button (click)="deletePostAnswer(channelService.currentThread.post, answer.id)" mat-menu-item>
+                    <mat-icon>delete_forever</mat-icon>
+                    <span>Löschen</span>
+                </button>            
+            </mat-menu>
             <div class="post-img">
                 <img [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"
                     (mouseenter)="getPosition($event); generalService.mouseEnter(menuTrigger)"

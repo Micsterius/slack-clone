@@ -9,6 +9,7 @@ export class GeneralService {
   showDetailView: boolean = false;
   mobilViewIsActive: boolean = false;
   showNextSlide: boolean = false;
+  showPrevSlide: boolean = false;
 
   adminActive: boolean = false;
 
