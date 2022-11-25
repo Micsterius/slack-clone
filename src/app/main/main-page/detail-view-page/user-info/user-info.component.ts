@@ -31,10 +31,10 @@ export class UserInfoComponent implements OnInit {
   editUserPw: boolean = false;
   editPhotoURL: boolean = false;
   editUserPhone: boolean = false;
-  @Input() newName: any = '';
-  @Input() newMail: any = '';
-  @Input() newPhoneNumber: any = '';
-  @Input() newPasswort: any = '';
+  @Input() newName: any;
+  @Input() newMail: any;
+  @Input() newPhoneNumber: any;
+  @Input() newPasswort: any;
 
   actualUser: any;
 
@@ -52,7 +52,8 @@ export class UserInfoComponent implements OnInit {
     { 'src': 'icon_male_4.png' },
     { 'src': 'icon_male_5.jpg' },
     { 'src': 'icon_male_6.png' },
-    { 'src': 'icon-unknown.svg' }
+    { 'src': 'icon-unknown.svg' },
+    { 'src': 'tk.jpg' }
   ]
 
   constructor(
@@ -144,13 +145,14 @@ export class UserInfoComponent implements OnInit {
     this.editUserPw = false
   }
 
-  async saveProfileEdit() {
-    await this.changeUserDataNameFirestore();
-    await this.changeUserDataMailFirestore();
-    await this.changeUserDataPhoneFirestore();
+  saveProfileEdit() {
     this.authService.changeUserDataName(this.newName);
     this.authService.changeUserDataMail(this.newMail);
     this.authService.changeUserDataPw(this.newPasswort);
+    this.changeUserDataNameFirestore();
+    this.changeUserDataMailFirestore();
+    this.changeUserDataPhoneFirestore();
+
     this.closeProfileEdit();
   }
 }

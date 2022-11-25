@@ -231,7 +231,8 @@ body {
 
 .all-posts-container{
     height: calc(100vh - 37px - 200px - 60px - 4px); // - header channel main; - height editor; - height header; - some margin
-    overflow: auto;
+    overflow-y: auto;
+    word-break: break-all;
 }
 
 /* width */

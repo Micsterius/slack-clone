@@ -24,7 +24,7 @@
       <swiper [navigation]="true" [pagination]="true" class="mySwiper">
         <ng-template swiperSlide *ngFor="let image of images">
           <div class="img-edit-container">
-            <!-- <mat-icon style="color: red;" fontIcon="close" (click)="editPhotoURL = false"></mat-icon> -->
+            <mat-icon style="color: red;" fontIcon="close" (click)="editPhotoURL = false"></mat-icon>
             <div class="img-box">
               <img (click)="editPhotoURL = false" class="profile-img"
                 src="./../../../assets/img/userIcons/{{image.src}}">
@@ -42,8 +42,8 @@
         <p><strong>Name:</strong> <span *ngIf="!editUserName"> {{(user.displayName) ? user.displayName : 'User'}}</span></p>
         <!-- <mat-icon *ngIf="!editUserName" class="icon-header" fontIcon="edit" (click)="editUserName = true"></mat-icon> -->
         <mat-form-field appearance="fill" *ngIf="editUserName">
-          <input [(ngModel)]="newName" matInput [formControl]="authService.name" type="text"
-            value="{{user.displayName}}" required maxLength="10">
+          <input [(ngModel)]="newName" matInput type="text"
+            placeholder="{{user.displayName}}" required maxLength="10">
           <mat-error *ngIf="authService.name.invalid">{{authService.getErrorMessage()}}</mat-error>
           <!-- <mat-icon *ngIf="editUserName" class="icon-header mat-icon-close" fontIcon="close"
             (click)="editUserName = false">
@@ -62,7 +62,7 @@
         </mat-icon> -->
         <mat-form-field appearance="fill" *ngIf="editUserMail">
           <input [(ngModel)]="newMail" matInput [formControl]="authService.email"
-            type="email" value="{{user.email}}" required>
+            type="email" placeholder="{{user.email}}" required>
           <mat-error *ngIf="authService.email.invalid">{{authService.getErrorMessage()}}</mat-error>
           <!-- <mat-icon *ngIf="editUserMail" class="icon-header mat-icon-close" fontIcon="close"
             (click)="editUserMail = false">
@@ -78,7 +78,7 @@
         </mat-icon> -->
         <mat-form-field appearance="fill" *ngIf="editUserPhone">
           <input [(ngModel)]="newPhoneNumber" matInput [formControl]="authService.email"
-            type="number" value="{{usersService.returnUsersPhoneNumber(user.uid)}}" required>
+            type="number" placeholder="{{usersService.returnUsersPhoneNumber(user.uid)}}" required>
           <mat-error *ngIf="authService.phone.invalid">{{authService.getErrorMessage()}}</mat-error>
           <!-- <mat-icon *ngIf="editUserPhone" class="icon-header mat-icon-close" fontIcon="close"
             (click)="editUserPhone = false">
