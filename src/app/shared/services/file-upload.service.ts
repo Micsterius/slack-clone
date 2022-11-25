@@ -22,7 +22,7 @@ export class FileUploadService {
           storageRef.getDownloadURL().subscribe(downloadURL => {
             fileUpload.url = downloadURL;
             fileUpload.name = fileUpload.file.name;
-            this.saveFileData(fileUpload);
+            //this.saveFileData(fileUpload);
           });
         })
       ).subscribe();
