@@ -59,7 +59,7 @@ export class ChannelMainComponent implements OnInit {
     this.channelServ.loadChannel();
     channelServ.showChannel = true;
 
-    this.downloadUmage();
+    this.downloadImage();
   }
 
   ngOnInit() {
@@ -78,6 +78,7 @@ export class ChannelMainComponent implements OnInit {
       reader.readAsDataURL(event.target.files[0]);
       reader.onload = (event: any) => {
         this.url = event.target.result;
+        this.message +=`<img height="100" src="${this.url}" alt="">`
       }
     }
   }
@@ -96,7 +97,6 @@ export class ChannelMainComponent implements OnInit {
         console.log(error);
       }
     );
-
   }
 
   ngAfterViewChecked() {
@@ -176,12 +176,14 @@ export class ChannelMainComponent implements OnInit {
     else return 'Anonym'
   }
 
+  /*download images area*/
+
   img = '<img src="">';
   storage = getStorage();
   starsRef = ref(this.storage, 'uploads/bild.jpg');
 
   // Get the download URL
-  downloadUmage() {
+  downloadImage() {
     getDownloadURL(this.starsRef)
       .then((url) => {
         this.img = `<img src="${url}">`;
