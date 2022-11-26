@@ -3,6 +3,7 @@
         <h2 class="channel-headline">Channel {{channelServ.currentChannel.name}}</h2>
     </div>
     <div #scrollMe class="all-posts-container">
+        <div [innerHTML]="img" style="z-index: 150; color: black;">Test</div>
         <div *ngFor="let post of channelServ.posts; let i=index; let last = last" [ngClass]="{'last-child': last}">
             <div class="post-container" (click)="changeDetailViewPageContentToThread(); saveAnswersToShow(post)">
                 <mat-icon *ngIf="generalService.adminActive" class="menu_vert_icon" mat-icon-button fontIcon="more_vert" [matMenuTriggerFor]="menuPost">
