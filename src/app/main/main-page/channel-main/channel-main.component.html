@@ -6,13 +6,14 @@
         <div [innerHTML]="img" style="z-index: 150; color: black;">Test</div>
         <div *ngFor="let post of channelServ.posts; let i=index; let last = last" [ngClass]="{'last-child': last}">
             <div class="post-container" (click)="changeDetailViewPageContentToThread(); saveAnswersToShow(post)">
-                <mat-icon *ngIf="generalService.adminActive" class="menu_vert_icon" mat-icon-button fontIcon="more_vert" [matMenuTriggerFor]="menuPost">
+                <mat-icon *ngIf="generalService.adminActive" class="menu_vert_icon" mat-icon-button fontIcon="more_vert"
+                    [matMenuTriggerFor]="menuPost">
                 </mat-icon>
                 <mat-menu #menuPost="matMenu" xPosition="before">
                     <button (click)="deletePost(post)" mat-menu-item>
                         <mat-icon>delete_forever</mat-icon>
                         <span>Löschen</span>
-                    </button>            
+                    </button>
                 </mat-menu>
                 <div #userImage class="post-img">
                     <img [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"
@@ -65,10 +66,11 @@
         <div class="writing-area">
             <editor class="editor" [(ngModel)]="message" apiKey="0u347b51bx380ihx2w2vws4bfqf9dfqewelzkjxsl7p5ki0a"
                 [init]="{
-                height: 150,
+                min_height: 150,
+                max_height: 270,
                 width: '100%',
                 menubar: false, 
-                plugins: 'emoticons advlist autolink lists link image charmap preview anchor',
+                plugins: 'emoticons advlist autolink lists link image charmap preview anchor autoresize',
                 toolbar: 'undo redo | bold italic | emoticons',
                 emoticons_database: 'emojis'
                 }">
