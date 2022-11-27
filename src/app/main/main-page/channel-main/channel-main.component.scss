@@ -9,32 +9,50 @@
     display: flex;
     justify-content: center;
     padding-bottom: 4px;
+    margin-left: 12px;
+    margin-right: 12px;
 
 
     .button {
         position: absolute;
         top: 12px;
         right: 12px;
-        z-index: 1;
+        z-index: 10;
 
         background-color: white;
         border: none;
     }
 }
 
-.menu_vert_icon{
+.files-preview{
+    z-index: 10;
+    height: 60px;
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+.show-selected-files{
+    position: absolute;
+    bottom: 25px;
+    height: 60px;
+    z-index: 6;
+    width: calc(100% - 2px);
+    background-color: white;
+}
+
+.menu_vert_icon {
     position: absolute;
     top: 0;
     right: 0;
 }
 
-.upload-button{
+.upload-button {
     position: absolute;
     right: -36px;
     top: -9px;
 }
 
-.upload-container{
+.upload-container {
     position: absolute;
     display: flex;
     top: 13px;
@@ -42,12 +60,19 @@
     z-index: 99999;
 }
 
-.upload-container>input{
+.upload-container>input {
     display: none;
 }
 
-.editor {
+.editor-1 {
     width: 100%;
+    z-index: 4;
+}
+.editor-2 {
+    position: absolute;
+    width: 100%;
+    z-index: 3;
+    bottom: 0;
 }
 
 .writing-area-container {
@@ -68,22 +93,21 @@
     background-color: white;
     border-radius: 12px;
 
-    &:hover{
+    &:hover {
         background-color: var(--background-color);
         transition: all ease-in-out 125ms;
     }
 }
 
-.last-child{
+.last-child {
     margin-bottom: 0;
 }
 
 .name-time-box {
     display: flex;
 
-    div{
+    div {
         margin-left: 4px;
         margin-right: 4px;
     }
 }
-

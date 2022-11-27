@@ -39,6 +39,9 @@ export class ChannelMainComponent implements OnInit {
   percentage = 0;
   url: any;
 
+  filesPreview: any;
+  fileSelected: boolean = false;
+
   constructor(
     public channelServ: ChannelService,
     public detailViewService: DetailViewPageService,
@@ -78,9 +81,10 @@ export class ChannelMainComponent implements OnInit {
       reader.readAsDataURL(event.target.files[0]);
       reader.onload = (event: any) => {
         this.url = event.target.result;
-        this.message +=`<img height="100" src="${this.url}" alt="">`
+        this.filesPreview = `<img class="files-preview" src="${this.url}" alt="">`
       }
     }
+    this.fileSelected = true;
   }
 
   upload(): any {

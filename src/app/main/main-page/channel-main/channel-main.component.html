@@ -63,8 +63,8 @@
                 {{ percentage }}%
             </div>
         </div>
-        <div class="writing-area">
-            <editor class="editor" [(ngModel)]="message" apiKey="0u347b51bx380ihx2w2vws4bfqf9dfqewelzkjxsl7p5ki0a"
+        <div class="writing-area" [ngStyle]="{'padding-bottom':(fileSelected) ? '48px' : '0px'}">
+            <editor class="editor-1" [(ngModel)]="message" apiKey="0u347b51bx380ihx2w2vws4bfqf9dfqewelzkjxsl7p5ki0a"
                 [init]="{
                 min_height: 150,
                 max_height: 270,
@@ -75,6 +75,15 @@
                 toolbar2: 'preview',
                 emoticons_database: 'emojis'
                 }">
+            </editor>
+            <div *ngIf="fileSelected" class="show-selected-files" [innerHTML]="filesPreview"></div>
+            <editor class="editor-2"  apiKey="0u347b51bx380ihx2w2vws4bfqf9dfqewelzkjxsl7p5ki0a"
+                [init]="{
+                height: 150,
+                width: '100%',
+                menubar: false,
+                toolbar1: 'undo redo | bold italic | emoticons'
+                 }">
             </editor>
             <button class="button" (click)="sendMessage()">
                 <mat-icon mat-icon-button fontIcon="send" class="color-main-with-hover"></mat-icon>
