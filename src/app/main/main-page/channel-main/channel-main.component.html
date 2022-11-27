@@ -57,12 +57,6 @@
         </div>
     </div>
     <div class="writing-area-container">
-        <div *ngIf="currentFileUpload" class="progress mt-2">
-            <div class="progress-bar progress-bar-info" role="progressbar" attr.aria-valuenow="{{ percentage }}"
-                aria-valuemin="0" aria-valuemax="100" [ngStyle]="{ width: percentage + '%' }">
-                {{ percentage }}%
-            </div>
-        </div>
         <div class="writing-area" [ngStyle]="{'padding-bottom':(fileSelected) ? '48px' : '0px'}">
             <editor class="editor-1" [(ngModel)]="message" apiKey="0u347b51bx380ihx2w2vws4bfqf9dfqewelzkjxsl7p5ki0a"
                 [init]="{
@@ -81,7 +75,7 @@
                     <div class="img-file-preview-box" (mouseover)="filePreview.hidden = false" (mouseleave)="filePreview.hidden = true">
                         <img
                             class="img-file-preview" src="{{filePreview.url}}" alt="">
-                        <mat-icon *ngIf="!filePreview.hidden" (mouseleave)="filePreview.hidden = true" class="file-preview-cancel-icon">
+                        <mat-icon (click)="deleteSelectedFile()" *ngIf="!filePreview.hidden" (mouseleave)="filePreview.hidden = true" class="file-preview-cancel-icon">
                             cancel</mat-icon>
                     </div>
                 </div>
@@ -100,8 +94,8 @@
                 <label for="file-input">
                     <mat-icon mat-icon-button>attach_file</mat-icon>
                 </label>
-                <input id="file-input" type="file" class="text-nowrap text-truncate" (change)="selectFile($event)" />
-                <button mat-icon-button class="upload-button" [disabled]="!selectedFiles" (click)="upload()">
+                <input id="file-input" type="file" class="text-nowrap text-truncate" (change)="selectFile($event)" multiple/>
+                <button mat-icon-button class="upload-button" [disabled]="!selectedFiles">
                     <mat-icon>upload</mat-icon>
                 </button>
             </div>

@@ -33,13 +33,11 @@ export class ChannelMainComponent implements OnInit {
 
   editorWidth: number;
   menuPositionY: any = 'below';
-
   selectedFiles?: FileList;
   currentFileUpload?: FileUpload;
-  percentage = 0;
   url: any;
 
-  filesPreview: any [] = [];
+  filesPreview: any[] = [];
   fileSelected: boolean = false;
   hidden: boolean = true;
 
@@ -77,34 +75,37 @@ export class ChannelMainComponent implements OnInit {
   selectFile(event: any): void {
     this.selectedFiles = event.target.files;
     //show a preview of selected File
+    this.filesPreview = [];
     if (event.target.files) {
-      let reader = new FileReader();
-      reader.readAsDataURL(event.target.files[0]);
-      reader.onload = (event: any) => {
-        this.url = event.target.result;
-        let filePreview = {
-          url: this.url,
-          hidden: true}
-        this.filesPreview.push(filePreview)
+      for (let i = 0; i < event.target.files.length; i++) {
+        const file = event.target.files[i];
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (event: any) => {
+          this.url = event.target.result;
+          let filePreview = {
+            url: this.url,
+            hidden: true
+          }
+          this.filesPreview.push(filePreview)
+        }
       }
+      this.fileSelected = true;
     }
-    this.fileSelected = true;
+  }
+
+  deleteSelectedFile() {
+    console.log(this.selectedFiles)
   }
 
   upload(): any {
+    for (let i = 0; i < this.selectedFiles.length; i++) {
+      const file: File | null = this.selectedFiles.item(i);
+      this.selectedFiles = undefined;
+      this.currentFileUpload = new FileUpload(file);
+      this.uploadService.pushFileToStorage(this.currentFileUpload)
+    }
 
-    const file: File | null = this.selectedFiles.item(0);
-    this.selectedFiles = undefined;
-
-    this.currentFileUpload = new FileUpload(file);
-    return this.uploadService.pushFileToStorage(this.currentFileUpload).subscribe(
-      percentage => {
-        this.percentage = Math.round(percentage ? percentage : 0);
-      },
-      error => {
-        console.log(error);
-      }
-    );
   }
 
   ngAfterViewChecked() {
@@ -160,7 +161,6 @@ export class ChannelMainComponent implements OnInit {
 
     if (this.selectedFiles) {
       this.upload();
-
     }
 
     await setDoc(doc(this.db, "channel", this.channelServ.currentChannel.id, "posts", `${textId + idAdd}`),
