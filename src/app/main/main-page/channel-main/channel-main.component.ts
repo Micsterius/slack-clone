@@ -82,7 +82,9 @@ export class ChannelMainComponent implements OnInit {
       reader.readAsDataURL(event.target.files[0]);
       reader.onload = (event: any) => {
         this.url = event.target.result;
-        let filePreview = this.url;
+        let filePreview = {
+          url: this.url,
+          hidden: true}
         this.filesPreview.push(filePreview)
       }
     }

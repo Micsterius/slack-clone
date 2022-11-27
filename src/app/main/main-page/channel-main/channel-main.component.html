@@ -78,10 +78,10 @@
             </editor>
             <div *ngIf="fileSelected" class="show-selected-files">
                 <div *ngFor="let filePreview of filesPreview">
-                    <div class="img-file-preview-box" (mouseover)="hidden = false" (mouseleave)="hidden = true">
+                    <div class="img-file-preview-box" (mouseover)="filePreview.hidden = false" (mouseleave)="filePreview.hidden = true">
                         <img
-                            class="img-file-preview" src="{{filePreview}}" alt="">
-                        <mat-icon *ngIf="!hidden" (mouseleave)="hidden = true" class="file-preview-cancel-icon">
+                            class="img-file-preview" src="{{filePreview.url}}" alt="">
+                        <mat-icon *ngIf="!filePreview.hidden" (mouseleave)="filePreview.hidden = true" class="file-preview-cancel-icon">
                             cancel</mat-icon>
                     </div>
                 </div>

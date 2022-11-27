@@ -42,7 +42,12 @@
     top: -8px;
     background-color: white;
     border-radius: 50%;
+    color: gray;
     cursor: pointer;
+
+    &:hover{
+        color: black;
+    }
 }
 
 .show-selected-files{
