@@ -72,6 +72,10 @@ export class ChannelMainComponent implements OnInit {
     await deleteDoc(doc(this.db, "channel", this.channelServ.currentChannel.id, "posts", post.id));
   }
 
+  addFileToSelectedFiles(){
+
+  }
+
   selectFile(event: any): void {
     this.selectedFiles = event.target.files;
     //show a preview of selected File
@@ -101,11 +105,10 @@ export class ChannelMainComponent implements OnInit {
   upload(): any {
     for (let i = 0; i < this.selectedFiles.length; i++) {
       const file: File | null = this.selectedFiles.item(i);
-      this.selectedFiles = undefined;
       this.currentFileUpload = new FileUpload(file);
       this.uploadService.pushFileToStorage(this.currentFileUpload)
     }
-
+    this.selectedFiles = undefined;
   }
 
   ngAfterViewChecked() {
