@@ -76,7 +76,11 @@
                 emoticons_database: 'emojis'
                 }">
             </editor>
-            <div *ngIf="fileSelected" class="show-selected-files" [innerHTML]="filesPreview"></div>
+            <div *ngIf="fileSelected" class="show-selected-files">
+                <div *ngFor="let filePreview of filesPreview">
+                    <img class="img-file-preview" src="{{filePreview}}" alt="">
+                </div>
+            </div>
             <editor class="editor-2"  apiKey="0u347b51bx380ihx2w2vws4bfqf9dfqewelzkjxsl7p5ki0a"
                 [init]="{
                 height: 150,

@@ -24,20 +24,22 @@
     }
 }
 
-.files-preview{
-    z-index: 10;
-    height: 60px;
+.img-file-preview{
     margin-left: 4px;
     margin-right: 4px;
+    border-radius: 8px;
+    height: 60px;
 }
 
 .show-selected-files{
     position: absolute;
-    bottom: 25px;
+    bottom: 28px;
     height: 60px;
     z-index: 6;
     width: calc(100% - 2px);
     background-color: white;
+    display: flex;
+    border-radius: 8px;
 }
 
 .menu_vert_icon {

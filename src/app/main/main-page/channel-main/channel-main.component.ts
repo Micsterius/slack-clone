@@ -39,7 +39,7 @@ export class ChannelMainComponent implements OnInit {
   percentage = 0;
   url: any;
 
-  filesPreview: any;
+  filesPreview: any [] = [];
   fileSelected: boolean = false;
 
   constructor(
@@ -81,7 +81,8 @@ export class ChannelMainComponent implements OnInit {
       reader.readAsDataURL(event.target.files[0]);
       reader.onload = (event: any) => {
         this.url = event.target.result;
-        this.filesPreview = `<img class="files-preview" src="${this.url}" alt="">`
+        let filePreview = this.url;
+        this.filesPreview.push(filePreview)
       }
     }
     this.fileSelected = true;
