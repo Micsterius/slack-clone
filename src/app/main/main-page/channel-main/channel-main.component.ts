@@ -41,6 +41,7 @@ export class ChannelMainComponent implements OnInit {
 
   filesPreview: any [] = [];
   fileSelected: boolean = false;
+  hidden: boolean = true;
 
   constructor(
     public channelServ: ChannelService,
