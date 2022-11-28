@@ -41,6 +41,8 @@ export class ChannelMainComponent implements OnInit {
   fileSelected: boolean = false;
   hidden: boolean = true;
 
+  myFiles: File[] = [];
+
   constructor(
     public channelServ: ChannelService,
     public detailViewService: DetailViewPageService,
@@ -72,17 +74,22 @@ export class ChannelMainComponent implements OnInit {
     await deleteDoc(doc(this.db, "channel", this.channelServ.currentChannel.id, "posts", post.id));
   }
 
-  addFileToSelectedFiles(){
+  addFileToSelectedFiles() {
 
   }
 
   selectFile(event: any): void {
-    this.selectedFiles = event.target.files;
+
+    this.selectedFiles = event.target.files
+      for (var i = 0; i <  this.selectedFiles.length; i++) {
+      this.myFiles.push(this.selectedFiles.item(i));
+    }
+    console.log(this.myFiles)
     //show a preview of selected File
     this.filesPreview = [];
     if (event.target.files) {
-      for (let i = 0; i < event.target.files.length; i++) {
-        const file = event.target.files[i];
+      for (let i = 0; i < this.myFiles.length; i++) {
+        const file = this.myFiles[i];
         let reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = (event: any) => {
@@ -98,13 +105,14 @@ export class ChannelMainComponent implements OnInit {
     }
   }
 
+
   deleteSelectedFile() {
     console.log(this.selectedFiles)
   }
 
   upload(): any {
-    for (let i = 0; i < this.selectedFiles.length; i++) {
-      const file: File | null = this.selectedFiles.item(i);
+    for (let i = 0; i < this.myFiles.length; i++) {
+      const file: File | null = this.myFiles[i];
       this.currentFileUpload = new FileUpload(file);
       this.uploadService.pushFileToStorage(this.currentFileUpload)
     }
