@@ -88,26 +88,36 @@ export class ChannelMainComponent implements OnInit {
     //show a preview of selected File
     this.filesPreview = [];
     if (event.target.files) {
-      for (let i = 0; i < this.myFiles.length; i++) {
-        const file = this.myFiles[i];
-        let reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = (event: any) => {
-          this.url = event.target.result;
-          let filePreview = {
-            url: this.url,
-            hidden: true
-          }
-          this.filesPreview.push(filePreview)
-        }
-      }
+      this.renderFilesPreview();
       this.fileSelected = true;
     }
   }
 
 
-  deleteSelectedFile() {
-    console.log(this.selectedFiles)
+  deleteSelectedFile(position) {
+    console.log(position)
+    this.myFiles.splice(position, 1)
+    if (this.myFiles.length >0) this.renderFilesPreview();
+    else this.fileSelected = false;
+  }
+
+  renderFilesPreview(){
+    this.filesPreview = [];
+    for (let i = 0; i < this.myFiles.length; i++) {
+      const file = this.myFiles[i];
+      console.log(file)
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (event: any) => {
+        this.url = event.target.result;
+        let filePreview = {
+          url: this.url,
+          hidden: true,
+          position: i
+        }
+        this.filesPreview.push(filePreview)
+      }
+    }
   }
 
   upload(): any {
@@ -116,7 +126,7 @@ export class ChannelMainComponent implements OnInit {
       this.currentFileUpload = new FileUpload(file);
       this.uploadService.pushFileToStorage(this.currentFileUpload)
     }
-    this.selectedFiles = undefined;
+    this.myFiles = undefined;
   }
 
   ngAfterViewChecked() {

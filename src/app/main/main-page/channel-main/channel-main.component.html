@@ -75,7 +75,7 @@
                     <div class="img-file-preview-box" (mouseover)="filePreview.hidden = false" (mouseleave)="filePreview.hidden = true">
                         <img
                             class="img-file-preview" src="{{filePreview.url}}" alt="">
-                        <mat-icon (click)="deleteSelectedFile()" *ngIf="!filePreview.hidden" (mouseleave)="filePreview.hidden = true" class="file-preview-cancel-icon">
+                        <mat-icon (click)="deleteSelectedFile(filePreview.position)" *ngIf="!filePreview.hidden" (mouseleave)="filePreview.hidden = true" class="file-preview-cancel-icon">
                             cancel</mat-icon>
                     </div>
                 </div>
@@ -96,7 +96,7 @@
                 </label>
                 <input id="file-input" type="file" class="text-nowrap text-truncate" (change)="selectFile($event)" multiple/>
                 <button mat-icon-button class="upload-button" [disabled]="!selectedFiles">
-                    <mat-icon>upload</mat-icon>
+                    <mat-icon (click)="upload()">upload</mat-icon>
                 </button>
             </div>
         </div>
