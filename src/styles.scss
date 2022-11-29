@@ -224,15 +224,24 @@ body {
     margin-bottom: 8px;
 }
 
-.img-small{
-    height: 20px;
-    object-fit: cover;
-}
+
 
 .all-posts-container{
     height: calc(100vh - 37px - 200px - 60px - 4px); // - header channel main; - height editor; - height header; - some margin
     overflow-y: auto;
     word-break: break-all;
+
+    img{
+        width: 130px;
+        height: 150px;
+
+        // &:hover{
+        //     position: absolute;
+        //     width: auto;
+        //     height: auto;
+        //     z-index: 100;
+        // }
+    }
 }
 
 /* width */

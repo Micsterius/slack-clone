@@ -36,6 +36,12 @@
     cursor: pointer;
 }
 
+.img-small{
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+}
+
 .file-preview-cancel-icon{
     position: absolute;
     right: -8px;
