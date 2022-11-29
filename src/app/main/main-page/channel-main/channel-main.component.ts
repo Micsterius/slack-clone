@@ -11,6 +11,7 @@ import { UsersService } from 'src/app/shared/services/users.service';
 import { environment } from 'src/environments/environment';
 import { MatButtonModule } from '@angular/material/button';
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import { BidiModule } from '@angular/cdk/bidi';
 
 @Component({
   selector: 'app-channel-main',
@@ -62,8 +63,7 @@ export class ChannelMainComponent implements OnInit {
     }
     this.channelServ.loadChannel();
     channelServ.showChannel = true;
-
-    this.downloadImage();
+    this.getImage()
   }
 
   ngOnInit() {
@@ -91,6 +91,7 @@ export class ChannelMainComponent implements OnInit {
       this.renderFilesPreview();
       this.fileSelected = true;
     }
+    console.log(this.myFiles)
   }
 
   deleteSelectedFile(position) {
@@ -177,10 +178,13 @@ export class ChannelMainComponent implements OnInit {
     let idAdd = Math.random().toString(16).substr(2, 6)
 
     let name = this.getNameOfAuthor();
-    let urlImage = "";
+    let urlImage = [];
+
+    this.myFiles.forEach(file => urlImage.push(file.name))
 
     if (this.selectedFiles) {
       this.upload();
+      this.filesPreview.length = 0;
     }
 
     await setDoc(doc(this.db, "channel", this.channelServ.currentChannel.id, "posts", `${textId + idAdd}`),
@@ -208,13 +212,15 @@ export class ChannelMainComponent implements OnInit {
 
   img = '<img src="">';
   storage = getStorage();
-  starsRef = ref(this.storage, 'uploads/bild.jpg');
+  path: string = 'bild.jpg';
+ // starsRef = ref(this.storage, 'uploads/' + this.path);
 
   // Get the download URL
-  downloadImage() {
-    getDownloadURL(this.starsRef)
+ getImage() {
+  console.log(this.channelServ.posts)
+    getDownloadURL(ref(this.storage, 'uploads/' + this.path))
       .then((url) => {
-        this.img = `<img src="${url}">`;
+       this.img = `<img src="${url}">`;
       })
       .catch((error) => {
         // A full list of error codes is available at

@@ -3,7 +3,6 @@
         <h2 class="channel-headline">Channel {{channelServ.currentChannel.name}}</h2>
     </div>
     <div #scrollMe class="all-posts-container">
-        <div [innerHTML]="img" style="z-index: 150; color: black;">Test</div>
         <div *ngFor="let post of channelServ.posts; let i=index; let last = last" [ngClass]="{'last-child': last}">
             <div class="post-container" (click)="changeDetailViewPageContentToThread(); saveAnswersToShow(post)">
                 <mat-icon *ngIf="generalService.adminActive" class="menu_vert_icon" mat-icon-button fontIcon="more_vert"
@@ -32,8 +31,10 @@
                         <div>{{userService.returnUsersDisplayName(post.authorId)}}</div>
                         <div>{{generalService.getTransformedTimeStampToDate(post.timeStamp)}}</div>
                     </div>
+                    <div class="content-box" *ngFor="let postImage of post.imageUrl">
+                        <!--<div [innerHTML]="postImage"></div>-->
+                    </div>
                     <div class="content-box" [innerHTML]="post.content"></div>
-
                     <div class="answer-box" *ngIf="post.answers.length > 1">
                         <span class="color-main-with-hover"
                             (click)="changeDetailViewPageContentToThread(); saveAnswersToShow(post)">{{post.answers.length}}
