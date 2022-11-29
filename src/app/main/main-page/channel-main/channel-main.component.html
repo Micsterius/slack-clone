@@ -32,7 +32,7 @@
                         <div>{{generalService.getTransformedTimeStampToDate(post.timeStamp)}}</div>
                     </div>
                     <div class="content-box" *ngFor="let postImage of post.imageUrl">
-                        <!--<div [innerHTML]="postImage"></div>-->
+                        <div [innerHTML]="postImage"></div>
                     </div>
                     <div class="content-box" [innerHTML]="post.content"></div>
                     <div class="answer-box" *ngIf="post.answers.length > 1">
