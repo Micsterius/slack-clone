@@ -93,7 +93,6 @@ export class ChannelMainComponent implements OnInit {
     }
   }
 
-
   deleteSelectedFile(position) {
     console.log(position)
     this.myFiles.splice(position, 1)
