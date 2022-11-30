@@ -1,4 +1,5 @@
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+
 :root {
     --main-color: #42324f;
     --main-color-rgb: 250, 39, 89;
@@ -6,7 +7,8 @@
     --secondary-color-rgb: 255, 235, 240;
     --background-color: #f3e7ff;
 
-  }
+}
+
 .bg-c-1 {
     background-color: var(--main-color);
 }
@@ -17,6 +19,7 @@
 
 .w450 {
     width: 450px;
+
     @media (max-width: 449px) {
         width: 100vw;
     }
@@ -49,22 +52,22 @@
     }
 }
 
-mat-dialog-container{
+mat-dialog-container {
     overflow: unset !important;
     outline: unset !important;
     width: unset !important;
 }
 
-mat-icon{
+mat-icon {
     cursor: pointer;
 }
 
-.channel-headline{
+.channel-headline {
     padding-top: 16px;
     text-align: center;
 }
 
-.dialog-button{
+.dialog-button {
     cursor: pointer;
     border: 2px solid black;
     border-radius: 8px;
@@ -112,11 +115,12 @@ mat-icon{
     text-align: center;
 }
 
-.color-main-with-hover  {
+.color-main-with-hover {
     cursor: pointer;
     color: var(--main-color);
     font-weight: bold;
-    &:hover{
+
+    &:hover {
         color: var(--secondary-color);
     }
 }
@@ -135,7 +139,7 @@ mat-icon{
     align-items: center;
 }
 
-.verify-text-box{
+.verify-text-box {
     padding-right: 24px;
     padding-left: 24px;
     text-align: center;
@@ -173,16 +177,16 @@ body {
     }
 }
 
-.padding-l-r-24{
+.padding-l-r-24 {
     padding-left: 24px;
     padding-right: 24px;
 }
 
-.curs-point{
+.curs-point {
     cursor: pointer;
 }
 
-.auth-area-container{
+.auth-area-container {
     border: 1px solid black;
     width: 450px;
     z-index: 2;
@@ -192,7 +196,7 @@ body {
     transform: translate(-50%, -50%);
 }
 
-.auth-area-bg-container{
+.auth-area-bg-container {
     position: absolute;
     top: 0;
     left: 0;
@@ -202,38 +206,46 @@ body {
     z-index: 1;
 }
 
-.w500{
+.w500 {
     width: 500px;
 }
 
-.bg-c-white{
+.bg-c-white {
     background-color: white;
 }
 
-.detail-view-header{
+.detail-view-header {
     border-bottom: 1px solid lightgray;
-    padding: 8px;
+    width: 100%;
     background-color: white;
+    color: gray;
+
+    p{
+        padding: 8px;
+        margin: 0;
+    }
 }
 
-.padding-8{
+.padding-8 {
     padding: 8px;
 }
 
-.margin-bottom-8{
+.margin-bottom-8 {
     margin-bottom: 8px;
 }
 
 
 
-.all-posts-container{
-    height: calc(100vh - 37px - 200px - 60px - 4px); // - header channel main; - height editor; - height header; - some margin
+.all-posts-container {
     overflow-y: auto;
     word-break: break-all;
+    height: 100%;
+    width: 100%;
+    margin-bottom: 4px;
 
-    img{
-        width: 130px;
-        height: 150px;
+    img {
+        height: 100px;
+        object-fit: cover;
 
         // &:hover{
         //     position: absolute;
@@ -247,16 +259,16 @@ body {
 /* width */
 ::-webkit-scrollbar {
     width: 8px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
+}
+
+/* Track */
+::-webkit-scrollbar-track {
     box-shadow: inset 0 0 5px var(--secondary-color);
     border-radius: 10px;
-  }
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
     background: var(--main-color);
     border-radius: 10px;
-  }
+}
