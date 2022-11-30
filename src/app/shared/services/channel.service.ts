@@ -56,6 +56,7 @@ export class ChannelService {
         this.getImage(i)
       }
     }
+    this.showChannel = true;
   }
 
   /*download images area*/
