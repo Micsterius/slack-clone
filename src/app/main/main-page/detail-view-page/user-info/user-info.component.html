@@ -4,7 +4,7 @@
 </div>
 <div class="dashboard-container">
   <div class="pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="headline-user color-main fs18">Profile settings
+    <h1 class="headline-user-profile color-main fs18">Profile settings
       <mat-icon *ngIf="!editUser" fontIcon="settings" (click)="editProfile()"></mat-icon>
       <mat-icon *ngIf="editUser" (click)="saveProfileEdit()">save</mat-icon>
       <mat-icon *ngIf="editUser" (click)="closeProfileEdit()">cancel</mat-icon>
@@ -88,26 +88,26 @@
           </mat-icon> -->
         </mat-form-field>
       </div>
-      <div class="user-detail-box">
+      <!-- <div class="user-detail-box">
         <div>
           <p><strong>Passwort:</strong> <span *ngIf="!editUser"> **********</span></p>
         </div>
         <div>
-          <!-- <mat-icon *ngIf="!editUserPw" class="icon-header" fontIcon="edit" (click)="editUserPw = true">
-          </mat-icon> -->
+          <mat-icon *ngIf="!editUserPw" class="icon-header" fontIcon="edit" (click)="editUserPw = true">
+          </mat-icon>
           <mat-form-field appearance="fill" *ngIf="editUser">
             <input [(ngModel)]="newPasswort" matInput
               [formControl]="authService.password" type="password" placeholder="**********" required>
             <mat-error *ngIf="authService.password.invalid">{{authService.getErrorMessage()}}</mat-error>
-            <!-- <mat-icon *ngIf="editUserPw" class="icon-header mat-icon-close" fontIcon="close"
+            <mat-icon *ngIf="editUserPw" class="icon-header mat-icon-close" fontIcon="close"
               (click)="editUserPw = false">
-            </mat-icon> -->
-            <!-- <mat-icon type="button" *ngIf="editUserPw" class="icon-header mat-icon-done" fontIcon="save"
-              (click)="editUserPw = false; authService.changeUserDataPw(userPwChange.value)"></mat-icon> -->
+            </mat-icon>
+            <mat-icon type="button" *ngIf="editUserPw" class="icon-header mat-icon-done" fontIcon="save"
+              (click)="editUserPw = false; authService.changeUserDataPw(userPwChange.value)"></mat-icon>
           </mat-form-field>
         </div>
 
-      </div>
+      </div> -->
       <div class="user-detail-box">
         <p><strong>E-Mail verified:</strong> <span> {{(activeUser.emailVerified) ? activeUser.emailVerified : 'false'}}</span></p>
       </div>

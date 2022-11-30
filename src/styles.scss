@@ -237,9 +237,9 @@ body {
 
 
 .all-posts-container {
-    overflow-y: auto;
+    overflow-y: auto !important;
     word-break: break-all;
-    height: 100%;
+    height: calc(100vh - 299px);
     width: 100%;
     margin-bottom: 4px;
 
