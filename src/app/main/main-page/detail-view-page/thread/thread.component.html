@@ -65,7 +65,7 @@
         </div>
     </div>
     <div class="writing-area-container">
-        <div class="writing-area" [ngStyle]="{'padding-bottom':(fileSelected) ? '48px' : '0px'}">
+        <div class="writing-area" [ngStyle]="{'padding-bottom':(fileSelectedThread) ? '48px' : '0px'}">
             <editor class="editor-1" [(ngModel)]="message" apiKey="0u347b51bx380ihx2w2vws4bfqf9dfqewelzkjxsl7p5ki0a"
                 [init]="{
                 height: 178,
@@ -76,8 +76,8 @@
                 emoticons_database: 'emojis'
                 }">
             </editor>
-            <div *ngIf="fileSelected" class="show-selected-files">
-                <div *ngFor="let filePreview of filesPreview">
+            <div *ngIf="fileSelectedThread" class="show-selected-files">
+                <div *ngFor="let filePreview of filesPreviewThread">
                     <div class="img-file-preview-box" (mouseover)="filePreview.hidden = false" (mouseleave)="filePreview.hidden = true">
                         <img
                             class="img-file-preview" src="{{filePreview.url}}" alt="">
@@ -100,7 +100,7 @@
                 <label for="file-input">
                     <mat-icon mat-icon-button>attach_file</mat-icon>
                 </label>
-                <input id="file-input" type="file" class="text-nowrap text-truncate" (change)="selectFile($event)" multiple/>
+                <input id="file-input" type="file" class="text-nowrap text-truncate" (change)="selectFileThread($event)" multiple/>
             </div>
         </div>
     </div>

@@ -27,15 +27,15 @@ export class ThreadComponent implements OnInit {
   actualUser: User;
   menuPositionY: any = 'below';
 
-  selectedFiles?: FileList;
-  currentFileUpload?: FileUpload;
-  url: any;
+  selectedFilesThread?: FileList;
+  currentFileUploadThread?: FileUpload;
+  urlThread: any;
 
-  filesPreview: any[] = [];
-  fileSelected: boolean = false;
+  filesPreviewThread: any[] = [];
+  fileSelectedThread: boolean = false;
   hidden: boolean = true;
 
-  myFiles: File[] = [];
+  myFilesThread: File[] = [];
 
   constructor(
     public channelService: ChannelService,
@@ -85,12 +85,12 @@ export class ThreadComponent implements OnInit {
     let idAdd = Math.random().toString(16).substr(2, 6)
     let urlImage = [];
 
-    this.myFiles.forEach(file => urlImage.push(file.name))
+    this.myFilesThread.forEach(file => urlImage.push(file.name))
     let name = this.getNameOfAuthor();
 
-    if (this.selectedFiles) {
+    if (this.selectedFilesThread) {
       this.upload();
-      this.filesPreview.length = 0;
+      this.filesPreviewThread.length = 0;
     }
 
     await setDoc(doc(this.db, "channel", this.channelService.currentChannel.id, "posts", this.channelService.currentThread.post.id, "answers", `${textId + idAdd}`),
@@ -119,54 +119,54 @@ export class ThreadComponent implements OnInit {
     else this.menuPositionY = 'above'
   }
 
-  selectFile(event: any): void {
+  selectFileThread(event: any): void {
 
-    this.selectedFiles = event.target.files
-      for (var i = 0; i <  this.selectedFiles.length; i++) {
-      this.myFiles.push(this.selectedFiles.item(i));
+    this.selectedFilesThread = event.target.files
+      for (var i = 0; i <  this.selectedFilesThread.length; i++) {
+      this.myFilesThread.push(this.selectedFilesThread.item(i));
     }
-    console.log(this.myFiles)
+    console.log(this.myFilesThread)
     //show a preview of selected File
-    this.filesPreview = [];
+    this.filesPreviewThread = [];
     if (event.target.files) {
       this.renderFilesPreview();
-      this.fileSelected = true;
+      this.fileSelectedThread = true;
     }
-    console.log(this.myFiles)
+    console.log(this.myFilesThread)
   }
 
   deleteSelectedFile(position) {
     console.log(position)
-    this.myFiles.splice(position, 1)
-    if (this.myFiles.length >0) this.renderFilesPreview();
-    else this.fileSelected = false;
+    this.myFilesThread.splice(position, 1)
+    if (this.myFilesThread.length >0) this.renderFilesPreview();
+    else this.fileSelectedThread = false;
   }
 
   renderFilesPreview(){
-    this.filesPreview = [];
-    for (let i = 0; i < this.myFiles.length; i++) {
-      const file = this.myFiles[i];
+    this.filesPreviewThread = [];
+    for (let i = 0; i < this.myFilesThread.length; i++) {
+      const file = this.myFilesThread[i];
       console.log(file)
       let reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = (event: any) => {
-        this.url = event.target.result;
+        this.urlThread = event.target.result;
         let filePreview = {
-          url: this.url,
+          url: this.urlThread,
           hidden: true,
           position: i
         }
-        this.filesPreview.push(filePreview)
+        this.filesPreviewThread.push(filePreview)
       }
     }
   }
 
   upload(): any {
-    for (let i = 0; i < this.myFiles.length; i++) {
-      const file: File | null = this.myFiles[i];
-      this.currentFileUpload = new FileUpload(file);
-      this.uploadService.pushFileToStorage(this.currentFileUpload)
+    for (let i = 0; i < this.myFilesThread.length; i++) {
+      const file: File | null = this.myFilesThread[i];
+      this.currentFileUploadThread = new FileUpload(file);
+      this.uploadService.pushFileToStorage(this.currentFileUploadThread)
     }
-    this.myFiles = undefined;
+    this.myFilesThread = undefined;
   }
 }
