@@ -34,6 +34,7 @@ export class ThreadComponent implements OnInit {
   filesPreviewThread: any[] = [];
   fileSelectedThread: boolean = false;
   hidden: boolean = true;
+  threadEditorIsActive: boolean = false;
 
   myFilesThread: File[] = [];
 
@@ -120,29 +121,38 @@ export class ThreadComponent implements OnInit {
   }
 
   selectFileThread(event: any): void {
+    console.log('A')
+    if (this.threadEditorIsActive) {
+      console.log('2', this.threadEditorIsActive)
+      this.selectedFilesThread = event.target.files
+      for (var i = 0; i < this.selectedFilesThread.length; i++) {
+        this.myFilesThread.push(this.selectedFilesThread.item(i));
+      }
+      console.log(this.myFilesThread)
+      //show a preview of selected File
+      this.filesPreviewThread = [];
+      if (event.target.files) {
+        this.renderFilesPrevieThread();
+        this.fileSelectedThread = true;
+      }
+      console.log(this.myFilesThread)
+    }
+    this.threadEditorIsActive = false;
+  }
 
-    this.selectedFilesThread = event.target.files
-      for (var i = 0; i <  this.selectedFilesThread.length; i++) {
-      this.myFilesThread.push(this.selectedFilesThread.item(i));
-    }
-    console.log(this.myFilesThread)
-    //show a preview of selected File
-    this.filesPreviewThread = [];
-    if (event.target.files) {
-      this.renderFilesPreview();
-      this.fileSelectedThread = true;
-    }
-    console.log(this.myFilesThread)
+  sayHello(){
+    console.log('hello')
+    this.threadEditorIsActive = true;
   }
 
   deleteSelectedFile(position) {
     console.log(position)
     this.myFilesThread.splice(position, 1)
-    if (this.myFilesThread.length >0) this.renderFilesPreview();
+    if (this.myFilesThread.length > 0) this.renderFilesPrevieThread();
     else this.fileSelectedThread = false;
   }
 
-  renderFilesPreview(){
+  renderFilesPrevieThread() {
     this.filesPreviewThread = [];
     for (let i = 0; i < this.myFilesThread.length; i++) {
       const file = this.myFilesThread[i];

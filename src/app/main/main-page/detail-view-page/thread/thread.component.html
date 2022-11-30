@@ -96,11 +96,11 @@
             <button class="button" (click)="sendMessage()">
                 <mat-icon mat-icon-button fontIcon="send" class="color-main-with-hover"></mat-icon>
             </button>
-            <div class="upload-container">
+            <div class="upload-container" (click)="sayHello()">
                 <label for="file-input">
                     <mat-icon mat-icon-button>attach_file</mat-icon>
                 </label>
-                <input id="file-input" type="file" class="text-nowrap text-truncate" (change)="selectFileThread($event)" multiple/>
+                <input id="file-input-2" type="file" class="text-nowrap text-truncate" (change)="selectFileThread($event)" multiple/>
             </div>
         </div>
     </div>

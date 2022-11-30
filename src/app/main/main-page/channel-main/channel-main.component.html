@@ -89,14 +89,11 @@
             <button class="button" (click)="sendMessage()">
                 <mat-icon mat-icon-button fontIcon="send" class="color-main-with-hover"></mat-icon>
             </button>
-            <div class="upload-container">
+            <div class="upload-container" (click)="channelEditorIsActive = true">
                 <label for="file-input">
                     <mat-icon mat-icon-button>attach_file</mat-icon>
                 </label>
                 <input id="file-input" type="file" class="text-nowrap text-truncate" (change)="selectFile($event)" multiple/>
-                <!-- <button mat-icon-button class="upload-button" [disabled]="!selectedFiles">
-                    <mat-icon (click)="upload()">upload</mat-icon>
-                </button> -->
             </div>
         </div>
     </div>

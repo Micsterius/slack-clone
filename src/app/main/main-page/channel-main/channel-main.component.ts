@@ -42,6 +42,8 @@ export class ChannelMainComponent implements OnInit {
   fileSelected: boolean = false;
   hidden: boolean = true;
 
+  channelEditorIsActive: boolean = false;
+
   myFiles: File[] = [];
 
   constructor(
@@ -74,29 +76,32 @@ export class ChannelMainComponent implements OnInit {
   }
 
   selectFile(event: any): void {
-
-    this.selectedFiles = event.target.files
-      for (var i = 0; i <  this.selectedFiles.length; i++) {
-      this.myFiles.push(this.selectedFiles.item(i));
+    if (this.channelEditorIsActive) {
+      console.log('1', this.channelEditorIsActive)
+      this.selectedFiles = event.target.files
+      for (var i = 0; i < this.selectedFiles.length; i++) {
+        this.myFiles.push(this.selectedFiles.item(i));
+      }
+      console.log(this.myFiles)
+      //show a preview of selected File
+      this.filesPreview = [];
+      if (event.target.files) {
+        this.renderFilesPreview();
+        this.fileSelected = true;
+      }
+      console.log(this.myFiles)
     }
-    console.log(this.myFiles)
-    //show a preview of selected File
-    this.filesPreview = [];
-    if (event.target.files) {
-      this.renderFilesPreview();
-      this.fileSelected = true;
-    }
-    console.log(this.myFiles)
+    this.channelEditorIsActive = false;
   }
 
   deleteSelectedFile(position) {
     console.log(position)
     this.myFiles.splice(position, 1)
-    if (this.myFiles.length >0) this.renderFilesPreview();
+    if (this.myFiles.length > 0) this.renderFilesPreview();
     else this.fileSelected = false;
   }
 
-  renderFilesPreview(){
+  renderFilesPreview() {
     this.filesPreview = [];
     for (let i = 0; i < this.myFiles.length; i++) {
       const file = this.myFiles[i];
