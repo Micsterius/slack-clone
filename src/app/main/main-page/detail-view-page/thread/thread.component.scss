@@ -81,3 +81,26 @@ h2{
     top: 0;
     right: 0;
 }
+
+.img-file-preview-box{
+    position: relative;
+}
+
+.img-file-preview{
+    margin-left: 4px;
+    margin-right: 4px;
+    border-radius: 8px;
+    height: 60px;
+    cursor: pointer;
+}
+
+.editor-1 {
+    width: 100%;
+    z-index: 4;
+}
+.editor-2 {
+    position: absolute;
+    width: 100%;
+    z-index: 3;
+    bottom: 0;
+}

@@ -7,7 +7,7 @@
     <mat-icon class="icon-header" fontIcon="login" [routerLink]="['sign-in']" *ngIf="!authService.userData as user">
     </mat-icon>
     <div class="icon-header-right">
-        <img class="user-img-header" (click)="changeDetailViewPageContentToUserInfo()"
+        <img class="user-img-header" *ngIf="authService.userData as user" (click)="changeDetailViewPageContentToUserInfo()"
             src="./../../../assets/img/userIcons/{{authService.userData.photoURL ? authService.userData.photoURL : 'icon-unknown.svg'}}"
             alt="">
 

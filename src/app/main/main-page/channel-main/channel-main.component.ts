@@ -73,10 +73,6 @@ export class ChannelMainComponent implements OnInit {
     await deleteDoc(doc(this.db, "channel", this.channelServ.currentChannel.id, "posts", post.id));
   }
 
-  addFileToSelectedFiles() {
-
-  }
-
   selectFile(event: any): void {
 
     this.selectedFiles = event.target.files

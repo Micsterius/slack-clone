@@ -65,19 +65,43 @@
         </div>
     </div>
     <div class="writing-area-container">
-        <div class="writing-area">
-            <editor class="editor" [(ngModel)]="message" apiKey="0u347b51bx380ihx2w2vws4bfqf9dfqewelzkjxsl7p5ki0a"
+        <div class="writing-area" [ngStyle]="{'padding-bottom':(fileSelected) ? '48px' : '0px'}">
+            <editor class="editor-1" [(ngModel)]="message" apiKey="0u347b51bx380ihx2w2vws4bfqf9dfqewelzkjxsl7p5ki0a"
                 [init]="{
-  height: 178,
-  width: '100%',
-  menubar: false, 
-  plugins: 'emoticons advlist autolink lists link image charmap preview anchor',
-  toolbar: 'undo redo | bold italic | emoticons',
-  emoticons_database: 'emojis'
-   }"></editor>
-            <button (click)="sendMessage()">
+                height: 178,
+                width: '100%',
+                menubar: false, 
+                plugins: 'preview emoticons advlist autolink lists link image charmap preview anchor autoresize',
+                toolbar1: 'undo redo | bold italic | emoticons',
+                emoticons_database: 'emojis'
+                }">
+            </editor>
+            <div *ngIf="fileSelected" class="show-selected-files">
+                <div *ngFor="let filePreview of filesPreview">
+                    <div class="img-file-preview-box" (mouseover)="filePreview.hidden = false" (mouseleave)="filePreview.hidden = true">
+                        <img
+                            class="img-file-preview" src="{{filePreview.url}}" alt="">
+                        <mat-icon (click)="deleteSelectedFile(filePreview.position)" *ngIf="!filePreview.hidden" (mouseleave)="filePreview.hidden = true" class="file-preview-cancel-icon">
+                            cancel</mat-icon>
+                    </div>
+                </div>
+            </div>
+            <editor class="editor-2" apiKey="0u347b51bx380ihx2w2vws4bfqf9dfqewelzkjxsl7p5ki0a" [init]="{
+                height: 178,
+                width: '100%',
+                menubar: false,
+                toolbar1: 'undo redo | bold italic | emoticons'
+                 }">
+            </editor>
+            <button class="button" (click)="sendMessage()">
                 <mat-icon mat-icon-button fontIcon="send" class="color-main-with-hover"></mat-icon>
             </button>
+            <div class="upload-container">
+                <label for="file-input">
+                    <mat-icon mat-icon-button>attach_file</mat-icon>
+                </label>
+                <input id="file-input" type="file" class="text-nowrap text-truncate" (change)="selectFile($event)" multiple/>
+            </div>
         </div>
     </div>
 </div>
