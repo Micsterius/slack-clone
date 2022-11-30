@@ -61,8 +61,7 @@
         <div class="writing-area" [ngStyle]="{'padding-bottom':(fileSelected) ? '48px' : '0px'}">
             <editor class="editor-1" [(ngModel)]="message" apiKey="0u347b51bx380ihx2w2vws4bfqf9dfqewelzkjxsl7p5ki0a"
                 [init]="{
-                min_height: 150,
-                max_height: 270,
+                height: 178,
                 width: '100%',
                 menubar: false, 
                 plugins: 'preview emoticons advlist autolink lists link image charmap preview anchor autoresize',
@@ -81,7 +80,7 @@
                 </div>
             </div>
             <editor class="editor-2" apiKey="0u347b51bx380ihx2w2vws4bfqf9dfqewelzkjxsl7p5ki0a" [init]="{
-                height: 150,
+                height: 178,
                 width: '100%',
                 menubar: false,
                 toolbar1: 'undo redo | bold italic | emoticons'
@@ -95,9 +94,9 @@
                     <mat-icon mat-icon-button>attach_file</mat-icon>
                 </label>
                 <input id="file-input" type="file" class="text-nowrap text-truncate" (change)="selectFile($event)" multiple/>
-                <button mat-icon-button class="upload-button" [disabled]="!selectedFiles">
+                <!-- <button mat-icon-button class="upload-button" [disabled]="!selectedFiles">
                     <mat-icon (click)="upload()">upload</mat-icon>
-                </button>
+                </button> -->
             </div>
         </div>
     </div>

@@ -53,12 +53,28 @@ h2{
 
 .name-time-box {
     display: flex;
+    margin-left: 16px;
 
     div{
-        margin-left: 4px;
-        margin-right: 4px;
+        // margin-left: 4px;
+        margin-right: 16px;
+    }
+
+    .name{
+        font-weight: bold;
+    }
+
+    .time{
+        opacity: 0.5;
+        font-size: smaller;
     }
 }
+
+.content-box{
+    margin-left: 16px;
+}
+
+
 
 .menu_vert_icon{
     position: absolute;

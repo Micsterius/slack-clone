@@ -7,7 +7,7 @@
 
  a {
      text-decoration: none;
-     color: rgb(173, 168, 168);
+     color: white;
      font-weight: 400;
      font-size: 16px;
 
@@ -38,41 +38,3 @@
  .social_icons_div {
      display: flex;
  }
-
- /*@media (max-width: 1500px) {
-
-     .footer_div {
-         width: 945px;
-     }
-
- }
-
- @media (max-width: 1040px) {
-
-     .footer_div {
-         width: 700px;
-     }
-
- }
-
- @media (max-width: 850px) {
-     .footer_div {
-         padding-left: 48px;
-         padding-right: 48px;
-     }
- }
-
- @media (max-width: 500px) {
-     .footer_div {
-         flex-direction: column-reverse;
-     }
- }
-
-
- @media (orientation: landscape) {
-
-     .footer {
-         height: 40px;
-     }
-
- }*/

@@ -234,17 +234,20 @@ body {
     margin-bottom: 8px;
 }
 
-
+.tox-tinymce{
+    border: 1px solid lightgray !important ;
+    border-radius: 10px 10px 0px 0px !important;
+}
 
 .all-posts-container {
     overflow-y: auto !important;
     word-break: break-all;
-    height: calc(100vh - 299px);
+    height: calc(100vh - 295px);
     width: 100%;
     margin-bottom: 4px;
 
     img {
-        height: 100px;
+        height: 28px;
         object-fit: cover;
 
         // &:hover{

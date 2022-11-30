@@ -25,8 +25,8 @@
             </mat-menu>
             <div class="post-box">
                 <div class="name-time-box">
-                    <div>{{usersService.returnUsersDisplayName(channelService.currentThread.post.authorId)}}</div>
-                    <div>{{generalService.getTransformedTimeStampToDate(channelService.currentThread.post.timeStamp)}}
+                    <div class="name">{{usersService.returnUsersDisplayName(channelService.currentThread.post.authorId)}}</div>
+                    <div class="time">{{generalService.getTransformedTimeStampToDate(channelService.currentThread.post.timeStamp)}}
                     </div>
                 </div>
                 <div class="content-box" [innerHTML]="channelService.currentThread.post.content"></div>
@@ -56,8 +56,8 @@
             </mat-menu>
             <div class="post-box">
                 <div class="name-time-box">
-                    <div>{{usersService.returnUsersDisplayName(answer.authorId)}}</div>
-                    <div>{{generalService.getTransformedTimeStampToDate(answer.timeStamp)}}
+                    <div class="name">{{usersService.returnUsersDisplayName(answer.authorId)}}</div>
+                    <div class="time">{{generalService.getTransformedTimeStampToDate(answer.timeStamp)}}
                     </div>
                 </div>
                 <div class="content-box" [innerHTML]="answer.content"></div>
@@ -68,7 +68,7 @@
         <div class="writing-area">
             <editor class="editor" [(ngModel)]="message" apiKey="0u347b51bx380ihx2w2vws4bfqf9dfqewelzkjxsl7p5ki0a"
                 [init]="{
-  height: 150,
+  height: 178,
   width: '100%',
   menubar: false, 
   plugins: 'emoticons advlist autolink lists link image charmap preview anchor',
