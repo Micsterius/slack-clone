@@ -1,15 +1,18 @@
 <div *ngIf="channelService.showChannel" class="thread-container">
 
-    <div class="detail-view-header"><h2>Thread {{channelService.currentThread.name}}</h2> </div>
+    <div class="detail-view-header">
+        <h2>Thread {{channelService.currentThread.name}}</h2>
+    </div>
     <div #scrollMe class="all-posts-container">
         <div class="post-container">
-            <mat-icon *ngIf="generalService.adminActive" class="menu_vert_icon" mat-icon-button fontIcon="more_vert" [matMenuTriggerFor]="menuPost">
+            <mat-icon *ngIf="generalService.adminActive" class="menu_vert_icon" mat-icon-button fontIcon="more_vert"
+                [matMenuTriggerFor]="menuPost">
             </mat-icon>
             <mat-menu #menuPost="matMenu" xPosition="before">
                 <button (click)="deletePost(channelService.currentThread.post)" mat-menu-item>
                     <mat-icon>delete_forever</mat-icon>
                     <span>Löschen</span>
-                </button>            
+                </button>
             </mat-menu>
             <div class="post-img">
                 <img [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"
@@ -25,22 +28,31 @@
             </mat-menu>
             <div class="post-box">
                 <div class="name-time-box">
-                    <div class="name">{{usersService.returnUsersDisplayName(channelService.currentThread.post.authorId)}}</div>
-                    <div class="time">{{generalService.getTransformedTimeStampToDate(channelService.currentThread.post.timeStamp)}}
+                    <div class="name">
+                        {{usersService.returnUsersDisplayName(channelService.currentThread.post.authorId)}}</div>
+                    <div class="time">
+                        {{generalService.getTransformedTimeStampToDate(channelService.currentThread.post.timeStamp)}}
                     </div>
                 </div>
+                <div class="post-img-box">
+                    <div class="content-box" *ngFor="let postImage of channelService.currentThread.post.imageUrl">
+                        <div [innerHTML]="postImage"></div>
+                    </div>
+                </div>
+
                 <div class="content-box" [innerHTML]="channelService.currentThread.post.content"></div>
             </div>
         </div>
 
         <div class="post-container" *ngFor="let answer of channelService.currentThread.post.answers">
-            <mat-icon *ngIf="generalService.adminActive" class="menu_vert_icon" mat-icon-button fontIcon="more_vert" [matMenuTriggerFor]="menuPost">
+            <mat-icon *ngIf="generalService.adminActive" class="menu_vert_icon" mat-icon-button fontIcon="more_vert"
+                [matMenuTriggerFor]="menuPost">
             </mat-icon>
             <mat-menu #menuPost="matMenu" xPosition="before">
                 <button (click)="deletePostAnswer(channelService.currentThread.post, answer.id)" mat-menu-item>
                     <mat-icon>delete_forever</mat-icon>
                     <span>Löschen</span>
-                </button>            
+                </button>
             </mat-menu>
             <div class="post-img">
                 <img [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"
@@ -64,7 +76,8 @@
             </div>
         </div>
     </div>
-    <div class="writing-area-container">
+    <div class="writing-area-container" (mouseenter)="threadEditorIsActive = true"
+        (mouseleave)="threadEditorIsActive = false">
         <div class="writing-area" [ngStyle]="{'padding-bottom':(fileSelectedThread) ? '48px' : '0px'}">
             <editor class="editor-1" [(ngModel)]="message" apiKey="0u347b51bx380ihx2w2vws4bfqf9dfqewelzkjxsl7p5ki0a"
                 [init]="{
@@ -78,10 +91,11 @@
             </editor>
             <div *ngIf="fileSelectedThread" class="show-selected-files">
                 <div *ngFor="let filePreview of filesPreviewThread">
-                    <div class="img-file-preview-box" (mouseover)="filePreview.hidden = false" (mouseleave)="filePreview.hidden = true">
-                        <img
-                            class="img-file-preview" src="{{filePreview.url}}" alt="">
-                        <mat-icon (click)="deleteSelectedFile(filePreview.position)" *ngIf="!filePreview.hidden" (mouseleave)="filePreview.hidden = true" class="file-preview-cancel-icon">
+                    <div class="img-file-preview-box" (mouseover)="filePreview.hidden = false"
+                        (mouseleave)="filePreview.hidden = true">
+                        <img class="img-file-preview" src="{{filePreview.url}}" alt="">
+                        <mat-icon (click)="deleteSelectedFile(filePreview.position)" *ngIf="!filePreview.hidden"
+                            (mouseleave)="filePreview.hidden = true" class="file-preview-cancel-icon">
                             cancel</mat-icon>
                     </div>
                 </div>
@@ -96,11 +110,12 @@
             <button class="button" (click)="sendMessage()">
                 <mat-icon mat-icon-button fontIcon="send" class="color-main-with-hover"></mat-icon>
             </button>
-            <div class="upload-container" (click)="sayHello()">
+            <div class="upload-container">
                 <label for="file-input">
                     <mat-icon mat-icon-button>attach_file</mat-icon>
                 </label>
-                <input id="file-input-2" type="file" class="text-nowrap text-truncate" (change)="selectFileThread($event)" multiple/>
+                <input *ngIf="threadEditorIsActive" id="file-input-2" type="file" class="text-nowrap text-truncate"
+                    (change)="selectFileThread($event)" multiple />
             </div>
         </div>
     </div>

@@ -57,7 +57,7 @@
             </div>
         </div>
     </div>
-    <div class="writing-area-container">
+    <div class="writing-area-container" (mouseenter)="channelEditorIsActive = true" (mouseleave)="channelEditorIsActive = false">
         <div class="writing-area" [ngStyle]="{'padding-bottom':(fileSelected) ? '48px' : '0px'}">
             <editor class="editor-1" [(ngModel)]="message" apiKey="0u347b51bx380ihx2w2vws4bfqf9dfqewelzkjxsl7p5ki0a"
                 [init]="{
@@ -89,11 +89,11 @@
             <button class="button" (click)="sendMessage()">
                 <mat-icon mat-icon-button fontIcon="send" class="color-main-with-hover"></mat-icon>
             </button>
-            <div class="upload-container" (click)="channelEditorIsActive = true">
+            <div class="upload-container">
                 <label for="file-input">
                     <mat-icon mat-icon-button>attach_file</mat-icon>
                 </label>
-                <input id="file-input" type="file" class="text-nowrap text-truncate" (change)="selectFile($event)" multiple/>
+                <input *ngIf="channelEditorIsActive" id="file-input" type="file" class="text-nowrap text-truncate" (change)="selectFile($event)" multiple/>
             </div>
         </div>
     </div>
