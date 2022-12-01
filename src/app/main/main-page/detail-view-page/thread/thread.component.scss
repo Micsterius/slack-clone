@@ -108,6 +108,12 @@ h2{
     cursor: pointer;
 }
 
+.img-small{
+    height: 25px;
+    width: 25px;
+    object-fit: cover;
+}
+
 .editor-1 {
     width: 100%;
     z-index: 4;

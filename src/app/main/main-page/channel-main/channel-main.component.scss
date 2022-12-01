@@ -41,8 +41,8 @@
 }
 
 .img-small{
-    height: 20px;
-    width: 20px;
+    height: 25px;
+    width: 25px;
     object-fit: cover;
 }
 
@@ -128,17 +128,35 @@
     }
 }
 
+.answer-box{
+    margin-left: 16px;
+}
+
 .last-child {
     margin-bottom: 0;
 }
 
 .name-time-box {
     display: flex;
+    margin-left: 16px;
+
+    .name{
+        font-weight: bold;
+    }
+
+    .time{
+        opacity: 0.5;
+        font-size: smaller;
+    }
 
     div {
-        margin-left: 4px;
-        margin-right: 4px;
+        // margin-left: 4px;
+        margin-right: 8px;
     }
+}
+
+.content-box{
+    margin-left: 16px;
 }
 
 .detail-view-header{

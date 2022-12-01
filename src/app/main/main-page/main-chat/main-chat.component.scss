@@ -21,6 +21,12 @@
     }
 }
 
+.img-small{
+    height: 25px;
+    width: 25px;
+    object-fit: cover;
+}
+
 .writing-area {
     position: relative;
     display: flex;

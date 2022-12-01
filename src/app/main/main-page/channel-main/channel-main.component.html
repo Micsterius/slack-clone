@@ -28,8 +28,8 @@
                 </mat-menu>
                 <div class="post-box">
                     <div class="name-time-box">
-                        <div>{{userService.returnUsersDisplayName(post.authorId)}}</div>
-                        <div>{{generalService.getTransformedTimeStampToDate(post.timeStamp)}}</div>
+                        <div class="name">{{userService.returnUsersDisplayName(post.authorId)}}</div>
+                        <div class="time">{{generalService.getTransformedTimeStampToDate(post.timeStamp)}}</div>
                     </div>
                     <div class="content-box" *ngFor="let postImage of post.imageUrl">
                         <div [innerHTML]="postImage"></div>
