@@ -2,19 +2,17 @@
      cursor: pointer;
      width: 30px;
      height: 30px;
-     margin-left: 10px;
  }
 
  a {
+     display: flex;
      text-decoration: none;
      color: white;
      font-weight: 400;
      font-size: 16px;
 
      &:hover {
-         font-weight: 600;
-         color: black;
-         text-underline-offset: 2px;
+         color: var(--secondary-color);
      }
  }
 
@@ -37,4 +35,9 @@
 
  .social_icons_div {
      display: flex;
+
+     a {
+         margin-left: 18px;
+
+     }
  }
