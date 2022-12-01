@@ -31,8 +31,10 @@
                         <div class="name">{{userService.returnUsersDisplayName(post.authorId)}}</div>
                         <div class="time">{{generalService.getTransformedTimeStampToDate(post.timeStamp)}}</div>
                     </div>
-                    <div class="content-box" *ngFor="let postImage of post.imageUrl">
-                        <div [innerHTML]="postImage"></div>
+                    <div class="image-box">
+                        <div class="content-box" *ngFor="let postImage of post.imageUrl">
+                            <div [innerHTML]="postImage"></div>
+                        </div>
                     </div>
                     <div class="content-box" [innerHTML]="post.content"></div>
                     <div class="answer-box" *ngIf="post.answers.length > 1">

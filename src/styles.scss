@@ -220,7 +220,7 @@ body {
     background-color: white;
     color: gray;
 
-    p{
+    p {
         padding: 8px;
         margin: 0;
     }
@@ -234,8 +234,8 @@ body {
     margin-bottom: 8px;
 }
 
-.tox-tinymce{
-    border: 1px solid lightgray !important ;
+.tox-tinymce {
+    border: 1px solid lightgray !important;
     border-radius: 10px 10px 0px 0px !important;
 }
 
@@ -247,9 +247,10 @@ body {
     margin-bottom: 4px;
 
     img {
-        height: 190px;
+        max-height: 190px;
         object-fit: cover;
-
+        width: 100%;
+        height: auto;
         // &:hover{
         //     position: absolute;
         //     width: auto;
@@ -258,6 +259,11 @@ body {
         // }
     }
 }
+
+.tox .tox-toolbar__group {
+    padding: unset !important;
+}
+
 
 /* width */
 ::-webkit-scrollbar {
