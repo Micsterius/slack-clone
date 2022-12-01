@@ -32,7 +32,6 @@ export class ChannelMainComponent implements OnInit {
   message: any;
   actualUser: User;
 
-  editorWidth: number;
   menuPositionY: any = 'below';
   selectedFiles?: FileList;
   currentFileUpload?: FileUpload;
@@ -41,8 +40,6 @@ export class ChannelMainComponent implements OnInit {
   filesPreview: any[] = [];
   fileSelected: boolean = false;
   hidden: boolean = true;
-
-  channelEditorIsActive: boolean = false;
 
   myFiles: File[] = [];
 
@@ -76,8 +73,7 @@ export class ChannelMainComponent implements OnInit {
   }
 
   selectFile(event: any): void {
-    if (this.channelEditorIsActive) {
-      console.log('1', this.channelEditorIsActive)
+    if (this.generalService.activeEditorIsChannel) {
       this.selectedFiles = event.target.files
       for (var i = 0; i < this.selectedFiles.length; i++) {
         this.myFiles.push(this.selectedFiles.item(i));
@@ -89,9 +85,7 @@ export class ChannelMainComponent implements OnInit {
         this.renderFilesPreview();
         this.fileSelected = true;
       }
-      console.log(this.myFiles)
     }
-    this.channelEditorIsActive = false;
   }
 
   deleteSelectedFile(position) {
@@ -102,22 +96,24 @@ export class ChannelMainComponent implements OnInit {
   }
 
   renderFilesPreview() {
-    this.filesPreview = [];
-    for (let i = 0; i < this.myFiles.length; i++) {
-      const file = this.myFiles[i];
-      console.log(file)
-      let reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = (event: any) => {
-        this.url = event.target.result;
-        let filePreview = {
-          url: this.url,
-          hidden: true,
-          position: i
+    setTimeout(() => {
+      this.filesPreview = [];
+      for (let i = 0; i < this.generalService.myFiles.length; i++) {
+        const file = this.generalService.myFiles[i];
+        console.log(file)
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (event: any) => {
+          this.url = event.target.result;
+          let filePreview = {
+            url: this.url,
+            hidden: true,
+            position: i
+          }
+          this.filesPreview.push(filePreview)
         }
-        this.filesPreview.push(filePreview)
       }
-    }
+    }, 5000);
   }
 
   upload(): any {

@@ -76,8 +76,7 @@
             </div>
         </div>
     </div>
-    <div class="writing-area-container" (mouseenter)="threadEditorIsActive = true"
-        (mouseleave)="threadEditorIsActive = false">
+    <div class="writing-area-container">
         <div class="writing-area" [ngStyle]="{'padding-bottom':(fileSelectedThread) ? '48px' : '0px'}">
             <editor class="editor-1" [(ngModel)]="message" apiKey="0u347b51bx380ihx2w2vws4bfqf9dfqewelzkjxsl7p5ki0a"
                 [init]="{
@@ -89,8 +88,8 @@
                 emoticons_database: 'emojis'
                 }">
             </editor>
-            <div *ngIf="fileSelectedThread" class="show-selected-files">
-                <div *ngFor="let filePreview of filesPreviewThread">
+            <div *ngIf="generalService.fileSelectedThread" class="show-selected-files">
+                <div *ngFor="let filePreview of generalService.filesPreviewThread">
                     <div class="img-file-preview-box" (mouseover)="filePreview.hidden = false"
                         (mouseleave)="filePreview.hidden = true">
                         <img class="img-file-preview" src="{{filePreview.url}}" alt="">
@@ -112,10 +111,10 @@
             </button>
             <div class="upload-container">
                 <label for="file-input">
-                    <mat-icon mat-icon-button>attach_file</mat-icon>
+                    <mat-icon mat-icon-button (click)="generalService.changeActiveEditorToThread()">attach_file</mat-icon>
                 </label>
-                <input *ngIf="threadEditorIsActive" id="file-input-2" type="file" class="text-nowrap text-truncate"
-                    (change)="selectFileThread($event)" multiple />
+                <input id="file-input-2" type="file" class="text-nowrap text-truncate"
+                    (change)="generalService.selectFile($event)" multiple />
             </div>
         </div>
     </div>

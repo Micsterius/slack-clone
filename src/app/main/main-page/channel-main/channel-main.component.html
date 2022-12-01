@@ -1,6 +1,6 @@
 <div *ngIf="channelServ.showChannel" class="main-channel-container">
     <div class="detail-view-header">
-       <p># <i>{{channelServ.currentChannel.name}}</i></p> 
+        <p># <i>{{channelServ.currentChannel.name}}</i></p>
     </div>
     <div #scrollMe class="all-posts-container">
         <div *ngFor="let post of channelServ.posts; let i=index; let last = last" [ngClass]="{'last-child': last}">
@@ -57,7 +57,7 @@
             </div>
         </div>
     </div>
-    <div class="writing-area-container" (mouseenter)="channelEditorIsActive = true" (mouseleave)="channelEditorIsActive = false">
+    <div class="writing-area-container">
         <div class="writing-area" [ngStyle]="{'padding-bottom':(fileSelected) ? '48px' : '0px'}">
             <editor class="editor-1" [(ngModel)]="message" apiKey="0u347b51bx380ihx2w2vws4bfqf9dfqewelzkjxsl7p5ki0a"
                 [init]="{
@@ -69,12 +69,13 @@
                 emoticons_database: 'emojis'
                 }">
             </editor>
-            <div *ngIf="fileSelected" class="show-selected-files">
-                <div *ngFor="let filePreview of filesPreview">
-                    <div class="img-file-preview-box" (mouseover)="filePreview.hidden = false" (mouseleave)="filePreview.hidden = true">
-                        <img
-                            class="img-file-preview" src="{{filePreview.url}}" alt="">
-                        <mat-icon (click)="deleteSelectedFile(filePreview.position)" *ngIf="!filePreview.hidden" (mouseleave)="filePreview.hidden = true" class="file-preview-cancel-icon">
+            <div *ngIf="generalService.fileSelected" class="show-selected-files">
+                <div *ngFor="let filePreview of generalService.filesPreview">
+                    <div class="img-file-preview-box" (mouseover)="filePreview.hidden = false"
+                        (mouseleave)="filePreview.hidden = true">
+                        <img class="img-file-preview" src="{{filePreview.url}}" alt="">
+                        <mat-icon (click)="deleteSelectedFile(filePreview.position)" *ngIf="!filePreview.hidden"
+                            (mouseleave)="filePreview.hidden = true" class="file-preview-cancel-icon">
                             cancel</mat-icon>
                     </div>
                 </div>
@@ -89,12 +90,14 @@
             <button class="button" (click)="sendMessage()">
                 <mat-icon mat-icon-button fontIcon="send" class="color-main-with-hover"></mat-icon>
             </button>
-            <div class="upload-container">
+                <div class="upload-container">
                 <label for="file-input">
-                    <mat-icon mat-icon-button>attach_file</mat-icon>
+                    <mat-icon mat-icon-button (click)="generalService.changeActiveEditorToChannel()">attach_file</mat-icon>
                 </label>
-                <input *ngIf="channelEditorIsActive" id="file-input" type="file" class="text-nowrap text-truncate" (change)="selectFile($event)" multiple/>
+                <input id="file-input" type="file" class="text-nowrap text-truncate" (change)="generalService.selectFile($event)" multiple/>
             </div>
+           
+
         </div>
     </div>
 
