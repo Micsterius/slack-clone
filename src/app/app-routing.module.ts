@@ -8,6 +8,7 @@ import { MainComponent } from './main/main.component';
 import { ChannelMainComponent } from './main/main-page/channel-main/channel-main.component';
 import { MainChatComponent } from './main/main-page/main-chat/main-chat.component';
 import { UserInfoComponent } from './main/main-page/detail-view-page/user-info/user-info.component';
+import { ImprintComponent } from './main/footer/imprint/imprint.component';
 
 const routes: Routes = [
   //{ path: '', redirectTo: '/sign-in', pathMatch: 'full' },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'personal', component: UserInfoComponent },
   { path: 'channel-main', component: ChannelMainComponent },
   { path: 'chat-main', component: MainChatComponent },
+  { path: 'imprint', component: ImprintComponent },
   { path: '', component: ChannelMainComponent },
 ];
 
