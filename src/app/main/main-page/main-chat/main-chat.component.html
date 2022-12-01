@@ -1,3 +1,6 @@
+<div class="detail-view-header">
+    <p><i>Private Chat</i></p>
+</div>
 <div class="main-chat-container">
     <div *ngIf="chatService.showChat" class="chat-container all-posts-container" #scrollMe>
         <div *ngFor="let text of chatService.messages" class="chat-friend-box">
@@ -8,8 +11,8 @@
                 </div>
                 <div class="post-box">
                     <div class="name-time-box">
-                        <div>{{usersService.returnUsersDisplayName(text.author)}}</div>
-                        <div>{{generalService.getTransformedTimeStampToDate(text.timeStamp)}}</div>
+                        <div class="name">{{usersService.returnUsersDisplayName(text.author)}}</div>
+                        <div class="time">{{generalService.getTransformedTimeStampToDate(text.timeStamp)}}</div>
                     </div>
                     <div class="content-box" [innerHTML]="text.content"></div>
                 </div>
