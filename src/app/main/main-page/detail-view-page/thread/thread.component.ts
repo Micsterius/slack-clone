@@ -120,10 +120,9 @@ export class ThreadComponent implements OnInit {
   }
 
   deleteSelectedFile(position) {
-    console.log(position)
-    this.myFilesThread.splice(position, 1)
-    /*if (this.myFilesThread.length > 0) this.renderFilesPrevieThread();
-    else this.fileSelectedThread = false;*/
+    this.generalService.myFilesThread.splice(position, 1)
+    if (this.generalService.myFilesThread.length > 0) this.generalService.renderFilesPreviewThread();
+    else this.generalService.fileSelectedThread = false;
   }
 
   upload(): any {

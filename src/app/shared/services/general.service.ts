@@ -103,6 +103,8 @@ export class GeneralService {
         this.fileSelected = true;
       }
     }
+
+    event.target.value = null; // necessary to be able to load the same file again
   }
 
   renderFilesPreviewThread() {

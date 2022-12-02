@@ -72,48 +72,10 @@ export class ChannelMainComponent implements OnInit {
     await deleteDoc(doc(this.db, "channel", this.channelServ.currentChannel.id, "posts", post.id));
   }
 
-  selectFile(event: any): void {
-    if (this.generalService.activeEditorIsChannel) {
-      this.selectedFiles = event.target.files
-      for (var i = 0; i < this.selectedFiles.length; i++) {
-        this.myFiles.push(this.selectedFiles.item(i));
-      }
-      console.log(this.myFiles)
-      //show a preview of selected File
-      this.filesPreview = [];
-      if (event.target.files) {
-        this.renderFilesPreview();
-        this.fileSelected = true;
-      }
-    }
-  }
-
   deleteSelectedFile(position) {
-    console.log(position)
-    this.myFiles.splice(position, 1)
-    if (this.myFiles.length > 0) this.renderFilesPreview();
-    else this.fileSelected = false;
-  }
-
-  renderFilesPreview() {
-    setTimeout(() => {
-      this.filesPreview = [];
-      for (let i = 0; i < this.generalService.myFiles.length; i++) {
-        const file = this.generalService.myFiles[i];
-        console.log(file)
-        let reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = (event: any) => {
-          this.url = event.target.result;
-          let filePreview = {
-            url: this.url,
-            hidden: true,
-            position: i
-          }
-          this.filesPreview.push(filePreview)
-        }
-      }
-    }, 5000);
+    this.generalService.myFiles.splice(position, 1)
+    if (this.generalService.myFiles.length > 0) this.generalService.renderFilesPreview();
+    else this.generalService.fileSelected = false;
   }
 
   upload(): any {
