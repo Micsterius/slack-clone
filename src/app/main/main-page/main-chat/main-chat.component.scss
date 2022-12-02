@@ -32,33 +32,45 @@
     display: flex;
     justify-content: center;
     // padding-bottom: 4px;
+    // margin-left: 12px;
+    // margin-right: 12px;
 
 
-    button {
+    .button {
         position: absolute;
         top: 12px;
         right: 12px;
-        z-index: 2;
+        z-index: 10;
 
         background-color: white;
         border: none;
     }
 }
 
-.editor {
-    width: 100%;
+.upload-container {
+    position: absolute;
+    display: flex;
+    top: 13px;
+    right: 48px;
+    z-index: 9;
+}
+
+.upload-container>input {
+    display: none;
 }
 
 .writing-area-container {
-    position: absolute;
-    bottom: 0;
     width: 100%;
 }
 
 .main-chat-container {
     width: 100%;
-    height: calc(100% - 37px);
+    height: 100%;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .post-container {
@@ -98,5 +110,53 @@
 .detail-view-header{
     h2{
         margin: 0;
+    }
+}
+
+.editor-1 {
+    width: 100%;
+    z-index: 4;
+}
+.editor-2 {
+    position: absolute;
+    width: 100%;
+    z-index: 3;
+    bottom: 0;
+}
+
+.show-selected-files{
+    position: absolute;
+    bottom: 28px;
+    height: 60px;
+    z-index: 6;
+    width: calc(100% - 2px);
+    background-color: white;
+    display: flex;
+    border-radius: 8px;
+}
+
+.img-file-preview-box{
+    position: relative;
+}
+
+.img-file-preview{
+    margin-left: 4px;
+    margin-right: 4px;
+    border-radius: 8px;
+    height: 60px;
+    cursor: pointer;
+}
+
+.file-preview-cancel-icon{
+    position: absolute;
+    right: -8px;
+    top: -8px;
+    background-color: white;
+    border-radius: 50%;
+    color: gray;
+    cursor: pointer;
+
+    &:hover{
+        color: black;
     }
 }

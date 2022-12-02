@@ -33,6 +33,14 @@ export class GeneralService {
   fileSelected: boolean = false;
   myFiles: File[] = [];
 
+  //CHAT
+  selectedFilesChat?: FileList;
+  currentFileUploadChat?: FileUpload;
+  urlChat: any;
+  filesPreviewChat: any[] = [];
+  fileSelectedChat: boolean = false;
+  myFilesChat: File[] = [];
+
   constructor() { }
 
   getTransformedTimeStampToDate(timeStamp) {

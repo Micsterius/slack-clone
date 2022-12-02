@@ -82,10 +82,11 @@
         </div>
     </div>
     <div class="writing-area-container">
-        <div class="writing-area" [ngStyle]="{'padding-bottom':(fileSelectedThread) ? '48px' : '0px'}">
+        <div class="writing-area" [ngStyle]="{'padding-bottom':(generalService.fileSelectedThread) ? '48px' : '0px'}">
             <editor class="editor-1" [(ngModel)]="message" apiKey="0u347b51bx380ihx2w2vws4bfqf9dfqewelzkjxsl7p5ki0a"
                 [init]="{
-                height: 178,
+                min_height: 120,
+                max_height: 250,
                 width: '100%',
                 menubar: false, 
                 plugins: 'preview emoticons advlist autolink lists link image charmap preview anchor autoresize',
@@ -116,7 +117,8 @@
             </button>
             <div class="upload-container">
                 <label for="file-input">
-                    <mat-icon mat-icon-button (click)="generalService.changeActiveEditorToThread()">attach_file</mat-icon>
+                    <mat-icon mat-icon-button (click)="generalService.changeActiveEditorToThread()">attach_file
+                    </mat-icon>
                 </label>
                 <input id="file-input-2" type="file" class="text-nowrap text-truncate"
                     (change)="generalService.selectFile($event)" multiple />

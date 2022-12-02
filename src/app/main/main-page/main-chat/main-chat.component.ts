@@ -66,4 +66,10 @@ export class MainChatComponent implements OnInit {
     this.message = '';
   }
 
+  deleteSelectedFile(position) {
+    this.generalService.myFiles.splice(position, 1)
+    if (this.generalService.myFiles.length > 0) this.generalService.renderFilesPreview();
+    else this.generalService.fileSelected = false;
+  }
+
 }
