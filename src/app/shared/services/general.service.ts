@@ -16,6 +16,7 @@ export class GeneralService {
 
   activeEditorIsChannel: boolean = false;
   activeEditorIsThread: boolean = false;
+  activeEditorIsChat: boolean = false;
 
   //THREAD
   selectedFilesThread?: FileList;
@@ -78,11 +79,19 @@ export class GeneralService {
   changeActiveEditorToChannel() {
     this.activeEditorIsThread = false;
     this.activeEditorIsChannel = true;
+    this.activeEditorIsChat = false;
   }
 
   changeActiveEditorToThread() {
     this.activeEditorIsThread = true;
     this.activeEditorIsChannel = false;
+    this.activeEditorIsChat = false;
+  }
+
+  changeActiveEditorToChat(){
+    this.activeEditorIsThread = false;
+    this.activeEditorIsChannel = false;
+    this.activeEditorIsChat = true;
   }
 
   selectFile(event: any): void {
@@ -111,6 +120,18 @@ export class GeneralService {
         this.fileSelected = true;
       }
     }
+    if (this.activeEditorIsChat) {
+      this.selectedFilesChat = event.target.files
+      for (var i = 0; i < this.selectedFilesChat.length; i++) {
+        this.myFilesChat.push(this.selectedFilesChat.item(i));
+      }
+      //show a preview of selected File
+      this.filesPreviewChat = [];
+      if (event.target.files) {
+        this.renderFilesPreviewChat();
+        this.fileSelectedChat = true;
+      }
+    }
     event.target.value = ''; // necessary to be able to load the same file again
   }
 
@@ -118,7 +139,6 @@ export class GeneralService {
     this.filesPreviewThread = [];
     for (let i = 0; i < this.myFilesThread.length; i++) {
       const file = this.myFilesThread[i];
-      console.log(file)
       let reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = (event: any) => {
@@ -131,14 +151,31 @@ export class GeneralService {
         this.filesPreviewThread.push(filePreview)
       }
     }
-    console.log(this.filesPreviewThread)
+  }
+
+  renderFilesPreviewChat() {
+    this.filesPreviewChat = [];
+    for (let i = 0; i < this.myFilesChat.length; i++) {
+      const file = this.myFilesChat[i];
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (event: any) => {
+        this.urlChat = event.target.result;
+        let filePreview = {
+          url: this.urlChat,
+          hidden: true,
+          position: i
+        }
+        this.filesPreviewChat.push(filePreview)
+        console.log(this.filesPreviewChat)
+      }
+    }
   }
 
   renderFilesPreview() {
     this.filesPreview = [];
     for (let i = 0; i < this.myFiles.length; i++) {
       const file = this.myFiles[i];
-      console.log(file)
       let reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = (event: any) => {

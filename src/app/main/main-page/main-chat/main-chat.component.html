@@ -32,8 +32,8 @@
                     emoticons_database: 'emojis'
                     }">
             </editor>
-            <div *ngIf="generalService.fileSelected" class="show-selected-files">
-                <div *ngFor="let filePreview of generalService.filesPreview">
+            <div *ngIf="generalService.fileSelectedChat" class="show-selected-files">
+                <div *ngFor="let filePreview of generalService.filesPreviewChat">
                     <div class="img-file-preview-box" (mouseover)="filePreview.hidden = false"
                         (mouseleave)="filePreview.hidden = true">
                         <img class="img-file-preview" src="{{filePreview.url}}" alt="">
@@ -55,7 +55,7 @@
             </button>
             <div class="upload-container">
                 <label for="file-input">
-                    <mat-icon mat-icon-button (click)="generalService.changeActiveEditorToChannel()">attach_file
+                    <mat-icon mat-icon-button (click)="generalService.changeActiveEditorToChat()">attach_file
                     </mat-icon>
                 </label>
                 <input id="file-input" type="file" class="text-nowrap text-truncate"

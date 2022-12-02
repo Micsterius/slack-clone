@@ -2,8 +2,10 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { initializeApp } from 'firebase/app';
 import { User } from 'firebase/auth';
 import { collection, doc, getFirestore, onSnapshot, query, setDoc } from 'firebase/firestore';
+import { FileUpload } from 'src/app/models/file-upload.model';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ChatService } from 'src/app/shared/services/chat.service';
+import { FileUploadService } from 'src/app/shared/services/file-upload.service';
 import { GeneralService } from 'src/app/shared/services/general.service';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { environment } from 'src/environments/environment';
@@ -25,11 +27,14 @@ export class MainChatComponent implements OnInit {
   currentUser: User;
   message: any;
 
+  currentFileUploadChat?: FileUpload;
+
   constructor(
     public chatService: ChatService,
     public authService: AuthService,
     public usersService: UsersService,
-    public generalService: GeneralService
+    public generalService: GeneralService,
+    public uploadService: FileUploadService
   ) {
   }
 
@@ -57,19 +62,40 @@ export class MainChatComponent implements OnInit {
   async sendMessage() {
     let textId = Math.round(new Date().getTime() / 1000);
     let idAdd = Math.random().toString(16).substr(2, 6)
+
+    let urlImage = [];
+    this.generalService.myFilesThread.forEach(file => urlImage.push(file.name))
+
+    if (this.generalService.selectedFilesThread) {
+      this.upload();
+      this.generalService.filesPreviewThread.length = 0;
+    }
+
     await setDoc(doc(this.db, "posts", this.chatService.currentChatId, "texts", `${textId + idAdd}`),
       {
         content: this.message,
         author: this.authService.userData.uid,
-        timeStamp: textId
+        id: `${textId + idAdd}`,
+        timeStamp: textId,
+        imageUrl: urlImage
       })
     this.message = '';
   }
 
+
   deleteSelectedFile(position) {
-    this.generalService.myFiles.splice(position, 1)
-    if (this.generalService.myFiles.length > 0) this.generalService.renderFilesPreview();
-    else this.generalService.fileSelected = false;
+    this.generalService.myFilesChat.splice(position, 1)
+    if (this.generalService.myFilesChat.length > 0) this.generalService.renderFilesPreview();
+    else this.generalService.fileSelectedChat = false;
+  }
+
+  upload(): any {
+    for (let i = 0; i < this.generalService.myFilesChat.length; i++) {
+      const file: File | null = this.generalService.myFilesChat[i];
+      this.currentFileUploadChat = new FileUpload(file);
+      this.uploadService.pushFileToStorage(this.currentFileUploadChat)
+    }
+    this.generalService.myFilesThread.length = 0; //if set undefined, it runs into an error on next loading picture
   }
 
 }
