@@ -85,12 +85,12 @@ export class ThreadComponent implements OnInit {
     let idAdd = Math.random().toString(16).substr(2, 6)
     let urlImage = [];
 
-    this.myFilesThread.forEach(file => urlImage.push(file.name))
+    this.generalService.myFilesThread.forEach(file => urlImage.push(file.name))
     let name = this.getNameOfAuthor();
 
-    if (this.selectedFilesThread) {
+    if (this.generalService.selectedFilesThread) {
       this.upload();
-      this.filesPreviewThread.length = 0;
+      this.generalService.filesPreviewThread.length = 0;
     }
 
     await setDoc(doc(this.db, "channel", this.channelService.currentChannel.id, "posts", this.channelService.currentThread.post.id, "answers", `${textId + idAdd}`),
@@ -126,11 +126,11 @@ export class ThreadComponent implements OnInit {
   }
 
   upload(): any {
-    for (let i = 0; i < this.myFilesThread.length; i++) {
-      const file: File | null = this.myFilesThread[i];
+    for (let i = 0; i < this.generalService.myFilesThread.length; i++) {
+      const file: File | null = this.generalService.myFilesThread[i];
       this.currentFileUploadThread = new FileUpload(file);
       this.uploadService.pushFileToStorage(this.currentFileUploadThread)
     }
-    this.myFilesThread = undefined;
+    this.generalService.myFilesThread.length = 0; //if set undefined, it runs into an error on next loading picture
   }
 }

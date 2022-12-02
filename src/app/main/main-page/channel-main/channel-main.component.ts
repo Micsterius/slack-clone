@@ -79,12 +79,12 @@ export class ChannelMainComponent implements OnInit {
   }
 
   upload(): any {
-    for (let i = 0; i < this.myFiles.length; i++) {
-      const file: File | null = this.myFiles[i];
+    for (let i = 0; i < this.generalService.myFiles.length; i++) {
+      const file: File | null = this.generalService.myFiles[i];
       this.currentFileUpload = new FileUpload(file);
       this.uploadService.pushFileToStorage(this.currentFileUpload)
     }
-    this.myFiles = undefined;
+    this.generalService.myFiles.length = 0; //if set undefined, it runs into an error on next loading picture
   }
 
   ngAfterViewChecked() {
@@ -138,11 +138,11 @@ export class ChannelMainComponent implements OnInit {
     let name = this.getNameOfAuthor();
     let urlImage = [];
 
-    this.myFiles.forEach(file => urlImage.push(file.name))
+    this.generalService.myFiles.forEach(file => urlImage.push(file.name))
 
-    if (this.selectedFiles) {
+    if (this.generalService.selectedFiles) {
       this.upload();
-      this.filesPreview.length = 0;
+      this.generalService.filesPreview.length = 0;
     }
 
     await setDoc(doc(this.db, "channel", this.channelServ.currentChannel.id, "posts", `${textId + idAdd}`),
@@ -156,10 +156,6 @@ export class ChannelMainComponent implements OnInit {
       })
     this.message = '';
   }
-
-  // hasNewMessageImages(){
-
-  // }
 
   getNameOfAuthor() {
     if (this.actualUser.displayName) return this.actualUser.displayName;

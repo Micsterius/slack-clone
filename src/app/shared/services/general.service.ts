@@ -92,10 +92,10 @@ export class GeneralService {
     }
     if (this.activeEditorIsChannel) {
       this.selectedFiles = event.target.files
+      console.log(this.selectedFiles)
       for (var i = 0; i < this.selectedFiles.length; i++) {
         this.myFiles.push(this.selectedFiles.item(i));
       }
-      console.log(this.myFiles)
       //show a preview of selected File
       this.filesPreview = [];
       if (event.target.files) {
@@ -103,8 +103,7 @@ export class GeneralService {
         this.fileSelected = true;
       }
     }
-
-    event.target.value = null; // necessary to be able to load the same file again
+    event.target.value = ''; // necessary to be able to load the same file again
   }
 
   renderFilesPreviewThread() {
