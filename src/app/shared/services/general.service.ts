@@ -167,7 +167,6 @@ export class GeneralService {
           position: i
         }
         this.filesPreviewChat.push(filePreview)
-        console.log(this.filesPreviewChat)
       }
     }
   }

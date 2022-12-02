@@ -14,6 +14,11 @@
                         <div class="name">{{usersService.returnUsersDisplayName(text.author)}}</div>
                         <div class="time">{{generalService.getTransformedTimeStampToDate(text.timeStamp)}}</div>
                     </div>
+                    <div class="image-box">
+                        <div class="content-box" *ngFor="let textImage of text.imageUrl">
+                            <div [innerHTML]="textImage"></div>
+                        </div>
+                    </div>
                     <div class="content-box" [innerHTML]="text.content"></div>
                 </div>
             </div>

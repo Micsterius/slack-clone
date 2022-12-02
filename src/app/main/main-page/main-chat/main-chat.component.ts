@@ -64,12 +64,14 @@ export class MainChatComponent implements OnInit {
     let idAdd = Math.random().toString(16).substr(2, 6)
 
     let urlImage = [];
-    this.generalService.myFilesThread.forEach(file => urlImage.push(file.name))
+    this.generalService.myFilesChat.forEach(file => urlImage.push(file.name))
 
-    if (this.generalService.selectedFilesThread) {
+    if (this.generalService.selectedFilesChat) {
       this.upload();
-      this.generalService.filesPreviewThread.length = 0;
+      this.generalService.filesPreviewChat.length = 0;
     }
+
+    console.log(this.chatService.currentChatId)
 
     await setDoc(doc(this.db, "posts", this.chatService.currentChatId, "texts", `${textId + idAdd}`),
       {
@@ -85,7 +87,7 @@ export class MainChatComponent implements OnInit {
 
   deleteSelectedFile(position) {
     this.generalService.myFilesChat.splice(position, 1)
-    if (this.generalService.myFilesChat.length > 0) this.generalService.renderFilesPreview();
+    if (this.generalService.myFilesChat.length > 0) this.generalService.renderFilesPreviewChat();
     else this.generalService.fileSelectedChat = false;
   }
 
