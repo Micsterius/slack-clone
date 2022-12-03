@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { initializeApp } from 'firebase/app';
 import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
-import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
+import { doc, getDoc, getFirestore, setDoc, updateDoc } from 'firebase/firestore';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { environment } from 'src/environments/environment';
@@ -69,13 +69,13 @@ export class UserInfoComponent implements OnInit {
     public usersService: UsersService
   ) {
     this.activeUser = JSON.parse(localStorage.getItem('user')!);
+    console.log('user', this.activeUser)
     this.loadTelephoneNbr() 
   }
 
   loadTelephoneNbr(){
     setTimeout(() => {
       this.activeUser.phoneNumber = this.usersService.returnUsersPhoneNumber(this.activeUser.uid)
-      console.log(this.activeUser)
       this.showUserDetails = true;
     }, 2000);
   }
@@ -123,24 +123,14 @@ export class UserInfoComponent implements OnInit {
   }
 
   async changeUserDataPhoneFirestore() {
-    if (await this.authService.additionUserDataExist()) {
-      this.afs.collection('more-user-infos')
-        .doc(this.authService.userData.uid)
-        .update({ phoneNumber: this.newPhoneNumber })
-        .then(() => {
-          console.log('Phone updated');
-        }).catch((error) => {
-          window.alert(error.message);
-        });
-    }
-    else this.addDocInFirestore(this.newPhoneNumber);
+    this.updatedDocInFirestore();
   }
 
-  async addDocInFirestore(value) {
+  async updatedDocInFirestore() {
     if (await this.authService.UserDataExist()) {
-      await setDoc(doc(this.db, "more-user-infos", this.authService.userData.uid), {
-        phoneNumber: value,
-        uid: this.authService.userData.uid
+      await updateDoc(doc(this.db, "more-user-infos", this.activeUser.uid), {
+        phoneNumber: this.activeUser.phoneNumber,
+        uid: this.activeUser.uid
       });
     }
   }
@@ -154,11 +144,11 @@ export class UserInfoComponent implements OnInit {
   }
 
   saveProfileEdit() {
-    this.authService.changeUserDataName(this.newName);
-    this.authService.changeUserDataMail(this.newMail);
-    this.authService.changeUserDataPw(this.newPasswort);
-    this.changeUserDataNameFirestore();
-    this.changeUserDataMailFirestore();
+  //  this.authService.changeUserDataName(this.newName);
+  //  this.authService.changeUserDataMail(this.newMail);
+  //  this.authService.changeUserDataPw(this.newPasswort);
+  //  this.changeUserDataNameFirestore();
+  //  this.changeUserDataMailFirestore();
     this.changeUserDataPhoneFirestore();
 
     this.closeProfileEdit();
