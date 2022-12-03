@@ -14,8 +14,6 @@ export class ChatService {
   db = getFirestore(this.app);
   currentUserChat: any;
   actualUser: any;
-  allChatsId: any;
-  allChats: any;
   showChatsWithFriends: boolean = false;
   arrayOfFriendsWithChatUid: any[] = [];
   arrayOfUsersWithChat: any[] = [];
@@ -79,10 +77,12 @@ export class ChatService {
   }
 
   loadImagesForChatTexts() {
-    for (let i = 0; i < this.messages.length; i++) {
-      if (this.messages[i].imageUrl.length > 0) this.getImageForChatTexts(i);
+    if (this.messages.length > 0) {
+      for (let i = 0; i < this.messages.length; i++) {
+        if (this.messages[i].imageUrl.length > 0) this.getImageForChatTexts(i);
+      }
+      this.showChat = true;
     }
-    this.showChat = true;
   }
 
   getImageForChatTexts(i) {
@@ -91,7 +91,6 @@ export class ChatService {
       getDownloadURL(ref(this.storage, 'uploads/' + imageUrl))
         .then((url) => {
           this.messages[i].imageUrl[j] = `<img src="${url}" alt="">`;
-          console.log(this.messages)
         })
         .catch((error) => {
           // A full list of error codes is available at

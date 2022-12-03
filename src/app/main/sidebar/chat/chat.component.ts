@@ -8,6 +8,7 @@ import { UsersService } from 'src/app/shared/services/users.service';
 import { environment } from 'src/environments/environment';
 import { MatDialog } from '@angular/material/dialog';
 import { AddChatDialogComponent } from '../add-chat-dialog/add-chat-dialog.component';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-chat',
@@ -24,16 +25,17 @@ export class ChatComponent implements OnInit {
     private router: Router,
     public dialog: MatDialog,
     public usersService: UsersService,
-    public generalService: GeneralService) {
+    public generalService: GeneralService,
+    private authService: AuthService) {
     chatService.loadChats();
-   /* let userChat = JSON.parse(localStorage.getItem('userChat')!);
-    if (userChat != null) {
-      chatServ.currentUserChat = userChat;
-      chatServ.currentChatId = userChat.id;
-      chatServ.loadChat();
-      console.log(userChat);
-    }
-    else console.log('No Chat in local Storage')*/
+    /* let userChat = JSON.parse(localStorage.getItem('userChat')!);
+     if (userChat != null) {
+       chatServ.currentUserChat = userChat;
+       chatServ.currentChatId = userChat.id;
+       chatServ.loadChat();
+       console.log(userChat);
+     }
+     else console.log('No Chat in local Storage')*/
   }
 
   ngOnInit(): void {
@@ -50,11 +52,14 @@ export class ChatComponent implements OnInit {
     this.router.navigate(['/main-community'])
   }
 
-  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
-    this.dialog.open(AddChatDialogComponent, {
-      width: '250px',
-      enterAnimationDuration,
-      exitAnimationDuration,
-    });
+  async openDialog(enterAnimationDuration: string, exitAnimationDuration: string): Promise<void> {
+    if (await this.authService.UserDataExist()) {
+      this.dialog.open(AddChatDialogComponent, {
+        width: '250px',
+        enterAnimationDuration,
+        exitAnimationDuration,
+      });
+    }
+    else alert('Please register for this function')
   }
 }
