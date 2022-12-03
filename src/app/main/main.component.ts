@@ -17,9 +17,9 @@ export class MainComponent implements OnInit {
   time = 0;
 
   pageReloaded = window.performance
-  .getEntriesByType('navigation')
-  .map((nav) => (nav as any).type)
-  .includes('reload');
+    .getEntriesByType('navigation')
+    .map((nav) => (nav as any).type)
+    .includes('reload');
 
   constructor(
     private authService: AuthService
@@ -34,15 +34,17 @@ export class MainComponent implements OnInit {
 
   /**mouseover funktioniert wahrscheinlich nicht beim mobil view, da muss eventuell ein onFocus event genutzt werden. */
 
-  async userIsStillActive(){
-    let newTime = Math.round(new Date().getTime() / 1000);
-    if(newTime - this.time > 300){
-      this.time = newTime;
-      await updateDoc(doc(this.db, "more-user-infos", this.activeUser.uid), {
-        timeStampLastActivity: newTime,
-        isOnline: true,
-        isAway: false
-      });
+  async userIsStillActive() {
+    if (await this.authService.UserDataExist()) {
+      let newTime = Math.round(new Date().getTime() / 1000);
+      if (newTime - this.time > 300) {
+        this.time = newTime;
+        await updateDoc(doc(this.db, "more-user-infos", this.activeUser.uid), {
+          timeStampLastActivity: newTime,
+          isOnline: true,
+          isAway: false
+        });
+      }
     }
   }
 
@@ -50,12 +52,14 @@ export class MainComponent implements OnInit {
   }
 
   async userIsAway() {
-    let newTime = Math.round(new Date().getTime() / 1000);
     if (await this.authService.UserDataExist()) {
-      await updateDoc(doc(this.db, "more-user-infos", this.activeUser.uid), {
-        timeStampLastActivity: newTime,
-        isAway: true
-      });
+      let newTime = Math.round(new Date().getTime() / 1000);
+      if (await this.authService.UserDataExist()) {
+        await updateDoc(doc(this.db, "more-user-infos", this.activeUser.uid), {
+          timeStampLastActivity: newTime,
+          isAway: true
+        });
+      }
     }
   }
 }
