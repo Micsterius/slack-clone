@@ -13,12 +13,45 @@ export class MainComponent implements OnInit {
   app = initializeApp(environment.firebase);
   db = getFirestore(this.app);
   activeUser: any;
+  storageTime;
+  time = 0;
+
+  pageReloaded = window.performance
+  .getEntriesByType('navigation')
+  .map((nav) => (nav as any).type)
+  .includes('reload');
+
   constructor(
     private authService: AuthService
-  ) { 
+  ) {
     this.activeUser = JSON.parse(localStorage.getItem('user')!);
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) this.userIsAway()
+      else this.userIsStillActive()
+    })
+  }
+
+  async userIsStillActive(){
+    let newTime = Math.round(new Date().getTime() / 1000);
+    if(newTime - this.time > 300){
+      this.time = newTime;
+      await updateDoc(doc(this.db, "more-user-infos", this.authService.userData.uid), {
+        timeStampLastActivity: newTime,
+        isOnline: true
+      });
+    }
   }
 
   ngOnInit(): void {
+  }
+
+  async userIsAway() {
+    let newTime = Math.round(new Date().getTime() / 1000);
+    if (await this.authService.UserDataExist()) {
+      await updateDoc(doc(this.db, "more-user-infos", this.authService.userData.uid), {
+        timeStampLastActivity: newTime,
+      });
+    }
   }
 }

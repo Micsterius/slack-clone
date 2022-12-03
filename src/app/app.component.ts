@@ -15,7 +15,6 @@ export class AppComponent {
   app = initializeApp(environment.firebase);
   db = getFirestore(this.app);
   windowWidth;
-  time = 0;
 
   title = 'slack-clone';
   constructor(
@@ -29,6 +28,10 @@ export class AppComponent {
 
     userService.loadUsers();
     userService.loadUsersAdditionalInfos();
+
+    document.addEventListener('visibilitychange', () => {
+     
+    })
   }
 
   ngOnInit() {
@@ -53,19 +56,6 @@ export class AppComponent {
     document.documentElement.style.setProperty('--main-color', this.getMainColor());
     document.documentElement.style.setProperty('--secondary-color', this.getSecColor());
     document.documentElement.style.setProperty('--background-color', this.getBackgroundColor());
-  }
-
-  async userIsActive() {
-    let newTime = Math.round(new Date().getTime() / 1000);
-    if (newTime - this.time > 60) {
-      this.time = Math.round(new Date().getTime() / 1000);
-      if (await this.authService.UserDataExist()) {
-        await updateDoc(doc(this.db, "more-user-infos", this.authService.userData.uid), {
-          timeStampLastActivity: newTime
-        });
-      }
-    }
-
   }
 }
 

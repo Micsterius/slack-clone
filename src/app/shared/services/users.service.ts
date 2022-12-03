@@ -71,11 +71,14 @@ export class UsersService {
   async checkUsersLastActivity() {
     for (let i = 0; i < this.usersAdditionalInfos.length; i++) {
       const user = this.usersAdditionalInfos[i];
-      let newTime = Math.round(new Date().getTime() / 1000);
-      if (newTime - user.timeStampLastActivity > 600) {
-        await updateDoc(doc(this.db, "more-user-infos", user.uid), {
-          isOnline: false
-        });
+      //only if user is online it has to be proofed if he is away
+      if (user.isOnline) {
+        let newTime = Math.round(new Date().getTime() / 1000);
+        if (newTime - user.timeStampLastActivity > 600) {
+          await updateDoc(doc(this.db, "more-user-infos", user.uid), {
+            isOnline: false
+          });
+        }
       }
     }
   }

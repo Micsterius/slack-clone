@@ -150,7 +150,7 @@ export class AuthService {
 
   // Sign out
   async SignOut() {
-   await this.changeUserStatusToOffline();
+    await this.changeUserStatusToOffline();
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
       this.userData = '';
@@ -246,7 +246,9 @@ export class AuthService {
     if (await this.additionUserDataExist()) {
       this.afs.collection('more-user-infos')
         .doc(this.userData.uid)
-        .update({ isOnline: true })
+        .update({
+          isOnline: true
+        })
         .then(() => {
           console.log('User is logged in');
         }).catch((error) => {
@@ -278,11 +280,13 @@ export class AuthService {
     if (await this.UserDataExist()) {
       this.afs.collection('more-user-infos')
         .doc(this.userData.uid)
-        .update({ isOnline: false })
+        .update({
+          isOnline: false
+        })
         .then(() => {
           console.log('User is logged out');
         }).catch((error) => {
-         // window.alert(error.message);
+          // window.alert(error.message);
         });
     }
   }
