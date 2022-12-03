@@ -2,7 +2,7 @@
     <img (click)="showUserDetails()" class="img-detail"
         src="./../../../../assets/img/userIcons/{{(userService.returnUsersPhotoUrl(uid)) ? userService.returnUsersPhotoUrl(uid) : 'icon-unknown.svg'}}">
     <span>{{userService.returnUsersDisplayName(uid)}}</span>
-    <div class="status-field" [ngStyle]="{'background-color':(userService.returnUserStatus(uid)) ? 'green' : 'red'}"></div>
+    <div class="status-field" [ngStyle]="{'background-color': (this.userService.returnUserStatus(uid)) ? (this.userService.returnUserStatus(uid)) : 'gray'}"></div>
 </div>
 <mat-divider></mat-divider>
 <div class="padding-8 show-user-details-btn-box">

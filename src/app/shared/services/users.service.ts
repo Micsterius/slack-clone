@@ -63,9 +63,10 @@ export class UsersService {
 
   returnUserStatus(uid) {
     let user = this.usersAdditionalInfos.find(user => user.uid == uid)
-    if (user == undefined) return false;
-    else if (user.isOnline) return true
-    else return false
+    if (user == undefined || !user.isOnline) return 'gray'
+    else if (user.isOnline) return 'green'
+    else if(user.isOnline && user.isAway) return 'yellow'
+    else return 'gray'
   }
 
   async checkUsersLastActivity() {

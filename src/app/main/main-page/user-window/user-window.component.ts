@@ -30,5 +30,4 @@ export class UserWindowComponent implements OnInit {
   checkIfNbrExist(uid) {
     if (this.userService.returnUsersPhoneNumber(uid) == 'No Phone') alert('Keine Nummer hinterlegt')
   }
-
 }

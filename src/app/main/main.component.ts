@@ -40,7 +40,8 @@ export class MainComponent implements OnInit {
       this.time = newTime;
       await updateDoc(doc(this.db, "more-user-infos", this.authService.userData.uid), {
         timeStampLastActivity: newTime,
-        isOnline: true
+        isOnline: true,
+        isAway: false
       });
     }
   }
@@ -53,6 +54,7 @@ export class MainComponent implements OnInit {
     if (await this.authService.UserDataExist()) {
       await updateDoc(doc(this.db, "more-user-infos", this.authService.userData.uid), {
         timeStampLastActivity: newTime,
+        isAway: true
       });
     }
   }
