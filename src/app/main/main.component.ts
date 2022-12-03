@@ -21,15 +21,4 @@ export class MainComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  //set the user status to offline in case of close tab
-  @HostListener('window:beforeunload', [ '$event' ])
-  async beforeUnloadHandler(e) {
-    e.preventDefault();
-    e.returnValue = '';
-    await updateDoc(doc(this.db, "more-user-infos", this.activeUser.uid), {
-      isOnline: false
-    });
-  }
-
 }
