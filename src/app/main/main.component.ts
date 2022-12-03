@@ -32,6 +32,8 @@ export class MainComponent implements OnInit {
     })
   }
 
+  /**mouseover funktioniert wahrscheinlich nicht beim mobil view, da muss eventuell ein onFocus event genutzt werden. */
+
   async userIsStillActive(){
     let newTime = Math.round(new Date().getTime() / 1000);
     if(newTime - this.time > 300){
