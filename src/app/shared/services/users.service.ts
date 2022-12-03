@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { initializeApp } from 'firebase/app';
-import { collection, getFirestore, onSnapshot, query } from 'firebase/firestore';
+import { collection, doc, getFirestore, onSnapshot, query, updateDoc } from 'firebase/firestore';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -33,6 +33,7 @@ export class UsersService {
       querySnapshot.forEach((doc) => {
         this.usersAdditionalInfos.push(doc.data())
       })
+      this.checkUsersLastActivity()
     });
   }
 
@@ -60,10 +61,22 @@ export class UsersService {
     else return user.phoneNumber
   }
 
-  returnUserStatus(uid){
+  returnUserStatus(uid) {
     let user = this.usersAdditionalInfos.find(user => user.uid == uid)
     if (user == undefined) return false;
-    else if(user.isOnline) return true
+    else if (user.isOnline) return true
     else return false
+  }
+
+  async checkUsersLastActivity() {
+    for (let i = 0; i < this.usersAdditionalInfos.length; i++) {
+      const user = this.usersAdditionalInfos[i];
+      let newTime = Math.round(new Date().getTime() / 1000);
+      if (newTime - user.timeStampLastActivity > 600) {
+        await updateDoc(doc(this.db, "more-user-infos", user.uid), {
+          isOnline: false
+        });
+      }
+    }
   }
 }
