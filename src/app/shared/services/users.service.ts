@@ -59,4 +59,11 @@ export class UsersService {
     if (user == undefined) return 'No Phone'
     else return user.phoneNumber
   }
+
+  returnUserStatus(uid){
+    let user = this.usersAdditionalInfos.find(user => user.uid == uid)
+    if (user == undefined) return false;
+    else if(user.isOnline) return true
+    else return false
+  }
 }

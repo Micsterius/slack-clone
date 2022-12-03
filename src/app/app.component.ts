@@ -34,17 +34,7 @@ export class AppComponent {
     this.windowWidth = window.innerWidth;
     if (window.innerWidth < 800) this.generalService.mobilViewIsActive = true;   
     this.loadColor();
-    
     }
-
-
-  /*
-  @HostListener('window:beforeunload')
-  async ngOnDestroy() {
-    const userId = this.authService.userData.uid; // get user id
-    await this.authService.SignOut(); // sign out user
-  }
-  */
 
   getMainColor(){
     return localStorage.getItem('mainColor');
