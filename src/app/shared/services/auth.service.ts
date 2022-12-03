@@ -184,6 +184,7 @@ export class AuthService {
     updatePassword(this.userData, newPassword)
       .then(() => {
         console.log('Password updated');
+        this.SignOut();
       }).catch((error) => {
         window.alert(error.message);
       });

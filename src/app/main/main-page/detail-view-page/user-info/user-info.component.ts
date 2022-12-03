@@ -1,6 +1,8 @@
 import { Component, ElementRef, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { FormControl } from '@angular/forms';
+import { TooltipPosition } from '@angular/material/tooltip';
 import { initializeApp } from 'firebase/app';
 import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { doc, getDoc, getFirestore, setDoc, updateDoc } from 'firebase/firestore';
@@ -33,9 +35,12 @@ export class UserInfoComponent implements OnInit {
   editUserPhone: boolean = false;
 
   editUser: boolean = false;
+  editUserSensitive: boolean = false;
 
   activeUser;
   showUserDetails: boolean = false;
+
+  checkIfPasswordChanged: boolean = false;
 
   @Input() newName: any;
   @Input() newMail: any;
@@ -43,6 +48,9 @@ export class UserInfoComponent implements OnInit {
   @Input() newPasswort: any;
 
   actualUser: any;
+
+  positionOptions: TooltipPosition[] = ['after', 'before', 'above', 'below', 'left', 'right'];
+  position = new FormControl(this.positionOptions[0]);
 
   images: any[] = [
     { 'src': 'icon_female_1.png' },
@@ -69,11 +77,10 @@ export class UserInfoComponent implements OnInit {
     public usersService: UsersService
   ) {
     this.activeUser = JSON.parse(localStorage.getItem('user')!);
-    console.log('user', this.activeUser)
-    this.loadTelephoneNbr() 
+    this.loadTelephoneNbr()
   }
 
-  loadTelephoneNbr(){
+  loadTelephoneNbr() {
     setTimeout(() => {
       this.activeUser.phoneNumber = this.usersService.returnUsersPhoneNumber(this.activeUser.uid)
       this.showUserDetails = true;
@@ -86,8 +93,8 @@ export class UserInfoComponent implements OnInit {
   async changeUserDataNameFirestore() {
     if (await this.authService.UserDataExist()) {
       this.afs.collection('users')
-        .doc(this.authService.userData.uid)
-        .update({ displayName: this.newName })
+        .doc(this.activeUser.uid)
+        .update({ displayName: this.activeUser.displayName })
         .then(() => {
           console.log('Name updated');
         }).catch((error) => {
@@ -99,8 +106,8 @@ export class UserInfoComponent implements OnInit {
   async changeUserDataMailFirestore() {
     if (await this.authService.UserDataExist()) {
       this.afs.collection('users')
-        .doc(this.authService.userData.uid)
-        .update({ email: this.newMail })
+        .doc(this.activeUser.uid)
+        .update({ email: this.activeUser.email })
         .then(() => {
           console.log('Mail updated');
         }).catch((error) => {
@@ -144,13 +151,21 @@ export class UserInfoComponent implements OnInit {
   }
 
   saveProfileEdit() {
-  //  this.authService.changeUserDataName(this.newName);
-  //  this.authService.changeUserDataMail(this.newMail);
-  //  this.authService.changeUserDataPw(this.newPasswort);
-  //  this.changeUserDataNameFirestore();
-  //  this.changeUserDataMailFirestore();
+    this.authService.changeUserDataName(this.activeUser.displayName);
+    this.changeUserDataNameFirestore();
     this.changeUserDataPhoneFirestore();
-
     this.closeProfileEdit();
+  }
+
+  profileEditSensitiveInfos() {
+    this.authService.changeUserDataMail(this.activeUser.email);
+    this.changeUserDataMailFirestore();
+    if (this.checkIfPasswordChanged) this.authService.changeUserDataPw(this.newPasswort);
+    this.editUserSensitive = !this.editUserSensitive;
+  }
+
+  closeMoreSettings(){
+    this.checkIfPasswordChanged = false;
+    this.editUserSensitive = !this.editUserSensitive;
   }
 }
