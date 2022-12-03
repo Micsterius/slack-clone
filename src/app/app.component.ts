@@ -15,6 +15,7 @@ export class AppComponent {
   app = initializeApp(environment.firebase);
   db = getFirestore(this.app);
   windowWidth;
+  windowHeight;
 
   title = 'slack-clone';
   constructor(
@@ -24,20 +25,23 @@ export class AppComponent {
     let user = JSON.parse(localStorage.getItem('user'))
     if (user) this.authService.showLoginArea = false;
     else this.authService.showLoginArea = true;
-    //
 
     userService.loadUsers();
     userService.loadUsersAdditionalInfos();
-
-    document.addEventListener('visibilitychange', () => {
-     
-    })
   }
 
   ngOnInit() {
     this.windowWidth = window.innerWidth;
     if (window.innerWidth < 800) this.generalService.mobilViewIsActive = true;
     this.loadColor();
+  }
+
+  @HostListener('window:resize', ['$event'])
+
+  resizeWindow() {
+    this.windowWidth = window.innerWidth;
+    this.windowHeight = window.innerHeight;
+    if (window.innerWidth < 800) this.generalService.mobilViewIsActive = true;
   }
 
   getMainColor() {
