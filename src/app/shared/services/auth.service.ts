@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { initializeApp } from 'firebase/app';
 import { environment } from 'src/environments/environment';
-import { arrayUnion, deleteDoc, doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
+import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
 @Injectable({
   providedIn: 'root',
 })
@@ -22,7 +22,6 @@ export class AuthService {
   auth = getAuth(this.app);
   db = getFirestore(this.app);
   user = this.auth.currentUser;
-  userFromFirestore: any;
 
   showForgotPassword: boolean = false;
   showVerifyMail: boolean = false;
@@ -54,6 +53,7 @@ export class AuthService {
       }
     });
   }
+
   // Sign in with email/password
   SignIn(email: string, password: string) {
     return this.afAuth
@@ -71,6 +71,7 @@ export class AuthService {
         window.alert(error.message);
       });
   }
+
   // Sign up with email/password
   SignUp(email: string, password: string) {
     return this.afAuth
@@ -85,6 +86,7 @@ export class AuthService {
         window.alert(error.message);
       });
   }
+
   // Send email verfificaiton when new user sign up
   SendVerificationMail() {
     return this.afAuth.currentUser
@@ -94,6 +96,7 @@ export class AuthService {
         this.showSignUp = false;
       });
   }
+
   // Reset Forggot password
   ForgotPassword(passwordResetEmail: string) {
     return this.afAuth
@@ -105,29 +108,30 @@ export class AuthService {
         window.alert(error);
       });
   }
+
   // Returns true when user is looged in and email is verified
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user')!);
     return user !== null && user.emailVerified !== false ? true : false;
   }
+
   // Sign in with Google
   GoogleAuth() {
     return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
-      this.router.navigate(['dashboard']);
+      console.log('logged in via Google')
     });
   }
+
   // Auth logic to run auth providers
   AuthLogin(provider: any) {
     return this.afAuth
       .signInWithPopup(provider)
-      .then((result) => {
-        this.router.navigate(['dashboard']);
-        this.SetUserData(result.user);
-      })
+      .then((result) => { this.SetUserData(result.user) })
       .catch((error) => {
         window.alert(error);
       });
   }
+
   /* Setting up user data when sign in with username/password, 
   sign up with username/password and sign in with social auth  
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
@@ -143,9 +147,7 @@ export class AuthService {
       photoURL: user.photoURL,
       emailVerified: user.emailVerified
     };
-    return userRef.set(userData, {
-      merge: true,
-    });
+    return userRef.set(userData, { merge: true });
   }
 
   // Sign out
@@ -164,7 +166,6 @@ export class AuthService {
     if (this.email.hasError('required') || this.password.hasError('required') || this.name.hasError('required')) {
       return 'You must enter a value';
     }
-
     return this.email.hasError('email') ? 'Not a valid email' : '';
   }
 
@@ -192,9 +193,7 @@ export class AuthService {
 
   //change user data name in firestore
   changeUserDataName(userName) {
-    updateProfile(this.userData, {
-      displayName: userName
-    })
+    updateProfile(this.userData, { displayName: userName })
       .then(() => {
         console.log('Name updated');
       }).catch((error) => {
@@ -204,9 +203,7 @@ export class AuthService {
 
   //change user data img in firestore
   changeUserDataImg(src) {
-    updateProfile(this.userData, {
-      photoURL: src
-    })
+    updateProfile(this.userData, { photoURL: src })
       .then(() => {
         console.log('Img updated');
       }).catch((error) => {
@@ -246,9 +243,7 @@ export class AuthService {
     if (await this.additionUserDataExist()) {
       this.afs.collection('more-user-infos')
         .doc(this.userData.uid)
-        .update({
-          isOnline: true
-        })
+        .update({ isOnline: true })
         .then(() => {
           console.log('User is logged in');
         }).catch((error) => {
@@ -258,15 +253,12 @@ export class AuthService {
     else if (await this.UserDataExist()) this.addDocInFirestore()
   }
 
+  //Check if additional user data exist to check if the document have to created or updated.
   async additionUserDataExist() {
     const docRef = doc(this.db, "more-user-infos", this.userData.uid);
     const docSnap = await getDoc(docRef);
-
-    if (docSnap.exists()) {
-      return true;
-    } else {
-      return false;
-    }
+    if (docSnap.exists()) return true;
+    else return false;
   }
 
   async addDocInFirestore() {
@@ -280,9 +272,7 @@ export class AuthService {
     if (await this.UserDataExist()) {
       this.afs.collection('more-user-infos')
         .doc(this.userData.uid)
-        .update({
-          isOnline: false
-        })
+        .update({ isOnline: false })
         .then(() => {
           console.log('User is logged out');
         }).catch((error) => {
@@ -291,14 +281,11 @@ export class AuthService {
     }
   }
 
+  //Check if user exist, necessary to detect if it is a user or a guest. Guests will be return false
   async UserDataExist() {
     const docRef = doc(this.db, "users", this.userData.uid);
     const docSnap = await getDoc(docRef);
-
-    if (docSnap.exists()) {
-      return true;
-    } else {
-      return false;
-    }
+    if (docSnap.exists()) return true;
+    else return false;
   }
 }
