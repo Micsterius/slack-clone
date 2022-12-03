@@ -147,6 +147,5 @@ export class ChannelService {
           }
         });
     }
-    console.log(this.posts[i])
   }
 }

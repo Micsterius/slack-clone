@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { initializeApp } from 'firebase/app';
-import { addDoc, collection, doc, getDoc, getDocs, getFirestore, onSnapshot, query, updateDoc, where } from 'firebase/firestore';
+import { collection, doc, getFirestore, onSnapshot, query, updateDoc, where } from 'firebase/firestore';
 import { getDownloadURL, getStorage, ref } from 'firebase/storage';
 import { environment } from 'src/environments/environment';
 @Injectable({
@@ -55,18 +55,16 @@ export class ChatService {
   //give the id of document in the document as a field
   async updateIdInFirestorePostsDocs(id) {
     let docRef = doc(this.db, "posts", id);
-    await updateDoc(docRef, {
-      id: id
-    })
+    await updateDoc(docRef, { id: id })
   }
 
   saveCurrentChatId(chatId) {
     this.currentChatId = chatId;
     this.loadChat();
-    this.findUserInList(chatId)
+    this.findChatInList(chatId)
   }
 
-  findUserInList(chatId) {
+  findChatInList(chatId) {
     this.currentUserChat = this.arrayOfFriendsWithChatUid.find((chat) => chat.id == chatId);
   }
 
@@ -75,20 +73,14 @@ export class ChatService {
     let unsubscribe = onSnapshot(q, (querySnapshot) => {
       this.messages = [];
       this.showChat = false;
-      querySnapshot.forEach((doc) => {
-        this.messages.push(doc.data())
-      })
+      querySnapshot.forEach((doc) => this.messages.push(doc.data()))
       this.loadImagesForChatTexts();
     });
   }
 
   loadImagesForChatTexts() {
     for (let i = 0; i < this.messages.length; i++) {
-      
-      if (this.messages[i].imageUrl.length > 0) {
-        console.log(this.messages[i])
-        this.getImageForChatTexts(i);
-      }
+      if (this.messages[i].imageUrl.length > 0) this.getImageForChatTexts(i);
     }
     this.showChat = true;
   }
