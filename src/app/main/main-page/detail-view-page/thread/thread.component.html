@@ -43,43 +43,45 @@
                 <div class="content-box" [innerHTML]="channelService.currentThread.post.content"></div>
             </div>
         </div>
-
-        <div class="post-container" *ngFor="let answer of channelService.currentThread.post.answers">
-            <mat-icon *ngIf="generalService.adminActive" class="menu_vert_icon" mat-icon-button fontIcon="more_vert"
-                [matMenuTriggerFor]="menuPost">
-            </mat-icon>
-            <mat-menu #menuPost="matMenu" xPosition="before">
-                <button (click)="deletePostAnswer(channelService.currentThread.post, answer.id)" mat-menu-item>
-                    <mat-icon>delete_forever</mat-icon>
-                    <span>Löschen</span>
-                </button>
-            </mat-menu>
-            <div class="post-img">
-                <img [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"
-                    (mouseenter)="getPosition($event); generalService.mouseEnter(menuTrigger)"
-                    (mouseleave)="generalService.mouseLeave(menuTrigger)" class="img-small"
-                    src="./../../../../assets/img/userIcons/{{(usersService.returnUsersPhotoUrl(answer.authorId)) ? usersService.returnUsersPhotoUrl(answer.authorId) : 'icon-unknown.svg'}}">
-            </div>
-            <mat-menu #menu="matMenu" xPosition="after" [yPosition]="menuPositionY" [hasBackdrop]="false">
-                <div (mouseenter)="generalService.mouseEnter(menuTrigger)"
-                    (mouseleave)="generalService.mouseLeave(menuTrigger)">
-                    <app-user-window [uid]="answer.authorId"></app-user-window>
+        <div *ngIf="channelService.showAnswers">
+            <div class="post-container" *ngFor="let answer of channelService.currentThread.post.answers">
+                <mat-icon *ngIf="generalService.adminActive" class="menu_vert_icon" mat-icon-button fontIcon="more_vert"
+                    [matMenuTriggerFor]="menuPost">
+                </mat-icon>
+                <mat-menu #menuPost="matMenu" xPosition="before">
+                    <button (click)="deletePostAnswer(channelService.currentThread.post, answer.id)" mat-menu-item>
+                        <mat-icon>delete_forever</mat-icon>
+                        <span>Löschen</span>
+                    </button>
+                </mat-menu>
+                <div class="post-img">
+                    <img [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"
+                        (mouseenter)="getPosition($event); generalService.mouseEnter(menuTrigger)"
+                        (mouseleave)="generalService.mouseLeave(menuTrigger)" class="img-small"
+                        src="./../../../../assets/img/userIcons/{{(usersService.returnUsersPhotoUrl(answer.authorId)) ? usersService.returnUsersPhotoUrl(answer.authorId) : 'icon-unknown.svg'}}">
                 </div>
-            </mat-menu>
-            <div class="post-box">
-                <div class="name-time-box">
-                    <div class="name">{{usersService.returnUsersDisplayName(answer.authorId)}}</div>
-                    <div class="time">{{generalService.getTransformedTimeStampToDate(answer.timeStamp)}}
+                <mat-menu #menu="matMenu" xPosition="after" [yPosition]="menuPositionY" [hasBackdrop]="false">
+                    <div (mouseenter)="generalService.mouseEnter(menuTrigger)"
+                        (mouseleave)="generalService.mouseLeave(menuTrigger)">
+                        <app-user-window [uid]="answer.authorId"></app-user-window>
                     </div>
-                </div>
-                <div class="post-img-box">
-                    <div class="content-box" *ngFor="let postImage of channelService.currentThread.post.imageUrl">
-                        <div [innerHTML]="postImage"></div>
+                </mat-menu>
+                <div class="post-box">
+                    <div class="name-time-box">
+                        <div class="name">{{usersService.returnUsersDisplayName(answer.authorId)}}</div>
+                        <div class="time">{{generalService.getTransformedTimeStampToDate(answer.timeStamp)}}
+                        </div>
                     </div>
+                    <div class="post-img-box">
+                        <div class="content-box" *ngFor="let answerImage of answer.imageUrl">
+                            <div [innerHTML]="answerImage"></div>
+                        </div>
+                    </div>
+                    <div class="content-box" [innerHTML]="answer.content"></div>
                 </div>
-                <div class="content-box" [innerHTML]="answer.content"></div>
             </div>
         </div>
+
     </div>
     <div class="writing-area-container">
         <div class="writing-area" [ngStyle]="{'padding-bottom':(generalService.fileSelectedThread) ? '48px' : '0px'}">

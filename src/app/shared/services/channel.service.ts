@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 export class ChannelService {
   app = initializeApp(environment.firebase);
   db = getFirestore(this.app);
+  storage = getStorage();
 
   currentChannelId: string = '';
   currentChannel: any;
@@ -17,9 +18,11 @@ export class ChannelService {
   showThread: boolean = false;
   posts: any;
   showChannel: boolean = false;
+  showAnswers: boolean = false;
   currentThread: any;
   constructor() { }
 
+  //load all channels as observables which will be run again if in firestore collection sth change
   async loadChannels() {
     let q = query(collection(this.db, "channel"))
     let unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -30,12 +33,14 @@ export class ChannelService {
     });
   }
 
+  //get current channel from sideboard
   saveCurrentChannel(channel) {
     // localStorage.setItem('currentChannel', channelId);
     this.currentChannel = channel;
     this.loadChannel();
   }
 
+  //load all posts of the channel
   loadChannel() {
     let q = query(collection(this.db, "channel", this.currentChannel.id, "posts"))
     let unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -49,22 +54,17 @@ export class ChannelService {
     });
   }
 
+  //start function get image for all posts with an image url
   getImagesForPostFromStorage() {
     for (let i = 0; i < this.posts.length; i++) {
       const post = this.posts[i];
-      if (post.imageUrl.length > 0) {
-        this.getImage(i)
-      }
+      if (post.imageUrl.length > 0) this.getImage(i)
+
     }
     this.showChannel = true;
   }
 
-  /*download images area*/g
-
-
-  storage = getStorage();
-
-  // Get the download URL
+  // Get the download URL for the image
   getImage(number) {
     for (let i = 0; i < this.posts[number].imageUrl.length; i++) {
       const imageUrl = this.posts[number].imageUrl[i];
@@ -85,9 +85,7 @@ export class ChannelService {
             case 'storage/canceled':
               // User canceled the upload
               break;
-
             // ...
-
             case 'storage/unknown':
               // Unknown error occurred, inspect the server response
               break;
@@ -108,8 +106,8 @@ export class ChannelService {
         querySnapshot.forEach((doc) => {
           answers.push(doc.data())
           this.posts[i].answers = answers;
-          this.loadImagesToAnswers(i)
         })
+        this.loadImagesToAnswers(i)
       });
     }
   }
@@ -117,16 +115,17 @@ export class ChannelService {
   loadImagesToAnswers(i) {
     for (let j = 0; j < this.posts[i].answers.length; j++) {
       const answer = this.posts[i].answers[j];
-      this.getImageForAnswer(i, j)
+      if (this.posts[i].answers[j].imageUrl.length > 0) this.getImageForAnswers(i, j)
     }
+    this.showAnswers = true;
   }
 
-  getImageForAnswer(i, j) {
+  getImageForAnswers(i, j) {
     for (let f = 0; f < this.posts[i].answers[j].imageUrl.length; f++) {
       const imageUrl = this.posts[i].answers[j].imageUrl[f];
       getDownloadURL(ref(this.storage, 'uploads/' + imageUrl))
         .then((url) => {
-          this.posts[i].answers[j].imageUrl[i] = `<img src="${url}" alt="">`;
+          this.posts[i].answers[j].imageUrl[f] = `<img src="${url}" alt="">`;
         })
         .catch((error) => {
           // A full list of error codes is available at
@@ -141,14 +140,13 @@ export class ChannelService {
             case 'storage/canceled':
               // User canceled the upload
               break;
-
             // ...
-
             case 'storage/unknown':
               // Unknown error occurred, inspect the server response
               break;
           }
         });
     }
+    console.log(this.posts[i])
   }
 }
