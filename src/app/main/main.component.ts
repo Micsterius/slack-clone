@@ -3,6 +3,7 @@ import { initializeApp } from 'firebase/app';
 import { doc, getFirestore, updateDoc } from 'firebase/firestore';
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../shared/services/auth.service';
+import { UsersService } from '../shared/services/users.service';
 
 @Component({
   selector: 'app-main',
@@ -22,8 +23,11 @@ export class MainComponent implements OnInit {
     .includes('reload');
 
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private userService: UsersService
   ) {
+    userService.loadUsers();
+    userService.loadUsersAdditionalInfos();
     this.activeUser = JSON.parse(localStorage.getItem('user')!);
 
     document.addEventListener('visibilitychange', () => {
@@ -34,10 +38,6 @@ export class MainComponent implements OnInit {
     document.addEventListener('touchstart', () => {
       this.userIsStillActive()
     })
-  }
-
-  sayHello(){
-    console.log('Hello')
   }
 
   async userIsStillActive() {
