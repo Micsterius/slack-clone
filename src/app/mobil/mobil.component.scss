@@ -1,35 +1,36 @@
 @import 'swiper/scss';
 @import 'swiper/scss/navigation';
 @import 'swiper/scss/pagination';
-
 .swiper-container-mobil {
-  height: 100%;
+    height: 100%;
 }
 
+
 /**/
+
 .swiper-button-prev,
 .swiper-button-next {
-  display: none !important;
+    display: none !important;
 }
 
 .mobil-container {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.mobil-sub-container{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+.mobil-sub-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.swiper-container-mobil{
-  height: calc(100vh - 100px);
+.swiper-container-mobil {
+    height: calc(100vh - 100px);
 }
 
-.mySwiper{
-  height: calc(100vh - 100px);
+.mySwiper {
+    height: calc(100vh - 100px);
 }

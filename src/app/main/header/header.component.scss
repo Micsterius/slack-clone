@@ -22,11 +22,9 @@ h3 {
     right: 58px;
     top: 50%;
     transform: translate(0%, -50%);
-
     mat-icon {
         color: white;
         margin-left: 12px;
-
         &:hover {
             cursor: pointer;
             color: var(--secondary-color);
@@ -34,7 +32,7 @@ h3 {
     }
 }
 
-.admin-mode{
+.admin-mode {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -50,11 +48,9 @@ h3 {
     right: 24px;
     top: 50%;
     transform: translate(0%, -50%);
-
     mat-icon {
         color: white;
         margin-left: 12px;
-
         &:hover {
             cursor: pointer;
             color: var(--secondary-color);
@@ -87,10 +83,8 @@ mat-card-title {
     left: 24px;
     top: 50%;
     transform: translate(0%, -50%);
-
     mat-icon {
         color: white;
-
         &:hover {
             cursor: pointer;
             color: var(--secondary-color);
@@ -98,10 +92,44 @@ mat-card-title {
     }
 }
 
-.user-img-header{
+.user-img-header {
     z-index: 5;
     height: 30px;
     object-fit: cover;
     border-radius: 4px;
     cursor: pointer;
+}
+
+@media(max-width:1835px) {
+    h3 {
+        font-size: 20px;
+    }
+    .material-icons {
+        font-size: 17px;
+    }
+    .mat-icon {
+        width: unset;
+        margin-top: 15px;
+    }
+    .admin-mode {
+        font-size: 10px;
+    }
+}
+
+@media(max-width:280px) {
+    h3 {
+        font-size: 15px;
+    }
+    .material-icons {
+        font-size: 12px;
+    }
+    .mat-icon {
+        margin-bottom: 20px;
+        margin-left: -40px;
+    }
+    .admin-mode {
+        margin-top: -10px;
+        margin-left: -25px;
+        font-size: 7px;
+    }
 }
