@@ -23,9 +23,8 @@ export class MainChatComponent implements OnInit {
   currentChatId;
   messages: any[] = [];
   showChat: boolean = false;
-  userFriend: User;
-  currentUser: User;
   message: any;
+  actualUser: User;
 
   currentFileUploadChat?: FileUpload;
 
@@ -36,6 +35,7 @@ export class MainChatComponent implements OnInit {
     public generalService: GeneralService,
     public uploadService: FileUploadService
   ) {
+    this.actualUser = JSON.parse(localStorage.getItem('user')!)
   }
 
   ngOnInit() {
@@ -62,28 +62,27 @@ export class MainChatComponent implements OnInit {
   async sendMessage() {
     let textId = Math.round(new Date().getTime() / 1000);
     let idAdd = Math.random().toString(16).substr(2, 6)
-
     let urlImage = [];
     this.generalService.myFilesChat.forEach(file => urlImage.push(file.name))
-
     if (this.generalService.selectedFilesChat) {
       this.upload();
       this.generalService.filesPreviewChat.length = 0;
     }
-
-    console.log(this.chatService.currentChatId)
-
-    await setDoc(doc(this.db, "posts", this.chatService.currentChatId, "texts", `${textId + idAdd}`),
-      {
-        content: this.message,
-        author: this.authService.userData.uid,
-        id: `${textId + idAdd}`,
-        timeStamp: textId,
-        imageUrl: urlImage
-      })
+    await this.setDocInFirestore(textId, idAdd, urlImage)
     this.message = '';
+    this.generalService.fileSelectedChat = false;
   }
 
+  async setDocInFirestore(textId, idAdd, urlImage){
+    await setDoc(doc(this.db, "posts", this.chatService.currentChatId, "texts", `${textId + idAdd}`),
+    {
+      content: this.message,
+      author: this.actualUser.uid,
+      id: `${textId + idAdd}`,
+      timeStamp: textId,
+      imageUrl: urlImage
+    })
+  }
 
   deleteSelectedFile(position) {
     this.generalService.myFilesChat.splice(position, 1)

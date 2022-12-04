@@ -103,6 +103,7 @@ export class ThreadComponent implements OnInit {
         imageUrl: urlImage
       })
     this.message = '';
+    this.generalService.fileSelectedThread = false;
   }
 
   getNameOfAuthor() {
