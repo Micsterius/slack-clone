@@ -56,9 +56,7 @@ export class GeneralService {
   //timeout in this function is necessary, because he needs time to write the variable for the yPosition of the mat menu
   mouseEnter(trigger) {
     setTimeout(() => {
-      if (this.timedOutCloser) {
-        clearTimeout(this.timedOutCloser);
-      }
+      if (this.timedOutCloser) clearTimeout(this.timedOutCloser);
       trigger.openMenu();
     }, 10);
   }
@@ -88,49 +86,57 @@ export class GeneralService {
     this.activeEditorIsChat = false;
   }
 
-  changeActiveEditorToChat(){
+  changeActiveEditorToChat() {
     this.activeEditorIsThread = false;
     this.activeEditorIsChannel = false;
     this.activeEditorIsChat = true;
   }
 
   selectFile(event: any): void {
-    if (this.activeEditorIsThread) {
-      this.selectedFilesThread = event.target.files
-      for (var i = 0; i < this.selectedFilesThread.length; i++) {
-        this.myFilesThread.push(this.selectedFilesThread.item(i));
-      }
-      //show a preview of selected File
-      this.filesPreviewThread = [];
-      if (event.target.files) {
-        this.renderFilesPreviewThread();
-        this.fileSelectedThread = true;
-      }
+    if (this.activeEditorIsThread) this.selectFileThread(event)
+    if (this.activeEditorIsChannel) this.selectFileChannel(event)
+    if (this.activeEditorIsChat) this.selectFileChat(event)
+  }
+
+  selectFileChannel(event) {
+    this.selectedFiles = event.target.files
+    console.log(this.selectedFiles)
+    for (var i = 0; i < this.selectedFiles.length; i++) {
+      this.myFiles.push(this.selectedFiles.item(i));
     }
-    if (this.activeEditorIsChannel) {
-      this.selectedFiles = event.target.files
-      console.log(this.selectedFiles)
-      for (var i = 0; i < this.selectedFiles.length; i++) {
-        this.myFiles.push(this.selectedFiles.item(i));
-      }
-      //show a preview of selected File
-      this.filesPreview = [];
-      if (event.target.files) {
-        this.renderFilesPreview();
-        this.fileSelected = true;
-      }
+    //show a preview of selected File
+    this.filesPreview = [];
+    if (event.target.files) {
+      this.renderFilesPreview();
+      this.fileSelected = true;
     }
-    if (this.activeEditorIsChat) {
-      this.selectedFilesChat = event.target.files
-      for (var i = 0; i < this.selectedFilesChat.length; i++) {
-        this.myFilesChat.push(this.selectedFilesChat.item(i));
-      }
-      //show a preview of selected File
-      this.filesPreviewChat = [];
-      if (event.target.files) {
-        this.renderFilesPreviewChat();
-        this.fileSelectedChat = true;
-      }
+    event.target.value = ''; // necessary to be able to load the same file again
+  }
+
+  selectFileThread(event) {
+    this.selectedFilesThread = event.target.files
+    for (var i = 0; i < this.selectedFilesThread.length; i++) {
+      this.myFilesThread.push(this.selectedFilesThread.item(i));
+    }
+    //show a preview of selected File
+    this.filesPreviewThread = [];
+    if (event.target.files) {
+      this.renderFilesPreviewThread();
+      this.fileSelectedThread = true;
+    }
+    event.target.value = ''; // necessary to be able to load the same file again
+  }
+
+  selectFileChat(event) {
+    this.selectedFilesChat = event.target.files
+    for (var i = 0; i < this.selectedFilesChat.length; i++) {
+      this.myFilesChat.push(this.selectedFilesChat.item(i));
+    }
+    //show a preview of selected File
+    this.filesPreviewChat = [];
+    if (event.target.files) {
+      this.renderFilesPreviewChat();
+      this.fileSelectedChat = true;
     }
     event.target.value = ''; // necessary to be able to load the same file again
   }
@@ -171,6 +177,7 @@ export class GeneralService {
     }
   }
 
+  //render files preview channel
   renderFilesPreview() {
     this.filesPreview = [];
     for (let i = 0; i < this.myFiles.length; i++) {
