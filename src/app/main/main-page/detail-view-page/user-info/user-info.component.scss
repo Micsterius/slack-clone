@@ -18,9 +18,8 @@
     margin-right: 24px;
 }
 
-.detail-view-container{
-    height: 100%;
-    overflow-y: auto;
+.user-info-container{
+    height: calc(100vh - 100px);
 }
 
 .user-detail-box {
@@ -71,6 +70,8 @@
     display: flex;
     flex-direction: column;
     background-color: white;
+    height: calc(100% - 40px); //height of footer
+    overflow-y: auto;
 }
 
 .img-box {
