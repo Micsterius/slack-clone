@@ -30,9 +30,15 @@ export class MainComponent implements OnInit {
       if (document.hidden) this.userIsAway()
       else this.userIsStillActive()
     })
+
+    document.addEventListener('touchstart', () => {
+      this.userIsStillActive()
+    })
   }
 
-  /**mouseover funktioniert wahrscheinlich nicht beim mobil view, da muss eventuell ein onFocus event genutzt werden. */
+  sayHello(){
+    console.log('Hello')
+  }
 
   async userIsStillActive() {
     if (await this.authService.UserDataExist()) {
