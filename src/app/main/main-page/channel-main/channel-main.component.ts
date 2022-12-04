@@ -134,26 +134,13 @@ export class ChannelMainComponent implements OnInit {
   async sendMessage() {
     let textId = Math.round(new Date().getTime() / 1000);
     let idAdd = Math.random().toString(16).substr(2, 6)
-
-    let name = this.getNameOfAuthor();
     let urlImage = [];
-
     this.generalService.myFiles.forEach(file => urlImage.push(file.name))
-
     if (this.generalService.selectedFiles) {
       this.upload();
       this.generalService.filesPreview.length = 0;
     }
     await this.setDocInFirestore(textId, idAdd, urlImage)
-    /*await setDoc(doc(this.db, "channel", this.channelServ.currentChannel.id, "posts", `${textId + idAdd}`),
-      {
-        content: this.message,
-        authorId: this.actualUser.uid,
-        authorName: name,
-        id: `${textId + idAdd}`,
-        timeStamp: textId,
-        imageUrl: urlImage
-      })*/
     this.message = '';
     this.generalService.fileSelected = false;
   }
@@ -167,10 +154,5 @@ export class ChannelMainComponent implements OnInit {
         timeStamp: textId,
         imageUrl: urlImage
       })
-  }
-
-  getNameOfAuthor() {
-    if (this.actualUser.displayName) return this.actualUser.displayName;
-    else return 'Anonym'
   }
 }

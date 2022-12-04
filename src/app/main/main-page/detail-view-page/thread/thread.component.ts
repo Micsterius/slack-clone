@@ -84,15 +84,18 @@ export class ThreadComponent implements OnInit {
     let textId = Math.round(new Date().getTime() / 1000);
     let idAdd = Math.random().toString(16).substr(2, 6)
     let urlImage = [];
-
     this.generalService.myFilesThread.forEach(file => urlImage.push(file.name))
     let name = this.getNameOfAuthor();
-
-    if (this.generalService.selectedFilesThread) {
+    if (this.generalService.selectedFilesThread) {//if files are there for upload
       this.upload();
       this.generalService.filesPreviewThread.length = 0;
     }
+    await this.setDocInFirestore(textId, idAdd, urlImage, name)
+    this.message = '';
+    this.generalService.fileSelectedThread = false;
+  }
 
+  async setDocInFirestore(textId, idAdd, urlImage, name) {
     await setDoc(doc(this.db, "channel", this.channelService.currentChannel.id, "posts", this.channelService.currentThread.post.id, "answers", `${textId + idAdd}`),
       {
         content: this.message,
@@ -102,8 +105,6 @@ export class ThreadComponent implements OnInit {
         timeStamp: textId,
         imageUrl: urlImage
       })
-    this.message = '';
-    this.generalService.fileSelectedThread = false;
   }
 
   getNameOfAuthor() {
