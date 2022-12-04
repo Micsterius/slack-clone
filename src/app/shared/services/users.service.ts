@@ -16,6 +16,7 @@ export class UsersService {
     public dialog: MatDialog
   ) { }
 
+  //load all users datas (displayName => name; email: Mail; photoURL => image src)
   async loadUsers() {
     let q = query(collection(this.db, "users"))
     let unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -26,6 +27,7 @@ export class UsersService {
     });
   }
 
+  //load all users additional datas (isOnline => true/false; isAway: true/false; timeStampLastActivity; uid => user id; phoneNumber)
   async loadUsersAdditionalInfos() {
     let q = query(collection(this.db, "more-user-infos"))
     let unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -61,14 +63,27 @@ export class UsersService {
     else return user.phoneNumber
   }
 
+  /**
+   * find user which is shown in user-window component
+   * give back the color for status of this user
+   * gray in case he is not online or a not registered user
+   * green if he/she is online
+   * yellow in case he/she is away (changed tap)
+   */
   returnUserStatus(uid) {
     let user = this.usersAdditionalInfos.find(user => user.uid == uid)
     if (user == undefined || !user.isOnline) return 'gray'
     else if (user.isOnline) return 'green'
-    else if(user.isOnline && user.isAway) return 'yellow'
+    else if (user.isOnline && user.isAway) return 'yellow'
     else return 'gray'
   }
 
+  /**
+   * this function run everytime when sth changed in the collection more-user-infos
+   * the current user itself (in case he/she is not a guest) trigger this change every 5min in the main-component by mouseover or touch event
+   * so the following function check the status of the user and set him/her status to isOnline=false
+   * so in the user-window component change the color of the small circle to show the status 
+   */
   async checkUsersLastActivity() {
     for (let i = 0; i < this.usersAdditionalInfos.length; i++) {
       const user = this.usersAdditionalInfos[i];
