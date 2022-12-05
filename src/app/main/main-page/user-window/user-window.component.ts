@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { initializeApp } from 'firebase/app';
 import { addDoc, collection, doc, getFirestore, updateDoc } from 'firebase/firestore';
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -23,7 +24,8 @@ export class UserWindowComponent implements OnInit {
     public detailViewService: DetailViewPageService,
     private generalService: GeneralService,
     private chatService: ChatService,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private router: Router,) {
       this.actualUser = JSON.parse(localStorage.getItem('user')!)
      }
 
@@ -46,7 +48,7 @@ export class UserWindowComponent implements OnInit {
   async goToChat(userChatId) {
     this.chatService.saveCurrentChatId(userChatId);
     this.generalService.scrollToBottomBoolean();
-    //  localStorage.setItem('userChat', JSON.stringify(this.chatServ.currentUserChat));
+    this.router.navigate(['/chat-main'])
   }
 
   checkIfUserHasChat(userUid) {
@@ -57,7 +59,6 @@ export class UserWindowComponent implements OnInit {
     }
     else this.createChat(userUid);
     }
-
   }
 
   getChatId(userUid) {
