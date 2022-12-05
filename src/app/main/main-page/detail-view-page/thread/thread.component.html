@@ -19,18 +19,18 @@
                     <img [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"
                         (mouseenter)="getPosition($event); generalService.mouseEnter(menuTrigger)"
                         (mouseleave)="generalService.mouseLeave(menuTrigger)" class="img-small"
-                        src="./../../../../assets/img/userIcons/{{(usersService.returnUsersPhotoUrl(channelService.currentThread.post.authorId)) ? usersService.returnUsersPhotoUrl(channelService.currentThread.post.authorId) : 'icon-unknown.svg'}}">
+                        src="./../../../../assets/img/userIcons/{{(usersService.returnUsersPhotoUrl(channelService.currentThread.post.author)) ? usersService.returnUsersPhotoUrl(channelService.currentThread.post.author) : 'icon-unknown.svg'}}">
                 </div>
                 <mat-menu #menu="matMenu" xPosition="after" [yPosition]="menuPositionY" [hasBackdrop]="false">
                     <div (mouseenter)="generalService.mouseEnter(menuTrigger)"
                         (mouseleave)="generalService.mouseLeave(menuTrigger)">
-                        <app-user-window [uid]="channelService.currentThread.post.authorId"></app-user-window>
+                        <app-user-window [uid]="channelService.currentThread.post.author"></app-user-window>
                     </div>
                 </mat-menu>
                 <div class="post-box">
                     <div class="name-time-box">
                         <div class="name">
-                            {{usersService.returnUsersDisplayName(channelService.currentThread.post.authorId)}}</div>
+                            {{usersService.returnUsersDisplayName(channelService.currentThread.post.author)}}</div>
                         <div class="time">
                             {{generalService.getTransformedTimeStampToDate(channelService.currentThread.post.timeStamp)}}
                         </div>
@@ -59,17 +59,17 @@
                         <img [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"
                             (mouseenter)="getPosition($event); generalService.mouseEnter(menuTrigger)"
                             (mouseleave)="generalService.mouseLeave(menuTrigger)" class="img-small"
-                            src="./../../../../assets/img/userIcons/{{(usersService.returnUsersPhotoUrl(answer.authorId)) ? usersService.returnUsersPhotoUrl(answer.authorId) : 'icon-unknown.svg'}}">
+                            src="./../../../../assets/img/userIcons/{{(usersService.returnUsersPhotoUrl(answer.author)) ? usersService.returnUsersPhotoUrl(answer.author) : 'icon-unknown.svg'}}">
                     </div>
                     <mat-menu #menu="matMenu" xPosition="after" [yPosition]="menuPositionY" [hasBackdrop]="false">
                         <div (mouseenter)="generalService.mouseEnter(menuTrigger)"
                             (mouseleave)="generalService.mouseLeave(menuTrigger)">
-                            <app-user-window [uid]="answer.authorId"></app-user-window>
+                            <app-user-window [uid]="answer.author"></app-user-window>
                         </div>
                     </mat-menu>
                     <div class="post-box">
                         <div class="name-time-box">
-                            <div class="name">{{usersService.returnUsersDisplayName(answer.authorId)}}</div>
+                            <div class="name">{{usersService.returnUsersDisplayName(answer.author)}}</div>
                             <div class="time">{{generalService.getTransformedTimeStampToDate(answer.timeStamp)}}
                             </div>
                         </div>

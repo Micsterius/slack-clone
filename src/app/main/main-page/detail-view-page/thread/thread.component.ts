@@ -99,8 +99,7 @@ export class ThreadComponent implements OnInit {
     await setDoc(doc(this.db, "channel", this.channelService.currentChannel.id, "posts", this.channelService.currentThread.post.id, "answers", `${textId + idAdd}`),
       {
         content: this.message,
-        authorId: this.actualUser.uid,
-        authorName: name,
+        author: this.actualUser.uid,
         id: `${textId + idAdd}`,
         timeStamp: textId,
         imageUrl: urlImage
