@@ -18,7 +18,7 @@ h2{
     position: absolute;
     display: flex;
     top: 13px;
-    right: 48px;
+    right: 68px;
     z-index: 9;
 }
 
@@ -46,7 +46,7 @@ h2{
     .button {
         position: absolute;
         top: 12px;
-        right: 12px;
+        right: 32px;
         z-index: 10;
 
         background-color: white;
@@ -166,5 +166,42 @@ h2{
 
     &:hover{
         color: black;
+    }
+}
+
+.expand-less-editor-icon{
+    z-index: 10;
+    position: absolute;
+    right: 4px;
+    top: 10px;
+
+    button{
+        background-color: white;
+        border: none;
+
+        mat-icon{
+            font-size: 30px;
+        }
+
+        &:hover{
+            cursor: pointer;
+        }
+    }
+}
+
+.expand-more-editor-icon{
+    z-index: 10;
+    position: absolute;
+    right: 4px;
+    bottom: 10px;
+
+    button{
+        background-color: white;
+        border: 1px solid black;
+        border-radius: 4px;
+
+        &:hover{
+            cursor: pointer;
+        }
     }
 }

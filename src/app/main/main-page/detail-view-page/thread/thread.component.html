@@ -84,9 +84,19 @@
             </div>
 
         </div>
-        <div class="writing-area-container">
+        <div class="expand-more-editor-icon" *ngIf="!generalService.showEditorThread">
+            <button (click)="generalService.expandEditorThread()">
+                <mat-icon mat-icon-button fontIcon="expand_less" class="color-main-with-hover"></mat-icon>
+            </button>
+        </div>
+        <div class="writing-area-container" *ngIf="generalService.showEditorThread">
             <div class="writing-area"
                 [ngStyle]="{'padding-bottom':(generalService.fileSelectedThread) ? '48px' : '0px'}">
+                <div class="expand-less-editor-icon">
+                    <button (click)="generalService.expandEditorThread()">
+                        <mat-icon mat-icon-button fontIcon="expand_more" class="color-main-with-hover"></mat-icon>
+                    </button>
+                </div>
                 <editor class="editor-1" [(ngModel)]="message" apiKey="0u347b51bx380ihx2w2vws4bfqf9dfqewelzkjxsl7p5ki0a"
                     [init]="{
                 min_height: 120,

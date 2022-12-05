@@ -13,6 +13,9 @@ export class GeneralService {
   showPrevSlide: boolean = false;
 
   adminActive: boolean = false;
+  showEditorChannel: boolean = true;
+  showEditorThread: boolean = true;
+  showEditorChat: boolean = true;
 
   activeEditorIsChannel: boolean = false;
   activeEditorIsThread: boolean = false;
@@ -194,6 +197,19 @@ export class GeneralService {
         this.filesPreview.push(filePreview)
       }
     }
+  }
+
+  
+  expandEditorChannel(){
+    this.showEditorChannel = !this.showEditorChannel
+  }
+
+  expandEditorThread(){
+    this.showEditorThread = !this.showEditorThread
+  }
+
+  expandEditorChat(){
+    this.showEditorChat = !this.showEditorChat
   }
 }
 

@@ -39,7 +39,7 @@
     .button {
         position: absolute;
         top: 12px;
-        right: 12px;
+        right: 32px;
         z-index: 10;
 
         background-color: white;
@@ -51,7 +51,7 @@
     position: absolute;
     display: flex;
     top: 13px;
-    right: 48px;
+    right: 68px;
     z-index: 9;
 }
 
@@ -70,7 +70,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
 }
 
 .post-container {
@@ -81,10 +80,6 @@
     margin-right: 8px;
     margin-top: 8px;
     border-radius: 12px;
-}
-
-.all-posts-container{
-    height: calc(100vh - 322px);
 }
 
 .name-time-box {
@@ -159,4 +154,49 @@
     &:hover{
         color: black;
     }
+}
+
+.expand-less-editor-icon{
+    z-index: 10;
+    position: absolute;
+    right: 4px;
+    top: 10px;
+
+    button{
+        background-color: white;
+        border: none;
+
+        mat-icon{
+            font-size: 30px;
+        }
+
+        &:hover{
+            cursor: pointer;
+        }
+    }
+}
+
+.expand-more-editor-icon{
+    z-index: 10;
+    position: absolute;
+    right: 4px;
+    bottom: 10px;
+
+    button{
+        background-color: white;
+        border: 1px solid black;
+        border-radius: 4px;
+
+        &:hover{
+            cursor: pointer;
+        }
+    }
+}
+
+.chat-main-area-box{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
 }
