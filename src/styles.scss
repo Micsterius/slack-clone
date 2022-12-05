@@ -188,7 +188,7 @@ body {
 
 .auth-area-container {
     border: 1px solid black;
-    width: 450px;
+    min-width: 250px;
     z-index: 2;
     position: absolute;
     top: 50%;
