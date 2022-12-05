@@ -21,7 +21,7 @@ export class AuthService {
   app = initializeApp(environment.firebase);
   auth = getAuth(this.app);
   db = getFirestore(this.app);
-  user = this.auth.currentUser;
+  user = {};
 
   showForgotPassword: boolean = false;
   showVerifyMail: boolean = false;
