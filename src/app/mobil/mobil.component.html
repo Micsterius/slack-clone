@@ -6,7 +6,9 @@
         <div class="swiper-container-mobil">
             <swiper #swiper [navigation]="true" class="mySwiper">
                 <ng-template swiperSlide>
-                    <app-sidebar></app-sidebar>
+                    <div class="sidebar-app-container-mobil">
+                        <app-sidebar></app-sidebar>
+                    </div>
                 </ng-template>
                 <ng-template swiperSlide>
                     <router-outlet></router-outlet>
