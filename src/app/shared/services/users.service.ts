@@ -12,7 +12,6 @@ export class UsersService {
   db = getFirestore(this.app);
   users: any[] = [];
   usersAdditionalInfos: any[] = [];
-  usersLoaded: boolean = false;
   constructor(
     public dialog: MatDialog
   ) { }
@@ -37,10 +36,6 @@ export class UsersService {
         this.usersAdditionalInfos.push(doc.data())
       })
       this.checkUsersLastActivity()
-      setTimeout(() => {
-        this.usersLoaded = true;
-      }, 6000);
-      
     });
   }
 
