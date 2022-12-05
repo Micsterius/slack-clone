@@ -22,9 +22,11 @@ h3 {
     right: 58px;
     top: 50%;
     transform: translate(0%, -50%);
+
     mat-icon {
         color: white;
         margin-left: 12px;
+
         &:hover {
             cursor: pointer;
             color: var(--secondary-color);
@@ -37,20 +39,31 @@ h3 {
     justify-content: center;
     align-items: center;
     color: white;
+
     input {
         cursor: pointer;
+    }
+
+    @media(max-width:360px) {
+        div {
+            width: 50px;
+            line-height: 14px;
+        }
     }
 }
 
 .icon-header-right {
     display: flex;
+    align-items: center;
     position: absolute;
     right: 24px;
     top: 50%;
     transform: translate(0%, -50%);
+
     mat-icon {
         color: white;
         margin-left: 12px;
+
         &:hover {
             cursor: pointer;
             color: var(--secondary-color);
@@ -83,8 +96,10 @@ mat-card-title {
     left: 24px;
     top: 50%;
     transform: translate(0%, -50%);
+
     mat-icon {
         color: white;
+
         &:hover {
             cursor: pointer;
             color: var(--secondary-color);
@@ -98,19 +113,26 @@ mat-card-title {
     object-fit: cover;
     border-radius: 4px;
     cursor: pointer;
+
+    @media(max-width:360px) {
+        display: none;
+    }
 }
 
 @media(max-width:1835px) {
     h3 {
         font-size: 20px;
     }
+
     .material-icons {
         font-size: 17px;
     }
+
     .mat-icon {
         width: unset;
         margin-top: 15px;
     }
+
     .admin-mode {
         font-size: 10px;
     }
@@ -120,13 +142,16 @@ mat-card-title {
     h3 {
         font-size: 15px;
     }
+
     .material-icons {
         font-size: 12px;
     }
+
     .mat-icon {
         margin-bottom: 20px;
         margin-left: -40px;
     }
+
     .admin-mode {
         margin-top: -10px;
         margin-left: -25px;
