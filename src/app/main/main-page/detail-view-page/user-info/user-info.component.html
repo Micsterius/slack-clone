@@ -6,7 +6,7 @@
   <div class="dashboard-container">
     <div class="pt-3 pb-2 mb-3 border-bottom">
       <h1 class="headline-user-profile color-main fs18">Profile settings
-        <mat-icon *ngIf="!editUser" fontIcon="settings" (click)="editProfile()"></mat-icon>
+        <mat-icon *ngIf="!editUser" fontIcon="edit" (click)="editProfile()"></mat-icon>
         <mat-icon *ngIf="editUser" (click)="saveProfileEdit()">save</mat-icon>
         <mat-icon *ngIf="editUser" (click)="closeProfileEdit()">cancel</mat-icon>
       </h1>
@@ -15,12 +15,12 @@
     <div *ngIf="authService.userData">
   
       <div class="img-box" *ngIf="!editPhotoURL">
-        <img class="profile-img" (click)="editPhotoURL = true"
+        <img class="profile-img"
           src="./../../../../../assets/img/userIcons/{{(activeUser.photoURL) ? activeUser.photoURL : 'icon-unknown.svg'}}"
           alt="{{activeUser.displayName}}">
       </div>
   
-      <div *ngIf="editPhotoURL" class="swiper-container">
+      <!-- <div *ngIf="editPhotoURL" class="swiper-container">
         <swiper [navigation]="true" [pagination]="true" class="mySwiper">
           <ng-template swiperSlide *ngFor="let image of images">
             <div class="img-edit-container">
@@ -35,7 +35,7 @@
             </div>
           </ng-template>
         </swiper>
-      </div>
+      </div> -->
       <div class="user-detail-container">
         <div class="user-detail-box">
           <p><strong>Name:</strong> <span *ngIf="!editUser"> {{(activeUser.displayName) ? activeUser.displayName : 'User'}}</span></p>
@@ -62,7 +62,7 @@
         </div>
   
         <h1 class="headline-user-profile color-main fs18">More settings
-          <mat-icon *ngIf="!editUserSensitive" fontIcon="settings" (click)="editUserSensitive = !editUserSensitive"></mat-icon>
+          <mat-icon *ngIf="!editUserSensitive" fontIcon="edit" (click)="editUserSensitive = !editUserSensitive"></mat-icon>
           <mat-icon *ngIf="editUserSensitive" (click)="profileEditSensitiveInfos()">save</mat-icon>
           <mat-icon *ngIf="editUserSensitive" (click)="closeMoreSettings()">cancel</mat-icon>
         </h1>
