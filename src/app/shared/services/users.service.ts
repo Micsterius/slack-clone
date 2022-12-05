@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { initializeApp } from 'firebase/app';
-import { collection, doc, getFirestore, onSnapshot, query, updateDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, getFirestore, onSnapshot, query, updateDoc } from 'firebase/firestore';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -97,5 +97,12 @@ export class UsersService {
         }
       }
     }
+  }
+
+  async UserDataOfOtherUserExist(userUid) {
+    const docRef = doc(this.db, "users", userUid);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) return true;
+    else return false;
   }
 }

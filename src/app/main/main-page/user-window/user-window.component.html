@@ -6,7 +6,7 @@
 </div>
 <mat-divider></mat-divider>
 <div class="padding-8 show-user-details-btn-box">
-    <button class="dialog-button">Nachricht</button>
+    <button class="dialog-button" (click)="checkIfUserHasChat(uid)">Nachricht</button>
     <button class="dialog-button">
         <a (click)="checkIfNbrExist(uid)" class="tel-link" href="tel:+{{userService.returnUsersPhoneNumber(uid)}}">Anrufen</a>
     </button>
