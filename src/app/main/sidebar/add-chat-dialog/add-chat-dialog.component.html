@@ -2,16 +2,17 @@
     <div>
         <mat-form-field appearance="fill">
             <mat-label>User Name</mat-label>
-            <input (keyup)="searchForMatch()" matInput [(ngModel)]="name">
+           
             <div class="list of user who match search">
                 <div *ngFor="let user of searchMatchesUsers">
-                    <div [routerLink]="['chat-main']" (click)="checkIfUserHasChat(user.uid)" *ngIf="userIsNotMyself(user)">
+                    <div class="user-filter" [routerLink]="['chat-main']" (click)="checkIfUserHasChat(user.uid)" *ngIf="userIsNotMyself(user)">
                         <img class="img-small"
                         src="./../../../../assets/img/userIcons/{{(userService.returnUsersPhotoUrl(user.uid)) ? userService.returnUsersPhotoUrl(user.uid) : 'icon-unknown.svg'}}">
                         {{userService.returnUsersDisplayName(user.uid)}}
                     </div>
                 </div>
             </div>
+            <input (keyup)="searchForMatch()" matInput [(ngModel)]="name">
         </mat-form-field>
     </div>
 
