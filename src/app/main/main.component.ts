@@ -30,18 +30,18 @@ export class MainComponent implements OnInit {
     userService.loadUsersAdditionalInfos();
     this.activeUser = JSON.parse(localStorage.getItem('user')!);
 
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) this.userIsAway()
-      else this.userIsStillActive()
-    })
-
-    document.addEventListener('touchstart', () => {
-      this.userIsStillActive()
-    })
+    /* document.addEventListener('visibilitychange', () => {
+       if (document.hidden) this.userIsAway()
+       else this.userIsStillActive()
+     })
+ 
+     document.addEventListener('touchstart', () => {
+       this.userIsStillActive()
+     })*/
   }
 
   async userIsStillActive() {
-    if (await this.authService.UserDataExist()) {
+    if (await this.userService.UserDataOfUserExist(this.activeUser.uid)) {
       let newTime = Math.round(new Date().getTime() / 1000);
       if (newTime - this.time > 300) {
         this.time = newTime;
@@ -53,12 +53,11 @@ export class MainComponent implements OnInit {
       }
     }
   }
-
   ngOnInit(): void {
   }
 
   async userIsAway() {
-    if (await this.authService.UserDataExist()) {
+    if (await this.userService.UserDataOfUserExist(this.activeUser.uid)) {
       let newTime = Math.round(new Date().getTime() / 1000);
       if (await this.authService.UserDataExist()) {
         await updateDoc(doc(this.db, "more-user-infos", this.activeUser.uid), {

@@ -1,4 +1,4 @@
-<div *ngIf="channelServ.showChannel" class="main-channel-container">
+<div *ngIf="channelServ.showChannel && userService.usersLoaded" class="main-channel-container">
     <div class="detail-view-header">
         <p># <i>{{channelServ.currentChannel.name}}</i></p>
     </div>
@@ -18,17 +18,17 @@
                     <img [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"
                         (mouseenter)="getPosition($event); generalService.mouseEnter(menuTrigger)"
                         (mouseleave)="generalService.mouseLeave(menuTrigger)" class="img-small"
-                        src="./../../../../assets/img/userIcons/{{(userService.returnUsersPhotoUrl(post.authorId)) ? userService.returnUsersPhotoUrl(post.authorId) : 'icon-unknown.svg'}}">
+                        src="./../../../../assets/img/userIcons/{{(userService.returnUsersPhotoUrl(post.author)) ? userService.returnUsersPhotoUrl(post.author) : 'icon-unknown.svg'}}">
                 </div>
                 <mat-menu #menu="matMenu" xPosition="after" [yPosition]="menuPositionY" [hasBackdrop]="false">
                     <div (mouseenter)="generalService.mouseEnter(menuTrigger)"
                         (mouseleave)="generalService.mouseLeave(menuTrigger)">
-                        <app-user-window [uid]="post.authorId"></app-user-window>
+                        <app-user-window [uid]="post.author"></app-user-window>
                     </div>
                 </mat-menu>
                 <div class="post-box">
                     <div class="name-time-box">
-                        <div class="name">{{userService.returnUsersDisplayName(post.authorId)}}</div>
+                        <div class="name">{{userService.returnUsersDisplayName(post.author)}}</div>
                         <div class="time">{{generalService.getTransformedTimeStampToDate(post.timeStamp)}}</div>
                     </div>
                     <div class="image-box">

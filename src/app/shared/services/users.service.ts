@@ -12,6 +12,7 @@ export class UsersService {
   db = getFirestore(this.app);
   users: any[] = [];
   usersAdditionalInfos: any[] = [];
+  usersLoaded: boolean = false;
   constructor(
     public dialog: MatDialog
   ) { }
@@ -36,6 +37,10 @@ export class UsersService {
         this.usersAdditionalInfos.push(doc.data())
       })
       this.checkUsersLastActivity()
+      setTimeout(() => {
+        this.usersLoaded = true;
+      }, 6000);
+      
     });
   }
 
@@ -99,7 +104,7 @@ export class UsersService {
     }
   }
 
-  async UserDataOfOtherUserExist(userUid) {
+  async UserDataOfUserExist(userUid) {
     const docRef = doc(this.db, "users", userUid);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) return true;

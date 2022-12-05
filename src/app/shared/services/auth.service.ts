@@ -52,6 +52,7 @@ export class AuthService {
         JSON.parse(localStorage.getItem('user')!);
       }
     });
+    console.log(this.userData)
   }
 
   // Sign in with email/password

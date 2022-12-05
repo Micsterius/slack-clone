@@ -107,14 +107,13 @@ export class ChannelService {
           answers.push(doc.data())
           this.posts[i].answers = answers;
         })
-        this.loadImagesToAnswers(i)
+        if(this.posts[i].answers.length > 0) this.loadImagesToAnswers(i)
       });
     }
   }
 
   loadImagesToAnswers(i) {
     for (let j = 0; j < this.posts[i].answers.length; j++) {
-      const answer = this.posts[i].answers[j];
       if (this.posts[i].answers[j].imageUrl.length > 0) this.getImageForAnswers(i, j)
     }
     this.showAnswers = true;

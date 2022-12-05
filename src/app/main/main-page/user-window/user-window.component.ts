@@ -50,7 +50,7 @@ export class UserWindowComponent implements OnInit {
   }
 
   checkIfUserHasChat(userUid) {
-    if (this.userService.UserDataOfOtherUserExist(userUid)) {
+    if (this.userService.UserDataOfUserExist(userUid)) {
           if (this.chatService.arrayOfFriendsWithChatUid.some(user => user.author == userUid)) {
       let chatId = this.getChatId(userUid)
       this.goToChat(chatId)
