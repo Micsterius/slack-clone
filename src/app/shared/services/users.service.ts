@@ -48,12 +48,18 @@ export class UsersService {
     else return user.photoURL
   }
 
+  returnUsersPhotoUrlThread(uid) {
+    let user = this.users.find(user => user.uid == uid)
+    if (user == undefined) return 'icon-unknown.svg'
+    else  return user.photoURL
+  }
+
   getImagesForUsers() {
     this.users.forEach(user => {
       let imageUrl = user.photoURL
       getDownloadURL(ref(this.storage, user.uid + '/' + imageUrl))
         .then((url) => {
-          user.photoURL = `<img src="${url}" alt="">`;
+          user.photoURL = `<img src="${url}" class="image-url" alt="">`;
         })
         .catch((error) => {
           // A full list of error codes is available at

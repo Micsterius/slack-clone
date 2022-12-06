@@ -8,7 +8,7 @@
     background-color: var(--secondary-color);
 }
 
-h2{
+h2 {
     padding-top: 2px;
     margin-bottom: 2px;
     text-align: center;
@@ -26,7 +26,7 @@ h2{
     display: none;
 }
 
-.post-and-editor-container{
+.post-and-editor-container {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -74,40 +74,53 @@ h2{
     display: flex;
     margin-left: 16px;
 
-    div{
+    div {
         // margin-left: 4px;
         margin-right: 16px;
     }
 
-    .name{
+    .name {
         font-weight: bold;
     }
 
-    .time{
+    .time {
         opacity: 0.5;
         font-size: smaller;
     }
 }
 
-.content-box{
+.content-box {
     margin-left: 16px;
 }
 
-.post-img-box{
+.post-img-box {
     display: flex;
+    height: 25px;
+
+    image {
+        height: 25px;
+        width: 25px;
+        object-fit: cover;
+    }
 }
 
-.menu_vert_icon{
+.image-url {
+    height: 25px !important;
+    width: 25px !important;
+    object-fit: cover;
+}
+
+.menu_vert_icon {
     position: absolute;
     top: 0;
     right: 0;
 }
 
-.img-file-preview-box{
+.img-file-preview-box {
     position: relative;
 }
 
-.img-file-preview{
+.img-file-preview {
     margin-left: 4px;
     margin-right: 4px;
     border-radius: 8px;
@@ -115,16 +128,17 @@ h2{
     cursor: pointer;
 }
 
-.img-small{
-    height: 25px;
-    width: 25px;
-    object-fit: cover;
+.img-small {
+        height: 25px;
+        width: 25px;
+        object-fit: cover;
 }
 
 .editor-1 {
     width: 100%;
     z-index: 4;
 }
+
 .editor-2 {
     position: absolute;
     width: 100%;
@@ -132,7 +146,7 @@ h2{
     bottom: 0;
 }
 
-.show-selected-files{
+.show-selected-files {
     position: absolute;
     bottom: 28px;
     height: 60px;
@@ -143,11 +157,11 @@ h2{
     border-radius: 8px;
 }
 
-.img-file-preview-box{
+.img-file-preview-box {
     position: relative;
 }
 
-.img-file-preview{
+.img-file-preview {
     margin-left: 4px;
     margin-right: 4px;
     border-radius: 8px;
@@ -155,7 +169,7 @@ h2{
     cursor: pointer;
 }
 
-.file-preview-cancel-icon{
+.file-preview-cancel-icon {
     position: absolute;
     right: -8px;
     top: -8px;
@@ -164,43 +178,43 @@ h2{
     color: gray;
     cursor: pointer;
 
-    &:hover{
+    &:hover {
         color: black;
     }
 }
 
-.expand-less-editor-icon{
+.expand-less-editor-icon {
     z-index: 10;
     position: absolute;
     right: 4px;
     top: 10px;
 
-    button{
+    button {
         background-color: white;
         border: none;
 
-        mat-icon{
+        mat-icon {
             font-size: 30px;
         }
 
-        &:hover{
+        &:hover {
             cursor: pointer;
         }
     }
 }
 
-.expand-more-editor-icon{
+.expand-more-editor-icon {
     z-index: 10;
     position: absolute;
     right: 4px;
     bottom: 10px;
 
-    button{
+    button {
         background-color: white;
         border: 1px solid black;
         border-radius: 4px;
 
-        &:hover{
+        &:hover {
             cursor: pointer;
         }
     }

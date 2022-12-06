@@ -15,11 +15,12 @@
                         <span>Löschen</span>
                     </button>
                 </mat-menu>
-                <div class="post-img">
-                    <img [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"
+                <div class="img-small">
+                    <div class="post-img" [innerHTML]="usersService.returnUsersPhotoUrlThread(channelService.currentThread.post.author)"
+                        [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"
                         (mouseenter)="getPosition($event); generalService.mouseEnter(menuTrigger)"
-                        (mouseleave)="generalService.mouseLeave(menuTrigger)" class="img-small"
-                        src="./../../../../assets/img/userIcons/{{(usersService.returnUsersPhotoUrl(channelService.currentThread.post.author)) ? usersService.returnUsersPhotoUrl(channelService.currentThread.post.author) : 'icon-unknown.svg'}}">
+                        (mouseleave)="generalService.mouseLeave(menuTrigger)">
+                    </div>
                 </div>
                 <mat-menu #menu="matMenu" xPosition="after" [yPosition]="menuPositionY" [hasBackdrop]="false">
                     <div (mouseenter)="generalService.mouseEnter(menuTrigger)"
@@ -55,12 +56,14 @@
                             <span>Löschen</span>
                         </button>
                     </mat-menu>
-                    <div class="post-img">
-                        <img [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"
+                    <div class="img-small">
+                        <div class="post-img" [innerHTML]="usersService.returnUsersPhotoUrlThread(answer.author)"
+                            [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"
                             (mouseenter)="getPosition($event); generalService.mouseEnter(menuTrigger)"
-                            (mouseleave)="generalService.mouseLeave(menuTrigger)" class="img-small"
-                            src="./../../../../assets/img/userIcons/{{(usersService.returnUsersPhotoUrl(answer.author)) ? usersService.returnUsersPhotoUrl(answer.author) : 'icon-unknown.svg'}}">
+                            (mouseleave)="generalService.mouseLeave(menuTrigger)">
+                        </div>
                     </div>
+
                     <mat-menu #menu="matMenu" xPosition="after" [yPosition]="menuPositionY" [hasBackdrop]="false">
                         <div (mouseenter)="generalService.mouseEnter(menuTrigger)"
                             (mouseleave)="generalService.mouseLeave(menuTrigger)">
