@@ -11,13 +11,14 @@ import { UsersService } from 'src/app/shared/services/users.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-
+  actualUser: any;
   constructor(
     public authService: AuthService,
     private router: Router,
     public detailViewService: DetailViewPageService,
     private generalService: GeneralService,
     public userService: UsersService) {
+      this.actualUser = JSON.parse(localStorage.getItem('user')!)
     userService.loadUsers();
     userService.loadUsersAdditionalInfos();
   }

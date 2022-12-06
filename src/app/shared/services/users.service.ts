@@ -15,12 +15,12 @@ export class UsersService {
   usersAdditionalInfos: any[] = [];
   storage = getStorage();
   imgUnknownHeader = '<img src="./../../../assets/img/userIcons/user-white.png" height="30px">';
-  imgUnknownProfile = '<img src="./../../../assets/img/userIcons/user-white.png" height="120px">';
-  imgUnknownSidebar = '<img src="./../../../assets/img/userIcons/user-white.png" height="25px">';
-  imgUnknownInfo = '<img src="./../../../assets/img/userIcons/user-white.png" height="160px">';
-  imgUnknownWindow = '<img src="./../../../assets/img/userIcons/user-white.png" height="80px">';
-  imgUnknownThread = '<img src="./../../../assets/img/userIcons/user-white.png" height="25px">';
-  imgUnknownChannel = '<img src="./../../../assets/img/userIcons/user-white.png" height="40px">';
+  imgUnknownProfile = '<img src="./../../../assets/img/userIcons/user-black.png" height="120px">';
+  imgUnknownSidebar = '<img src="./../../../assets/img/userIcons/user-black.png" height="25px">';
+  imgUnknownInfo = '<img src="./../../../assets/img/userIcons/user-black.png" height="160px">';
+  imgUnknownWindow = '<img src="./../../../assets/img/userIcons/user-black.png" height="80px">';
+  imgUnknownThread = '<img src="./../../../assets/img/userIcons/user-black.png" height="25px">';
+  imgUnknownChannel = '<img src="./../../../assets/img/userIcons/user-black.png" height="40px">';
   constructor(
     public dialog: MatDialog
   ) { }

@@ -8,7 +8,7 @@
     </mat-icon>
     <div class="icon-header-right">
             <div #userImage class="user-img"  *ngIf="authService.userData as user" (click)="changeDetailViewPageContentToUserInfo()">
-                <div [innerHTML]="userService.returnUsersPhotoUrlHeader(authService.userData.uid)">
+                <div [innerHTML]="userService.returnUsersPhotoUrlHeader(actualUser.uid)">
                 </div>
             </div>
         <div>
