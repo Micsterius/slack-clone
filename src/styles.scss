@@ -1,4 +1,5 @@
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+
 :root {
     --main-color: #FA2759;
     --main-color-rgb: 250, 39, 89;
@@ -7,7 +8,13 @@
     --background-color: #fff2f5;
 }
 
+
+
 .bg-c-1 {
+    background-color: var(--background-color);
+}
+
+.bg-c-2 {
     background-color: var(--main-color);
 }
 
@@ -17,6 +24,7 @@
 
 .w450 {
     width: 450px;
+
     @media (max-width: 449px) {
         width: 100vw;
     }
@@ -39,8 +47,9 @@
 .btn-auth {
     min-width: 200px;
     border-radius: 8px;
-    border: 1px solid black;
+    border: none;
     height: 32px;
+
     &:hover {
         opacity: 0.9;
         cursor: pointer;
@@ -77,14 +86,16 @@ mat-icon {
     display: flex;
     align-items: center;
     min-width: 200px;
-    border: 1px solid black;
+    border: none;
     border-radius: 8px;
+
     img {
         width: 24px;
         object-fit: cover;
         margin-left: 8px;
         margin-right: 8px;
     }
+
     button {
         border: none;
         padding-left: 8px;
@@ -94,6 +105,7 @@ mat-icon {
         height: 30px;
         width: 100%;
         border-radius: 0 8px 8px 0;
+
         &:hover {
             color: black;
             opacity: 0.9;
@@ -112,8 +124,9 @@ mat-icon {
     cursor: pointer;
     color: var(--main-color);
     font-weight: bold;
+
     &:hover {
-        color: var(--secondary-color);
+        color: black;
     }
 }
 
@@ -149,6 +162,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
     button {
         margin-top: 16px;
         margin-bottom: 16px;
@@ -158,6 +172,7 @@ body {
         min-width: 200px;
         border-radius: 12px;
         box-shadow: 0 2px 2px 0 #1a1a1a;
+
         &:hover {
             opacity: 0.9;
             cursor: pointer;
@@ -175,8 +190,15 @@ body {
     cursor: pointer;
 }
 
+.formGroup {
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
 .auth-area-container {
-    border: 1px solid black;
+    border: none;
+    border-radius: 8px;
+    padding: 16px;
     min-width: 250px;
     z-index: 2;
     position: absolute;
@@ -208,6 +230,7 @@ body {
     width: 100%;
     background-color: white;
     color: gray;
+
     p {
         padding: 8px;
         margin: 0;
@@ -233,6 +256,7 @@ body {
     word-break: break-all;
     width: 100%;
     margin-bottom: 4px;
+
     img {
         max-height: 190px;
         object-fit: cover;
