@@ -20,7 +20,7 @@
           alt="{{activeUser.displayName}}">
       </div>
   
-      <!-- <div *ngIf="editPhotoURL" class="swiper-container">
+      <!----> <div *ngIf="editPhotoURL" class="swiper-container">
         <swiper [navigation]="true" [pagination]="true" class="mySwiper">
           <ng-template swiperSlide *ngFor="let image of images">
             <div class="img-edit-container">
@@ -35,7 +35,7 @@
             </div>
           </ng-template>
         </swiper>
-      </div> -->
+      </div> 
       <div class="user-detail-container">
         <div class="user-detail-box">
           <p><strong>Name:</strong> <span *ngIf="!editUser"> {{(activeUser.displayName) ? activeUser.displayName : 'User'}}</span></p>

@@ -30,14 +30,14 @@ export class MainComponent implements OnInit {
     userService.loadUsersAdditionalInfos();
     this.activeUser = JSON.parse(localStorage.getItem('user')!);
 
-    /* document.addEventListener('visibilitychange', () => {
+     document.addEventListener('visibilitychange', () => {
        if (document.hidden) this.userIsAway()
        else this.userIsStillActive()
      })
  
      document.addEventListener('touchstart', () => {
        this.userIsStillActive()
-     })*/
+     })
   }
 
   async userIsStillActive() {
