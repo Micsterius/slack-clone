@@ -161,6 +161,10 @@ export class UserInfoComponent implements OnInit {
     this.changeUserDataNameFirestore();
     this.changeUserDataPhoneFirestore();
     this.closeProfileEdit();
+    if (this.generalService.selectedFilesUser) {
+      this.saveImgUserPhotoURL(this.generalService.myFilesUser[0].name);
+      this.authService.changeUserDataImg(this.generalService.myFilesUser[0].name)
+    }
     if (this.generalService.selectedFilesUser) this.uploadImage();
   }
 
@@ -176,6 +180,7 @@ export class UserInfoComponent implements OnInit {
     this.editUserSensitive = !this.editUserSensitive;
   }
 
+  //Image upload in a folder which has the same name like the user uid
   uploadImage(): any {
     this.uploadService.basePathUser = this.activeUser.uid
     const file: File | null = this.generalService.myFilesUser[0]

@@ -14,10 +14,10 @@
     <!-- Show user data when logged in -->
     <div *ngIf="authService.userData">
 
-      <div class="img-box" *ngIf="!editUser">
-        <img class="profile-img"
+      <div class="img-box" *ngIf="!editUser" [innerHTML]="usersService.returnUsersPhotoUrl(activeUser.uid)">
+       <!-- <img class="profile-img"
           src="./../../../../../assets/img/userIcons/{{(usersService.returnUsersPhotoUrl(activeUser.uid)) ? usersService.returnUsersPhotoUrl(activeUser.uid) : 'user-black.png'}}"
-          alt="{{activeUser.displayName}}">
+          alt="{{activeUser.displayName}}"> -->
       </div>
 
       <div>
