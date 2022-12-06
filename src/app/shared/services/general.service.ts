@@ -13,10 +13,13 @@ export class GeneralService {
   showPrevSlide: boolean = false;
 
   adminActive: boolean = false;
+
+  //show and hide editor
   showEditorChannel: boolean = true;
   showEditorThread: boolean = true;
   showEditorChat: boolean = true;
 
+  //set editor active for fileupload
   activeEditorIsChannel: boolean = false;
   activeEditorIsThread: boolean = false;
   activeEditorIsChat: boolean = false;
