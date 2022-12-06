@@ -16,22 +16,23 @@
 
       <div class="img-box" *ngIf="!editUser">
         <img class="profile-img"
-          src="./../../../../../assets/img/userIcons/{{(usersService.returnUsersPhotoUrl(activeUser.uid)) ? usersService.returnUsersPhotoUrl(activeUser.uid) : 'icon-unknown.svg'}}"
+          src="./../../../../../assets/img/userIcons/{{(usersService.returnUsersPhotoUrl(activeUser.uid)) ? usersService.returnUsersPhotoUrl(activeUser.uid) : 'user-black.png'}}"
           alt="{{activeUser.displayName}}">
           <img class="profile-img" src="{{generalService.filePreviewUser[0].url}}" alt="">
       </div>
 
-      <div class="img-user-box" *ngIf="editUser">
-        <img (click)="editUserImg = true"
-          src="./../../../../../assets/img/userIcons/{{usersService.returnUsersPhotoUrl(activeUser.uid) ? usersService.returnUsersPhotoUrl(activeUser.uid) : 'icon-unknown.svg'}}"
-          alt="">
-        <button>
-          <label for="file-input">
-            <mat-icon mat-icon-button (click)="generalService.changeActiveEditorToUser()">attach_file
-            </mat-icon>
-          </label>
-          <input id="file-input" type="file" class="user-info-input" (change)="generalService.selectFile($event)" />
-        </button>
+      <div>
+        <div class="img-user-box" *ngIf="editUser">
+          <img (click)="editUserImg = true"
+            src="./../../../../../assets/img/userIcons/{{usersService.returnUsersPhotoUrl(activeUser.uid) ? usersService.returnUsersPhotoUrl(activeUser.uid) : 'user-black.png'}}"
+            alt="">
+          <button>
+            <label for="file-input">
+              <mat-icon mat-icon-button (click)="generalService.changeActiveEditorToUser()">attach_file
+              </mat-icon>
+            </label>
+            <input id="file-input" type="file" class="user-info-input" (change)="generalService.selectFile($event)" />
+          </button>
       </div>
 
       <div *ngIf="editUserImg" class="swiper-container">

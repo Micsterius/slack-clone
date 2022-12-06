@@ -8,7 +8,7 @@
     </mat-icon>
     <div class="icon-header-right">
         <img class="user-img-header" *ngIf="authService.userData as user" (click)="changeDetailViewPageContentToUserInfo()"
-            src="./../../../assets/img/userIcons/{{authService.userData.photoURL ? authService.userData.photoURL : 'icon-unknown.svg'}}"
+            src="./../../../assets/img/userIcons/{{authService.userData.photoURL ? authService.userData.photoURL : 'user-white.png'}}"
             alt="">
 
         <div>
@@ -20,7 +20,7 @@
             <button (click)="themePink()" mat-menu-item>Pink</button>
             <button (click)="themeViolett()" mat-menu-item>Violett</button>
             <button (click)="themeOrange()" mat-menu-item>Orange</button>
-            <button (click)="themeDark()" mat-menu-item>Dark</button>
+            <button (click)="themeDarkViolett()" mat-menu-item>DarkViolett</button>
         </mat-menu>
 
 
