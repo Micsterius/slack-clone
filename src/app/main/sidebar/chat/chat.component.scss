@@ -40,6 +40,7 @@
 .chat-friend-box{
     display: flex;
     margin-bottom: 8px;
+    align-items: center;
     // justify-content: space-between;
     font-size: 16px;
 
@@ -49,4 +50,11 @@
         object-fit: cover;
         // margin-left: 8px;
     }
+}
+
+.user-img{
+    width: 25px;
+    height: 25px;
+    object-fit: cover;
+    margin-right: 4px;
 }

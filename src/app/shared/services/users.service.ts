@@ -78,6 +78,12 @@ export class UsersService {
     else  return user.photoURLInfo
   }
 
+  returnUsersPhotoUrlSidebar(uid) {
+    let user = this.users.find(user => user.uid == uid)
+    if (user == undefined) return 'icon-unknown.svg'
+    else  return user.photoURLSidebar
+  }
+
   getImagesForUsers() {
     this.users.forEach(user => {
       let imageUrl = user.photoURL
@@ -88,6 +94,7 @@ export class UsersService {
           user.photoURLWindow = `<img src="${url}" height="80px" class="image-url" alt="">`;
           user.photoURLThread = `<img src="${url}" height="25px" class="image-url" alt="">`;
           user.photoURLProfile = `<img src="${url}" height="120px" class="image-url" alt="">`;
+          user.photoURLSidebar = `<img src="${url}" height="25px" class="image-url" alt="">`;
         })
         .catch((error) => {
           // A full list of error codes is available at
