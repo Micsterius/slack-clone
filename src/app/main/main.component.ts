@@ -26,8 +26,6 @@ export class MainComponent implements OnInit {
     private authService: AuthService,
     private userService: UsersService
   ) {
-    userService.loadUsers();
-    userService.loadUsersAdditionalInfos();
     this.activeUser = JSON.parse(localStorage.getItem('user')!);
 
      document.addEventListener('visibilitychange', () => {

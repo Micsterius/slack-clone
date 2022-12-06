@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { DetailViewPageService } from 'src/app/shared/services/detail-view-page.service';
 import { GeneralService } from 'src/app/shared/services/general.service';
+import { UsersService } from 'src/app/shared/services/users.service';
 
 @Component({
   selector: 'app-header',
@@ -15,7 +16,11 @@ export class HeaderComponent implements OnInit {
     public authService: AuthService,
     private router: Router,
     public detailViewService: DetailViewPageService,
-    private generalService: GeneralService) { }
+    private generalService: GeneralService,
+    private userService: UsersService) {
+    userService.loadUsers();
+    userService.loadUsersAdditionalInfos();
+  }
 
   ngOnInit(): void {
   }
@@ -34,7 +39,7 @@ export class HeaderComponent implements OnInit {
     }, 10);
   }
 
-  adminCheckboxClick(){
+  adminCheckboxClick() {
     this.generalService.adminActive = !this.generalService.adminActive
     console.log(this.generalService.adminActive)
   }
