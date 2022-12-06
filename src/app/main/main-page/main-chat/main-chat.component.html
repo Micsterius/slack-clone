@@ -8,9 +8,9 @@
             <div *ngIf="chatService.showChat" class="chat-container all-posts-container" #scrollMe>
                 <div *ngFor="let text of chatService.messages" class="chat-friend-box">
                     <div class="post-container">
-                        <div class="post-img">
-                            <img class="img-small"
-                                src="./../../../../assets/img/userIcons/{{(usersService.returnUsersPhotoUrl(text.author)) ? usersService.returnUsersPhotoUrl(text.author) : 'icon-unknown.svg'}}">
+                        <div class="post-img" >
+                            <div [innerHTML]="usersService.returnUsersPhotoUrlChannel(text.author)">
+                            </div>
                         </div>
                         <div class="post-box">
                             <div class="name-time-box">

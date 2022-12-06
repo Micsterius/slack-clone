@@ -83,6 +83,13 @@
     background: white;
 }
 
+.post-img{
+    height: 40px;
+    width: 40px;
+    object-fit: cover;
+    margin-right: 4px;
+}
+
 .name-time-box {
     display: flex;
     margin-left: 16px;
