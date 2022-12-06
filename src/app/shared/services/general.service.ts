@@ -23,6 +23,14 @@ export class GeneralService {
   activeEditorIsChannel: boolean = false;
   activeEditorIsThread: boolean = false;
   activeEditorIsChat: boolean = false;
+  activeEditorIsUser: boolean = false;
+
+  //User
+  selectedFileUser?: FileList;
+  currentFileUploadUser?: FileUpload;
+  urlUser: any;
+  filePreviewUser: any[] = [];
+  fileSelectedUser: boolean = false;
 
   //THREAD
   selectedFilesThread?: FileList;
@@ -84,24 +92,37 @@ export class GeneralService {
     this.activeEditorIsThread = false;
     this.activeEditorIsChannel = true;
     this.activeEditorIsChat = false;
+    this.activeEditorIsUser = false;
   }
 
   changeActiveEditorToThread() {
     this.activeEditorIsThread = true;
     this.activeEditorIsChannel = false;
     this.activeEditorIsChat = false;
+    this.activeEditorIsUser = false;
   }
 
   changeActiveEditorToChat() {
     this.activeEditorIsThread = false;
     this.activeEditorIsChannel = false;
     this.activeEditorIsChat = true;
+    this.activeEditorIsUser = false;
   }
+
+  changeActiveEditorToUser() {
+    this.activeEditorIsThread = false;
+    this.activeEditorIsChannel = false;
+    this.activeEditorIsChat = false;
+    this.activeEditorIsUser = true;
+  }
+
+
 
   selectFile(event: any): void {
     if (this.activeEditorIsThread) this.selectFileThread(event)
     if (this.activeEditorIsChannel) this.selectFileChannel(event)
     if (this.activeEditorIsChat) this.selectFileChat(event)
+    if (this.activeEditorIsUser) this.selectFileUser(event)
   }
 
   selectFileChannel(event) {
@@ -115,6 +136,17 @@ export class GeneralService {
     if (event.target.files) {
       this.renderFilesPreview();
       this.fileSelected = true;
+    }
+    event.target.value = ''; // necessary to be able to load the same file again
+  }
+
+  selectFileUser(event) {
+    this.selectedFileUser = event.target.files
+    //show a preview of selected File
+    this.filesPreview = [];
+    if (event.target.files) {
+      this.renderFilePreviewUser();
+      this.fileSelectedUser = true;
     }
     event.target.value = ''; // necessary to be able to load the same file again
   }
@@ -165,6 +197,20 @@ export class GeneralService {
     }
   }
 
+  renderFilePreviewUser() {
+    this.filePreviewUser = [];
+    const file = this.selectedFileUser.item(0);
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (event: any) => {
+      this.urlUser = event.target.result;
+      let filePreview = {
+        url: this.urlUser
+      }
+      this.filePreviewUser.push(filePreview)
+    }
+  }
+
   renderFilesPreviewChat() {
     this.filesPreviewChat = [];
     for (let i = 0; i < this.myFilesChat.length; i++) {
@@ -202,16 +248,16 @@ export class GeneralService {
     }
   }
 
-  
-  expandEditorChannel(){
+
+  expandEditorChannel() {
     this.showEditorChannel = !this.showEditorChannel
   }
 
-  expandEditorThread(){
+  expandEditorThread() {
     this.showEditorThread = !this.showEditorThread
   }
 
-  expandEditorChat(){
+  expandEditorChat() {
     this.showEditorChat = !this.showEditorChat
   }
 }
