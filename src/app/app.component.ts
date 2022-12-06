@@ -38,7 +38,21 @@ export class AppComponent {
   resizeWindow() {
     this.windowWidth = window.innerWidth;
     this.windowHeight = window.innerHeight;
-    if (window.innerWidth < 800) this.generalService.mobilViewIsActive = true;
+    if (this.windowWidth < 800) this.generalService.mobilViewIsActive = true;
+    if (this.windowWidth > 800) this.generalService.mobilViewIsActive = false;
+    //closes the chatbox
+    if (this.windowHeight < 500){
+      this.generalService.showEditorChannel = false;
+      this.generalService.showEditorThread = false;
+      this.generalService.showEditorChat = false;
+    }
+    //opens the chatbox
+    if (this.windowHeight > 500){
+      this.generalService.showEditorChannel = true;
+      this.generalService.showEditorThread = true;
+      this.generalService.showEditorChat = true;
+    }
+
   }
 
   getMainColor() {

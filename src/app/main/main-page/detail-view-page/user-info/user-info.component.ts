@@ -67,7 +67,6 @@ export class UserInfoComponent implements OnInit {
     { 'src': 'icon_male_5.jpg' },
     { 'src': 'icon_male_6.png' },
     { 'src': 'icon-unknown.svg' },
-    { 'src': 'tk.jpg' }
   ]
 
   constructor(
