@@ -31,7 +31,7 @@ export class UserInfoComponent implements OnInit {
   editUserId: boolean = false;
   editUserMail: boolean = false;
   editUserPw: boolean = false;
-  editPhotoURL: boolean = false;
+  editUserImg: boolean = false;
   editUserPhone: boolean = false;
 
   editUser: boolean = false;

@@ -20,17 +20,21 @@
           alt="{{activeUser.displayName}}">
       </div>
 
-      <div *ngIf="editUser" class="swiper-container">
+      <div>
+
+      </div>
+
+      <div *ngIf="editUserImg" class="swiper-container">
         <swiper [navigation]="true" [pagination]="true" class="mySwiper">
           <ng-template swiperSlide *ngFor="let image of images">
             <div class="img-edit-container">
-              <mat-icon style="color: red;" fontIcon="close" (click)="editPhotoURL = false"></mat-icon>
+              <mat-icon style="color: red;" fontIcon="close" (click)="editUserImg = false"></mat-icon>
               <div class="img-box">
-                <img (click)="editPhotoURL = false" class="profile-img"
+                <img (click)="editUserImg = false" class="profile-img"
                   src="./../../../assets/img/userIcons/{{image.src}}">
               </div>
               <mat-icon style="color: green;" fontIcon="check"
-                (click)="saveImgUserPhotoURL(image.src); authService.changeUserDataImg(image.src); editPhotoURL = false">
+                (click)="saveImgUserPhotoURL(image.src); authService.changeUserDataImg(image.src); editUserImg = false">
               </mat-icon>
             </div>
           </ng-template>

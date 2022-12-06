@@ -26,8 +26,8 @@ export class UserWindowComponent implements OnInit {
     private chatService: ChatService,
     private authService: AuthService,
     private router: Router,) {
-      this.actualUser = JSON.parse(localStorage.getItem('user')!)
-     }
+    this.actualUser = JSON.parse(localStorage.getItem('user')!)
+  }
 
   ngOnInit(): void {
   }
@@ -51,14 +51,15 @@ export class UserWindowComponent implements OnInit {
     this.router.navigate(['/chat-main'])
   }
 
-  checkIfUserHasChat(userUid) {
-    if (this.userService.UserDataOfUserExist(userUid)) {
-          if (this.chatService.arrayOfFriendsWithChatUid.some(user => user.author == userUid)) {
-      let chatId = this.getChatId(userUid)
-      this.goToChat(chatId)
+  async checkIfUserHasChat(userUid) {
+    if (await this.userService.UserDataOfUserExist(userUid) && await this.userService.UserDataOfUserExist(this.actualUser.uid)) {
+      if (this.chatService.arrayOfFriendsWithChatUid.some(user => user.author == userUid)) {
+        let chatId = this.getChatId(userUid)
+        this.goToChat(chatId)
+      }
+      else this.createChat(userUid);
     }
-    else this.createChat(userUid);
-    }
+    else alert('Please register for this function')
   }
 
   getChatId(userUid) {
