@@ -22,11 +22,11 @@
             </form>
             <!-- Calling SignIn Api from AuthService -->
             <div class="formGroup">
-                <input type="button" class="btn-auth bg-c-1 color-white margin-bottom-8" value="Log in"
+                <input type="button" class="btn-auth bg-c-2 color-white margin-bottom-8" value="Log in"
                     (click)="authService.SignIn(userEmail.value, userPwd.value)">
             </div>
             <div class="formGroup">
-                <input type="button" class="btn-auth bg-c-1 color-white" value="Log in as GUEST"
+                <input type="button" class="btn-auth bg-c-2 color-white" value="Log in as GUEST"
                     (click)="authService.signInAnonymously()">
             </div>
             <div class="formGroup">
@@ -35,7 +35,7 @@
             <!-- Calling GoogleAuth Api from AuthService -->
             <div class="google-btn-box">
                 <img src="./../../../assets/img/google_icon.svg" alt="">
-                <button type="button" class="color-white bg-c-1" (click)="authService.GoogleAuth()">
+                <button type="button" class="color-white bg-c-2" (click)="authService.GoogleAuth()">
                     Log in with Google
                 </button>
             </div>
