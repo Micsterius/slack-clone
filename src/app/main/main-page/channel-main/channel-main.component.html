@@ -15,10 +15,11 @@
                     </button>
                 </mat-menu>
                 <div #userImage class="post-img">
-                    <img [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"
+                    <div [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"
                         (mouseenter)="getPosition($event); generalService.mouseEnter(menuTrigger)"
                         (mouseleave)="generalService.mouseLeave(menuTrigger)" class="img-small"
-                        src="./../../../../assets/img/userIcons/{{(userService.returnUsersPhotoUrl(post.author)) ? userService.returnUsersPhotoUrl(post.author) : 'icon-unknown.svg'}}">
+                        [innerHTML]="userService.returnUsersPhotoUrl(post.author)">
+                    </div>
                 </div>
                 <mat-menu #menu="matMenu" xPosition="after" [yPosition]="menuPositionY" [hasBackdrop]="false">
                     <div (mouseenter)="generalService.mouseEnter(menuTrigger)"
@@ -103,13 +104,15 @@
             <button class="button" (click)="sendMessage()">
                 <mat-icon mat-icon-button fontIcon="send" class="color-main-with-hover"></mat-icon>
             </button>
-                <div class="upload-container">
+            <div class="upload-container">
                 <label for="file-input">
-                    <mat-icon mat-icon-button (click)="generalService.changeActiveEditorToChannel()">attach_file</mat-icon>
+                    <mat-icon mat-icon-button (click)="generalService.changeActiveEditorToChannel()">attach_file
+                    </mat-icon>
                 </label>
-                <input id="file-input" type="file" class="text-nowrap text-truncate" (change)="generalService.selectFile($event)" multiple/>
+                <input id="file-input" type="file" class="text-nowrap text-truncate"
+                    (change)="generalService.selectFile($event)" multiple />
             </div>
-           
+
 
         </div>
     </div>

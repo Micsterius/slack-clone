@@ -1,36 +1,36 @@
-.show-user-details{
+.show-user-details {
     display: flex;
     align-items: center;
 
-    img{
-        height: 80px;
+    img {
+        height: 80px !important;
         object-fit: cover;
         margin-right: 8px;
     }
 }
 
-.show-user-details-btn-box{
+.show-user-details-btn-box {
     display: flex;
     width: 180px;
     justify-content: space-between;
 
-    button{
+    button {
         width: 80px;
         border-radius: 4px;
 
-        &:hover{
+        &:hover {
             opacity: 0.7;
             cursor: pointer;
         }
     }
 }
 
-.tel-link{
+.tel-link {
     color: white;
     text-decoration: none;
 }
 
-.status-field{
+.status-field {
     width: 8px;
     height: 8px;
     border-radius: 50%;
