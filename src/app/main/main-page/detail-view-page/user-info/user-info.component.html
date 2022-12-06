@@ -18,6 +18,7 @@
         <img class="profile-img"
           src="./../../../../../assets/img/userIcons/{{(usersService.returnUsersPhotoUrl(activeUser.uid)) ? usersService.returnUsersPhotoUrl(activeUser.uid) : 'user-black.png'}}"
           alt="{{activeUser.displayName}}">
+          <img class="profile-img" src="{{generalService.filePreviewUser[0].url}}" alt="">
       </div>
 
       <div>

@@ -7,9 +7,11 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { doc, getDoc, getFirestore, setDoc, updateDoc } from 'firebase/firestore';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { FileUploadService } from 'src/app/shared/services/file-upload.service';
 import { GeneralService } from 'src/app/shared/services/general.service';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { environment } from 'src/environments/environment';
+import { FileUpload } from 'src/app/models/file-upload.model';
 
 // import Swiper core and required modules
 import SwiperCore, { Pagination, Navigation, Keyboard, Virtual } from "swiper";
@@ -42,13 +44,14 @@ export class UserInfoComponent implements OnInit {
   showUserDetails: boolean = false;
 
   checkIfPasswordChanged: boolean = false;
+  currentFileUpload?: FileUpload;
 
   @Input() newName: any;
   @Input() newMail: any;
   @Input() newPhoneNumber: any;
   @Input() newPasswort: any;
 
-  actualUser: any;
+
 
   positionOptions: TooltipPosition[] = ['after', 'before', 'above', 'below', 'left', 'right'];
   position = new FormControl(this.positionOptions[0]);
@@ -76,7 +79,8 @@ export class UserInfoComponent implements OnInit {
     public afs: AngularFirestore,
     public afAuth: AngularFireAuth,
     public usersService: UsersService,
-    public generalService: GeneralService
+    public generalService: GeneralService,
+    private uploadService: FileUploadService
   ) {
     this.activeUser = JSON.parse(localStorage.getItem('user')!);
     this.loadTelephoneNbr()
@@ -169,5 +173,14 @@ export class UserInfoComponent implements OnInit {
   closeMoreSettings(){
     this.checkIfPasswordChanged = false;
     this.editUserSensitive = !this.editUserSensitive;
+  }
+
+  uploadImage(): any {
+    this.uploadService.basePathUser = this.activeUser.uid
+      const file: File | null = this.generalService.selectedFileUser.item(0);
+      this.currentFileUpload = new FileUpload(file);
+      this.uploadService.pushUserImageFileToStorage(this.currentFileUpload)
+
+    this.generalService.myFiles.length = 0; //if set undefined, it runs into an error on next loading picture
   }
 }
