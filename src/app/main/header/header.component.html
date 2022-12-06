@@ -7,15 +7,16 @@
     <mat-icon class="icon-header" fontIcon="login" [routerLink]="['sign-in']" *ngIf="!authService.userData as user">
     </mat-icon>
     <div class="icon-header-right">
-        <img class="user-img-header" *ngIf="authService.userData as user" (click)="changeDetailViewPageContentToUserInfo()"
-            src="./../../../assets/img/userIcons/{{authService.userData.photoURL ? authService.userData.photoURL : 'user-white.png'}}"
-            alt="">
-
+            <div #userImage class="user-img"  *ngIf="authService.userData as user" (click)="changeDetailViewPageContentToUserInfo()">
+                <div [innerHTML]="userService.returnUsersPhotoUrlHeader(authService.userData.uid)">
+                </div>
+            </div>
         <div>
             <mat-icon mat-icon-button [matMenuTriggerFor]="color" fontIcon="format_color_fill"
                 *ngIf="authService.userData as user">
             </mat-icon>
         </div>
+        <img src="./../../../assets/img/userIcons/user-white.png" alt="">
         <mat-menu #color="matMenu">
             <button (click)="themePink()" mat-menu-item>Pink</button>
             <button (click)="themeViolett()" mat-menu-item>Violett</button>

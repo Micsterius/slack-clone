@@ -14,6 +14,13 @@ export class UsersService {
   users: any[] = [];
   usersAdditionalInfos: any[] = [];
   storage = getStorage();
+  imgUnknownHeader = '<img src="./../../../assets/img/userIcons/user-white.png" height="30px">';
+  imgUnknownProfile = '<img src="./../../../assets/img/userIcons/user-white.png" height="120px">';
+  imgUnknownSidebar = '<img src="./../../../assets/img/userIcons/user-white.png" height="25px">';
+  imgUnknownInfo = '<img src="./../../../assets/img/userIcons/user-white.png" height="160px">';
+  imgUnknownWindow = '<img src="./../../../assets/img/userIcons/user-white.png" height="80px">';
+  imgUnknownThread = '<img src="./../../../assets/img/userIcons/user-white.png" height="25px">';
+  imgUnknownChannel = '<img src="./../../../assets/img/userIcons/user-white.png" height="40px">';
   constructor(
     public dialog: MatDialog
   ) { }
@@ -50,38 +57,44 @@ export class UsersService {
 
   returnUsersPhotoUrlThread(uid) {
     let user = this.users.find(user => user.uid == uid)
-    if (user == undefined) return 'icon-unknown.svg'
+    if (user == undefined) return this.imgUnknownThread
     else  return user.photoURLThread
   }
 
   returnUsersPhotoUrlWindow(uid) {
     let user = this.users.find(user => user.uid == uid)
-    if (user == undefined) return 'icon-unknown.svg'
+    if (user == undefined) return this.imgUnknownWindow
     else  return user.photoURLWindow
   }
 
   returnUsersPhotoUrlChannel(uid) {
     let user = this.users.find(user => user.uid == uid)
-    if (user == undefined) return 'icon-unknown.svg'
+    if (user == undefined) return this.imgUnknownChannel
     else  return user.photoURLChannel
   }
 
   returnUsersPhotoUrlProfile(uid) {
     let user = this.users.find(user => user.uid == uid)
-    if (user == undefined) return 'icon-unknown.svg'
+    if (user == undefined) return this.imgUnknownProfile
     else  return user.photoURLProfile
   }
 
   returnUsersPhotoUrlInfo(uid) {
     let user = this.users.find(user => user.uid == uid)
-    if (user == undefined) return 'icon-unknown.svg'
+    if (user == undefined) return this.imgUnknownInfo
     else  return user.photoURLInfo
   }
 
   returnUsersPhotoUrlSidebar(uid) {
     let user = this.users.find(user => user.uid == uid)
-    if (user == undefined) return 'icon-unknown.svg'
+    if (user == undefined) return this.imgUnknownSidebar
     else  return user.photoURLSidebar
+  }
+
+  returnUsersPhotoUrlHeader(uid) {
+    let user = this.users.find(user => user.uid == uid)
+    if (user == undefined) return this.imgUnknownHeader
+    else  return user.photoURLHeader
   }
 
   getImagesForUsers() {
@@ -95,6 +108,7 @@ export class UsersService {
           user.photoURLThread = `<img src="${url}" height="25px" class="image-url" alt="">`;
           user.photoURLProfile = `<img src="${url}" height="120px" class="image-url" alt="">`;
           user.photoURLSidebar = `<img src="${url}" height="25px" class="image-url" alt="">`;
+          user.photoURLHeader = `<img src="${url}" height="30px" class="image-url" alt="">`;
         })
         .catch((error) => {
           // A full list of error codes is available at

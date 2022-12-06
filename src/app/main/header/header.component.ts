@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     public detailViewService: DetailViewPageService,
     private generalService: GeneralService,
-    private userService: UsersService) {
+    public userService: UsersService) {
     userService.loadUsers();
     userService.loadUsersAdditionalInfos();
   }
