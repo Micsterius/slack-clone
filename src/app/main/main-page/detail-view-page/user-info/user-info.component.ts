@@ -7,6 +7,7 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { doc, getDoc, getFirestore, setDoc, updateDoc } from 'firebase/firestore';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { GeneralService } from 'src/app/shared/services/general.service';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { environment } from 'src/environments/environment';
 
@@ -73,7 +74,8 @@ export class UserInfoComponent implements OnInit {
     public authService: AuthService,
     public afs: AngularFirestore,
     public afAuth: AngularFireAuth,
-    public usersService: UsersService
+    public usersService: UsersService,
+    public generalService: GeneralService
   ) {
     this.activeUser = JSON.parse(localStorage.getItem('user')!);
     this.loadTelephoneNbr()
