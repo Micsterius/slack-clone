@@ -1,7 +1,10 @@
-<div class="padding-8">
-    <div class="show-user-details" (click)="showUserDetails()"
-        [innerHTML]="userService.returnUsersPhotoUrl(uid)">
+<div class="padding-8 show-user-details">
+    <div #userImage class="post-img">
+        <div (click)="showUserDetails()"
+            [innerHTML]="userService.returnUsersPhotoUrlWindow(uid)">
+        </div>
     </div>
+
     <div class="show-user-details">
         <span>{{userService.returnUsersDisplayName(uid)}}</span>
         <div class="status-field"

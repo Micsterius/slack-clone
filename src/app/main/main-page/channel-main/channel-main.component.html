@@ -18,7 +18,7 @@
                     <div [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"
                         (mouseenter)="getPosition($event); generalService.mouseEnter(menuTrigger)"
                         (mouseleave)="generalService.mouseLeave(menuTrigger)"
-                        [innerHTML]="userService.returnUsersPhotoUrl(post.author)">
+                        [innerHTML]="userService.returnUsersPhotoUrlChannel(post.author)">
                     </div>
                 </div>
                 <mat-menu #menu="matMenu" xPosition="after" [yPosition]="menuPositionY" [hasBackdrop]="false">

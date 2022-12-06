@@ -24,6 +24,13 @@
     text-decoration: none;
 }
 
+.post-img>img{
+    height: 80px;
+    width: 80px;
+    object-fit: contain;
+    margin-right: 4px;
+}
+
 .status-field {
     width: 8px;
     height: 8px;

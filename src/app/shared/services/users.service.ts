@@ -51,7 +51,31 @@ export class UsersService {
   returnUsersPhotoUrlThread(uid) {
     let user = this.users.find(user => user.uid == uid)
     if (user == undefined) return 'icon-unknown.svg'
-    else  return user.photoURL
+    else  return user.photoURLThread
+  }
+
+  returnUsersPhotoUrlWindow(uid) {
+    let user = this.users.find(user => user.uid == uid)
+    if (user == undefined) return 'icon-unknown.svg'
+    else  return user.photoURLWindow
+  }
+
+  returnUsersPhotoUrlChannel(uid) {
+    let user = this.users.find(user => user.uid == uid)
+    if (user == undefined) return 'icon-unknown.svg'
+    else  return user.photoURLChannel
+  }
+
+  returnUsersPhotoUrlProfile(uid) {
+    let user = this.users.find(user => user.uid == uid)
+    if (user == undefined) return 'icon-unknown.svg'
+    else  return user.photoURLProfile
+  }
+
+  returnUsersPhotoUrlInfo(uid) {
+    let user = this.users.find(user => user.uid == uid)
+    if (user == undefined) return 'icon-unknown.svg'
+    else  return user.photoURLInfo
   }
 
   getImagesForUsers() {
@@ -59,7 +83,11 @@ export class UsersService {
       let imageUrl = user.photoURL
       getDownloadURL(ref(this.storage, user.uid + '/' + imageUrl))
         .then((url) => {
-          user.photoURL = `<img src="${url}" class="image-url" alt="">`;
+          user.photoURLChannel = `<img src="${url}" height="40px" class="image-url" alt="">`;
+          user.photoURLInfo = `<img src="${url}" height="160px" class="image-url" alt="">`;
+          user.photoURLWindow = `<img src="${url}" height="80px" class="image-url" alt="">`;
+          user.photoURLThread = `<img src="${url}" height="25px" class="image-url" alt="">`;
+          user.photoURLProfile = `<img src="${url}" height="120px" class="image-url" alt="">`;
         })
         .catch((error) => {
           // A full list of error codes is available at
