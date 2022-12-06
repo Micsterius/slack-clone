@@ -16,12 +16,15 @@
 
       <div class="img-box" *ngIf="!editUser">
         <img class="profile-img"
-          src="./../../../../../assets/img/userIcons/{{(activeUser.photoURL) ? activeUser.photoURL : 'icon-unknown.svg'}}"
+          src="./../../../../../assets/img/userIcons/{{(usersService.returnUsersPhotoUrl(activeUser.uid)) ? usersService.returnUsersPhotoUrl(activeUser.uid) : 'icon-unknown.svg'}}"
           alt="{{activeUser.displayName}}">
       </div>
 
-      <div>
-
+      <div class="img-user-box" *ngIf="editUser">
+          <img (click)="editUserImg = true" src="./../../../../../assets/img/userIcons/{{usersService.returnUsersPhotoUrl(activeUser.uid) ? usersService.returnUsersPhotoUrl(activeUser.uid) : 'icon-unknown.svg'}}" alt="">
+          <button>
+            <mat-icon mat-icon-button>attach_file</mat-icon>
+          </button>
       </div>
 
       <div *ngIf="editUserImg" class="swiper-container">
@@ -42,7 +45,7 @@
       </div>
       <div class="user-detail-container">
         <div class="user-detail-box">
-          <p><strong>Name:</strong> <span *ngIf="!editUser"> {{(activeUser.displayName) ? activeUser.displayName :
+          <p><strong>Name:</strong> <span *ngIf="!editUser"> {{(usersService.returnUsersDisplayName(activeUser.uid)) ? usersService.returnUsersDisplayName(activeUser.uid) :
               'User'}}</span></p>
           <mat-form-field appearance="fill" *ngIf="editUser">
             <input [(ngModel)]="activeUser.displayName" matInput type="text" value="{{activeUser.displayName}}" required

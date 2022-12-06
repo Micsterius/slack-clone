@@ -187,3 +187,27 @@
     justify-content: center;
     align-items: center;
 }
+
+.img-user-box{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+
+    button{
+        background-color: white;
+        border: none;
+
+        &:hover{
+            cursor: pointer;
+            scale: 1.2;
+        }
+    }
+    img {
+        height: 30px;
+        object-fit: cover;
+        &:hover{
+            cursor: pointer;
+            scale: 1.2;
+        }
+    }
+}
