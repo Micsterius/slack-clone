@@ -26,11 +26,12 @@ export class GeneralService {
   activeEditorIsUser: boolean = false;
 
   //User
-  selectedFileUser?: FileList;
+  selectedFilesUser?: FileList;
   currentFileUploadUser?: FileUpload;
   urlUser: any;
-  filePreviewUser: any[] = [];
+  filePreviewUser: any;
   fileSelectedUser: boolean = false;
+  myFilesUser: File[] = [];;
 
   //THREAD
   selectedFilesThread?: FileList;
@@ -116,8 +117,6 @@ export class GeneralService {
     this.activeEditorIsUser = true;
   }
 
-
-
   selectFile(event: any): void {
     if (this.activeEditorIsThread) this.selectFileThread(event)
     if (this.activeEditorIsChannel) this.selectFileChannel(event)
@@ -141,7 +140,8 @@ export class GeneralService {
   }
 
   selectFileUser(event) {
-    this.selectedFileUser = event.target.files
+    this.selectedFilesUser = event.target.files
+    this.myFilesUser.push(this.selectedFilesUser.item(0))
     //show a preview of selected File
     this.filesPreview = [];
     if (event.target.files) {
@@ -198,16 +198,12 @@ export class GeneralService {
   }
 
   renderFilePreviewUser() {
-    this.filePreviewUser = [];
-    const file = this.selectedFileUser.item(0);
+    const file = this.selectedFilesUser.item(0);
     let reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = (event: any) => {
       this.urlUser = event.target.result;
-      let filePreview = {
-        url: this.urlUser
-      }
-      this.filePreviewUser.push(filePreview)
+      this.filePreviewUser = this.urlUser
     }
   }
 

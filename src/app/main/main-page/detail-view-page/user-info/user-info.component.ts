@@ -161,6 +161,11 @@ export class UserInfoComponent implements OnInit {
     this.changeUserDataNameFirestore();
     this.changeUserDataPhoneFirestore();
     this.closeProfileEdit();
+    if (this.generalService.selectedFilesUser) {
+      this.saveImgUserPhotoURL(this.generalService.myFilesUser[0].name);
+      this.authService.changeUserDataImg(this.generalService.myFilesUser[0].name)
+    }
+    if (this.generalService.selectedFilesUser) this.uploadImage();
   }
 
   profileEditSensitiveInfos() {
@@ -170,17 +175,18 @@ export class UserInfoComponent implements OnInit {
     this.editUserSensitive = !this.editUserSensitive;
   }
 
-  closeMoreSettings(){
+  closeMoreSettings() {
     this.checkIfPasswordChanged = false;
     this.editUserSensitive = !this.editUserSensitive;
   }
 
+  //Image upload in a folder which has the same name like the user uid
   uploadImage(): any {
     this.uploadService.basePathUser = this.activeUser.uid
-      const file: File | null = this.generalService.selectedFileUser.item(0);
-      this.currentFileUpload = new FileUpload(file);
-      this.uploadService.pushUserImageFileToStorage(this.currentFileUpload)
-
+    const file: File | null = this.generalService.myFilesUser[0]
+    this.generalService.selectedFilesUser = undefined;
+    this.currentFileUpload = new FileUpload(file);
+    this.uploadService.pushUserImageFileToStorage(this.currentFileUpload)
     this.generalService.myFiles.length = 0; //if set undefined, it runs into an error on next loading picture
   }
 }

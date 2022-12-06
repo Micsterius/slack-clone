@@ -26,6 +26,7 @@ export class UsersService {
       querySnapshot.forEach((doc) => {
         this.users.push(doc.data())
       })
+      this.getImagesForUsers()
     });
   }
 
@@ -50,7 +51,7 @@ export class UsersService {
   getImagesForUsers() {
     this.users.forEach(user => {
       let imageUrl = user.photoURL
-      getDownloadURL(ref(this.storage, 'uploads/' + imageUrl))
+      getDownloadURL(ref(this.storage, user.uid + '/' + imageUrl))
         .then((url) => {
           user.photoURL = `<img src="${url}" alt="">`;
         })
