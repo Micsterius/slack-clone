@@ -72,7 +72,7 @@ export class HeaderComponent implements OnInit {
     localStorage.setItem('backgroundColor', '#fff9f1');
   }
 
-  themeDark() {
+  themeDarkViolett() {
     document.documentElement.style.setProperty('--main-color', '#42324f');
     document.documentElement.style.setProperty('--secondary-color', '#afa1bd');
     document.documentElement.style.setProperty('--background-color', '#faf3fe');

@@ -14,8 +14,8 @@ import { UsersService } from './shared/services/users.service';
 export class AppComponent {
   app = initializeApp(environment.firebase);
   db = getFirestore(this.app);
-  windowWidth;
-  windowHeight;
+  windowWidth: number;
+  windowHeight: number;
 
   title = 'slack-clone';
   constructor(
