@@ -21,6 +21,7 @@ export class UsersService {
   imgUnknownWindow = '<img src="./../../../assets/img/userIcons/user-black.png" height="80px">';
   imgUnknownThread = '<img src="./../../../assets/img/userIcons/user-black.png" height="25px">';
   imgUnknownChannel = '<img src="./../../../assets/img/userIcons/user-black.png" height="40px">';
+  imgUnknownAddChannel = '<img src="./../../../assets/img/userIcons/user-black.png" height="20px">';
   constructor(
     public dialog: MatDialog
   ) { }
@@ -91,6 +92,12 @@ export class UsersService {
     else  return user.photoURLSidebar
   }
 
+  returnUsersPhotoUrlAddDialog(uid) {
+    let user = this.users.find(user => user.uid == uid)
+    if (user == undefined) return this.imgUnknownAddChannel
+    else  return user.photoURLAddDialog
+  }
+
   returnUsersPhotoUrlHeader(uid) {
     let user = this.users.find(user => user.uid == uid)
     if (user == undefined) return this.imgUnknownHeader
@@ -109,6 +116,7 @@ export class UsersService {
           user.photoURLProfile = `<img src="${url}" height="120px" class="image-url" alt="">`;
           user.photoURLSidebar = `<img src="${url}" height="25px" class="image-url" alt="">`;
           user.photoURLHeader = `<img src="${url}" height="30px" class="image-url" alt="">`;
+          user.photoURLAddDialog = `<img src="${url}" height="25px" class="image-url" alt="">`;
         })
         .catch((error) => {
           // A full list of error codes is available at
