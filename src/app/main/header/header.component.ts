@@ -42,7 +42,6 @@ export class HeaderComponent implements OnInit {
 
   adminCheckboxClick() {
     this.generalService.adminActive = !this.generalService.adminActive
-    console.log(this.generalService.adminActive)
   }
 
   themePink() {

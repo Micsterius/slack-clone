@@ -52,7 +52,6 @@ export class AuthService {
         JSON.parse(localStorage.getItem('user')!);
       }
     });
-    // console.log(this.userData)
   }
 
   // Sign in with email/password
@@ -119,7 +118,6 @@ export class AuthService {
   // Sign in with Google
   GoogleAuth() {
     return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
-      console.log('logged in via Google')
     });
   }
 
@@ -175,7 +173,6 @@ export class AuthService {
     updateEmail(this.userData, email)
       .then(() => {
         this.SendVerificationMail();
-        console.log('Mail updated');
       }).catch((error) => {
         window.alert(error.message);
       });
@@ -185,7 +182,6 @@ export class AuthService {
   changeUserDataPw(newPassword: string) {
     updatePassword(this.userData, newPassword)
       .then(() => {
-        console.log('Password updated');
         this.SignOut();
       }).catch((error) => {
         window.alert(error.message);
@@ -205,7 +201,6 @@ export class AuthService {
   changeUserDataImg(src) {
     updateProfile(this.userData, { photoURL: src })
       .then(() => {
-        console.log('Img updated');
       }).catch((error) => {
         window.alert(error.message);
       });
@@ -244,7 +239,6 @@ export class AuthService {
         .doc(this.userData.uid)
         .update({ isOnline: true })
         .then(() => {
-          console.log('User is logged in');
         }).catch((error) => {
           window.alert(error.message);
         });
@@ -273,7 +267,6 @@ export class AuthService {
         .doc(this.userData.uid)
         .update({ isOnline: false })
         .then(() => {
-          console.log('User is logged out');
         }).catch((error) => {});
     }
   }

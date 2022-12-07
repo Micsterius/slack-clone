@@ -114,7 +114,6 @@ export class UserInfoComponent implements OnInit {
         .doc(this.activeUser.uid)
         .update({ email: this.activeUser.email })
         .then(() => {
-          console.log('Mail updated');
         }).catch((error) => {
           window.alert(error.message);
         });
@@ -127,7 +126,6 @@ export class UserInfoComponent implements OnInit {
         .doc(this.authService.userData.uid)
         .update({ photoURL: src })
         .then(() => {
-          console.log('Image updated');
         }).catch((error) => {
           window.alert(error.message);
         });

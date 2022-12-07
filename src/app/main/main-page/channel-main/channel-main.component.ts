@@ -139,7 +139,6 @@ export class ChannelMainComponent implements OnInit {
     await this.setDocInFirestore(textId, idAdd, urlImage)
     this.message = '';
     this.generalService.fileSelected = false;
-    console.log(this.userService.users)
   }
 
   async setDocInFirestore(textId, idAdd, urlImage) {

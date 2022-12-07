@@ -35,7 +35,6 @@ export class ChatComponent implements OnInit {
 
   saveCurrentChatId(userChatId) {
     this.chatService.saveCurrentChatId(userChatId);
-    console.log(userChatId)
     this.generalService.scrollToBottomBoolean();
     if (this.generalService.mobilViewIsActive) this.generalService.showNextSlide = true;
   }
