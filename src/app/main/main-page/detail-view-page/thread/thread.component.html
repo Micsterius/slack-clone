@@ -38,7 +38,7 @@
                     </div>
                     <div class="post-img-box">
                         <div class="content-box" *ngFor="let postImage of channelService.currentThread.post.imageUrl">
-                            <div [innerHTML]="postImage"></div>
+                            <div class="smaller-img" [innerHTML]="postImage"></div>
                         </div>
                     </div>
 

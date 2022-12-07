@@ -8,6 +8,8 @@
     background-color: var(--secondary-color);
 }
 
+
+
 h2 {
     padding-top: 2px;
     margin-bottom: 2px;
@@ -95,7 +97,7 @@ h2 {
 
 .post-img-box {
     display: flex;
-    height: 25px;
+    // height: 25px;
 
     image {
         height: 25px;
@@ -115,6 +117,8 @@ h2 {
     top: 0;
     right: 0;
 }
+
+
 
 .img-file-preview-box {
     position: relative;

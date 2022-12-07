@@ -258,16 +258,10 @@ body {
     margin-bottom: 4px;
 
     img {
-        max-height: 190px;
+        max-height: 180px;
         object-fit: cover;
         width: 100%;
         height: auto;
-        // &:hover{
-        //     position: absolute;
-        //     width: auto;
-        //     height: auto;
-        //     z-index: 100;
-        // }
     }
 }
 
