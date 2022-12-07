@@ -9,8 +9,9 @@
                         <div #userImage class="user-img">
                             <div [innerHTML]="userService.returnUsersPhotoUrlAddDialog(user.author)">
                             </div>
+                            {{userService.returnUsersDisplayName(user.uid)}}
                         </div>
-                        {{userService.returnUsersDisplayName(user.uid)}}
+                        
                     </div>
                 </div>
             </div>
