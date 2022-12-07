@@ -223,7 +223,6 @@ export class AuthService {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        // ...
       });
   }
 
@@ -276,9 +275,7 @@ export class AuthService {
         .update({ isOnline: false })
         .then(() => {
           console.log('User is logged out');
-        }).catch((error) => {
-          // window.alert(error.message);
-        });
+        }).catch((error) => {});
     }
   }
 

@@ -17,24 +17,19 @@ import { environment } from 'src/environments/environment';
 })
 export class ThreadComponent implements OnInit {
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
-
   app = initializeApp(environment.firebase);
   db = getFirestore(this.app);
-
   answersForThread: any;
   answers: any[] = []
   message: any;
   actualUser: User;
   menuPositionY: any = 'below';
-
   selectedFilesThread?: FileList;
   currentFileUploadThread?: FileUpload;
   urlThread: any;
-
   filesPreviewThread: any[] = [];
   fileSelectedThread: boolean = false;
   hidden: boolean = true;
-
   myFilesThread: File[] = [];
 
   constructor(
@@ -44,8 +39,6 @@ export class ThreadComponent implements OnInit {
     private detailViewService: DetailViewPageService,
     private uploadService: FileUploadService
   ) {
-    /*  this.answersForThread = JSON.parse(localStorage.getItem('answersForThread')!);
-      this.answers = this.answersForThread.answers;*/
     this.actualUser = JSON.parse(localStorage.getItem('user')!)
   }
 

@@ -22,6 +22,7 @@ export class UsersService {
   imgUnknownThread = '<img src="./../../../assets/img/userIcons/user-black.png" height="25px">';
   imgUnknownChannel = '<img src="./../../../assets/img/userIcons/user-black.png" height="40px">';
   imgUnknownAddChannel = '<img src="./../../../assets/img/userIcons/user-black.png" height="20px">';
+  
   constructor(
     public dialog: MatDialog
   ) { }

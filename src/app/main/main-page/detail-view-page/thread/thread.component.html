@@ -41,7 +41,6 @@
                             <div class="smaller-img" [innerHTML]="postImage"></div>
                         </div>
                     </div>
-
                     <div class="content-box" [innerHTML]="channelService.currentThread.post.content"></div>
                 </div>
             </div>
@@ -63,7 +62,6 @@
                             (mouseleave)="generalService.mouseLeave(menuTrigger)">
                         </div>
                     </div>
-
                     <mat-menu #menu="matMenu" xPosition="after" [yPosition]="menuPositionY" [hasBackdrop]="false">
                         <div (mouseenter)="generalService.mouseEnter(menuTrigger)"
                             (mouseleave)="generalService.mouseLeave(menuTrigger)">
@@ -85,7 +83,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
         <div class="expand-more-editor-icon" *ngIf="!generalService.showEditorThread">
             <button (click)="generalService.expandEditorThread()">

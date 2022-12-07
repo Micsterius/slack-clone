@@ -19,10 +19,8 @@ export class ChatService {
   arrayOfUsersWithChat: any[] = [];
   currentChatId: any = '';
   messages: any[] = [];
-
   testArray: any[] = [];
   showChat: boolean = false;
-
   storage = getStorage();
 
   constructor(private router: Router,

@@ -13,10 +13,8 @@
     </div>
     <!-- Show user data when logged in -->
     <div *ngIf="authService.userData">
-
       <div class="img-box" *ngIf="!editUser" [innerHTML]="usersService.returnUsersPhotoUrlProfile(activeUser.uid)">
       </div>
-
       <div>
         <div class="img-user-box" *ngIf="editUser">
           <img *ngIf="generalService.fileSelectedUser" (click)="editUserImg = true" src="{{(generalService.filePreviewUser) ? (generalService.filePreviewUser) : 'user-black.png'}}">
@@ -28,7 +26,6 @@
             <input id="file-input" type="file" class="user-info-input" (change)="generalService.selectFile($event)" />
           </button>
         </div>
-
         <div *ngIf="editUserImg" class="swiper-container">
           <swiper [navigation]="true" [pagination]="true" class="mySwiper">
             <ng-template swiperSlide *ngFor="let image of images">
@@ -59,7 +56,6 @@
           <div class="user-detail-box">
             <p><strong>UserId:</strong> <span> {{(activeUser.uid) ? activeUser.uid : 'uid'}}</span></p>
           </div>
-
           <div class="user-detail-box">
             <p><strong>Telefon:</strong> <span *ngIf="!editUser">
                 {{usersService.returnUsersPhoneNumber(activeUser.uid)}}</span></p>
@@ -72,7 +68,6 @@
             <p><strong>E-Mail verified:</strong> <span> {{(activeUser.emailVerified) ? activeUser.emailVerified :
                 'false'}}</span></p>
           </div>
-
           <h1 class="headline-user-profile color-main fs18">More settings
             <mat-icon *ngIf="!editUserSensitive" fontIcon="edit" (click)="editUserSensitive = !editUserSensitive">
             </mat-icon>
@@ -88,7 +83,6 @@
               <mat-error *ngIf="authService.email.invalid">{{authService.getErrorMessage()}}</mat-error>
             </mat-form-field>
           </div>
-
           <div class="user-detail-box">
             <div>
               <p><strong>Passwort:</strong> <span *ngIf="!editUserSensitive"> **********</span></p>
@@ -102,10 +96,8 @@
                   {{authService.getErrorMessage()}}</mat-error>
               </mat-form-field>
             </div>
-
           </div>
         </div>
-
       </div>
     </div>
   </div>

@@ -23,7 +23,6 @@ export class ChannelMainComponent implements OnInit {
 
   app = initializeApp(environment.firebase);
   db = getFirestore(this.app);
-
   name: string = '';
   currentChannel: any;
   posts: any[] = [];
@@ -31,16 +30,13 @@ export class ChannelMainComponent implements OnInit {
   currentChannelId: string = '';
   message: any;
   actualUser: User;
-
   menuPositionY: any = 'below';
   selectedFiles?: FileList;
   currentFileUpload?: FileUpload;
   url: any;
-
   filesPreview: any[] = [];
   fileSelected: boolean = false;
   hidden: boolean = true;
-
   myFiles: File[] = [];
 
   constructor(

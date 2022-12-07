@@ -244,7 +244,6 @@ export class GeneralService {
     }
   }
 
-
   expandEditorChannel() {
     this.showEditorChannel = !this.showEditorChannel
   }

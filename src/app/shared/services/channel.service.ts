@@ -35,7 +35,6 @@ export class ChannelService {
 
   //get current channel from sideboard
   saveCurrentChannel(channel) {
-    // localStorage.setItem('currentChannel', channelId);
     this.currentChannel = channel;
     this.loadChannel();
   }

@@ -32,7 +32,6 @@ export class AddChatDialogComponent implements OnInit {
     this.chatService.saveCurrentChatId(userChatId);
     console.log(userChatId)
     this.generalService.scrollToBottomBoolean();
-    //  localStorage.setItem('userChat', JSON.stringify(this.chatServ.currentUserChat));
     this.dialogRef.close();
   }
 

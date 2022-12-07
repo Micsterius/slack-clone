@@ -36,7 +36,6 @@ export class UserWindowComponent implements OnInit {
     this.detailViewService.showUserInfo = false;
     this.detailViewService.showThread = false;
     this.detailViewService.showOtherUserInfo = true;
-
     this.detailViewService.userToShow = this.uid;
     if (this.generalService.mobilViewIsActive) this.generalService.showNextSlide = true;
   }
