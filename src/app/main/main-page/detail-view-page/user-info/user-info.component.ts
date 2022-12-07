@@ -102,7 +102,6 @@ export class UserInfoComponent implements OnInit {
         .doc(this.activeUser.uid)
         .update({ displayName: this.activeUser.displayName })
         .then(() => {
-          console.log('Name updated');
         }).catch((error) => {
           window.alert(error.message);
         });

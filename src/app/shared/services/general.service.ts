@@ -126,7 +126,6 @@ export class GeneralService {
 
   selectFileChannel(event) {
     this.selectedFiles = event.target.files
-    console.log(this.selectedFiles)
     for (var i = 0; i < this.selectedFiles.length; i++) {
       this.myFiles.push(this.selectedFiles.item(i));
     }

@@ -62,7 +62,7 @@ export class FileUploadService {
       .then(() => {
         this.deleteFileStorage(fileUpload.name);
       })
-      .catch(error => console.log(error));
+      .catch();
   }
 
   private deleteFileDatabase(key: string): Promise<void> {

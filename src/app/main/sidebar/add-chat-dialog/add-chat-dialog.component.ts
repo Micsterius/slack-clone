@@ -30,7 +30,6 @@ export class AddChatDialogComponent implements OnInit {
 
   async goToChat(userChatId) {
     this.chatService.saveCurrentChatId(userChatId);
-    console.log(userChatId)
     this.generalService.scrollToBottomBoolean();
     this.dialogRef.close();
   }

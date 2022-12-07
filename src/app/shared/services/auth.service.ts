@@ -196,7 +196,6 @@ export class AuthService {
   changeUserDataName(userName) {
     updateProfile(this.userData, { displayName: userName })
       .then(() => {
-        console.log('Name updated');
       }).catch((error) => {
         window.alert(error.message);
       });
