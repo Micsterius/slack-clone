@@ -1,5 +1,5 @@
 <div class="header-top">
-    <div class="icon-header-home admin-mode">
+    <div *ngIf="actualUser.emailVerified" class="icon-header-home admin-mode">
         <input matTooltip="Feel like a god ;)" type="checkbox" (click)="adminCheckboxClick()">
         <div matTooltip="Feel like a god ;)">Admin modus</div>
     </div>
