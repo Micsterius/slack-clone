@@ -14,7 +14,7 @@ export class UsersService {
   users: any[] = [];
   usersAdditionalInfos: any[] = [];
   storage = getStorage();
-  imgUnknownHeader = '<img src="./../../../assets/img/userIcons/user-white.png" height="30px">';
+  imgUnknownHeader = '<img src="./../../../assets/img/userIcons/user-white.png" height="20px">';
   imgUnknownProfile = '<img src="./../../../assets/img/userIcons/user-black.png" height="120px">';
   imgUnknownSidebar = '<img src="./../../../assets/img/userIcons/user-black.png" height="25px">';
   imgUnknownInfo = '<img src="./../../../assets/img/userIcons/user-black.png" height="160px">';
