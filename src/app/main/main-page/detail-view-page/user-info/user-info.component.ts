@@ -36,13 +36,10 @@ export class UserInfoComponent implements OnInit {
   editUserPw: boolean = false;
   editUserImg: boolean = false;
   editUserPhone: boolean = false;
-
   editUser: boolean = false;
   editUserSensitive: boolean = false;
-
   activeUser;
   showUserDetails: boolean = false;
-
   checkIfPasswordChanged: boolean = false;
   currentFileUpload?: FileUpload;
 

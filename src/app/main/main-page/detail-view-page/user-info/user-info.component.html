@@ -6,7 +6,7 @@
   <div class="dashboard-container">
     <div class="pt-3 pb-2 mb-3 border-bottom">
       <h1 class="headline-user-profile color-main fs18">Profile settings
-        <mat-icon *ngIf="!editUser" fontIcon="edit" (click)="editProfile()"></mat-icon>
+        <mat-icon *ngIf="!editUser && activeUser.emailVerified" fontIcon="edit" (click)="editProfile()"></mat-icon>
         <mat-icon *ngIf="editUser" (click)="saveProfileEdit()">save</mat-icon>
         <mat-icon *ngIf="editUser" (click)="closeProfileEdit()">cancel</mat-icon>
       </h1>
@@ -68,13 +68,14 @@
             <p><strong>E-Mail verified:</strong> <span> {{(activeUser.emailVerified) ? activeUser.emailVerified :
                 'false'}}</span></p>
           </div>
-          <h1 class="headline-user-profile color-main fs18">More settings
+          <!-- Verified user -->
+          <h1 *ngIf="activeUser.emailVerified" class="headline-user-profile color-main fs18">More settings
             <mat-icon *ngIf="!editUserSensitive" fontIcon="edit" (click)="editUserSensitive = !editUserSensitive">
             </mat-icon>
             <mat-icon *ngIf="editUserSensitive" (click)="profileEditSensitiveInfos()">save</mat-icon>
             <mat-icon *ngIf="editUserSensitive" (click)="closeMoreSettings()">cancel</mat-icon>
           </h1>
-          <div class="user-detail-box">
+          <div *ngIf="activeUser.emailVerified" class="user-detail-box">
             <p><strong>E-Mail:</strong><span *ngIf="!editUserSensitive"> {{(activeUser.email) ? activeUser.email :
                 'E-Mail'}}</span></p>
             <mat-form-field appearance="fill" *ngIf="editUserSensitive">
@@ -83,7 +84,7 @@
               <mat-error *ngIf="authService.email.invalid">{{authService.getErrorMessage()}}</mat-error>
             </mat-form-field>
           </div>
-          <div class="user-detail-box">
+          <div *ngIf="activeUser.emailVerified" class="user-detail-box">
             <div>
               <p><strong>Passwort:</strong> <span *ngIf="!editUserSensitive"> **********</span></p>
             </div>
