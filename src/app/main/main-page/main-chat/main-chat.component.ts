@@ -23,7 +23,7 @@ export class MainChatComponent implements OnInit {
   currentChatId;
   messages: any[] = [];
   showChat: boolean = false;
-  message: any;
+  message: string = '';
   actualUser: User;
 
   currentFileUploadChat?: FileUpload;

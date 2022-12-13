@@ -21,7 +21,7 @@ export class ThreadComponent implements OnInit {
   db = getFirestore(this.app);
   answersForThread: any;
   answers: any[] = []
-  message: any;
+  message: string = '';
   actualUser: User;
   menuPositionY: any = 'below';
   selectedFilesThread?: FileList;
