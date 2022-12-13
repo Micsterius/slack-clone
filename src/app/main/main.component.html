@@ -11,7 +11,9 @@
             <div class="w100 bg-c-white">
                 <router-outlet></router-outlet>
             </div>
-            <div class="bg-c-white detail-view-head-container">
+            <div class="bg-c-white detail-view-head-container" [ngStyle]="{'display':(!detailService.showOtherUserInfo && !detailService.showThread && !detailService.showUserInfo) ? 'none' : 'block'}">
+                <mat-icon (click)="closeDetailView()" class="close-icon-detail-view" fontIcon="close">
+                </mat-icon>
                 <app-detail-view-page></app-detail-view-page>
             </div>
 

@@ -27,9 +27,21 @@
 .detail-view-head-container {
     width: 370px;
     height: calc(100vh - 100px);
+    position: relative;
 }
 
 .sidebar-app-container{
     overflow-y: auto;
     min-width: 180px;
+}
+
+.close-icon-detail-view{
+    position: absolute;
+    right: 8px;
+    top: 6px;
+
+    &:hover{
+        border: 1px solid black;
+        border-radius: 4px;
+    }
 }
