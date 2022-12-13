@@ -28,7 +28,7 @@ export class ChannelMainComponent implements OnInit {
   posts: any[] = [];
   showChannel: boolean = true;
   currentChannelId: string = '';
-  message: any;
+  message: string = '';
   actualUser: User;
   menuPositionY: any = 'below';
   selectedFiles?: FileList;

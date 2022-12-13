@@ -128,6 +128,11 @@ mat-icon {
     }
 }
 
+.color-gray{
+    color: gray;
+    cursor: not-allowed;
+}
+
 .authBlock {
     display: flex;
     flex-direction: column;

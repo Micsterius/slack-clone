@@ -126,8 +126,8 @@
                 toolbar1: 'undo redo | bold italic | emoticons'
                  }">
                 </editor>
-                <button class="button" (click)="sendMessage()">
-                    <mat-icon mat-icon-button fontIcon="send" class="color-main-with-hover"></mat-icon>
+                <button class="button"  [disabled]="message.length == 0" (click)="sendMessage()">
+                    <mat-icon mat-icon-button fontIcon="send" [ngClass]="message.length == 0 ? 'color-gray' : 'color-main-with-hover'"></mat-icon>
                 </button>
                 <div class="upload-container">
                     <label for="file-input">
