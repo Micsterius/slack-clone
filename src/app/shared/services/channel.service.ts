@@ -20,6 +20,9 @@ export class ChannelService {
   showChannel: boolean = false;
   showAnswers: boolean = false;
   currentThread: any;
+  tryImgSearchInStorageAgain: boolean = false;
+  counter: number = 0;
+
   constructor() { }
 
   //load all channels as observables which will be run again if in firestore collection sth change
@@ -106,7 +109,7 @@ export class ChannelService {
           answers.push(doc.data())
           this.posts[i].answers = answers;
         })
-        if(this.posts[i].answers.length > 0) this.loadImagesToAnswers(i)
+        if (this.posts[i].answers.length > 0) this.loadImagesToAnswers(i)
       });
     }
   }

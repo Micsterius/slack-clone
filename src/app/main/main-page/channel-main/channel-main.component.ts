@@ -136,7 +136,8 @@ export class ChannelMainComponent implements OnInit {
       this.upload();
       this.generalService.filesPreview.length = 0;
     }
-    await this.setDocInFirestore(textId, idAdd, urlImage)
+    this.checkIfUploadDone(textId, idAdd, urlImage);
+
     this.message = '';
     this.generalService.fileSelected = false;
   }
@@ -151,4 +152,39 @@ export class ChannelMainComponent implements OnInit {
         imageUrl: urlImage
       })
   }
+  storage = getStorage();
+
+  checkIfUploadDone(textId, idAdd, urlImage) {
+    for (let i = 0; i < urlImage.length; i++) {
+      const imageUrl = urlImage[i];
+      getDownloadURL(ref(this.storage, 'uploads/' + imageUrl))
+        .then(async (url) => {
+          if (i == urlImage.length - 1) {
+            await this.setDocInFirestore(textId, idAdd, urlImage)
+          };
+        })
+        .catch((error) => {
+          // A full list of error codes is available at
+          // https://firebase.google.com/docs/storage/web/handle-errors
+          switch (error.code) {
+            case 'storage/object-not-found':
+              setTimeout(() => {
+                this.checkIfUploadDone(textId, idAdd, urlImage);
+              }, 2000);
+              break;
+            case 'storage/unauthorized':
+              // User doesn't have permission to access the object
+              break;
+            case 'storage/canceled':
+              // User canceled the upload
+              break;
+            // ...
+            case 'storage/unknown':
+              // Unknown error occurred, inspect the server response
+              break;
+          }
+        });
+    }
+  }
+
 }
