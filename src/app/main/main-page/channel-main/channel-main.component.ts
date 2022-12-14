@@ -23,6 +23,8 @@ export class ChannelMainComponent implements OnInit {
 
   app = initializeApp(environment.firebase);
   db = getFirestore(this.app);
+  storage = getStorage();
+  
   name: string = '';
   currentChannel: any;
   posts: any[] = [];
@@ -138,8 +140,7 @@ export class ChannelMainComponent implements OnInit {
     }
     this.checkIfUploadDone(textId, idAdd, urlImage);
 
-    this.message = '';
-    this.generalService.fileSelected = false;
+
   }
 
   async setDocInFirestore(textId, idAdd, urlImage) {
@@ -151,8 +152,10 @@ export class ChannelMainComponent implements OnInit {
         timeStamp: textId,
         imageUrl: urlImage
       })
+
+      this.message = '';
+      this.generalService.fileSelected = false;
   }
-  storage = getStorage();
 
   checkIfUploadDone(textId, idAdd, urlImage) {
     for (let i = 0; i < urlImage.length; i++) {
