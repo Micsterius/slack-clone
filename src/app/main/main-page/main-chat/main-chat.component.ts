@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { initializeApp } from 'firebase/app';
 import { User } from 'firebase/auth';
 import { collection, doc, getFirestore, onSnapshot, query, setDoc } from 'firebase/firestore';
+import { getDownloadURL, getStorage, ref, uploadBytes, uploadBytesResumable } from 'firebase/storage';
 import { FileUpload } from 'src/app/models/file-upload.model';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ChatService } from 'src/app/shared/services/chat.service';
@@ -20,6 +21,9 @@ export class MainChatComponent implements OnInit {
 
   app = initializeApp(environment.firebase);
   db = getFirestore(this.app);
+  storage = getStorage();
+  private basePath = '/uploads';
+
   currentChatId;
   messages: any[] = [];
   showChat: boolean = false;
@@ -65,23 +69,25 @@ export class MainChatComponent implements OnInit {
     let urlImage = [];
     this.generalService.myFilesChat.forEach(file => urlImage.push(file.name))
     if (this.generalService.selectedFilesChat) {
-      this.upload();
+      this.upload(textId, idAdd, urlImage);
       this.generalService.filesPreviewChat.length = 0;
     }
-    await this.setDocInFirestore(textId, idAdd, urlImage)
-    this.message = '';
-    this.generalService.fileSelectedChat = false;
+    else this.setDocInFirestore(textId, idAdd, urlImage)
+    
+
   }
 
-  async setDocInFirestore(textId, idAdd, urlImage){
+  async setDocInFirestore(textId, idAdd, urlImage) {
     await setDoc(doc(this.db, "posts", this.chatService.currentChatId, "texts", `${textId + idAdd}`),
-    {
-      content: this.message,
-      author: this.actualUser.uid,
-      id: `${textId + idAdd}`,
-      timeStamp: textId,
-      imageUrl: urlImage
-    })
+      {
+        content: this.message,
+        author: this.actualUser.uid,
+        id: `${textId + idAdd}`,
+        timeStamp: textId,
+        imageUrl: urlImage
+      })
+    this.message = '';
+    this.generalService.fileSelectedChat = false;
   }
 
   deleteSelectedFile(position) {
@@ -90,13 +96,48 @@ export class MainChatComponent implements OnInit {
     else this.generalService.fileSelectedChat = false;
   }
 
-  upload(): any {
+  async upload(textId, idAdd, urlImage): Promise<any> {
     for (let i = 0; i < this.generalService.myFilesChat.length; i++) {
       const file: File | null = this.generalService.myFilesChat[i];
       this.currentFileUploadChat = new FileUpload(file);
-      this.uploadService.pushFileToStorage(this.currentFileUploadChat)
+      this.pushFileToStorage(this.currentFileUploadChat, i, this.generalService.myFilesChat.length, textId, idAdd, urlImage)
     }
     this.generalService.myFilesThread.length = 0; //if set undefined, it runs into an error on next loading picture
   }
 
+  pushFileToStorage(fileUpload: FileUpload, currentFile, totalNbrOfFiles, textId, idAdd, urlImage) {
+    const filePath = `${this.basePath}/${fileUpload.file.name}`;
+    const storageRef = ref(this.storage, filePath);
+    const uploadTask = uploadBytesResumable(storageRef, fileUpload.file);
+    uploadBytes(storageRef, fileUpload.file).then((snapshot) => {
+      console.log('Uploaded a blob or file!');
+    });
+
+    uploadTask.on('state_changed',
+      (snapshot) => {
+        // Observe state change events such as progress, pause, and resume
+        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log('Upload is ' + progress + '% done');
+        switch (snapshot.state) {
+          case 'paused':
+            console.log('Upload is paused');
+            break;
+          case 'running':
+            console.log('Upload is running');
+            break;
+        }
+      },
+      (error) => {
+        // Handle unsuccessful uploads
+      },
+      () => {
+        // Handle successful uploads on complete
+        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          if (currentFile + 1 == totalNbrOfFiles) this.setDocInFirestore(textId, idAdd, urlImage)
+        });
+      }
+    );
+  }
 }
