@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { initializeApp } from 'firebase/app';
 import { User } from 'firebase/auth';
 import { collection, deleteDoc, doc, getDocs, getFirestore, setDoc } from 'firebase/firestore';
+import { getDownloadURL } from 'firebase/storage';
 import { FileUpload } from 'src/app/models/file-upload.model';
 import { ChannelService } from 'src/app/shared/services/channel.service';
 import { DetailViewPageService } from 'src/app/shared/services/detail-view-page.service';
@@ -76,27 +77,28 @@ export class ThreadComponent implements OnInit {
   async sendMessage() {
     let textId = Math.round(new Date().getTime() / 1000);
     let idAdd = Math.random().toString(16).substr(2, 6)
-    let urlImage = [];
-    this.generalService.myFilesThread.forEach(file => urlImage.push(file.name))
+    let allDownloadUrls = [];
     let name = this.getNameOfAuthor();
+
     if (this.generalService.selectedFilesThread) {//if files are there for upload
-      this.upload();
+      allDownloadUrls = await this.upload();
       this.generalService.filesPreviewThread.length = 0;
     }
-    await this.setDocInFirestore(textId, idAdd, urlImage, name)
+    await this.setDocInFirestore(textId, idAdd, allDownloadUrls, name)
     this.message = '';
     this.generalService.fileSelectedThread = false;
   }
 
-  async setDocInFirestore(textId, idAdd, urlImage, name) {
+  async setDocInFirestore(textId, idAdd, allDownloadUrls, name) {
     await setDoc(doc(this.db, "channel", this.channelService.currentChannel.id, "posts", this.channelService.currentThread.post.id, "answers", `${textId + idAdd}`),
       {
         content: this.message,
         author: this.actualUser.uid,
         id: `${textId + idAdd}`,
         timeStamp: textId,
-        imageUrl: urlImage
+        imageUrl: allDownloadUrls
       })
+    console.log(allDownloadUrls)
   }
 
   getNameOfAuthor() {
@@ -119,12 +121,16 @@ export class ThreadComponent implements OnInit {
     else this.generalService.fileSelectedThread = false;
   }
 
-  upload(): any {
+  async upload() {
+    let allDownloadUrls = [];
     for (let i = 0; i < this.generalService.myFilesThread.length; i++) {
       const file: File | null = this.generalService.myFilesThread[i];
       this.currentFileUploadThread = new FileUpload(file);
-      this.uploadService.pushFileToStorage(this.currentFileUploadThread)
+      const downloadURL = await this.uploadService.pushFileToStorage(this.currentFileUploadThread);
+      allDownloadUrls.push(downloadURL)
     }
     this.generalService.myFilesThread.length = 0; //if set undefined, it runs into an error on next loading picture
+    console.log(allDownloadUrls)
+    return allDownloadUrls;
   }
 }
