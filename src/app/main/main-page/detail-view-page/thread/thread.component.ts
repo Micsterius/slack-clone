@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { initializeApp } from 'firebase/app';
 import { User } from 'firebase/auth';
 import { collection, deleteDoc, doc, getDocs, getFirestore, setDoc } from 'firebase/firestore';
-import { getDownloadURL } from 'firebase/storage';
+import { getDownloadURL, getStorage, ref, uploadBytes, uploadBytesResumable } from 'firebase/storage';
 import { FileUpload } from 'src/app/models/file-upload.model';
 import { ChannelService } from 'src/app/shared/services/channel.service';
 import { DetailViewPageService } from 'src/app/shared/services/detail-view-page.service';
@@ -20,6 +20,8 @@ export class ThreadComponent implements OnInit {
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
   app = initializeApp(environment.firebase);
   db = getFirestore(this.app);
+  storage = getStorage();
+  
   answersForThread: any;
   answers: any[] = []
   message: string = '';
@@ -32,6 +34,7 @@ export class ThreadComponent implements OnInit {
   fileSelectedThread: boolean = false;
   hidden: boolean = true;
   myFilesThread: File[] = [];
+  private basePath = '/uploads';
 
   constructor(
     public channelService: ChannelService,
@@ -77,33 +80,25 @@ export class ThreadComponent implements OnInit {
   async sendMessage() {
     let textId = Math.round(new Date().getTime() / 1000);
     let idAdd = Math.random().toString(16).substr(2, 6)
-    let allDownloadUrls = [];
-    let name = this.getNameOfAuthor();
-
+    let urlImage = [];
+    this.generalService.myFilesThread.forEach(file => urlImage.push(file.name))
     if (this.generalService.selectedFilesThread) {//if files are there for upload
-      allDownloadUrls = await this.upload();
+      this.upload(textId, idAdd, urlImage);
       this.generalService.filesPreviewThread.length = 0;
     }
-    await this.setDocInFirestore(textId, idAdd, allDownloadUrls, name)
-    this.message = '';
-    this.generalService.fileSelectedThread = false;
   }
 
-  async setDocInFirestore(textId, idAdd, allDownloadUrls, name) {
+  async setDocInFirestore(textId, idAdd, urlImage) {
     await setDoc(doc(this.db, "channel", this.channelService.currentChannel.id, "posts", this.channelService.currentThread.post.id, "answers", `${textId + idAdd}`),
       {
         content: this.message,
         author: this.actualUser.uid,
         id: `${textId + idAdd}`,
         timeStamp: textId,
-        imageUrl: allDownloadUrls
+        imageUrl: urlImage
       })
-    console.log(allDownloadUrls)
-  }
-
-  getNameOfAuthor() {
-    if (this.actualUser.displayName) return this.actualUser.displayName;
-    else return 'Anonym'
+      this.message = '';
+      this.generalService.fileSelectedThread = false;
   }
 
   getPosition(e) {
@@ -121,16 +116,48 @@ export class ThreadComponent implements OnInit {
     else this.generalService.fileSelectedThread = false;
   }
 
-  async upload() {
-    let allDownloadUrls = [];
+  upload(textId, idAdd, urlImage): any {
     for (let i = 0; i < this.generalService.myFilesThread.length; i++) {
       const file: File | null = this.generalService.myFilesThread[i];
       this.currentFileUploadThread = new FileUpload(file);
-      const downloadURL = await this.uploadService.pushFileToStorage(this.currentFileUploadThread);
-      allDownloadUrls.push(downloadURL)
+      this.pushFileToStorage(this.currentFileUploadThread, i, this.generalService.myFilesThread.length, textId, idAdd, urlImage)
     }
-    this.generalService.myFilesThread.length = 0; //if set undefined, it runs into an error on next loading picture
-    console.log(allDownloadUrls)
-    return allDownloadUrls;
+    this.generalService.myFiles.length = 0; //if set undefined, it runs into an error on next loading picture
+  }
+
+  pushFileToStorage(fileUpload: FileUpload, currentFile, totalNbrOfFiles, textId, idAdd, urlImage) {
+    const filePath = `${this.basePath}/${fileUpload.file.name}`;
+    const storageRef = ref(this.storage, filePath);
+    const uploadTask = uploadBytesResumable(storageRef, fileUpload.file);
+    uploadBytes(storageRef, fileUpload.file).then((snapshot) => {
+      console.log('Uploaded a blob or file!');
+    });
+
+    uploadTask.on('state_changed',
+      (snapshot) => {
+        // Observe state change events such as progress, pause, and resume
+        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log('Upload is ' + progress + '% done');
+        switch (snapshot.state) {
+          case 'paused':
+            console.log('Upload is paused');
+            break;
+          case 'running':
+            console.log('Upload is running');
+            break;
+        }
+      },
+      (error) => {
+        // Handle unsuccessful uploads
+      },
+      () => {
+        // Handle successful uploads on complete
+        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          if (currentFile + 1 == totalNbrOfFiles) this.setDocInFirestore(textId, idAdd, urlImage)
+        });
+      }
+    );
   }
 }

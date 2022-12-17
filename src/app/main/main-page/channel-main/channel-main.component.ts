@@ -81,7 +81,6 @@ export class ChannelMainComponent implements OnInit {
     for (let i = 0; i < this.generalService.myFiles.length; i++) {
       const file: File | null = this.generalService.myFiles[i];
       this.currentFileUpload = new FileUpload(file);
-      this.uploadService.pushFileToStorage(this.currentFileUpload)
       this.pushFileToStorage(this.currentFileUpload, i, this.generalService.myFiles.length, textId, idAdd, urlImage)
     }
     this.generalService.myFiles.length = 0; //if set undefined, it runs into an error on next loading picture
