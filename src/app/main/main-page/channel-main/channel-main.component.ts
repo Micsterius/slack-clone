@@ -10,7 +10,7 @@ import { GeneralService } from 'src/app/shared/services/general.service';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { environment } from 'src/environments/environment';
 import { MatButtonModule } from '@angular/material/button';
-import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import { getStorage, ref, getDownloadURL, uploadBytes, uploadBytesResumable } from "firebase/storage";
 import { BidiModule } from '@angular/cdk/bidi';
 
 @Component({
@@ -40,6 +40,7 @@ export class ChannelMainComponent implements OnInit {
   fileSelected: boolean = false;
   hidden: boolean = true;
   myFiles: File[] = [];
+  private basePath = '/uploads';
 
   constructor(
     public channelServ: ChannelService,
@@ -76,11 +77,12 @@ export class ChannelMainComponent implements OnInit {
     else this.generalService.fileSelected = false;
   }
 
-  upload(): any {
+  upload(textId, idAdd, urlImage): any {
     for (let i = 0; i < this.generalService.myFiles.length; i++) {
       const file: File | null = this.generalService.myFiles[i];
       this.currentFileUpload = new FileUpload(file);
       this.uploadService.pushFileToStorage(this.currentFileUpload)
+      this.pushFileToStorage(this.currentFileUpload, i, this.generalService.myFiles.length, textId, idAdd, urlImage)
     }
     this.generalService.myFiles.length = 0; //if set undefined, it runs into an error on next loading picture
   }
@@ -135,12 +137,9 @@ export class ChannelMainComponent implements OnInit {
     let urlImage = [];
     this.generalService.myFiles.forEach(file => urlImage.push(file.name))
     if (this.generalService.selectedFiles) {
-      this.upload();
+      this.upload(textId, idAdd, urlImage);
       this.generalService.filesPreview.length = 0;
     }
-    this.checkIfUploadDone(textId, idAdd, urlImage);
-
-
   }
 
   async setDocInFirestore(textId, idAdd, urlImage) {
@@ -157,37 +156,40 @@ export class ChannelMainComponent implements OnInit {
       this.generalService.fileSelected = false;
   }
 
-  checkIfUploadDone(textId, idAdd, urlImage) {
-    for (let i = 0; i < urlImage.length; i++) {
-      const imageUrl = urlImage[i];
-      getDownloadURL(ref(this.storage, 'uploads/' + imageUrl))
-        .then(async (url) => {
-          if (i == urlImage.length - 1) {
-            await this.setDocInFirestore(textId, idAdd, urlImage)
-          };
-        })
-        .catch((error) => {
-          // A full list of error codes is available at
-          // https://firebase.google.com/docs/storage/web/handle-errors
-          switch (error.code) {
-            case 'storage/object-not-found':
-              setTimeout(() => {
-                this.checkIfUploadDone(textId, idAdd, urlImage);
-              }, 2000);
-              break;
-            case 'storage/unauthorized':
-              // User doesn't have permission to access the object
-              break;
-            case 'storage/canceled':
-              // User canceled the upload
-              break;
-            // ...
-            case 'storage/unknown':
-              // Unknown error occurred, inspect the server response
-              break;
-          }
+  pushFileToStorage(fileUpload: FileUpload, currentFile, totalNbrOfFiles, textId, idAdd, urlImage) {
+    const filePath = `${this.basePath}/${fileUpload.file.name}`;
+    const storageRef = ref(this.storage, filePath);
+    const uploadTask = uploadBytesResumable(storageRef, fileUpload.file);
+    uploadBytes(storageRef, fileUpload.file).then((snapshot) => {
+      console.log('Uploaded a blob or file!');
+    });
+
+    uploadTask.on('state_changed',
+      (snapshot) => {
+        // Observe state change events such as progress, pause, and resume
+        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log('Upload is ' + progress + '% done');
+        switch (snapshot.state) {
+          case 'paused':
+            console.log('Upload is paused');
+            break;
+          case 'running':
+            console.log('Upload is running');
+            break;
+        }
+      },
+      (error) => {
+        // Handle unsuccessful uploads
+      },
+      () => {
+        // Handle successful uploads on complete
+        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          if (currentFile + 1 == totalNbrOfFiles) this.setDocInFirestore(textId, idAdd, urlImage)
         });
-    }
+      }
+    );
   }
 
 }
