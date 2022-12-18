@@ -15,6 +15,7 @@ import { FileUpload } from 'src/app/models/file-upload.model';
 
 // import Swiper core and required modules
 import SwiperCore, { Pagination, Navigation, Keyboard, Virtual } from "swiper";
+import { getDownloadURL, getStorage, ref, uploadBytes, uploadBytesResumable } from 'firebase/storage';
 
 // install Swiper modules
 SwiperCore.use([Keyboard, Pagination, Navigation, Virtual]);
@@ -29,6 +30,7 @@ export class UserInfoComponent implements OnInit {
 
   app = initializeApp(environment.firebase);
   db = getFirestore(this.app);
+  storage = getStorage();
 
   editUserName: boolean = false;
   editUserId: boolean = false;
@@ -42,6 +44,7 @@ export class UserInfoComponent implements OnInit {
   showUserDetails: boolean = false;
   checkIfPasswordChanged: boolean = false;
   currentFileUpload?: FileUpload;
+  private basePathUser: string = '';
 
   @Input() newName: any;
   @Input() newMail: any;
@@ -80,6 +83,7 @@ export class UserInfoComponent implements OnInit {
     private uploadService: FileUploadService
   ) {
     this.activeUser = JSON.parse(localStorage.getItem('user')!);
+    this.basePathUser = this.activeUser.uid
     this.loadTelephoneNbr()
   }
 
@@ -155,10 +159,6 @@ export class UserInfoComponent implements OnInit {
     this.changeUserDataNameFirestore();
     this.changeUserDataPhoneFirestore();
     this.closeProfileEdit();
-    if (this.generalService.selectedFilesUser) {
-      this.saveImgUserPhotoURL(this.generalService.myFilesUser[0].name);
-      this.authService.changeUserDataImg(this.generalService.myFilesUser[0].name)
-    }
     if (this.generalService.selectedFilesUser) this.uploadImage();
   }
 
@@ -180,7 +180,44 @@ export class UserInfoComponent implements OnInit {
     const file: File | null = this.generalService.myFilesUser[0]
     this.generalService.selectedFilesUser = undefined;
     this.currentFileUpload = new FileUpload(file);
-    this.uploadService.pushUserImageFileToStorage(this.currentFileUpload)
+    this.pushFileToStorage(this.currentFileUpload)
     this.generalService.myFiles.length = 0; //if set undefined, it runs into an error on next loading picture
+  }
+
+  pushFileToStorage(fileUpload: FileUpload) {
+    const filePath = `${this.basePathUser}/${fileUpload.file.name}`;
+    const storageRef = ref(this.storage, filePath);
+    const uploadTask = uploadBytesResumable(storageRef, fileUpload.file);
+    uploadBytes(storageRef, fileUpload.file).then((snapshot) => {
+      console.log('Uploaded a blob or file!');
+    });
+
+    uploadTask.on('state_changed',
+      (snapshot) => {
+        // Observe state change events such as progress, pause, and resume
+        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log('Upload is ' + progress + '% done');
+        switch (snapshot.state) {
+          case 'paused':
+            console.log('Upload is paused');
+            break;
+          case 'running':
+            console.log('Upload is running');
+            break;
+        }
+      },
+      (error) => {
+        // Handle unsuccessful uploads
+      },
+      () => {
+        // Handle successful uploads on complete
+        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          this.saveImgUserPhotoURL(this.generalService.myFilesUser[0].name);
+          this.authService.changeUserDataImg(this.generalService.myFilesUser[0].name)
+        });
+      }
+    );
   }
 }
