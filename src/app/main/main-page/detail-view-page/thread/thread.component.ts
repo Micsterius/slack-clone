@@ -123,7 +123,7 @@ export class ThreadComponent implements OnInit {
       this.currentFileUploadThread = new FileUpload(file);
       this.pushFileToStorage(this.currentFileUploadThread, i, this.generalService.myFilesThread.length, textId, idAdd, urlImage)
     }
-    this.generalService.myFiles.length = 0; //if set undefined, it runs into an error on next loading picture
+    this.generalService.myFilesThread.length = 0; //if set undefined, it runs into an error on next loading picture
   }
 
   pushFileToStorage(fileUpload: FileUpload, currentFile, totalNbrOfFiles, textId, idAdd, urlImage) {

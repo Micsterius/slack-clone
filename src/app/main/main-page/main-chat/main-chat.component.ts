@@ -102,7 +102,7 @@ export class MainChatComponent implements OnInit {
       this.currentFileUploadChat = new FileUpload(file);
       this.pushFileToStorage(this.currentFileUploadChat, i, this.generalService.myFilesChat.length, textId, idAdd, urlImage)
     }
-    this.generalService.myFilesThread.length = 0; //if set undefined, it runs into an error on next loading picture
+    this.generalService.myFilesChat.length = 0; //if set undefined, it runs into an error on next loading picture
   }
 
   pushFileToStorage(fileUpload: FileUpload, currentFile, totalNbrOfFiles, textId, idAdd, urlImage) {
