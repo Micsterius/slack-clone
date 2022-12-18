@@ -86,6 +86,7 @@ export class ThreadComponent implements OnInit {
       this.upload(textId, idAdd, urlImage);
       this.generalService.filesPreviewThread.length = 0;
     }
+    else this.setDocInFirestore(textId, idAdd, urlImage)
   }
 
   async setDocInFirestore(textId, idAdd, urlImage) {

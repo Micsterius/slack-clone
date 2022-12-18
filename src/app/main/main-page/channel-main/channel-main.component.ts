@@ -139,6 +139,7 @@ export class ChannelMainComponent implements OnInit {
       this.upload(textId, idAdd, urlImage);
       this.generalService.filesPreview.length = 0;
     }
+    else this.setDocInFirestore(textId, idAdd, urlImage)
   }
 
   async setDocInFirestore(textId, idAdd, urlImage) {
