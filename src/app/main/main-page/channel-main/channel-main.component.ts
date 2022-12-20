@@ -12,6 +12,7 @@ import { environment } from 'src/environments/environment';
 import { MatButtonModule } from '@angular/material/button';
 import { getStorage, ref, getDownloadURL, uploadBytes, uploadBytesResumable } from "firebase/storage";
 import { BidiModule } from '@angular/cdk/bidi';
+import { SendMessageService } from 'src/app/shared/services/send-message.service';
 
 @Component({
   selector: 'app-channel-main',
@@ -47,7 +48,8 @@ export class ChannelMainComponent implements OnInit {
     public detailViewService: DetailViewPageService,
     public userService: UsersService,
     public generalService: GeneralService,
-    private uploadService: FileUploadService) {
+    private uploadService: FileUploadService,
+    public messageService: SendMessageService) {
     this.currentChannel = JSON.parse(localStorage.getItem('currentChannel')!)
     this.actualUser = JSON.parse(localStorage.getItem('user')!)
     channelServ.currentChannel = this.currentChannel;
@@ -72,18 +74,18 @@ export class ChannelMainComponent implements OnInit {
   }
 
   deleteSelectedFile(position) {
-    this.generalService.myFiles.splice(position, 1)
-    if (this.generalService.myFiles.length > 0) this.generalService.renderFilesPreview();
-    else this.generalService.fileSelected = false;
+    this.messageService.myFiles.splice(position, 1)
+    if (this.messageService.myFiles.length > 0) this.messageService.renderFilesPreview();
+    else this.messageService.fileSelected = false;
   }
 
   upload(textId, idAdd, urlImage): any {
-    for (let i = 0; i < this.generalService.myFiles.length; i++) {
-      const file: File | null = this.generalService.myFiles[i];
+    for (let i = 0; i < this.messageService.myFiles.length; i++) {
+      const file: File | null = this.messageService.myFiles[i];
       this.currentFileUpload = new FileUpload(file);
-      this.pushFileToStorage(this.currentFileUpload, i, this.generalService.myFiles.length, textId, idAdd, urlImage)
+      this.pushFileToStorage(this.currentFileUpload, i, this.messageService.myFiles.length, textId, idAdd, urlImage)
     }
-    this.generalService.myFiles.length = 0; //if set undefined, it runs into an error on next loading picture
+    this.messageService.myFiles.length = 0; //if set undefined, it runs into an error on next loading picture
   }
 
   ngAfterViewChecked() {
@@ -134,10 +136,10 @@ export class ChannelMainComponent implements OnInit {
     let textId = Math.round(new Date().getTime() / 1000);
     let idAdd = Math.random().toString(16).substr(2, 6)
     let urlImage = [];
-    this.generalService.myFiles.forEach(file => urlImage.push(file.name))
-    if (this.generalService.selectedFiles) {
+    this.messageService.myFiles.forEach(file => urlImage.push(file.name))
+    if (this.messageService.selectedFiles) {
       this.upload(textId, idAdd, urlImage);
-      this.generalService.filesPreview.length = 0;
+      this.messageService.filesPreview.length = 0;
     }
     else this.setDocInFirestore(textId, idAdd, urlImage)
   }
@@ -153,7 +155,7 @@ export class ChannelMainComponent implements OnInit {
       })
 
       this.message = '';
-      this.generalService.fileSelected = false;
+      this.messageService.fileSelected = false;
   }
 
   pushFileToStorage(fileUpload: FileUpload, currentFile, totalNbrOfFiles, textId, idAdd, urlImage) {

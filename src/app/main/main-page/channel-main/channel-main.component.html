@@ -57,15 +57,15 @@
             </div>
         </div>
     </div>
-    <div class="expand-more-editor-icon" *ngIf="!generalService.showEditorChannel">
-        <button (click)="generalService.expandEditorChannel()">
+    <div class="expand-more-editor-icon" *ngIf="!messageService.showEditorChannel">
+        <button (click)="messageService.expandEditorChannel()">
             <mat-icon mat-icon-button fontIcon="expand_less" class="color-main-with-hover"></mat-icon>
         </button>
     </div>
-    <div class="writing-area-container" *ngIf="generalService.showEditorChannel">
-        <div class="writing-area" [ngStyle]="{'padding-bottom':(generalService.fileSelected) ? '48px' : '0px'}">
+    <div class="writing-area-container" *ngIf="messageService.showEditorChannel">
+        <div class="writing-area" [ngStyle]="{'padding-bottom':(messageService.fileSelected) ? '48px' : '0px'}">
             <div class="expand-less-editor-icon">
-                <button (click)="generalService.expandEditorChannel()">
+                <button (click)="messageService.expandEditorChannel()">
                     <mat-icon mat-icon-button fontIcon="expand_more" class="color-main-with-hover"></mat-icon>
                 </button>
             </div>
@@ -80,8 +80,8 @@
                 emoticons_database: 'emojis'
                 }">
             </editor>
-            <div *ngIf="generalService.fileSelected" class="show-selected-files">
-                <div *ngFor="let filePreview of generalService.filesPreview">
+            <div *ngIf="messageService.fileSelected" class="show-selected-files">
+                <div *ngFor="let filePreview of messageService.filesPreview">
                     <div class="img-file-preview-box" (mouseover)="filePreview.hidden = false"
                         (mouseleave)="filePreview.hidden = true">
                         <img class="img-file-preview" src="{{filePreview.url}}" alt="">
@@ -103,11 +103,11 @@
             </button>
             <div class="upload-container">
                 <label for="file-input">
-                    <mat-icon mat-icon-button (click)="generalService.changeActiveEditorToChannel()">attach_file
+                    <mat-icon mat-icon-button (click)="messageService.changeActiveEditorToChannel()">attach_file
                     </mat-icon>
                 </label>
                 <input id="file-input" type="file" class="text-nowrap text-truncate"
-                    (change)="generalService.selectFile($event)" multiple />
+                    (change)="messageService.selectFile($event)" multiple />
             </div>
         </div>
     </div>
