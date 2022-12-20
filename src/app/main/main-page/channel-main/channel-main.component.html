@@ -69,7 +69,7 @@
                     <mat-icon mat-icon-button fontIcon="expand_more" class="color-main-with-hover"></mat-icon>
                 </button>
             </div>
-            <editor class="editor-1" [(ngModel)]="message" apiKey="0u347b51bx380ihx2w2vws4bfqf9dfqewelzkjxsl7p5ki0a"
+            <editor class="editor-1" [(ngModel)]="this.messageService.messageChannel" apiKey="0u347b51bx380ihx2w2vws4bfqf9dfqewelzkjxsl7p5ki0a"
                 [init]="{
                 min_height: 178,
                 max_height: 250,
@@ -98,8 +98,8 @@
                 toolbar1: 'undo redo | bold italic | emoticons'
                  }">
             </editor>
-            <button class="button" [disabled]="message.length == 0" (click)="sendMessage()">
-                <mat-icon mat-icon-button fontIcon="send" [ngClass]="message.length == 0 ? 'color-gray' : 'color-main-with-hover'"></mat-icon>
+            <button class="button" [disabled]="this.messageService.messageChannel.length == 0" (click)="sendMessageChannel()">
+                <mat-icon mat-icon-button fontIcon="send" [ngClass]="this.messageService.messageChannel.length == 0 ? 'color-gray' : 'color-main-with-hover'"></mat-icon>
             </button>
             <div class="upload-container">
                 <label for="file-input">
