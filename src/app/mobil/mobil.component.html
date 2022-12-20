@@ -25,4 +25,11 @@
             <app-footer></app-footer>
         </div>
     </div>
+    <div class="icon-swipe-container" *ngIf="showNavigationIconSwipe" (click)="showNavigationIconSwipe = false">
+        <div>
+            <mat-icon fontIcon="swipe">
+            </mat-icon>
+            <span>Swipe for navigation</span>
+        </div>
+    </div>
 </div>

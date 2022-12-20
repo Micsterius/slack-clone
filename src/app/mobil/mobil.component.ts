@@ -26,6 +26,7 @@ export class MobilComponent implements OnInit {
   activeUser: any;
   storageTime;
   time = 0;
+  showNavigationIconSwipe: boolean = false;
 
   constructor(
     public generalService: GeneralService,
@@ -45,6 +46,10 @@ export class MobilComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.showNavigationIconSwipe = true;
+    setTimeout(() => {
+      this.showNavigationIconSwipe = false;
+    }, 5000);
   }
 
   @ViewChild('swiper', { static: false }) swiper?: SwiperComponent;
