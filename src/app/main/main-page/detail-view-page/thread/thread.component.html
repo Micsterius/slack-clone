@@ -84,16 +84,16 @@
                 </div>
             </div>
         </div>
-        <div class="expand-more-editor-icon" *ngIf="!generalService.showEditorThread">
-            <button (click)="generalService.expandEditorThread()">
+        <div class="expand-more-editor-icon" *ngIf="!messageService.showEditorThread">
+            <button (click)="messageService.expandEditorThread()">
                 <mat-icon mat-icon-button fontIcon="expand_less" class="color-main-with-hover"></mat-icon>
             </button>
         </div>
-        <div class="writing-area-container" *ngIf="generalService.showEditorThread">
+        <div class="writing-area-container" *ngIf="messageService.showEditorThread">
             <div class="writing-area"
-                [ngStyle]="{'padding-bottom':(generalService.fileSelectedThread) ? '48px' : '0px'}">
+                [ngStyle]="{'padding-bottom':(messageService.fileSelectedThread) ? '48px' : '0px'}">
                 <div class="expand-less-editor-icon">
-                    <button (click)="generalService.expandEditorThread()">
+                    <button (click)="messageService.expandEditorThread()">
                         <mat-icon mat-icon-button fontIcon="expand_more" class="color-main-with-hover"></mat-icon>
                     </button>
                 </div>
@@ -108,8 +108,8 @@
                 emoticons_database: 'emojis'
                 }">
                 </editor>
-                <div *ngIf="generalService.fileSelectedThread" class="show-selected-files">
-                    <div *ngFor="let filePreview of generalService.filesPreviewThread">
+                <div *ngIf="messageService.fileSelectedThread" class="show-selected-files">
+                    <div *ngFor="let filePreview of messageService.filesPreviewThread">
                         <div class="img-file-preview-box" (mouseover)="filePreview.hidden = false"
                             (mouseleave)="filePreview.hidden = true">
                             <img class="img-file-preview" src="{{filePreview.url}}" alt="">
@@ -131,11 +131,11 @@
                 </button>
                 <div class="upload-container">
                     <label for="file-input">
-                        <mat-icon mat-icon-button (click)="generalService.changeActiveEditorToThread()">attach_file
+                        <mat-icon mat-icon-button (click)="messageService.changeActiveEditorToThread()">attach_file
                         </mat-icon>
                     </label>
                     <input id="file-input-2" type="file" class="text-nowrap text-truncate"
-                        (change)="generalService.selectFile($event)" multiple />
+                        (change)="messageService.selectFile($event)" multiple />
                 </div>
             </div>
         </div>

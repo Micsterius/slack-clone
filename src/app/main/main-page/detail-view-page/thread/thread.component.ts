@@ -8,6 +8,7 @@ import { ChannelService } from 'src/app/shared/services/channel.service';
 import { DetailViewPageService } from 'src/app/shared/services/detail-view-page.service';
 import { FileUploadService } from 'src/app/shared/services/file-upload.service';
 import { GeneralService } from 'src/app/shared/services/general.service';
+import { SendMessageService } from 'src/app/shared/services/send-message.service';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { environment } from 'src/environments/environment';
 
@@ -41,7 +42,8 @@ export class ThreadComponent implements OnInit {
     public usersService: UsersService,
     public generalService: GeneralService,
     private detailViewService: DetailViewPageService,
-    private uploadService: FileUploadService
+    private uploadService: FileUploadService,
+    public messageService: SendMessageService
   ) {
     this.actualUser = JSON.parse(localStorage.getItem('user')!)
   }
@@ -81,10 +83,10 @@ export class ThreadComponent implements OnInit {
     let textId = Math.round(new Date().getTime() / 1000);
     let idAdd = Math.random().toString(16).substr(2, 6)
     let urlImage = [];
-    this.generalService.myFilesThread.forEach(file => urlImage.push(file.name))
-    if (this.generalService.selectedFilesThread) {//if files are there for upload
+    this.messageService.myFilesThread.forEach(file => urlImage.push(file.name))
+    if (this.messageService.selectedFilesThread) {//if files are there for upload
       this.upload(textId, idAdd, urlImage);
-      this.generalService.filesPreviewThread.length = 0;
+      this.messageService.filesPreviewThread.length = 0;
     }
     else this.setDocInFirestore(textId, idAdd, urlImage)
   }
@@ -99,7 +101,7 @@ export class ThreadComponent implements OnInit {
         imageUrl: urlImage
       })
       this.message = '';
-      this.generalService.fileSelectedThread = false;
+      this.messageService.fileSelectedThread = false;
   }
 
   getPosition(e) {
@@ -112,18 +114,18 @@ export class ThreadComponent implements OnInit {
   }
 
   deleteSelectedFile(position) {
-    this.generalService.myFilesThread.splice(position, 1)
-    if (this.generalService.myFilesThread.length > 0) this.generalService.renderFilesPreviewThread();
-    else this.generalService.fileSelectedThread = false;
+    this.messageService.myFilesThread.splice(position, 1)
+    if (this.messageService.myFilesThread.length > 0) this.messageService.renderFilesPreviewThread();
+    else this.messageService.fileSelectedThread = false;
   }
 
   upload(textId, idAdd, urlImage): any {
-    for (let i = 0; i < this.generalService.myFilesThread.length; i++) {
-      const file: File | null = this.generalService.myFilesThread[i];
+    for (let i = 0; i < this.messageService.myFilesThread.length; i++) {
+      const file: File | null = this.messageService.myFilesThread[i];
       this.currentFileUploadThread = new FileUpload(file);
-      this.pushFileToStorage(this.currentFileUploadThread, i, this.generalService.myFilesThread.length, textId, idAdd, urlImage)
+      this.pushFileToStorage(this.currentFileUploadThread, i, this.messageService.myFilesThread.length, textId, idAdd, urlImage)
     }
-    this.generalService.myFilesThread.length = 0; //if set undefined, it runs into an error on next loading picture
+    this.messageService.myFilesThread.length = 0; //if set undefined, it runs into an error on next loading picture
   }
 
   pushFileToStorage(fileUpload: FileUpload, currentFile, totalNbrOfFiles, textId, idAdd, urlImage) {
