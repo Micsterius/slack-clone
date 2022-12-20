@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { ChatService } from 'src/app/shared/services/chat.service';
 import { FileUploadService } from 'src/app/shared/services/file-upload.service';
 import { GeneralService } from 'src/app/shared/services/general.service';
+import { SendMessageService } from 'src/app/shared/services/send-message.service';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { environment } from 'src/environments/environment';
 
@@ -37,7 +38,8 @@ export class MainChatComponent implements OnInit {
     public authService: AuthService,
     public usersService: UsersService,
     public generalService: GeneralService,
-    public uploadService: FileUploadService
+    public uploadService: FileUploadService,
+    public messageService: SendMessageService
   ) {
     this.actualUser = JSON.parse(localStorage.getItem('user')!)
   }
@@ -67,10 +69,10 @@ export class MainChatComponent implements OnInit {
     let textId = Math.round(new Date().getTime() / 1000);
     let idAdd = Math.random().toString(16).substr(2, 6)
     let urlImage = [];
-    this.generalService.myFilesChat.forEach(file => urlImage.push(file.name))
-    if (this.generalService.selectedFilesChat) {
+    this.messageService.myFilesChat.forEach(file => urlImage.push(file.name))
+    if (this.messageService.selectedFilesChat) {
       this.upload(textId, idAdd, urlImage);
-      this.generalService.filesPreviewChat.length = 0;
+      this.messageService.filesPreviewChat.length = 0;
     }
     else this.setDocInFirestore(textId, idAdd, urlImage)
     
@@ -87,22 +89,22 @@ export class MainChatComponent implements OnInit {
         imageUrl: urlImage
       })
     this.message = '';
-    this.generalService.fileSelectedChat = false;
+    this.messageService.fileSelectedChat = false;
   }
 
   deleteSelectedFile(position) {
-    this.generalService.myFilesChat.splice(position, 1)
-    if (this.generalService.myFilesChat.length > 0) this.generalService.renderFilesPreviewChat();
-    else this.generalService.fileSelectedChat = false;
+    this.messageService.myFilesChat.splice(position, 1)
+    if (this.messageService.myFilesChat.length > 0) this.messageService.renderFilesPreviewChat();
+    else this.messageService.fileSelectedChat = false;
   }
 
   async upload(textId, idAdd, urlImage): Promise<any> {
-    for (let i = 0; i < this.generalService.myFilesChat.length; i++) {
-      const file: File | null = this.generalService.myFilesChat[i];
+    for (let i = 0; i < this.messageService.myFilesChat.length; i++) {
+      const file: File | null = this.messageService.myFilesChat[i];
       this.currentFileUploadChat = new FileUpload(file);
-      this.pushFileToStorage(this.currentFileUploadChat, i, this.generalService.myFilesChat.length, textId, idAdd, urlImage)
+      this.pushFileToStorage(this.currentFileUploadChat, i, this.messageService.myFilesChat.length, textId, idAdd, urlImage)
     }
-    this.generalService.myFilesChat.length = 0; //if set undefined, it runs into an error on next loading picture
+    this.messageService.myFilesChat.length = 0; //if set undefined, it runs into an error on next loading picture
   }
 
   pushFileToStorage(fileUpload: FileUpload, currentFile, totalNbrOfFiles, textId, idAdd, urlImage) {

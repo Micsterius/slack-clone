@@ -27,16 +27,16 @@
                     </div>
                 </div>
             </div>
-            <div class="expand-more-editor-icon" *ngIf="!generalService.showEditorChat">
-                <button (click)="generalService.expandEditorChat()">
+            <div class="expand-more-editor-icon" *ngIf="!messageService.showEditorChat">
+                <button (click)="messageService.expandEditorChat()">
                     <mat-icon mat-icon-button fontIcon="expand_less" class="color-main-with-hover"></mat-icon>
                 </button>
             </div>
-            <div class="writing-area-container" *ngIf="generalService.showEditorChat">
+            <div class="writing-area-container" *ngIf="messageService.showEditorChat">
                 <div class="writing-area"
-                    [ngStyle]="{'padding-bottom':(generalService.fileSelectedChat) ? '48px' : '0px'}">
+                    [ngStyle]="{'padding-bottom':(messageService.fileSelectedChat) ? '48px' : '0px'}">
                     <div class="expand-less-editor-icon">
-                        <button (click)="generalService.expandEditorChat()">
+                        <button (click)="messageService.expandEditorChat()">
                             <mat-icon mat-icon-button fontIcon="expand_more" class="color-main-with-hover"></mat-icon>
                         </button>
                     </div>
@@ -50,8 +50,8 @@
                     emoticons_database: 'emojis'
                     }">
                     </editor>
-                    <div *ngIf="generalService.fileSelectedChat" class="show-selected-files">
-                        <div *ngFor="let filePreview of generalService.filesPreviewChat">
+                    <div *ngIf="messageService.fileSelectedChat" class="show-selected-files">
+                        <div *ngFor="let filePreview of messageService.filesPreviewChat">
                             <div class="img-file-preview-box" (mouseover)="filePreview.hidden = false"
                                 (mouseleave)="filePreview.hidden = true">
                                 <img class="img-file-preview" src="{{filePreview.url}}" alt="">
@@ -73,11 +73,11 @@
                     </button>
                     <div class="upload-container">
                         <label for="file-input">
-                            <mat-icon mat-icon-button (click)="generalService.changeActiveEditorToChat()">attach_file
+                            <mat-icon mat-icon-button (click)="messageService.changeActiveEditorToChat()">attach_file
                             </mat-icon>
                         </label>
                         <input id="file-input" type="file" class="text-nowrap text-truncate"
-                            (change)="generalService.selectFile($event)" multiple />
+                            (change)="messageService.selectFile($event)" multiple />
                     </div>
                 </div>
             </div>
