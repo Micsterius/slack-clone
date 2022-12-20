@@ -16,6 +16,7 @@ import { FileUpload } from 'src/app/models/file-upload.model';
 // import Swiper core and required modules
 import SwiperCore, { Pagination, Navigation, Keyboard, Virtual } from "swiper";
 import { getDownloadURL, getStorage, ref, uploadBytes, uploadBytesResumable } from 'firebase/storage';
+import { SendMessageService } from 'src/app/shared/services/send-message.service';
 
 // install Swiper modules
 SwiperCore.use([Keyboard, Pagination, Navigation, Virtual]);
@@ -80,7 +81,8 @@ export class UserInfoComponent implements OnInit {
     public afAuth: AngularFireAuth,
     public usersService: UsersService,
     public generalService: GeneralService,
-    private uploadService: FileUploadService
+    private uploadService: FileUploadService,
+    public messageService: SendMessageService
   ) {
     this.activeUser = JSON.parse(localStorage.getItem('user')!);
     this.basePathUser = this.activeUser.uid
@@ -159,7 +161,7 @@ export class UserInfoComponent implements OnInit {
     this.changeUserDataNameFirestore();
     this.changeUserDataPhoneFirestore();
     this.closeProfileEdit();
-    if (this.generalService.selectedFilesUser) this.uploadImage();
+    if (this.messageService.selectedFilesUser) this.uploadImage();
   }
 
   profileEditSensitiveInfos() {
@@ -177,11 +179,11 @@ export class UserInfoComponent implements OnInit {
   //Image upload in a folder which has the same name like the user uid
   uploadImage(): any {
     this.uploadService.basePathUser = this.activeUser.uid
-    const file: File | null = this.generalService.myFilesUser[0]
-    this.generalService.selectedFilesUser = undefined;
+    const file: File | null = this.messageService.myFilesUser[0]
+    this.messageService.selectedFilesUser = undefined;
     this.currentFileUpload = new FileUpload(file);
     this.pushFileToStorage(this.currentFileUpload)
-    this.generalService.myFiles.length = 0; //if set undefined, it runs into an error on next loading picture
+    this.messageService.myFiles.length = 0; //if set undefined, it runs into an error on next loading picture
   }
 
   pushFileToStorage(fileUpload: FileUpload) {
@@ -214,8 +216,8 @@ export class UserInfoComponent implements OnInit {
         // Handle successful uploads on complete
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          this.saveImgUserPhotoURL(this.generalService.myFilesUser[0].name);
-          this.authService.changeUserDataImg(this.generalService.myFilesUser[0].name)
+          this.saveImgUserPhotoURL(this.messageService.myFilesUser[0].name);
+          this.authService.changeUserDataImg(this.messageService.myFilesUser[0].name)
         });
       }
     );

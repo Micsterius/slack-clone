@@ -4,6 +4,7 @@ import { doc, getDoc, getFirestore, updateDoc } from 'firebase/firestore';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './shared/services/auth.service';
 import { GeneralService } from './shared/services/general.service';
+import { SendMessageService } from './shared/services/send-message.service';
 import { UsersService } from './shared/services/users.service';
 
 @Component({
@@ -21,7 +22,8 @@ export class AppComponent {
   constructor(
     public authService: AuthService,
     private userService: UsersService,
-    private generalService: GeneralService) {
+    private generalService: GeneralService,
+    public messageService: SendMessageService) {
     let user = JSON.parse(localStorage.getItem('user'))
     if (user) this.authService.showLoginArea = false;
     else this.authService.showLoginArea = true;
@@ -42,15 +44,15 @@ export class AppComponent {
     if (this.windowWidth > 800) this.generalService.mobilViewIsActive = false;
     //closes the chatbox
     if (this.windowHeight < 500){
-      this.generalService.showEditorChannel = false;
-      this.generalService.showEditorThread = false;
-      this.generalService.showEditorChat = false;
+      this.messageService.showEditorChannel = false;
+      this.messageService.showEditorThread = false;
+      this.messageService.showEditorChat = false;
     }
     //opens the chatbox
     if (this.windowHeight > 500){
-      this.generalService.showEditorChannel = true;
-      this.generalService.showEditorThread = true;
-      this.generalService.showEditorChat = true;
+      this.messageService.showEditorChannel = true;
+      this.messageService.showEditorThread = true;
+      this.messageService.showEditorChat = true;
     }
 
   }
