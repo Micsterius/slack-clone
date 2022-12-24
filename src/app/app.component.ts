@@ -23,7 +23,8 @@ export class AppComponent {
     public authService: AuthService,
     private userService: UsersService,
     private generalService: GeneralService,
-    public messageService: SendMessageService) {
+    public messageService: SendMessageService,
+    public sendMessageService: SendMessageService) {
     let user = JSON.parse(localStorage.getItem('user'))
     if (user) this.authService.showLoginArea = false;
     else this.authService.showLoginArea = true;

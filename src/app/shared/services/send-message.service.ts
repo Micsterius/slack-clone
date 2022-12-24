@@ -60,6 +60,7 @@ export class SendMessageService {
 
   messageChannel: string = '';
   urlImageChannel: string[] = [];
+  uploadRunning: boolean = false;
 
   constructor() { }
 
@@ -243,6 +244,7 @@ export class SendMessageService {
     if (this.selectedFiles) {
       this.upload(textId, idAdd, uid, currentChannelId);
       this.filesPreview.length = 0;
+      this.uploadRunning = true;
     }
     this.setDocInFirestore(textId, idAdd, uid, currentChannelId)
   }
@@ -300,6 +302,7 @@ export class SendMessageService {
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           this.updateloadedImages(downloadURL, textId, idAdd, currentChannelId)
+          if(currentFile + 1 == totalNbrOfFiles) this.uploadRunning = false;
         });
       }
     );

@@ -57,6 +57,7 @@ import { MobilComponent } from './mobil/mobil.component';
 import { SidebarComponent } from './main/sidebar/sidebar.component';
 import { FooterComponent } from './main/footer/footer.component';
 import { ImprintComponent } from './main/footer/imprint/imprint.component';
+import { LoadingCircleComponent } from './loading-circle/loading-circle.component';
 //import { ChannelMainComponent } from './main/main-page/channel-main/channel-main.component';
 
 @NgModule({
@@ -84,6 +85,7 @@ import { ImprintComponent } from './main/footer/imprint/imprint.component';
     SidebarComponent,
     FooterComponent,
     ImprintComponent,
+    LoadingCircleComponent,
     ],
   imports: [
     BrowserModule,
