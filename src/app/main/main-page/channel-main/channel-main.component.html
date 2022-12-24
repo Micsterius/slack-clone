@@ -34,7 +34,7 @@
                     </div>
                     <div class="image-box">
                         <div class="content-box" *ngFor="let postImage of post.imageUrl">
-                            <div [innerHTML]="postImage"></div>
+                            <img class="post-img-content" src="{{postImage}}">
                         </div>
                     </div>
                     <div class="content-box" [innerHTML]="post.content"></div>

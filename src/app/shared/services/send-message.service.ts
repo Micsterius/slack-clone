@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { initializeApp } from 'firebase/app';
-import { doc, getFirestore, setDoc } from 'firebase/firestore';
+import { arrayUnion, doc, getFirestore, setDoc, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, getStorage, ref, uploadBytes, uploadBytesResumable } from 'firebase/storage';
 import { FileUpload } from 'src/app/models/file-upload.model';
 import { environment } from 'src/environments/environment';
@@ -9,56 +9,57 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class SendMessageService {
-    //show and hide editor
-    showEditorChannel: boolean = true;
-    showEditorThread: boolean = true;
-    showEditorChat: boolean = true;
-  
-    //set editor active for fileupload
-    activeEditorIsChannel: boolean = false;
-    activeEditorIsThread: boolean = false;
-    activeEditorIsChat: boolean = false;
-    activeEditorIsUser: boolean = false;
-  
-    //User
-    selectedFilesUser?: FileList;
-    currentFileUploadUser?: FileUpload;
-    urlUser: any;
-    filePreviewUser: any;
-    fileSelectedUser: boolean = false;
-    myFilesUser: File[] = [];;
-  
-    //THREAD
-    selectedFilesThread?: FileList;
-    currentFileUploadThread?: FileUpload;
-    urlThread: any;
-    filesPreviewThread: any[] = [];
-    fileSelectedThread: boolean = false;
-    myFilesThread: File[] = [];
-  
-    //CHANNEL
-    selectedFiles?: FileList;
-    currentFileUpload?: FileUpload;
-    url: any;
-    filesPreview: any[] = [];
-    fileSelected: boolean = false;
-    myFiles: File[] = [];
-  
-    //CHAT
-    selectedFilesChat?: FileList;
-    currentFileUploadChat?: FileUpload;
-    urlChat: any;
-    filesPreviewChat: any[] = [];
-    fileSelectedChat: boolean = false;
-    myFilesChat: File[] = [];
+  //show and hide editor
+  showEditorChannel: boolean = true;
+  showEditorThread: boolean = true;
+  showEditorChat: boolean = true;
+
+  //set editor active for fileupload
+  activeEditorIsChannel: boolean = false;
+  activeEditorIsThread: boolean = false;
+  activeEditorIsChat: boolean = false;
+  activeEditorIsUser: boolean = false;
+
+  //User
+  selectedFilesUser?: FileList;
+  currentFileUploadUser?: FileUpload;
+  urlUser: any;
+  filePreviewUser: any;
+  fileSelectedUser: boolean = false;
+  myFilesUser: File[] = [];;
+
+  //THREAD
+  selectedFilesThread?: FileList;
+  currentFileUploadThread?: FileUpload;
+  urlThread: any;
+  filesPreviewThread: any[] = [];
+  fileSelectedThread: boolean = false;
+  myFilesThread: File[] = [];
+
+  //CHANNEL
+  selectedFiles?: FileList;
+  currentFileUpload?: FileUpload;
+  url: any;
+  filesPreview: any[] = [];
+  fileSelected: boolean = false;
+  myFiles: File[] = [];
+
+  //CHAT
+  selectedFilesChat?: FileList;
+  currentFileUploadChat?: FileUpload;
+  urlChat: any;
+  filesPreviewChat: any[] = [];
+  fileSelectedChat: boolean = false;
+  myFilesChat: File[] = [];
 
 
-    private basePath = '/uploads';
-    storage = getStorage();
-    app = initializeApp(environment.firebase);
-    db = getFirestore(this.app);
+  private basePath = '/uploads';
+  storage = getStorage();
+  app = initializeApp(environment.firebase);
+  db = getFirestore(this.app);
 
-    messageChannel: string = '';
+  messageChannel: string = '';
+  urlImageChannel: string[] = [];
 
   constructor() { }
 
@@ -238,39 +239,37 @@ export class SendMessageService {
   async sendMessageChannel(uid, currentChannelId) {
     let textId = Math.round(new Date().getTime() / 1000);
     let idAdd = Math.random().toString(16).substr(2, 6)
-    let urlImage = [];
-    this.myFiles.forEach(file => urlImage.push(file.name))
+    this.urlImageChannel = [];
     if (this.selectedFiles) {
-      this.upload(textId, idAdd, urlImage, uid, currentChannelId);
+      this.upload(textId, idAdd, uid, currentChannelId);
       this.filesPreview.length = 0;
     }
-    else this.setDocInFirestore(textId, idAdd, urlImage, uid, currentChannelId)
+    this.setDocInFirestore(textId, idAdd, uid, currentChannelId)
   }
 
-  upload(textId, idAdd, urlImage, uid, currentChannelId): any {
+  upload(textId, idAdd, uid, currentChannelId): any {
     for (let i = 0; i < this.myFiles.length; i++) {
       const file: File | null = this.myFiles[i];
       this.currentFileUpload = new FileUpload(file);
-      this.pushFileToStorage(this.currentFileUpload, i, this.myFiles.length, textId, idAdd, urlImage, uid, currentChannelId)
+      this.pushFileToStorage(this.currentFileUpload, i, this.myFiles.length, textId, idAdd, uid, currentChannelId)
     }
     this.myFiles.length = 0; //if set undefined, it runs into an error on next loading picture
   }
 
-  async setDocInFirestore(textId, idAdd, urlImage, uid, currentChannelId) {
+  async setDocInFirestore(textId, idAdd, uid, currentChannelId) {
+    console.log(this.urlImageChannel)
     await setDoc(doc(this.db, "channel", currentChannelId, "posts", `${textId + idAdd}`),
       {
         content: this.messageChannel,
         author: uid,
         id: `${textId + idAdd}`,
         timeStamp: textId,
-        imageUrl: urlImage
       })
-
-      this.messageChannel = '';
-      this.fileSelected = false;
+    this.messageChannel = '';
+    this.fileSelected = false;
   }
 
-  pushFileToStorage(fileUpload: FileUpload, currentFile, totalNbrOfFiles, textId, idAdd, urlImage, uid, currentChannelId) {
+  pushFileToStorage(fileUpload: FileUpload, currentFile, totalNbrOfFiles, textId, idAdd, uid, currentChannelId) {
     const filePath = `${this.basePath}/${fileUpload.file.name}`;
     const storageRef = ref(this.storage, filePath);
     const uploadTask = uploadBytesResumable(storageRef, fileUpload.file);
@@ -300,12 +299,20 @@ export class SendMessageService {
         // Handle successful uploads on complete
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          if (currentFile + 1 == totalNbrOfFiles) this.setDocInFirestore(textId, idAdd, urlImage, uid, currentChannelId)
+          this.updateloadedImages(downloadURL, textId, idAdd, currentChannelId)
         });
       }
     );
   }
 
 
-  
+  async updateloadedImages(downloadURL, textId, idAdd, currentChannelId){
+   await updateDoc(doc(this.db, "channel", currentChannelId, "posts", `${textId + idAdd}`), {
+    imageUrl: arrayUnion(downloadURL)
+  });
+}
+ 
+
+
+
 }

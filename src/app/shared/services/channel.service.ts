@@ -47,53 +47,11 @@ export class ChannelService {
     let q = query(collection(this.db, "channel", this.currentChannel.id, "posts"))
     let unsubscribe = onSnapshot(q, (querySnapshot) => {
       this.posts = [];
-      this.showChannel = false;
       querySnapshot.forEach((doc) => {
         this.posts.push(doc.data())
         this.loadChannelAnswers();
       })
-      this.getImagesForPostFromStorage()
     });
-  }
-
-  //start function get image for all posts with an image url
-  getImagesForPostFromStorage() {
-    for (let i = 0; i < this.posts.length; i++) {
-      const post = this.posts[i];
-      if (post.imageUrl.length > 0) this.getImage(i)
-
-    }
-    this.showChannel = true;
-  }
-
-  // Get the download URL for the image
-  getImage(number) {
-    for (let i = 0; i < this.posts[number].imageUrl.length; i++) {
-      const imageUrl = this.posts[number].imageUrl[i];
-      getDownloadURL(ref(this.storage, 'uploads/' + imageUrl))
-        .then((url) => {
-          this.posts[number].imageUrl[i] = `<img src="${url}" alt="">`;
-        })
-        .catch((error) => {
-          // A full list of error codes is available at
-          // https://firebase.google.com/docs/storage/web/handle-errors
-          switch (error.code) {
-            case 'storage/object-not-found':
-              // File doesn't exist
-              break;
-            case 'storage/unauthorized':
-              // User doesn't have permission to access the object
-              break;
-            case 'storage/canceled':
-              // User canceled the upload
-              break;
-            // ...
-            case 'storage/unknown':
-              // Unknown error occurred, inspect the server response
-              break;
-          }
-        });
-    }
     this.showChannel = true;
   }
 
