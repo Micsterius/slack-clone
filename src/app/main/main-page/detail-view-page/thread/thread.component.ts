@@ -72,6 +72,10 @@ export class ThreadComponent implements OnInit {
     await deleteDoc(doc(this.db, "channel", this.channelService.currentChannel.id, "posts", post.id, "answers", answerID));
   }
 
+  sendMessageThread(){
+    this.messageService.sendMessageThread(this.actualUser.uid, this.channelService.currentChannel.id, this.channelService.currentThread.post.id)
+  }
+
   changeDetailViewPageContentToThread() {
     this.detailViewService.showUserInfo = false;
     this.detailViewService.showOtherUserInfo = false;

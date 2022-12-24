@@ -59,7 +59,9 @@ export class SendMessageService {
   db = getFirestore(this.app);
 
   messageChannel: string = '';
+  messageThread: string = '';
   urlImageChannel: string[] = [];
+  urlImageThread: string[] = [];
   uploadRunning: boolean = false;
 
   constructor() { }
@@ -242,23 +244,23 @@ export class SendMessageService {
     let idAdd = Math.random().toString(16).substr(2, 6)
     this.urlImageChannel = [];
     if (this.selectedFiles) {
-      this.upload(textId, idAdd, uid, currentChannelId);
+      this.uploadChannel(textId, idAdd, currentChannelId);
       this.filesPreview.length = 0;
       this.uploadRunning = true;
     }
-    this.setDocInFirestore(textId, idAdd, uid, currentChannelId)
+    this.setDocInFirestoreChannel(textId, idAdd, uid, currentChannelId)
   }
 
-  upload(textId, idAdd, uid, currentChannelId): any {
+  uploadChannel(textId, idAdd, currentChannelId): any {
     for (let i = 0; i < this.myFiles.length; i++) {
       const file: File | null = this.myFiles[i];
       this.currentFileUpload = new FileUpload(file);
-      this.pushFileToStorage(this.currentFileUpload, i, this.myFiles.length, textId, idAdd, uid, currentChannelId)
+      this.pushFileToStorageChannel(this.currentFileUpload, i, this.myFiles.length, textId, idAdd, currentChannelId)
     }
     this.myFiles.length = 0; //if set undefined, it runs into an error on next loading picture
   }
 
-  async setDocInFirestore(textId, idAdd, uid, currentChannelId) {
+  async setDocInFirestoreChannel(textId, idAdd, uid, currentChannelId) {
     console.log(this.urlImageChannel)
     await setDoc(doc(this.db, "channel", currentChannelId, "posts", `${textId + idAdd}`),
       {
@@ -271,7 +273,7 @@ export class SendMessageService {
     this.fileSelected = false;
   }
 
-  pushFileToStorage(fileUpload: FileUpload, currentFile, totalNbrOfFiles, textId, idAdd, uid, currentChannelId) {
+  pushFileToStorageChannel(fileUpload: FileUpload, currentFile, totalNbrOfFiles, textId, idAdd, currentChannelId) {
     const filePath = `${this.basePath}/${fileUpload.file.name}`;
     const storageRef = ref(this.storage, filePath);
     const uploadTask = uploadBytesResumable(storageRef, fileUpload.file);
@@ -301,21 +303,94 @@ export class SendMessageService {
         // Handle successful uploads on complete
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          this.updateloadedImages(downloadURL, textId, idAdd, currentChannelId)
+          this.updateloadedImagesChannel(downloadURL, textId, idAdd, currentChannelId)
           if(currentFile + 1 == totalNbrOfFiles) this.uploadRunning = false;
         });
       }
     );
   }
 
-
-  async updateloadedImages(downloadURL, textId, idAdd, currentChannelId){
+  async updateloadedImagesChannel(downloadURL, textId, idAdd, currentChannelId){
    await updateDoc(doc(this.db, "channel", currentChannelId, "posts", `${textId + idAdd}`), {
     imageUrl: arrayUnion(downloadURL)
   });
 }
  
+sendMessageThread(uid, currentChannelId, currentThreadPostId){
+  let textId = Math.round(new Date().getTime() / 1000);
+    let idAdd = Math.random().toString(16).substr(2, 6)
+    this.urlImageThread = [];
+    if (this.selectedFilesThread) {
+      this.uploadThread(textId, idAdd, currentChannelId, currentThreadPostId);
+      this.filesPreview.length = 0;
+      this.uploadRunning = true;
+    }
+    this.setDocInFirestoreThread(textId, idAdd, uid, currentChannelId, currentThreadPostId)
+}
 
+uploadThread(textId, idAdd, currentChannelId, currentThreadPostId): any {
+  for (let i = 0; i < this.myFilesThread.length; i++) {
+    const file: File | null = this.myFilesThread[i];
+    this.currentFileUploadThread = new FileUpload(file);
+    this.pushFileToStorageThread(this.currentFileUpload, i, this.myFilesThread.length, textId, idAdd, currentChannelId, currentThreadPostId)
+  }
+  this.myFilesThread.length = 0; //if set undefined, it runs into an error on next loading picture
+}
 
+pushFileToStorageThread(fileUpload: FileUpload, currentFile, totalNbrOfFiles, textId, idAdd, currentChannelId, currentThreadPostId) {
+  const filePath = `${this.basePath}/${fileUpload.file.name}`;
+  const storageRef = ref(this.storage, filePath);
+  const uploadTask = uploadBytesResumable(storageRef, fileUpload.file);
+  uploadBytes(storageRef, fileUpload.file).then((snapshot) => {
+    console.log('Uploaded a blob or file!');
+  });
+
+  uploadTask.on('state_changed',
+    (snapshot) => {
+      // Observe state change events such as progress, pause, and resume
+      // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log('Upload is ' + progress + '% done');
+      switch (snapshot.state) {
+        case 'paused':
+          console.log('Upload is paused');
+          break;
+        case 'running':
+          console.log('Upload is running');
+          break;
+      }
+    },
+    (error) => {
+      // Handle unsuccessful uploads
+    },
+    () => {
+      // Handle successful uploads on complete
+      // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+      getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+        this.updateloadedImagesThread(downloadURL, textId, idAdd, currentChannelId, currentThreadPostId)
+        if(currentFile + 1 == totalNbrOfFiles) this.uploadRunning = false;
+      });
+    }
+  );
+}
+
+async setDocInFirestoreThread(textId, idAdd, uid, currentChannelId, currentThreadPostId) {
+  console.log(this.urlImageChannel)
+  await setDoc(doc(this.db, "channel", currentChannelId, "posts", currentThreadPostId, "answers", `${textId + idAdd}`),
+    {
+      content: this.messageThread,
+      author: uid,
+      id: `${textId + idAdd}`,
+      timeStamp: textId,
+    })
+  this.messageThread = '';
+  this.fileSelectedThread = false;
+}
+
+async updateloadedImagesThread(downloadURL, textId, idAdd, currentChannelId, currentThreadPostId){
+  await updateDoc(doc(this.db, "channel", currentChannelId, "posts", currentThreadPostId, "answers", `${textId + idAdd}`), {
+   imageUrl: arrayUnion(downloadURL)
+ });
+}
 
 }
