@@ -332,7 +332,7 @@ uploadThread(textId, idAdd, currentChannelId, currentThreadPostId): any {
   for (let i = 0; i < this.myFilesThread.length; i++) {
     const file: File | null = this.myFilesThread[i];
     this.currentFileUploadThread = new FileUpload(file);
-    this.pushFileToStorageThread(this.currentFileUpload, i, this.myFilesThread.length, textId, idAdd, currentChannelId, currentThreadPostId)
+    this.pushFileToStorageThread(this.currentFileUploadThread, i, this.myFilesThread.length, textId, idAdd, currentChannelId, currentThreadPostId)
   }
   this.myFilesThread.length = 0; //if set undefined, it runs into an error on next loading picture
 }

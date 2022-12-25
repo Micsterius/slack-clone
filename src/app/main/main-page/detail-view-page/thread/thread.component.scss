@@ -88,16 +88,6 @@ h2 {
     margin-left: 16px;
 }
 
-.post-img-box {
-    display: flex;
-
-    image {
-        height: 25px;
-        width: 25px;
-        object-fit: cover;
-    }
-}
-
 .image-url {
     height: 25px !important;
     width: 25px !important;
@@ -131,6 +121,11 @@ h2 {
 .editor-1 {
     width: 100%;
     z-index: 4;
+}
+
+.post-img-content{
+    height: 100px;
+    object-fit: contain;
 }
 
 .editor-2 {
