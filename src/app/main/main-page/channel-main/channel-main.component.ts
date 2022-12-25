@@ -5,7 +5,6 @@ import { collection, deleteDoc, doc, getFirestore, onSnapshot, query, setDoc } f
 import { FileUpload } from 'src/app/models/file-upload.model';
 import { ChannelService } from 'src/app/shared/services/channel.service';
 import { DetailViewPageService } from 'src/app/shared/services/detail-view-page.service';
-import { FileUploadService } from 'src/app/shared/services/file-upload.service';
 import { GeneralService } from 'src/app/shared/services/general.service';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { environment } from 'src/environments/environment';

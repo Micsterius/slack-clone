@@ -6,7 +6,6 @@ import { getDownloadURL, getStorage, ref, uploadBytes, uploadBytesResumable } fr
 import { FileUpload } from 'src/app/models/file-upload.model';
 import { ChannelService } from 'src/app/shared/services/channel.service';
 import { DetailViewPageService } from 'src/app/shared/services/detail-view-page.service';
-import { FileUploadService } from 'src/app/shared/services/file-upload.service';
 import { GeneralService } from 'src/app/shared/services/general.service';
 import { SendMessageService } from 'src/app/shared/services/send-message.service';
 import { UsersService } from 'src/app/shared/services/users.service';

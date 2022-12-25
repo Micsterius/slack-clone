@@ -4,10 +4,8 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormControl } from '@angular/forms';
 import { TooltipPosition } from '@angular/material/tooltip';
 import { initializeApp } from 'firebase/app';
-import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
-import { doc, getDoc, getFirestore, setDoc, updateDoc } from 'firebase/firestore';
+import { doc, getFirestore, updateDoc } from 'firebase/firestore';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { FileUploadService } from 'src/app/shared/services/file-upload.service';
 import { GeneralService } from 'src/app/shared/services/general.service';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { environment } from 'src/environments/environment';
@@ -75,14 +73,13 @@ export class UserInfoComponent implements OnInit {
     { 'src': 'icon-unknown.svg' },
     { 'src': 'user-white.png' },
   ]
-
+  basePath = '/uploads';
   constructor(
     public authService: AuthService,
     public afs: AngularFirestore,
     public afAuth: AngularFireAuth,
     public usersService: UsersService,
     public generalService: GeneralService,
-    private uploadService: FileUploadService,
     public messageService: SendMessageService
   ) {
     this.activeUser = JSON.parse(localStorage.getItem('user')!);
@@ -179,7 +176,7 @@ export class UserInfoComponent implements OnInit {
 
   //Image upload in a folder which has the same name like the user uid
   uploadImage(): any {
-    this.uploadService.basePathUser = this.activeUser.uid
+    this.basePathUser = this.activeUser.uid
     const file: File | null = this.messageService.myFilesUser[0]
     this.messageService.selectedFilesUser = undefined;
     this.currentFileUpload = new FileUpload(file);

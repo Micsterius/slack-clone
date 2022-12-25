@@ -1,11 +1,17 @@
-.img-small{
+.img-small {
     height: 20px;
 }
 
-.user-filter{
+.user-filter {
     cursor: pointer;
 }
 
-.user-img{
-display: flex;
+.user-img {
+    display: flex;
+    align-items: center;
+
+    img {
+        height: 24px;
+        object-fit: cover;
+    }
 }
