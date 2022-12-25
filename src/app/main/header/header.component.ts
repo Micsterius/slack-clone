@@ -12,6 +12,7 @@ import { UsersService } from 'src/app/shared/services/users.service';
 })
 export class HeaderComponent implements OnInit {
   actualUser: any;
+  imgUnknownUserWhite: string = './../../../assets/img/userIcons/user-white.png';
   constructor(
     public authService: AuthService,
     private router: Router,
