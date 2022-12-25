@@ -39,7 +39,7 @@ export class MainChatComponent implements OnInit {
     public usersService: UsersService,
     public generalService: GeneralService,
     public uploadService: FileUploadService,
-    public messageService: SendMessageService
+    public messageService: SendMessageService,
   ) {
     this.actualUser = JSON.parse(localStorage.getItem('user')!)
   }
@@ -61,85 +61,13 @@ export class MainChatComponent implements OnInit {
     }
   }
 
-  /**here the new doc id in the subcollection texts will be generated with two components. 
-   * The first one is a timestamp, so the messeages are in the right order when they come 
-   * from firestore. The second component is a randowm string with 6 characters if two 
-   * users post at the same time. */
-  async sendMessage() {
-    let textId = Math.round(new Date().getTime() / 1000);
-    let idAdd = Math.random().toString(16).substr(2, 6)
-    let urlImage = [];
-    this.messageService.myFilesChat.forEach(file => urlImage.push(file.name))
-    if (this.messageService.selectedFilesChat) {
-      this.upload(textId, idAdd, urlImage);
-      this.messageService.filesPreviewChat.length = 0;
-    }
-    else this.setDocInFirestore(textId, idAdd, urlImage)
-    
-
-  }
-
-  async setDocInFirestore(textId, idAdd, urlImage) {
-    await setDoc(doc(this.db, "posts", this.chatService.currentChatId, "texts", `${textId + idAdd}`),
-      {
-        content: this.message,
-        author: this.actualUser.uid,
-        id: `${textId + idAdd}`,
-        timeStamp: textId,
-        imageUrl: urlImage
-      })
-    this.message = '';
-    this.messageService.fileSelectedChat = false;
+  sendMessageChat(){
+    this.messageService.sendMessageChat(this.actualUser.uid, this.chatService.currentChatId)
   }
 
   deleteSelectedFile(position) {
     this.messageService.myFilesChat.splice(position, 1)
     if (this.messageService.myFilesChat.length > 0) this.messageService.renderFilesPreviewChat();
     else this.messageService.fileSelectedChat = false;
-  }
-
-  async upload(textId, idAdd, urlImage): Promise<any> {
-    for (let i = 0; i < this.messageService.myFilesChat.length; i++) {
-      const file: File | null = this.messageService.myFilesChat[i];
-      this.currentFileUploadChat = new FileUpload(file);
-      this.pushFileToStorage(this.currentFileUploadChat, i, this.messageService.myFilesChat.length, textId, idAdd, urlImage)
-    }
-    this.messageService.myFilesChat.length = 0; //if set undefined, it runs into an error on next loading picture
-  }
-
-  pushFileToStorage(fileUpload: FileUpload, currentFile, totalNbrOfFiles, textId, idAdd, urlImage) {
-    const filePath = `${this.basePath}/${fileUpload.file.name}`;
-    const storageRef = ref(this.storage, filePath);
-    const uploadTask = uploadBytesResumable(storageRef, fileUpload.file);
-    uploadBytes(storageRef, fileUpload.file).then((snapshot) => {
-      console.log('Uploaded a blob or file!');
-    });
-
-    uploadTask.on('state_changed',
-      (snapshot) => {
-        // Observe state change events such as progress, pause, and resume
-        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log('Upload is ' + progress + '% done');
-        switch (snapshot.state) {
-          case 'paused':
-            console.log('Upload is paused');
-            break;
-          case 'running':
-            console.log('Upload is running');
-            break;
-        }
-      },
-      (error) => {
-        // Handle unsuccessful uploads
-      },
-      () => {
-        // Handle successful uploads on complete
-        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          if (currentFile + 1 == totalNbrOfFiles) this.setDocInFirestore(textId, idAdd, urlImage)
-        });
-      }
-    );
   }
 }

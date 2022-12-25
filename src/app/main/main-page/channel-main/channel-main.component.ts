@@ -48,7 +48,6 @@ export class ChannelMainComponent implements OnInit {
     public detailViewService: DetailViewPageService,
     public userService: UsersService,
     public generalService: GeneralService,
-    private uploadService: FileUploadService,
     public messageService: SendMessageService) {
     this.currentChannel = JSON.parse(localStorage.getItem('currentChannel')!)
     this.actualUser = JSON.parse(localStorage.getItem('user')!)
