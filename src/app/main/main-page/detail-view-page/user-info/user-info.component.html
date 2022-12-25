@@ -13,7 +13,8 @@
     </div>
     <!-- Show user data when logged in -->
     <div *ngIf="authService.userData">
-      <div class="img-box" *ngIf="!editUser" [innerHTML]="usersService.returnUsersPhotoUrlProfile(activeUser.uid)">
+      <div class="img-box" *ngIf="!editUser">
+        <img *ngIf="!editUser" src="{{activeUser.photoURL}}" alt="">
       </div>
       <div>
         <div class="img-user-box" *ngIf="editUser">

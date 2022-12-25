@@ -82,6 +82,10 @@
         position: absolute;
         right: 24px;
     }
+    img{
+        height: 120px;
+        object-fit: cover;
+    }
 }
 
 .mat-icon-close {

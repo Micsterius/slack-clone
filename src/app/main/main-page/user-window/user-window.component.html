@@ -1,8 +1,6 @@
 <div class="padding-8 show-user-details">
     <div #userImage class="post-img">
-        <div (click)="showUserDetails()"
-            [innerHTML]="userService.returnUsersPhotoUrlWindow(uid)">
-        </div>
+        <img (click)="showUserDetails()" src="{{userService.returnUsersPhotoUrl(uid)}}" alt="">
     </div>
 
     <div class="show-user-details">

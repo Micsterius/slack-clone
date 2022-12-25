@@ -17,8 +17,8 @@
                 <div #userImage class="post-img">
                     <div [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"
                         (mouseenter)="getPosition($event); generalService.mouseEnter(menuTrigger)"
-                        (mouseleave)="generalService.mouseLeave(menuTrigger)"
-                        [innerHTML]="userService.returnUsersPhotoUrlChannel(post.author)">
+                        (mouseleave)="generalService.mouseLeave(menuTrigger)">
+                        <img src="{{userService.returnUsersPhotoUrl(post.author)}}" alt="">
                     </div>
                 </div>
                 <mat-menu #menu="matMenu" xPosition="after" [yPosition]="menuPositionY" [hasBackdrop]="false">

@@ -8,8 +8,7 @@
     </mat-icon>
     <div class="icon-header-right">
             <div #userImage class="user-img"  *ngIf="authService.userData as user" (click)="changeDetailViewPageContentToUserInfo()">
-                <div [innerHTML]="userService.returnUsersPhotoUrlHeader(actualUser.uid)">
-                </div>
+                <img src="{{actualUser.photoURL}}" alt="">
             </div>
         <div>
             <mat-icon mat-icon-button [matMenuTriggerFor]="color" fontIcon="format_color_fill"

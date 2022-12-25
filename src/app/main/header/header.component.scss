@@ -55,8 +55,14 @@ h3 {
 
 .user-img {
     cursor: pointer;
-    height: 20px;
-    object-fit: cover;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+
+    img {
+        height: 20px;
+        object-fit: cover;
+    }
 }
 
 .icon-header-right {
@@ -164,6 +170,7 @@ mat-card-title {
         font-size: 7px;
     }
 }
+
 @media(max-width:310px) {
     .user-img {
         display: none;

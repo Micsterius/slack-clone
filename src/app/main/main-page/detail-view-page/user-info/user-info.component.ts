@@ -216,8 +216,8 @@ export class UserInfoComponent implements OnInit {
         // Handle successful uploads on complete
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          this.saveImgUserPhotoURL(this.messageService.myFilesUser[0].name);
-          this.authService.changeUserDataImg(this.messageService.myFilesUser[0].name)
+          this.saveImgUserPhotoURL(downloadURL);
+          this.authService.changeUserDataImg(downloadURL)
         });
       }
     );
