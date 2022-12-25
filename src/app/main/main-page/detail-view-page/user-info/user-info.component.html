@@ -14,7 +14,7 @@
     <!-- Show user data when logged in -->
     <div *ngIf="authService.userData">
       <div class="img-box" *ngIf="!editUser">
-        <img *ngIf="!editUser" src="{{activeUser.photoURL}}" alt="">
+        <img *ngIf="!editUser" src="{{activeUser.photoURL ? activeUser.photoURL : imgSrcUserUnknown}}" alt="">
       </div>
       <div>
         <div class="img-user-box" *ngIf="editUser">

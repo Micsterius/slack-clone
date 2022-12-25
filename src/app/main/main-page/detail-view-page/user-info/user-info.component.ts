@@ -46,6 +46,7 @@ export class UserInfoComponent implements OnInit {
   checkIfPasswordChanged: boolean = false;
   currentFileUpload?: FileUpload;
   private basePathUser: string = '';
+  imgSrcUserUnknown: string = './../../../../../../assets/img/userIcons/user-black.png';
 
   @Input() newName: any;
   @Input() newMail: any;
