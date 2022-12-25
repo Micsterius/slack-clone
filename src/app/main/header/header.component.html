@@ -1,7 +1,7 @@
 <div class="header-top">
     <div *ngIf="actualUser.emailVerified" class="icon-header-home admin-mode">
-        <input matTooltip="Feel like a god ;)" type="checkbox" (click)="adminCheckboxClick()">
-        <div matTooltip="Feel like a god ;)">Admin modus</div>
+        <input matTooltip="You are able to create channels or delete posts" type="checkbox" (click)="adminCheckboxClick()">
+        <div matTooltip="You are able to create channels or delete posts">Admin modus</div>
     </div>
     <h3 class="color-white">Slack-Clone</h3>
     <mat-icon class="icon-header" fontIcon="login" [routerLink]="['sign-in']" *ngIf="!authService.userData as user">
