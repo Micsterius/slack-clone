@@ -13,8 +13,7 @@
                 <div [routerLink]="['chat-main']" *ngFor="let user of chatService.arrayOfFriendsWithChatUid"
                     class="chat-friend-box" (click)="saveCurrentChatId(user.id)">
                     <div #userImage class="user-img">
-                        <div [innerHTML]="usersService.returnUsersPhotoUrlSidebar(user.author)">
-                        </div>
+                        <img src="{{usersService.returnUsersPhotoUrl(user.author)}}">
                     </div>
                     <p class="user-name">{{usersService.returnUsersDisplayName(user.author)}}</p>
                 </div>

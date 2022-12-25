@@ -53,14 +53,14 @@ export class UsersService {
 
   returnUsersPhotoUrl(uid) {
     let user = this.users.find(user => user.uid == uid)
-    if (user == undefined) return 'icon-unknown.svg'
+    if (user == undefined || user.photoURL == null) return './../../../../assets/img/userIcons/user-black.png'
     else return user.photoURL
   }
 
   returnUsersPhotoUrlThread(uid) {
     let user = this.users.find(user => user.uid == uid)
-    if (user == undefined) return this.imgUnknownThread
-    else  return user.photoURLThread
+    if (user == undefined || user.photoURL == null) return './../../../../../assets/img/userIcons/user-black.png'
+    else  return user.photoURL
   }
 
   returnUsersPhotoUrlWindow(uid) {

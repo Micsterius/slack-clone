@@ -19,8 +19,7 @@
                     <div class="post-img" [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"
                         (mouseenter)="getPosition($event); generalService.mouseEnter(menuTrigger)"
                         (mouseleave)="generalService.mouseLeave(menuTrigger)">
-                        <img src="{{usersService.returnUsersPhotoUrl(channelService.currentThread.post.author)}}"
-                            alt="">
+                        <img src="{{usersService.returnUsersPhotoUrlThread(channelService.currentThread.post.author)}}">
                     </div>
                 </div>
                 <mat-menu #menu="matMenu" xPosition="after" [yPosition]="menuPositionY" [hasBackdrop]="false">
@@ -60,7 +59,7 @@
                         <div class="post-img" [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"
                             (mouseenter)="getPosition($event); generalService.mouseEnter(menuTrigger)"
                             (mouseleave)="generalService.mouseLeave(menuTrigger)">
-                            <img src="{{usersService.returnUsersPhotoUrl(answer.author)}}">
+                            <img src="{{usersService.returnUsersPhotoUrlThread(answer.author)}}">
                         </div>
                     </div>
                     <mat-menu #menu="matMenu" xPosition="after" [yPosition]="menuPositionY" [hasBackdrop]="false">

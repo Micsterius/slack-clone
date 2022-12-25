@@ -8,9 +8,8 @@
             <div *ngIf="chatService.showChat" class="chat-container all-posts-container" #scrollMe>
                 <div *ngFor="let text of chatService.messages" class="chat-friend-box">
                     <div class="post-container">
-                        <div class="post-img" >
-                            <div [innerHTML]="usersService.returnUsersPhotoUrlChannel(text.author)">
-                            </div>
+                        <div class="post-img">
+                            <img src="{{usersService.returnUsersPhotoUrl(text.author)}}">
                         </div>
                         <div class="post-box">
                             <div class="name-time-box">
@@ -68,8 +67,10 @@
                     toolbar1: 'undo redo | bold italic | emoticons'
                      }">
                     </editor>
-                    <button class="button" [disabled]="messageService.messageChat.length == 0" (click)="sendMessageChat()">
-                        <mat-icon mat-icon-button fontIcon="send" [ngClass]="messageService.messageChat.length == 0 ? 'color-gray' : 'color-main-with-hover'"></mat-icon>
+                    <button class="button" [disabled]="messageService.messageChat.length == 0"
+                        (click)="sendMessageChat()">
+                        <mat-icon mat-icon-button fontIcon="send"
+                            [ngClass]="messageService.messageChat.length == 0 ? 'color-gray' : 'color-main-with-hover'"></mat-icon>
                     </button>
                     <div class="upload-container">
                         <label for="file-input">
