@@ -35,7 +35,6 @@ export class UsersService {
       querySnapshot.forEach((doc) => {
         this.users.push(doc.data())
       })
-      this.getImagesForUsers()
     });
   }
 
@@ -103,42 +102,6 @@ export class UsersService {
     let user = this.users.find(user => user.uid == uid)
     if (user == undefined) return this.imgUnknownHeader
     else  return user.photoURLHeader
-  }
-
-  getImagesForUsers() {
-    this.users.forEach(user => {
-      let imageUrl = user.photoURL
-      getDownloadURL(ref(this.storage, user.uid + '/' + imageUrl))
-        .then((url) => {
-          user.photoURLChannel = `<img src="${url}" height="40px" class="image-url" alt="">`;
-          user.photoURLInfo = `<img src="${url}" height="160px" class="image-url" alt="">`;
-          user.photoURLWindow = `<img src="${url}" height="80px" class="image-url" alt="">`;
-          user.photoURLThread = `<img src="${url}" height="25px" class="image-url" alt="">`;
-          user.photoURLProfile = `<img src="${url}" height="120px" class="image-url" alt="">`;
-          user.photoURLSidebar = `<img src="${url}" height="25px" class="image-url" alt="">`;
-          user.photoURLHeader = `<img src="${url}" height="30px" class="image-url" alt="">`;
-          user.photoURLAddDialog = `<img src="${url}" height="25px" class="image-url" alt="">`;
-        })
-        .catch((error) => {
-          // A full list of error codes is available at
-          // https://firebase.google.com/docs/storage/web/handle-errors
-          switch (error.code) {
-            case 'storage/object-not-found':
-              // File doesn't exist
-              break;
-            case 'storage/unauthorized':
-              // User doesn't have permission to access the object
-              break;
-            case 'storage/canceled':
-              // User canceled the upload
-              break;
-            // ...
-            case 'storage/unknown':
-              // Unknown error occurred, inspect the server response
-              break;
-          }
-        });
-    })
   }
 
   returnUsersDisplayName(uid) {
