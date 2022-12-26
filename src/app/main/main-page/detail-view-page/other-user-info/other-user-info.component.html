@@ -4,7 +4,8 @@
         <h1 class="headline-user color-main fs18">User Profile</h1>
     </div>
     <!-- Show user data when logged in -->
-    <div class="img-box" [innerHTML]="userService.returnUsersPhotoUrlInfo(detailViewService.userToShow)">
+    <div class="img-box">
+        <img src="{{userService.returnUsersPhotoUrl(detailViewService.userToShow) ? userService.returnUsersPhotoUrl(detailViewService.userToShow) :userUnkown}}" alt="">
     </div>
 
     <div class="user-detail-container">

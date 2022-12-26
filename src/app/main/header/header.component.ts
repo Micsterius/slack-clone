@@ -12,7 +12,7 @@ import { UsersService } from 'src/app/shared/services/users.service';
 })
 export class HeaderComponent implements OnInit {
   actualUser: any;
-  imgUnknownUserWhite: string = './../../../assets/img/userIcons/user-white.png';
+  imgUnknownUserWhite: string = 'https://firebasestorage.googleapis.com/v0/b/slack-clone-a06c2.appspot.com/o/f3ZXAi4IOARnYwZxZTOZNb5VddW2%2Fuser-white.png?alt=media&token=2fd9de1c-0708-4531-9e67-548331ab3205';
   constructor(
     public authService: AuthService,
     private router: Router,

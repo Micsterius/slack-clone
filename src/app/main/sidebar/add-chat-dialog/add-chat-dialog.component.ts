@@ -16,6 +16,7 @@ export class AddChatDialogComponent implements OnInit {
   app = initializeApp(environment.firebase);
   db = getFirestore(this.app);
   searchMatchesUsers;
+  userUnkown: string = 'https://firebasestorage.googleapis.com/v0/b/slack-clone-a06c2.appspot.com/o/f3ZXAi4IOARnYwZxZTOZNb5VddW2%2Fuser-black.png?alt=media&token=5c13dc67-3f10-441d-8134-ac1e2980088f';
   @Input() name: any;
   constructor(
     public dialogRef: MatDialogRef<AddChatDialogComponent>,
@@ -31,6 +32,7 @@ export class AddChatDialogComponent implements OnInit {
   async goToChat(userChatId) {
     this.chatService.saveCurrentChatId(userChatId);
     this.generalService.scrollToBottomBoolean();
+    //  localStorage.setItem('userChat', JSON.stringify(this.chatServ.currentUserChat));
     this.dialogRef.close();
   }
 

@@ -7,7 +7,7 @@
                 <div *ngFor="let user of searchMatchesUsers">
                     <div class="user-filter" [routerLink]="['chat-main']" (click)="checkIfUserHasChat(user.uid)" *ngIf="userIsNotMyself(user)">
                         <div #userImage class="user-img">
-                            <img src="{{userService.returnUsersPhotoUrl(user.uid)}}">
+                            <img src="{{userService.returnUsersPhotoUrl(user.uid) ? userService.returnUsersPhotoUrl(user.uid) : userUnkown}}">
                             {{userService.returnUsersDisplayName(user.uid)}}
                         </div>
                     </div>

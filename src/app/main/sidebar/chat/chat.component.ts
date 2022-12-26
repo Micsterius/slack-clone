@@ -19,6 +19,7 @@ export class ChatComponent implements OnInit {
   app = initializeApp(environment.firebase);
   db = getFirestore(this.app);
   panelOpenState: boolean = false;
+  userUnkown: string = 'https://firebasestorage.googleapis.com/v0/b/slack-clone-a06c2.appspot.com/o/f3ZXAi4IOARnYwZxZTOZNb5VddW2%2Fuser-black.png?alt=media&token=5c13dc67-3f10-441d-8134-ac1e2980088f';
 
   constructor(
     public chatService: ChatService,

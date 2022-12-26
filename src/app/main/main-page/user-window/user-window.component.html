@@ -1,6 +1,6 @@
 <div class="padding-8 show-user-details">
     <div #userImage class="post-img">
-        <img (click)="showUserDetails()" src="{{userService.returnUsersPhotoUrl(uid)}}" alt="">
+        <img (click)="showUserDetails()" src="{{userService.returnUsersPhotoUrl(uid) ? userService.returnUsersPhotoUrl(uid) : userUnkown}}">
     </div>
 
     <div class="show-user-details">

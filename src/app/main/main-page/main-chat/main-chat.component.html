@@ -9,7 +9,7 @@
                 <div *ngFor="let text of chatService.messages" class="chat-friend-box">
                     <div class="post-container">
                         <div class="post-img">
-                            <img src="{{usersService.returnUsersPhotoUrl(text.author)}}">
+                            <img src="{{usersService.returnUsersPhotoUrl(text.author) ? usersService.returnUsersPhotoUrl(text.author): userUnkown}}">
                         </div>
                         <div class="post-box">
                             <div class="name-time-box">

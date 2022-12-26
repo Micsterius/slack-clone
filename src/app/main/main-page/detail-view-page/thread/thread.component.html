@@ -19,7 +19,7 @@
                     <div class="post-img" [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"
                         (mouseenter)="getPosition($event); generalService.mouseEnter(menuTrigger)"
                         (mouseleave)="generalService.mouseLeave(menuTrigger)">
-                        <img src="{{usersService.returnUsersPhotoUrlThread(channelService.currentThread.post.author)}}">
+                        <img src="{{usersService.returnUsersPhotoUrlThread(channelService.currentThread.post.author) ? usersService.returnUsersPhotoUrlThread(channelService.currentThread.post.author) : userUnkown}}">
                     </div>
                 </div>
                 <mat-menu #menu="matMenu" xPosition="after" [yPosition]="menuPositionY" [hasBackdrop]="false">

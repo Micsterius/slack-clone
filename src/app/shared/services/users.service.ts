@@ -52,56 +52,14 @@ export class UsersService {
 
   returnUsersPhotoUrl(uid) {
     let user = this.users.find(user => user.uid == uid)
-    if (user == undefined || user.photoURL == null) return './../../../../assets/img/userIcons/user-black.png'
+    if (user == undefined || user.photoURL == null) return 'https://firebasestorage.googleapis.com/v0/b/slack-clone-a06c2.appspot.com/o/f3ZXAi4IOARnYwZxZTOZNb5VddW2%2Fuser-black.png?alt=media&token=5c13dc67-3f10-441d-8134-ac1e2980088f'
     else return user.photoURL
   }
 
   returnUsersPhotoUrlThread(uid) {
     let user = this.users.find(user => user.uid == uid)
-    if (user == undefined || user.photoURL == null) return './../../../../../assets/img/userIcons/user-black.png'
+    if (user == undefined || user.photoURL == null) return 'https://firebasestorage.googleapis.com/v0/b/slack-clone-a06c2.appspot.com/o/f3ZXAi4IOARnYwZxZTOZNb5VddW2%2Fuser-black.png?alt=media&token=5c13dc67-3f10-441d-8134-ac1e2980088f'
     else  return user.photoURL
-  }
-
-  returnUsersPhotoUrlWindow(uid) {
-    let user = this.users.find(user => user.uid == uid)
-    if (user == undefined) return this.imgUnknownWindow
-    else  return user.photoURLWindow
-  }
-
-  returnUsersPhotoUrlChannel(uid) {
-    let user = this.users.find(user => user.uid == uid)
-    if (user == undefined) return this.imgUnknownChannel
-    else  return user.photoURLChannel
-  }
-
-  returnUsersPhotoUrlProfile(uid) {
-    let user = this.users.find(user => user.uid == uid)
-    if (user == undefined) return this.imgUnknownProfile
-    else  return user.photoURLProfile
-  }
-
-  returnUsersPhotoUrlInfo(uid) {
-    let user = this.users.find(user => user.uid == uid)
-    if (user == undefined) return this.imgUnknownInfo
-    else  return user.photoURLInfo
-  }
-
-  returnUsersPhotoUrlSidebar(uid) {
-    let user = this.users.find(user => user.uid == uid)
-    if (user == undefined) return this.imgUnknownSidebar
-    else  return user.photoURLSidebar
-  }
-
-  returnUsersPhotoUrlAddDialog(uid) {
-    let user = this.users.find(user => user.uid == uid)
-    if (user == undefined) return this.imgUnknownAddChannel
-    else  return user.photoURLAddDialog
-  }
-
-  returnUsersPhotoUrlHeader(uid) {
-    let user = this.users.find(user => user.uid == uid)
-    if (user == undefined) return this.imgUnknownHeader
-    else  return user.photoURLHeader
   }
 
   returnUsersDisplayName(uid) {
