@@ -104,7 +104,7 @@ export class UserInfoComponent implements OnInit {
         .update({ displayName: this.activeUser.displayName })
         .then(() => {
         }).catch((error) => {
-          window.alert(error.message);
+          this.authService.openErrorDialog(error)
         });
     }
   }
@@ -116,7 +116,7 @@ export class UserInfoComponent implements OnInit {
         .update({ email: this.activeUser.email })
         .then(() => {
         }).catch((error) => {
-          window.alert(error.message);
+          this.authService.openErrorDialog(error)
         });
     }
   }
@@ -128,7 +128,7 @@ export class UserInfoComponent implements OnInit {
         .update({ photoURL: src })
         .then(() => {
         }).catch((error) => {
-          window.alert(error.message);
+          this.authService.openErrorDialog(error)
         });
     }
   }
@@ -208,7 +208,7 @@ export class UserInfoComponent implements OnInit {
         }
       },
       (error) => {
-        // Handle unsuccessful uploads
+        this.authService.openErrorDialog(error)
       },
       () => {
         // Handle successful uploads on complete

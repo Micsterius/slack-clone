@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { initializeApp } from 'firebase/app';
 import { arrayUnion, doc, getFirestore, setDoc, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, getStorage, ref, uploadBytes, uploadBytesResumable } from 'firebase/storage';
+import { DialogErrorsComponent } from 'src/app/dialog-errors/dialog-errors.component';
 import { FileUpload } from 'src/app/models/file-upload.model';
 import { environment } from 'src/environments/environment';
 
@@ -66,7 +68,8 @@ export class SendMessageService {
   urlImageChat: string[] = [];
   uploadRunning: boolean = false;
 
-  constructor() { }
+  constructor(    
+    public dialog: MatDialog,) { }
 
   changeActiveEditorToChannel() {
     this.activeEditorIsThread = false;
@@ -298,7 +301,7 @@ export class SendMessageService {
         }
       },
       (error) => {
-        // Handle unsuccessful uploads
+        this.openErrorDialog(error)
       },
       () => {
         // Handle successful uploads on complete
@@ -362,7 +365,7 @@ export class SendMessageService {
         }
       },
       (error) => {
-        // Handle unsuccessful uploads
+        this.openErrorDialog(error)
       },
       () => {
         // Handle successful uploads on complete
@@ -439,7 +442,7 @@ export class SendMessageService {
         }
       },
       (error) => {
-        // Handle unsuccessful uploads
+        this.openErrorDialog(error)
       },
       () => {
         // Handle successful uploads on complete
@@ -468,5 +471,10 @@ export class SendMessageService {
     await updateDoc(doc(this.db, "posts", currentChatId, "texts", `${textId + idAdd}`), {
       imageUrl: arrayUnion(downloadURL)
     });
+  }
+
+  openErrorDialog(error) {
+    let dialogRef = this.dialog.open(DialogErrorsComponent, {})
+    dialogRef.componentInstance.error = error;
   }
 }
