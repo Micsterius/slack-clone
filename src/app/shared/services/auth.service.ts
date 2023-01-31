@@ -115,22 +115,6 @@ export class AuthService {
     return user !== null && user.emailVerified !== false ? true : false;
   }
 
-  // Sign in with Google
-  GoogleAuth() {
-    return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
-    });
-  }
-
-  // Auth logic to run auth providers
-  AuthLogin(provider: any) {
-    return this.afAuth
-      .signInWithPopup(provider)
-      .then((result) => { this.SetUserData(result.user) })
-      .catch((error) => {
-        window.alert(error);
-      });
-  }
-
   /* Setting up user data when sign in with username/password, 
   sign up with username/password and sign in with social auth  
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */

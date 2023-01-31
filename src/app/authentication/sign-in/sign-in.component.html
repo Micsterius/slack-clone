@@ -29,22 +29,13 @@
                 <input type="button" class="btn-auth bg-c-2 color-white" value="Log in as GUEST"
                     (click)="authService.signInAnonymously()">
             </div>
-            <div class="formGroup">
-                <span class="or"><span class="orInner">Or</span></span>
-            </div>
-            <!-- Calling GoogleAuth Api from AuthService -->
-            <div class="google-btn-box">
-                <img src="./../../../assets/img/google_icon.svg" alt="">
-                <button type="button" class="color-white bg-c-2" (click)="authService.GoogleAuth()">
-                    Log in with Google
-                </button>
-            </div>
             <div class="color-main-with-hover">
                 <span (click)="goToForgotPassword()">Forgot Password?</span>
             </div>
         </div>
         <div class="redirectToLogin">
-            <span>Don't have an account?<span class="color-main-with-hover" (click)="goToSignUp()"> Sign Up</span></span>
+            <span>Don't have an account?<span class="color-main-with-hover" (click)="goToSignUp()"> Sign
+                    Up</span></span>
         </div>
     </div>
 </div>
