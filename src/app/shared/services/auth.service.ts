@@ -12,6 +12,8 @@ import { FormControl, Validators } from '@angular/forms';
 import { initializeApp } from 'firebase/app';
 import { environment } from 'src/environments/environment';
 import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogErrorsComponent } from 'src/app/dialog-errors/dialog-errors.component';
 @Injectable({
   providedIn: 'root',
 })
@@ -38,7 +40,8 @@ export class AuthService {
     public afs: AngularFirestore, // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,
-    public ngZone: NgZone // NgZone service to remove outside scope warning
+    public ngZone: NgZone,
+    public dialog: MatDialog, // NgZone service to remove outside scope warning
   ) {
     /* Saving user data in localstorage when 
     logged in and setting up null when logged out */
@@ -67,9 +70,7 @@ export class AuthService {
           }
         });
       })
-      .catch((error) => {
-        window.alert(error.message);
-      });
+      .catch((error) => this.openErrorDialog(error));
   }
 
   // Sign up with email/password
@@ -82,9 +83,7 @@ export class AuthService {
         this.SendVerificationMail();
         this.SetUserData(result.user);
       })
-      .catch((error) => {
-        window.alert(error.message);
-      });
+      .catch((error) => this.openErrorDialog(error));
   }
 
   // Send email verfificaiton when new user sign up
@@ -104,9 +103,7 @@ export class AuthService {
       .then(() => {
         window.alert('Password reset email sent, check your inbox.');
       })
-      .catch((error) => {
-        window.alert(error);
-      });
+      .catch((error) => this.openErrorDialog(error));
   }
 
   // Returns true when user is looged in and email is verified
@@ -157,37 +154,29 @@ export class AuthService {
     updateEmail(this.userData, email)
       .then(() => {
         this.SendVerificationMail();
-      }).catch((error) => {
-        window.alert(error.message);
-      });
+      })
+      .catch((error) => this.openErrorDialog(error));
   }
 
   //change user data pw in firestore
   changeUserDataPw(newPassword: string) {
     updatePassword(this.userData, newPassword)
-      .then(() => {
-        this.SignOut();
-      }).catch((error) => {
-        window.alert(error.message);
-      });
+      .then(() => {this.SignOut()})
+      .catch((error) => this.openErrorDialog(error));
   }
 
   //change user data name in firestore
   changeUserDataName(userName) {
     updateProfile(this.userData, { displayName: userName })
-      .then(() => {
-      }).catch((error) => {
-        window.alert(error.message);
-      });
+      .then(() => { })
+      .catch((error) => this.openErrorDialog(error));
   }
 
   //change user data img in firestore
   changeUserDataImg(src) {
     updateProfile(this.userData, { photoURL: src })
-      .then(() => {
-      }).catch((error) => {
-        window.alert(error.message);
-      });
+      .then(() => { })
+      .catch((error) => this.openErrorDialog(error));
   }
 
   /** SIGN IN ANONYM */
@@ -198,10 +187,7 @@ export class AuthService {
         this.showLoginArea = false;
         this.onAuthStateChanged();
       })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-      });
+      .catch((error) => this.openErrorDialog(error));
   }
 
   onAuthStateChanged() {
@@ -250,8 +236,8 @@ export class AuthService {
       this.afs.collection('more-user-infos')
         .doc(this.userData.uid)
         .update({ isOnline: false })
-        .then(() => {
-        }).catch((error) => {});
+        .then(() => { })
+        .catch((error) => this.openErrorDialog(error));
     }
   }
 
@@ -261,5 +247,10 @@ export class AuthService {
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) return true;
     else return false;
+  }
+
+  openErrorDialog(error) {
+    let dialogRef = this.dialog.open(DialogErrorsComponent, {})
+    dialogRef.componentInstance.error = error;
   }
 }
