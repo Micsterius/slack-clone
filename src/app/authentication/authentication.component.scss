@@ -1,0 +1,23 @@
+.icon-login{
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    z-index: 4;
+}
+
+.icon-login-2{
+    position: absolute;
+    top: 10%;
+    right: 25%;
+    z-index: 4;
+}
+
+.icon-login img{
+    height: 200px;
+    object-fit: cover;
+}
+
+.icon-login-2 img{
+    height: 200px;
+    object-fit: cover;
+}

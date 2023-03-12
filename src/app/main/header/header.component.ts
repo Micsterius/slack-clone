@@ -45,13 +45,13 @@ export class HeaderComponent implements OnInit {
     this.generalService.adminActive = !this.generalService.adminActive
   }
 
-  themePink() {
-    document.documentElement.style.setProperty('--main-color', '#FA2759');
-    document.documentElement.style.setProperty('--secondary-color', '#f7b0c1');
-    document.documentElement.style.setProperty('--background-color', '#fff2f5');
-    localStorage.setItem('mainColor', '#FA2759');
-    localStorage.setItem('secColor', '#f7b0c1');
-    localStorage.setItem('backgroundColor', '#fff2f5');
+  themeDarkBlue() {
+    document.documentElement.style.setProperty('--main-color', '#141D2F');
+    document.documentElement.style.setProperty('--secondary-color', '#e8effd');
+    document.documentElement.style.setProperty('--background-color', '#daf7ff');
+    localStorage.setItem('mainColor', '#141D2F');
+    localStorage.setItem('secColor', '#e8effd');
+    localStorage.setItem('backgroundColor', '#daf7ff');
   }
 
   themeViolett() {

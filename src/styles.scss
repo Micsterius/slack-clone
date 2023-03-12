@@ -1,11 +1,11 @@
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 
 :root {
-    --main-color: #FA2759;
+    --main-color: #141D2F;
     --main-color-rgb: 250, 39, 89;
-    --secondary-color: #f7b0c1;
+    --secondary-color: #e8effd;
     --secondary-color-rgb: 255, 235, 240;
-    --background-color: #FA2759;
+    --background-color: #daf7ff;
 }
 
 .bg-c-1 {
@@ -199,7 +199,7 @@ body {
 }
 
 .auth-area-container {
-    border: none;
+    border: 1px solid var(--main-color);
     border-radius: 8px;
     padding: 16px;
     min-width: 250px;
