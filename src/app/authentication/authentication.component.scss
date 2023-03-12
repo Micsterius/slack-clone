@@ -2,22 +2,62 @@
     position: absolute;
     top: 20%;
     left: 20%;
-    z-index: 4;
+    z-index: 1;
+
+    @media(max-width:1500px) {
+        left: 10%;
+    }
+
+    @media(max-width:900px) {
+        left: 36px;
+        top: 36px;
+    }
+
+    @media(max-width:600px) {
+        top: 12px;
+        left: 12px;
+    }
 }
 
 .icon-login-2{
     position: absolute;
     top: 10%;
     right: 25%;
-    z-index: 4;
+    z-index: 1;
+
+    @media(max-width:900px) {
+        right: 36px;
+        top: 12px;
+    }
+
+    @media(max-width:650px) {
+        bottom: 12px;
+        top: unset;
+    }
+
+    @media(max-width:600px) {
+        right: 12px;
+    }
 }
 
 .icon-login img{
     height: 200px;
     object-fit: cover;
+
+    @media(max-width:1100px) {
+        height: 150px;
+    }
+
+    @media(max-width:650px) {
+        height: 130px;
+    }
 }
 
 .icon-login-2 img{
     height: 200px;
     object-fit: cover;
+
+    @media(max-width:650px) {
+        height: 160px;
+    }
 }
